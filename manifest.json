@@ -1,0 +1,21 @@
+{
+	"name": "Google Weather",
+	"description" : "Displays the weather for multimple locations that you can set, using a free weather API provided by Google.",
+	"version": "0.95.3",
+	"description": "Gets weather for multiple locations using a free Google Weather API.",
+	"options_page": "options.html",
+	"background_page": "background.html",
+	"browser_action": {
+		"default_icon": "images/icon.png",
+		"default_title": "Google Weather",
+		"popup": "popup.htm"
+	},
+	"icons": {
+		"128": "images/icon_128.png",
+		"48": "images/icon_48.png"
+	},
+	"permissions": [
+	    "tabs",
+	    "http://www.google.co.uk/ig/api"
+	]
+}
