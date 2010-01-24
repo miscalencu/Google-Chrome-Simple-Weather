@@ -142,14 +142,17 @@ function updateBadge()
 		chrome.browserAction.setBadgeText({ text: "?" });
 		chrome.browserAction.setBadgeBackgroundColor({color:[255, 0, 0, 255]});
 		chrome.browserAction.setTitle({title: "No location defined!\nClick here to set a new location!" });
-		chrome.browserAction.setIcon({path: "images/icon.png", });
+		chrome.browserAction.setIcon({path: "images/icon.png" });
 		}
 	else
 		{
 		var badgeTitle = "";
+		var badgeText = "";
 		badgeTitle += (getLabel("Weather in ") + weatherCity) + "\n";
-		badgeTitle += getValue(weatherInfo[0].temp) + String.fromCharCode(176) + localStorage.weatherShowIn + " - " + weatherInfo[0].condition + "\n";
-		badgeTitle +=  weatherInfo[0].wind + "\n";
+		badgeTitle += getValue(weatherInfo[0].temp) + String.fromCharCode(176) + localStorage.weatherShowIn;
+		if(weatherInfo[0].condition != "")
+			badgeTitle += " - " + weatherInfo[0].condition;
+		badgeTitle +=  "\n" + weatherInfo[0].wind + "\n";
 		badgeTitle +=  weatherInfo[0].humidity + "\n";
 
 		if(localStorage.weatherDate == "1")
@@ -158,10 +161,18 @@ function updateBadge()
 		if(localStorage.weatherReadDate == "1")
 			badgeTitle += "Last checked on: " + (new Date()).toGMTString();
 
-		chrome.browserAction.setBadgeText({ text: getValue(weatherInfo[0].temp) + String.fromCharCode(176) + localStorage.weatherShowIn });
+		badgeText = getValue(weatherInfo[0].temp) + String.fromCharCode(176);
+		
+		if(badgeText.length < 4)
+			badgeText += localStorage.weatherShowIn;
+
+		chrome.browserAction.setBadgeText({ text: badgeText });
 		chrome.browserAction.setBadgeBackgroundColor({color:[0, 153, 204, 255]});
 		chrome.browserAction.setTitle({title: badgeTitle });
-		chrome.browserAction.setIcon({path: weatherInfo[0].icon, });
+		if(weatherInfo[0].icon != "http://www.google.co.uk")
+			chrome.browserAction.setIcon({path: weatherInfo[0].icon });
+		else
+			chrome.browserAction.setIcon({path: "images/icon.png" });	
 		}
 	}	
 
