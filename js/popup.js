@@ -29,14 +29,17 @@ function ShowWeather()
 	for(var i = 0; i < weatherInfo.length; i++) 
 		{
 		content += "<div class=\"box" + ((weatherInfo[i].label == "Now")?"_now":"") + "\">";
-		content += "<img align=\"left\" src=\"" + weatherInfo[i].icon + "\" alt=\"" + weatherInfo[i].condition + "\" title=\"" + weatherInfo[i].condition + "\" />";
+		
+		if(weatherInfo[i].icon != "http://www.google.co.uk")
+			content += "<img align=\"left\" src=\"" + weatherInfo[i].icon + "\" alt=\"" + weatherInfo[i].condition + "\" title=\"" + weatherInfo[i].condition + "\" />";
 		
 		if(weatherInfo[i].label == "Now")
 			{
 			content +=  getLabel("<b>" + weatherInfo[i].label + "</b>: ");
-			content +=  "<span class=\"now\">" + getValue(weatherInfo[i].temp) + "&deg;" + localStorage.weatherShowIn + "</span> - ";
-			content +=  weatherInfo[i].condition + "<br />";
-			content +=  weatherInfo[i].wind + "<br />";
+			content +=  "<span class=\"now\">" + getValue(weatherInfo[i].temp) + "&deg;" + localStorage.weatherShowIn + "</span>";
+			if(weatherInfo[i].condition != "")
+				content +=  " - " + weatherInfo[i].condition;
+			content +=  "<br />" + weatherInfo[i].wind + "<br />";
 			content +=  weatherInfo[i].humidity + "<br />";
 			}
 		else
