@@ -12,7 +12,7 @@ function ShowWeather()
 	headerContent += "<table width=\"100%\" cellspacing=\"3\" cellpadding=\"3\" border=\"0\">";
 	headerContent += "	<tr>";
 	headerContent += "		<td align=\"left\">" + getLabel("Weather in ") + getDefaultLocation() + "</td>";
-	headerContent += "		<td align=\"right\">";
+	headerContent += "		<td align=\"right\" style=\"white-space:nowrap\">";
 	headerContent += "			<a href=\"javascript:goToPreviousLocation()\"><img align=\"absmiddle\" src=\"images/arrow_left.png\" alt=\"View previous location\" title=\"View previous location\" /></a>";
 	headerContent += "			<b>" + (1 + getCurrentIndex()) + "/" + totalLocations + "</b> ";
 	headerContent += "			<a href=\"javascript:goToNextLocation()\"><img align=\"absmiddle\" src=\"images/arrow_right.png\" alt=\"View next location\" title=\"View next location\" /></a>";
