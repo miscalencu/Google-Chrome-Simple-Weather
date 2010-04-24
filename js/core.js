@@ -9,18 +9,21 @@ var timeOut;
 function getDefaultLocation()
 	{
 	if(!localStorage.weatherLocation)
-		if(!localStorage.weatherLocations)
+		if(!localStorage.weatherLocationsInitial)
 			return localStorage.weatherLocation = "";
 		else
-			return localStorage.weatherLocations.split("|")[0];
+			return localStorage.weatherLocationsInitial.split("|")[0];
 	else
 		return localStorage.weatherLocation;
 	}
-
+	
 function setDefaultVariables()
 	{
 	if(!localStorage.weatherLocations)
 		localStorage.weatherLocations = "";
+		
+	if(!localStorage.weatherLocationsInitial)
+		localStorage.weatherLocationsInitial = localStorage.weatherLocations;
 
 	if(!localStorage.weatherShowLinks)
 		localStorage.weatherShowLinks = "0";
@@ -90,9 +93,6 @@ function GetWeather(wlocation)
 	weatherCity = "";
 	totalItems = 0;
 	weatherInfo = new Array(4);
-	
-	//wlocation = alphaNumericReplace(wlocation);
-	wlocation = specialReplace(wlocation);
 	
 	req.open("GET", "http://www.google.co.uk/ig/api?weather=" + wlocation);
 	req.onreadystatechange = fillData;
@@ -194,22 +194,6 @@ function getValue(feedValue)
 		return toFarenheit(feedValue);
 	}
 	
-function specialReplace(val)	
-	{
-	//To Do: Fix special charactes!
-	
-	if(val.indexOf("Santiago") == 0)
-		val = "Santiago, Region Metropolitana";
-		
-	return val;
-	}
-	
-function alphaNumericReplace(val)
-	{
-	var nonAlphaNum=/[^0-9,a-z,A-Z\s]/gi;
-  	return val.replace(nonAlphaNum, " ");
-	}
-
 function getLabel(str)
 	{
 	return (localStorage.weatherLabels == "1") ? str : "";

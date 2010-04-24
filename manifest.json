@@ -1,7 +1,7 @@
 {
-	"name": "Lite Weather",
-	"description" : "Displays the weather for multiple locations that you can set, using the free weather API provided by Google.",
-	"version": "0.95.71",
+	"name": "Google Weather",
+	"description" : "Displays the weather for multimple locations that you can set, using a free weather API provided by Google.",
+	"version": "0.96.0",
 	"description": "Gets weather for multiple locations using the free Google Weather API.",
 	"options_page": "options.html",
 	"background_page": "background.html",
