@@ -18,10 +18,17 @@ function checkIfValid()
 	else
 		{
 		document.getElementById("message").innerHTML = weatherCity  + " added!";
+		var InitialLocation = document.getElementById("newLocation").value.replace("|", "");
+		
 		if(localStorage.weatherLocations == "")
 			localStorage.weatherLocations = weatherCity;
 		else
 			localStorage.weatherLocations += "|" + weatherCity;
+			
+		if(localStorage.weatherLocationsInitial == "")
+			localStorage.weatherLocationsInitial = InitialLocation;
+		else
+			localStorage.weatherLocationsInitial += "|" + InitialLocation ;
 
 		document.getElementById("newLocation").value = "";
 		fillLocations();
@@ -82,24 +89,24 @@ function fillValues()
 function removeLocation(index)
 	{
 	var content = "";
+	var contentInitial = "";
 	var locations = localStorage.weatherLocations.split("|");
+	var locationsInitial = localStorage.weatherLocationsInitial.split("|");
 	
-	//if(locations.length == 1)
-	//	{
-	//	alert("You cannot remove the last location!\n\nIf you want to change the last location, add the new one first and then delete this location.");
-	//	return;
-	//	}
-
 	for(var i = 0; i < locations.length; i++)
 		{
 		if(i != index)
 			{
 			content += (content != "") ? "|" : "";
 			content += locations[i];
+			
+			contentInitial += (contentInitial != "") ? "|" : "";
+			contentInitial += locationsInitial[i];
 			}
 		}
 
 	localStorage.weatherLocations = content;
+	localStorage.weatherLocationsInitial = contentInitial;
 	fillLocations();
 	}
 

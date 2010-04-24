@@ -11,7 +11,7 @@ function ShowWeather()
 	var headerContent = "";
 	headerContent += "<table width=\"100%\" cellspacing=\"3\" cellpadding=\"3\" border=\"0\">";
 	headerContent += "	<tr>";
-	headerContent += "		<td align=\"left\">" + getLabel("Weather in ") + getDefaultLocation() + "</td>";
+	headerContent += "		<td align=\"left\">" + getLabel("Weather in ") + weatherCity + "</td>";
 	headerContent += "		<td align=\"right\" style=\"white-space:nowrap\">";
 	headerContent += "			<a href=\"javascript:goToPreviousLocation()\"><img align=\"absmiddle\" src=\"images/arrow_left.png\" alt=\"View previous location\" title=\"View previous location\" /></a>";
 	headerContent += "			<b>" + (1 + getCurrentIndex()) + "/" + totalLocations + "</b> ";
@@ -82,7 +82,7 @@ function ShowWeather()
 function getCurrentIndex()
 	{
 	var current = -1;
-	var locations = localStorage.weatherLocations.split("|");
+	var locations = localStorage.weatherLocationsInitial.split("|");
 	for(var i=0; i < locations.length; i++)
 		{
 		if(locations[i] == getDefaultLocation())
@@ -101,7 +101,7 @@ function showUrl(url)
 
 function goToPreviousLocation()
 	{
-	var locations = localStorage.weatherLocations.split("|");
+	var locations = localStorage.weatherLocationsInitial.split("|");
 	var current = getCurrentIndex();
 	
 	if(current == 0)
@@ -114,7 +114,7 @@ function goToPreviousLocation()
 
 function goToNextLocation()
 	{
-	var locations = localStorage.weatherLocations.split("|");
+	var locations = localStorage.weatherLocationsInitial.split("|");
 	var current = getCurrentIndex();
 	if(current == locations.length - 1)
 		current = 0;
