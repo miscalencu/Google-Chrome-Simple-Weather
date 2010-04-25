@@ -45,6 +45,9 @@ function setDefaultVariables()
 		
 	if(!localStorage.compactMode)
 		localStorage.compactMode = "1";
+		
+	if(!localStorage.imgLocation)
+		localStorage.imgLocation = "http://www.google.co.uk/ig/images/weather/";
 	}
 	
 function fillData() 
@@ -112,7 +115,12 @@ function AddGeneric(node)
 function AddInfo(node, current) 
 	{
 	var weatherObj = new Object();
-	weatherObj.icon = "http://www.google.co.uk" + node.getElementsByTagName("icon")[0].getAttribute("data");
+	
+	var icon = node.getElementsByTagName("icon")[0].getAttribute("data");
+	if(icon.indexOf("/") > -1)
+		icon = icon.split("/")[icon.split("/").length - 1];
+	weatherObj.icon = localStorage.imgLocation + icon;
+	
 	weatherObj.condition = node.getElementsByTagName("condition")[0].getAttribute("data");
 	weatherObj.label = current?"Now":(node.getElementsByTagName("day_of_week")[0].getAttribute("data"));
 	weatherObj.temp = current?(node.getElementsByTagName("temp_c")[0].getAttribute("data")):"N/A";
@@ -169,7 +177,7 @@ function updateBadge()
 		chrome.browserAction.setBadgeText({ text: badgeText });
 		chrome.browserAction.setBadgeBackgroundColor({color:[0, 153, 204, 255]});
 		chrome.browserAction.setTitle({title: badgeTitle });
-		if(weatherInfo[0].icon != "http://www.google.co.uk")
+		if(weatherInfo[0].icon != "www.google.co.uk")
 			chrome.browserAction.setIcon({path: weatherInfo[0].icon });
 		else
 			chrome.browserAction.setIcon({path: "images/icon.png" });	
