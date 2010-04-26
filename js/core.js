@@ -119,7 +119,11 @@ function AddInfo(node, current)
 	var icon = node.getElementsByTagName("icon")[0].getAttribute("data");
 	if(icon.indexOf("/") > -1)
 		icon = icon.split("/")[icon.split("/").length - 1];
-	weatherObj.icon = localStorage.imgLocation + icon;
+
+	if(icon != "")
+		weatherObj.icon = localStorage.imgLocation + icon;
+	else
+		weatherObj.icon = "";
 	
 	weatherObj.condition = node.getElementsByTagName("condition")[0].getAttribute("data");
 	weatherObj.label = current?"Now":(node.getElementsByTagName("day_of_week")[0].getAttribute("data"));

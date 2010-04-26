@@ -30,7 +30,7 @@ function ShowWeather()
 		{
 		content += "<div class=\"box" + ((weatherInfo[i].label == "Now")?"_now":"") + "\">";
 		
-		if(weatherInfo[i].icon != "www.google.co.uk")
+		if(weatherInfo[i].icon != "www.google.co.uk" && weatherInfo[i].icon != "")
 			content += "<img align=\"left\" width=\"40\" src=\"" + weatherInfo[i].icon + "\" alt=\"" + weatherInfo[i].condition + "\" title=\"" + weatherInfo[i].condition + "\" />";
 		
 		if(weatherInfo[i].label == "Now")
