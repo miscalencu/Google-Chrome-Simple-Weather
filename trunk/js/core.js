@@ -140,8 +140,24 @@ function AddInfo(node, current)
 		weatherObj.low = current?"N/A":node.getElementsByTagName("low")[0].getAttribute("data");
 		}
 
-	weatherObj.wind = current?(node.getElementsByTagName("wind_condition")[0].getAttribute("data")):"N/A";
-	weatherObj.humidity = current?(node.getElementsByTagName("humidity")[0].getAttribute("data")):"N/A";
+	try
+	{
+		weatherObj.wind = current?(node.getElementsByTagName("wind_condition")[0].getAttribute("data")):"N/A";		
+	}
+	catch (ex)
+	{
+		weatherObj.wind = "Wind not available";
+	}
+
+	try
+	{
+		weatherObj.humidity = current?(node.getElementsByTagName("humidity")[0].getAttribute("data")):"N/A";
+	}
+	catch (ex)
+	{
+		weatherObj.humidity = "Humidity not available";
+	}
+	
 	weatherInfo[totalItems] = weatherObj;
 	totalItems ++;
 	}
