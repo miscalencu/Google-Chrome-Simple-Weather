@@ -1,7 +1,7 @@
 {
 	"name": "Lite Weather",
 	"description" : "Displays the weather for multiple locations that you can set using the free weather API provided by Google (Google Weather API). You can choose from various icons sets.",
-	"version": "1.1",
+	"version": "1.12",
 	"description": "Gets weather from Google. Shows forecast for next 3 days. Multiple locations. Multiple icons sets. Simple.",
 	"options_page": "options.html",
 	"background_page": "background.html",
@@ -11,8 +11,7 @@
 		"popup": "popup.htm"
 	},
 	"icons": {
-		"128": "images/icon_128.png",
-		"48": "images/icon_48.png"
+		"128": "images/icon_128.png"
 	},
 	"permissions": [
 	    "tabs",
