@@ -184,10 +184,10 @@ function updateBadge()
 		badgeTitle +=  weatherInfo[0].humidity + "\n";
 
 		if(localStorage.weatherDate == "1")
-			badgeTitle += "Valid for: " + (new Date(weatherDate)).toGMTString() + "\n";
+			badgeTitle += "Valid for: " + formatToLocalTimeDate(new Date(weatherDate)) + "\n";
 
 		if(localStorage.weatherReadDate == "1")
-			badgeTitle += "Last checked on: " + (new Date()).toGMTString();
+			badgeTitle += "Last checked on: " + formatToLocalTimeDate(new Date());
 
 		badgeText = getValue(weatherInfo[0].temp) + String.fromCharCode(176);
 		
@@ -226,5 +226,11 @@ function getLabel(str)
 	{
 	return (localStorage.weatherLabels == "1") ? str : "";
 	}
-	
+
+// Format to local time from UTC
+function formatToLocalTimeDate(inDate) 
+	{
+	return dateFormat(inDate, "ddd, d mmmm yyyy, h:MM:ss TT");
+	}
+
 setDefaultVariables();	
