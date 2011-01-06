@@ -65,9 +65,9 @@ function ShowWeather()
 	
 	var footerContent = "";
 	if(localStorage.weatherDate == "1")
-		footerContent += "Valid for " + (new Date(weatherDate)).toGMTString() + ".<br/>";
+		footerContent += "Valid for " + formatToLocalTimeDate(new Date(weatherDate)) + ".<br/>";
 	if(localStorage.weatherReadDate == "1")
-		footerContent += "Last time checked on: " + (new Date()).toGMTString() + ".<br/>";
+		footerContent += "Last time checked on: " + formatToLocalTimeDate(new Date()) + ".<br/>";
 
 	if(footerContent != "")
 		content += "<div class=\"footer\">" + footerContent + "</div>";
