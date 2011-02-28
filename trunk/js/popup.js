@@ -58,7 +58,7 @@ function ShowWeather()
 	{
 		content += "<div style=\"border-top:1px solid #CCCCCC; margin-top:5px; padding-top: 10px;\">";
 		content += "	View extended forecast details at: ";
-		content += "	<a href=\"javascript:showUrl('http://www.weather.com/weather/today/" + getDefaultLocation() + "')\"><img hspace=\"5\" align=\"absmiddle\" border=\"0\" src=\"images/icons/twc.png\" alt=\"Weather.com\" title=\"Weather.com\" /></a>";
+		content += "	<a href=\"javascript:showUrl('http://www.weather.com/search/enhancedlocalsearch?where=" + getDefaultLocation() + "')\"><img hspace=\"5\" align=\"absmiddle\" border=\"0\" src=\"images/icons/twc.png\" alt=\"Weather.com\" title=\"Weather.com\" /></a>";
 		content += "	<a href=\"javascript:showUrl('http://www.wunderground.com/cgi-bin/findweather/getForecast?query=" + getDefaultLocation() + "')\"><img hspace=\"5\" align=\"absmiddle\" border=\"0\" src=\"images/icons/wu.png\" alt=\"Wunderground.com\" title=\"Wunderground.com\" /></a>";
 		content += "</div>";
 	}
