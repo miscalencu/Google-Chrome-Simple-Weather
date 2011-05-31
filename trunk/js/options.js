@@ -83,13 +83,13 @@ function fillValues()
 			}
 		}
 		
-	//for(var i=0; i<document.getElementById("imgLocation").length; i++)
-	//	{
-	//	if(localStorage.imgLocation == document.getElementById("imgLocation")[i].value)
-	//		{
-	//		document.getElementById("imgLocation")[i].selected = true;
-	//		}
-	//	}	
+	for(var i=0; i<document.getElementById("imgLocation").length; i++)
+		{
+		if(localStorage.imgLocation == document.getElementById("imgLocation")[i].value)
+			{
+			document.getElementById("imgLocation")[i].selected = true;
+			}
+		}	
 	
 	//document.getElementById("compactMode" + localStorage.compactMode).checked = true;
 	}

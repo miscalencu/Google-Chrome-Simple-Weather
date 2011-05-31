@@ -49,9 +49,8 @@ function setDefaultVariables()
 	if(!localStorage.imgLocation)
 		localStorage.imgLocation = "http://g0.gstatic.com/images/icons/onebox/";
 
-	//	localStorage.imgLocation = "http://www.google.co.uk/ig/images/weather/";	
-	
-	localStorage.imgLocation = "http://g0.gstatic.com/images/icons/onebox/";
+	// localStorage.imgLocation = "http://www.google.co.uk/ig/images/weather/";	
+	// localStorage.imgLocation = "http://g0.gstatic.com/images/icons/onebox/";
 	}
 	
 function fillData() 
@@ -202,7 +201,13 @@ function updateBadge()
 		chrome.browserAction.setBadgeBackgroundColor({color:[0, 153, 204, 255]});
 		chrome.browserAction.setTitle({title: badgeTitle });
 		if(weatherInfo[0].icon != "www.google.co.uk")
-			chrome.browserAction.setIcon({path: "images/weather_icons/new/Google/" + weatherInfo[0].icon.split("/")[weatherInfo[0].icon.split("/").length - 1] });
+			{
+			var foldericons = localStorage.imgLocation;
+			if(foldericons == "http://g0.gstatic.com/images/icons/onebox/")
+				foldericons = "images/weather_icons/new/google/";
+
+			chrome.browserAction.setIcon({path: foldericons + weatherInfo[0].icon.split("/")[weatherInfo[0].icon.split("/").length - 1] });
+			}
 		else
 			chrome.browserAction.setIcon({path: "images/icon.png" });	
 		}
