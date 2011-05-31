@@ -14,7 +14,7 @@
 		<h1>Settings for Google Weather for Chrome extension</h1>
 		<br />
 
-		<table class="box" cellpadding="5" cellspacing="5">
+		<table class="box" cellpadding="5" cellspacing="5" align="left">
 			<tr>
 				<th valign="top" width="200">Current locations:</th>
 				<td><div id="weather_locations"></div></td>
@@ -40,20 +40,22 @@
 					</select>
 				</td>
 			</tr>
-			<!--
 			<tr>
 				<th>Icons</th>
 				<td>
-					<select name="imgLocation" id="imgLocation" onChange="localStorage.imgLocation=this[this.selectedIndex].value">
+					<select name="imgLocation" id="imgLocation" onChange="localStorage.imgLocation=this[this.selectedIndex].value; fillPreviewIcons()">
+						<option value="http://g0.gstatic.com/images/icons/onebox/">Default (from Google)</option>
+						<option value="images/weather_icons/new/google_old/">Google (Old)</option>
+						<!--
 						<option value="http://www.google.co.uk/ig/images/weather/">Default (from Google)</option>
 						<option value="images/weather_icons/htc/">HTC (Black)</option>
 						<option value="images/weather_icons/dotvoid/">Dotvoid</option>
 						<option value="images/weather_icons/kweather/">KWeather</option>
 						<option value="images/weather_icons/nytimes/">New York Times</option>
+						-->
 					</select>
 				</td>
 			</tr>
-			-->
 			<tr>
 				<th>Show labels</th>
 				<td>
@@ -92,6 +94,13 @@
 			-->
 		</table>
 
+		<div id="preview">
+			<b>Icons preview:</b>
+			<br />
+			<div id="preview_icons"></div>
+		</div>
+
+		<br clear="all" />
 		<div id="add_location">
 			<table class="box" cellpadding="5" cellspacing="5">
 				<tr>
@@ -122,6 +131,49 @@
 
 		<script language="javascript" type="text/javascript">
 			var currentPage = "options";
+
+			function fillPreviewIcons()
+				{
+				var divobj = document.getElementById("preview_icons");
+				var icons = new Array ( 
+					"weather_cloudy-40.gif",
+					"weather_drizzle-40.gif", 
+					"weather_dust-40.gif",
+					"weather_fog-40.gif",
+					"weather_haze-40.gif",
+					"weather_heavyrain-40.gif",
+					"weather_heavysnow-40.gif",
+					"weather_icy-40.gif",
+					"weather_mostlycloudy-40.gif",
+					"weather_overcast-40.gif",
+					"weather_partlycloudy-40.gif",
+					"weather_rain-40.gif",
+					"weather_rainsnow-40.gif",
+					"weather_scatteredshowers-40.gif",
+					"weather_scatteredthunderstorms-40.gif",
+					"weather_sleet-40.gif",
+					"weather_smoke-40.gif",
+					"weather_snow-40.gif",
+					"weather_snowflurries-40.gif",
+					"weather_sunny-40.gif",
+					"weather_thunderstorms-40.gif",
+					"weather_windy-40.gif"
+					);
+
+				var content = "";
+				var foldericons = localStorage.imgLocation;
+				if(foldericons == "http://g0.gstatic.com/images/icons/onebox/")
+					foldericons = "images/weather_icons/new/google/";
+
+				for(var i = 0; i < icons.length; i++)
+					{
+					content += "<img src=\"" + foldericons + icons[i] + "\" />";
+					}
+
+				divobj.innerHTML = content;
+				}
+
+			fillPreviewIcons();
 		</script>
 		<script language="javascript" type="text/javascript" src="js/options.js"></script>
 	</body>
