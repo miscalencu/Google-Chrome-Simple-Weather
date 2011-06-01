@@ -47,10 +47,10 @@ function setDefaultVariables()
 		localStorage.compactMode = "1";
 		
 	if(!localStorage.imgLocation)
-		localStorage.imgLocation = "http://g0.gstatic.com/images/icons/onebox/";
+		localStorage.imgLocation = "images/weather_icons/new/google/";
 
-	// localStorage.imgLocation = "http://www.google.co.uk/ig/images/weather/";	
-	// localStorage.imgLocation = "http://g0.gstatic.com/images/icons/onebox/";
+	if(localStorage.imgLocation == "http://g0.gstatic.com/images/icons/onebox/") // online images will load really slow!!!
+		localStorage.imgLocation = "images/weather_icons/new/google/";
 	}
 	
 function fillData() 
