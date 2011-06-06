@@ -24,14 +24,14 @@ body, table tr td
 	
 .box_now
 	{
-	background-color: #f0fff7;
+	background-color: #f3f9fd;
 	}	
 
 .box img, .box_now img
 	{
 	margin-right: 7px;
 	margin-bottom: 10px;
-	/*border: 1px solid #DDDDDD;*/
+	border: 1px solid #DDDDDD;
 	}
 	
 .box_now img
