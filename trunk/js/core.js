@@ -47,10 +47,12 @@ function setDefaultVariables()
 		localStorage.compactMode = "1";
 		
 	if(!localStorage.imgLocation)
-		localStorage.imgLocation = "images/weather_icons/new/google/";
+		localStorage.imgLocation = "images/weather_icons/google/";
 
-	if(localStorage.imgLocation == "http://g0.gstatic.com/images/icons/onebox/") // online images will load really slow!!!
-		localStorage.imgLocation = "images/weather_icons/new/google/";
+	if(localStorage.imgLocation == "images/weather_icons/new/google/")
+		localStorage.imgLocation = "images/weather_icons/google/";
+
+	// Please note: online images will load really slow!!! Use local images only.
 	}
 	
 function fillData() 
@@ -202,11 +204,7 @@ function updateBadge()
 		chrome.browserAction.setTitle({title: badgeTitle });
 		if(weatherInfo[0].icon != "www.google.co.uk")
 			{
-			var foldericons = localStorage.imgLocation;
-			if(foldericons == "http://g0.gstatic.com/images/icons/onebox/")
-				foldericons = "images/weather_icons/new/google/";
-
-			chrome.browserAction.setIcon({path: foldericons + weatherInfo[0].icon.split("/")[weatherInfo[0].icon.split("/").length - 1] });
+			chrome.browserAction.setIcon({path: localStorage.imgLocation + weatherInfo[0].icon.split("/")[weatherInfo[0].icon.split("/").length - 1] });
 			}
 		else
 			chrome.browserAction.setIcon({path: "images/icon.png" });	

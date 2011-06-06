@@ -44,15 +44,11 @@
 				<th>Icons</th>
 				<td>
 					<select name="imgLocation" id="imgLocation" onChange="localStorage.imgLocation=this[this.selectedIndex].value; fillPreviewIcons()">
-						<option value="images/weather_icons/new/google/">Default (from Google)</option>
-						<option value="images/weather_icons/new/google_old/">Google (Old)</option>
-						<!--
-						<option value="http://www.google.co.uk/ig/images/weather/">Default (from Google)</option>
+						<option value="images/weather_icons/google/">Default (from Google)</option>
 						<option value="images/weather_icons/htc/">HTC (Black)</option>
 						<option value="images/weather_icons/dotvoid/">Dotvoid</option>
 						<option value="images/weather_icons/kweather/">KWeather</option>
 						<option value="images/weather_icons/nytimes/">New York Times</option>
-						-->
 					</select>
 				</td>
 			</tr>
@@ -135,6 +131,7 @@
 			function fillPreviewIcons()
 				{
 				var divobj = document.getElementById("preview_icons");
+				/*
 				var icons = new Array ( 
 					"weather_cloudy-40.gif",
 					"weather_drizzle-40.gif", 
@@ -158,6 +155,32 @@
 					"weather_sunny-40.gif",
 					"weather_thunderstorms-40.gif",
 					"weather_windy-40.gif"
+					);
+				*/
+
+				var icons = new Array ( 
+					"chance_of_rain.gif",
+					"chance_of_snow.gif", 
+					"chance_of_storm.gif",
+					"cloudy.gif",
+					"dust.gif",
+					"flurries.gif",
+					"fog.gif",
+					"haze.gif",
+					"icy.gif",
+					"mist.gif",
+					"mostly_cloudy.gif",
+					"mostly_sunny.gif",
+					"partly_cloudy.gif",
+					"rain.gif",
+					"rain_snow.gif",
+					"showers.gif",
+					"sleet.gif",
+					"smoke.gif",
+					"snow.gif",
+					"storm.gif",
+					"sunny.gif",
+					"thunderstorm.gif"
 					);
 
 				var content = "";
