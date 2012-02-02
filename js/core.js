@@ -134,17 +134,6 @@ function AddInfo(node, current)
 	weatherObj.label = current?"Now":(node.getElementsByTagName("day_of_week")[0].getAttribute("data"));
 	weatherObj.temp = current?(node.getElementsByTagName("temp_c")[0].getAttribute("data")):"N/A";
 
-	if(weatherUnitSystem == "US")
-		{
-		weatherObj.high = current?"N/A":toCelsius(node.getElementsByTagName("high")[0].getAttribute("data"));
-		weatherObj.low = current?"N/A":toCelsius(node.getElementsByTagName("low")[0].getAttribute("data"));
-		}
-	else
-		{
-		weatherObj.high = current?"N/A":node.getElementsByTagName("high")[0].getAttribute("data");
-		weatherObj.low = current?"N/A":node.getElementsByTagName("low")[0].getAttribute("data");
-		}
-
 	try
 	{
 		weatherObj.wind = current?(node.getElementsByTagName("wind_condition")[0].getAttribute("data")):"N/A";		
@@ -153,6 +142,25 @@ function AddInfo(node, current)
 	{
 		weatherObj.wind = "Wind not available";
 	}
+
+	// calculate wind chill using the formulas here: http://en.wikipedia.org/wiki/Wind_chill
+	//var dWind = 
+
+	if(weatherUnitSystem == "US")
+		{
+		weatherObj.high = current?"N/A":toCelsius(node.getElementsByTagName("high")[0].getAttribute("data"));
+		weatherObj.low = current?"N/A":toCelsius(node.getElementsByTagName("low")[0].getAttribute("data"));
+
+
+		//weatherObj.windChill = 35.74 + 0.6215 * weatherObj.temp - 
+		}
+	else
+		{
+		weatherObj.high = current?"N/A":node.getElementsByTagName("high")[0].getAttribute("data");
+		weatherObj.low = current?"N/A":node.getElementsByTagName("low")[0].getAttribute("data");
+		}
+
+	
 
 	try
 	{
