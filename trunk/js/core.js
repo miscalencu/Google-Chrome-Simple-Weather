@@ -1,6 +1,9 @@
+var provider = "YAHOO"; // YAHOO, GOOGLE
+
 var req = new XMLHttpRequest();
 var weatherInfo = new Array(4);
 var weatherCity = "";
+var weatherCityCode = "";
 var weatherDate = "";
 var weatherUnitSystem = ""; 
 var totalItems = 0;
@@ -55,57 +58,135 @@ function setDefaultVariables()
 	// Please note: online images will load really slow!!! Use local images only.
 	}
 	
-function fillData() 
-	{
-  	if(req.readyState != 4)
-		return;	
+function GetWeather(wlocation, wlocationcode) {
+    weatherCity = "";
+    weatherCityCode = "";
+	totalItems = 0;
+
+	if (provider == "GOOGLE") {
+	    weatherInfo = new Array(4);
+	    req.open("GET", "http://www.google.co.uk/ig/api?weather=" + wlocation);
+	    req.onreadystatechange = fillData;
+	}
+
+	if (provider == "YAHOO") {
+	    weatherInfo = new Array(1);
+	    //alert(wlocationcode);
+	    if (arguments[1] == undefined || wlocationcode == undefined || wlocationcode == "") {
+	        wlocationcode = GetWoeid(wlocation);
+	        weatherCityCode = wlocationcode;
+        }
+	    //alert(wlocationcode);
+
+	    if (wlocationcode != "") {
+	        var query = escape("select item from weather.forecast where woeid=\"" + wlocationcode + "\" and u=\"" + localStorage.weatherShowIn + "\"")
+            req.open("GET", "http://query.yahooapis.com/v1/public/yql?q=" + query + "&format=xml");
+	        req.onreadystatechange = fillData;
+        }
+	}
+
+	req.send(null);
+}
+
+function fillData() {
+	if (req.readyState != 4)
+	    return;
 
 	var docXML = req.responseXML;
-  	var nodes = docXML.getElementsByTagName("forecast_information");
-  	
-  	if(!nodes || nodes == null || nodes.length == 0)
-  		{
-  		}
-  	else
-  		{
-	  	AddGeneric(nodes[0]);
-	
-		nodes = docXML.getElementsByTagName("current_conditions");
-	  	AddInfo(nodes[0], true);
-	  	
-	  	nodes = docXML.getElementsByTagName("forecast_conditions");
-	  	for (var i = 0; i < nodes.length; i++) 
-			AddInfo(nodes[i], false);
-		}
-		
-		switch(currentPage)
-			{
-			case "popup":
-				ShowWeather();
-				break;
-			case "options_updateicon":
-				saveData();
-				break;
-			case "options":				
-				checkIfValid();
-				break;
-			case "background":
-				setBadge();
-				break;
-			}
-	}	
-	
-	
-function GetWeather(wlocation) 
-	{
-	weatherCity = "";
-	totalItems = 0;
-	weatherInfo = new Array(4);
-	
-	req.open("GET", "http://www.google.co.uk/ig/api?weather=" + wlocation);
-	req.onreadystatechange = fillData;
-	req.send(null);
+
+	if (provider == "GOOGLE") {
+	    FillGoogleWeather(docXML);
 	}
+
+	if (provider == "YAHOO") {
+	    FillYahooWeather(docXML);
+    }
+
+	switch (currentPage) {
+	    case "popup":
+	        ShowWeather();
+	        break;
+	    case "options_updateicon":
+	        saveData();
+	        break;
+	    case "options":
+	        checkIfValid();
+	        break;
+	    case "background":
+	        setBadge();
+	        break;
+	}
+}
+
+// YAHOO FUNCTIONS
+
+function GetWoeid(wlocation) {
+    var ret = "";
+
+    var query = escape("select * from geo.places where text=\"" + wlocation + "\"")
+    var strUrl = "http://query.yahooapis.com/v1/public/yql?q=" + query + "&format=xml"
+
+	var result = jQuery.ajax({ url: strUrl, async: false, timeout: 2000 }).responseText; // sync
+	var xmlDoc = null;
+
+	xmlDoc = jQuery.parseXML(result);
+	if (xmlDoc != null) {
+	    var nodes = xmlDoc.getElementsByTagName("place");
+	    if (nodes.length > 0) {
+	        ret = nodes[0].getElementsByTagName("woeid")[0].textContent;
+	    }
+	}
+
+	return ret;
+}
+
+var rr;
+
+function FillYahooWeather(docXML) {
+    rr = docXML;
+
+    var item = rr.getElementsByTagName("item")[0];
+    var title = item.getElementsByTagName("title")[0].textContent;
+
+    weatherCity = title.replace("Conditions for ", "").split(" at ")[0];
+    weatherUnitSystem = "N/A";
+    //weatherDate = item.getElementsByTagName("pubDate")[0].textContent;
+
+    weatherCity = weatherCity.replace("|", "");
+    weatherCity = weatherCity.replace("_", "");
+
+    var item = docXML.getElementsByTagName("channel")[0].getElementsByTagName("item")[0];
+    var weatherObj = new Object();
+    weatherObj.icon = "";
+    weatherObj.condition = "";
+    weatherObj.label = "";
+    weatherObj.temp = "";
+    weatherObj.wind = "";
+    weatherObj.high = "";
+    weatherObj.low = "";
+    weatherObj.humidity = "";
+    weatherInfo[0] = weatherObj;
+}
+
+// END YAHOO FUNCTIONS
+
+// GOOGLE FUNCTIONS
+
+function FillGoogleWeather(docXML) {
+    var nodes = docXML.getElementsByTagName("forecast_information");
+    if (!nodes || nodes == null || nodes.length == 0) {
+    }
+    else {
+        AddGeneric(nodes[0]);
+
+        nodes = docXML.getElementsByTagName("current_conditions");
+        AddInfo(nodes[0], true);
+
+        nodes = docXML.getElementsByTagName("forecast_conditions");
+        for (var i = 0; i < nodes.length; i++)
+            AddInfo(nodes[i], false);
+    }
+}
 
 function AddGeneric(node)
 	{
@@ -144,14 +225,12 @@ function AddInfo(node, current)
 	}
 
 	// calculate wind chill using the formulas here: http://en.wikipedia.org/wiki/Wind_chill
-	//var dWind = 
+	// var dWind = 
 
 	if(weatherUnitSystem == "US")
 		{
 		weatherObj.high = current?"N/A":toCelsius(node.getElementsByTagName("high")[0].getAttribute("data"));
 		weatherObj.low = current?"N/A":toCelsius(node.getElementsByTagName("low")[0].getAttribute("data"));
-
-
 		//weatherObj.windChill = 35.74 + 0.6215 * weatherObj.temp - 
 		}
 	else
@@ -159,8 +238,6 @@ function AddInfo(node, current)
 		weatherObj.high = current?"N/A":node.getElementsByTagName("high")[0].getAttribute("data");
 		weatherObj.low = current?"N/A":node.getElementsByTagName("low")[0].getAttribute("data");
 		}
-
-	
 
 	try
 	{
@@ -173,7 +250,9 @@ function AddInfo(node, current)
 	
 	weatherInfo[totalItems] = weatherObj;
 	totalItems ++;
-	}
+}
+
+// END GOOGLE FUNCTIONS
 	
 function updateBadge()
 	{
