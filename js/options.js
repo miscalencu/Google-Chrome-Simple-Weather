@@ -1,3 +1,66 @@
+var currentPage = "options";
+
+// event listeners
+
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById("showInC").addEventListener("click", function () { localStorage.weatherShowIn = "C"; saveData(); });
+    document.getElementById("showInF").addEventListener("click", function () { localStorage.weatherShowIn = "F"; saveData(); });
+
+    document.getElementById("updateTimeout").addEventListener("click", function () { localStorage.weatherTimeout = this[this.selectedIndex].value; });
+    document.getElementById("imgLocation").addEventListener("click", function () { localStorage.imgLocation = this[this.selectedIndex].value; fillPreviewIcons(); });
+    document.getElementById("showLabels").addEventListener("click", function () { localStorage.weatherLabels = (this.checked ? '1' : '0'); saveData(); });
+    document.getElementById("showExternal").addEventListener("click", function () { localStorage.weatherShowLinks = (this.checked ? '1' : '0'); saveData(); });
+    document.getElementById("showDate").addEventListener("click", function () { localStorage.weatherDate = (this.checked ? '1' : '0'); saveData(); });
+    document.getElementById("showReadDate").addEventListener("click", function () { localStorage.weatherReadDate = (this.checked ? '1' : '0'); saveData(); });
+
+    document.getElementById("btnAdd").addEventListener("click", checkNewLocation);
+    document.getElementById("addLocationLink").addEventListener("click", addLocation);
+});
+
+function fillPreviewIcons()
+	{
+	var divobj = document.getElementById("preview_icons");
+
+	var icons = new Array ( 
+		"chance_of_rain.gif",
+		"chance_of_snow.gif", 
+		"chance_of_storm.gif",
+		"cloudy.gif",
+		"dust.gif",
+		"flurries.gif",
+		"fog.gif",
+		"haze.gif",
+		"icy.gif",
+		"mist.gif",
+		"mostly_cloudy.gif",
+		"mostly_sunny.gif",
+		"partly_cloudy.gif",
+		"rain.gif",
+		"rain_snow.gif",
+		"showers.gif",
+		"sleet.gif",
+		"smoke.gif",
+		"snow.gif",
+		"storm.gif",
+		"sunny.gif",
+		"thunderstorm.gif"
+		);
+
+	var content = "";
+	var foldericons = localStorage.imgLocation;
+	if(foldericons == "http://g0.gstatic.com/images/icons/onebox/")
+		foldericons = "images/weather_icons/new/google/";
+
+	for(var i = 0; i < icons.length; i++)
+		{
+		content += "<img src=\"" + foldericons + icons[i] + "\" />";
+		}
+
+	divobj.innerHTML = content;
+	}
+
+fillPreviewIcons();
+
 function saveData()
 	{
 	updateBadge();
@@ -21,14 +84,14 @@ function checkIfValid()
 		var InitialLocation = document.getElementById("newLocation").value.replace("|", "");
 		
 		if(localStorage.weatherLocations == "")
-			localStorage.weatherLocations = weatherCity;
+		    localStorage.weatherLocations = weatherCity + "#" + weatherCityCode;
 		else
-			localStorage.weatherLocations += "|" + weatherCity;
+		    localStorage.weatherLocations += "|" + weatherCity + "#" + weatherCityCode;
 			
 		if(localStorage.weatherLocationsInitial == "")
 			localStorage.weatherLocationsInitial = InitialLocation;
 		else
-			localStorage.weatherLocationsInitial += "|" + InitialLocation ;
+			localStorage.weatherLocationsInitial += "|" + InitialLocation;
 
 		document.getElementById("newLocation").value = "";
 		fillLocations();
@@ -48,8 +111,8 @@ function fillLocations()
 			if(localStorage.weatherLocation == locations[i])
 				defaultIsPresent = true;
 			}
-		}
-	content += "<a href=\"javascript:addLocation()\">add new location</a><br />";
+        }
+
 	document.getElementById("weather_locations").innerHTML = content;
 
 	if(!defaultIsPresent)
@@ -57,7 +120,7 @@ function fillLocations()
 		localStorage.weatherLocation = locations[0];
 		}
 	currentPage = "options_updateicon";
-	GetWeather(localStorage.weatherLocation);
+	//GetWeather(localStorage.weatherLocation);
 	}
 
 function fillValues()

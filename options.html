@@ -2,6 +2,7 @@
 	<head>
 		<title>Settings for the Google Weather extension</title>
 		<link href="/css/options.css" media="screen" rel="stylesheet" type="text/css" />
+        <script language="javascript" type="text/javascript" src="js/jquery.min.js"></script>
 	</head>
 	<body>
 		<script language="javascript" type="text/javascript" src="js/dateformat.js"></script>
@@ -17,20 +18,23 @@
 		<table class="box" cellpadding="5" cellspacing="5" align="left">
 			<tr>
 				<th valign="top" width="200">Current locations:</th>
-				<td><div id="weather_locations"></div></td>
+				<td>
+                    <div id="weather_locations"></div>
+                    <a id="addLocationLink" href="#new">add new location</a><br />
+                </td>
 			</tr>
 			<tr>
 				<th>Show values in</th>
 				<td>
-					<input type="radio" value="C" id="showInC" name="showIn" onClick="localStorage.weatherShowIn = 'C';saveData()" /> &deg;C
+					<input type="radio" value="C" id="showInC" name="showIn" /> &deg;C
 					&nbsp;&nbsp;&nbsp;
-					<input type="radio" value="F" id="showInF" name="showIn" onClick="localStorage.weatherShowIn = 'F';saveData()" /> &deg;F
+					<input type="radio" value="F" id="showInF" name="showIn" /> &deg;F
 				</td>
 			</tr>
 			<tr>
 				<th>Background update timeout</th>
 				<td>
-					<select name="updateTimeout" id="updateTimeout" onChange="localStorage.weatherTimeout=this[this.selectedIndex].value">
+					<select name="updateTimeout" id="updateTimeout">
 						<option value="1">1 minute</option>
 						<option value="5">5 minutes</option>
 						<option value="10">10 minutes</option>
@@ -43,7 +47,7 @@
 			<tr>
 				<th>Icons</th>
 				<td>
-					<select name="imgLocation" id="imgLocation" onChange="localStorage.imgLocation=this[this.selectedIndex].value; fillPreviewIcons()">
+					<select name="imgLocation" id="imgLocation">
 						<option value="images/weather_icons/Google/">Default (from Google)</option>
 						<option value="images/weather_icons/HTC/">HTC (Black)</option>
 						<option value="images/weather_icons/Dotvoid/">Dotvoid</option>
@@ -55,39 +59,29 @@
 			<tr>
 				<th>Show labels</th>
 				<td>
-					<input type="checkbox" value="C" id="showLabels" name="showLabels" onClick="localStorage.weatherLabels = (this.checked?'1':'0');saveData()" />
+					<input type="checkbox" value="C" id="showLabels" name="showLabels" />
 					<small>(show "Weather in", "Now", "High/Low")</small>
 				</td>
 			</tr>
 			<tr>
 				<th>Show external links</th>
 				<td>
-					<input type="checkbox" value="C" id="showExternal" name="showExternal" onClick="localStorage.weatherShowLinks = (this.checked?'1':'0');saveData()" />
+					<input type="checkbox" value="C" id="showExternal" name="showExternal" />
 					<small>(links to Weather.com and Weatherunderground.com)</small>
 				</td>
 			</tr>
 			<tr>
 				<th>Show weather date</th>
 				<td>
-					<input type="checkbox" value="C" id="showDate" name="showDate" onClick="localStorage.weatherDate = (this.checked?'1':'0');saveData()" />
+					<input type="checkbox" value="C" id="showDate" name="showDate" />
 				</td>
 			</tr>
 			<tr>
 				<th>Show last read date</th>
 				<td>
-					<input type="checkbox" value="C" id="showReadDate" name="showReadDate" onClick="localStorage.weatherReadDate = (this.checked?'1':'0');saveData()" />
+					<input type="checkbox" value="C" id="showReadDate" name="showReadDate" />
 				</td>
 			</tr>
-			<!--
-			<tr>
-				<th>Compact mode</th>
-				<td>
-					<input type="radio" value="Yes" id="compactMode1" name="compactMode" onClick="localStorage.compactMode = 1" /> Yes
-					&nbsp;&nbsp;&nbsp;
-					<input type="radio" value="No" id="compactMode0" name="compactMode" onClick="localStorage.compactMode = 0" /> No
-				</td>
-			</tr>
-			-->
 		</table>
 
 		<div id="preview">
@@ -96,6 +90,7 @@
 			<div id="preview_icons"></div>
 		</div>
 
+        <a name="new"></a>
 		<br clear="all" />
 		<div id="add_location">
 			<table class="box" cellpadding="5" cellspacing="5">
@@ -103,7 +98,7 @@
 					<th valign="top" width="200">Type in a new location to add:</th>
 					<td>
 						<input type="text" style="width: 250px; height: 20px;" id="newLocation" value="" /> 
-						<input type="button" class="button" value="Add" onClick="checkNewLocation()" /> <br/>
+						<input type="button" class="button" id="btnAdd" value="Add" /> <br/>
 						<br />
 						<div id="message"></div>
 					</td>
@@ -125,79 +120,6 @@
 		<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZFBNDULJRKPXC"><img border="0" src="https://www.paypal.com/en_GB/i/btn/btn_donate_SM.gif"align="absmiddle" alt="PayPal - The safer, easier way to pay online." /></a> 
 		if you like my work!</b>
 
-		<script language="javascript" type="text/javascript">
-			var currentPage = "options";
-
-			function fillPreviewIcons()
-				{
-				var divobj = document.getElementById("preview_icons");
-				/*
-				var icons = new Array ( 
-					"weather_cloudy-40.gif",
-					"weather_drizzle-40.gif", 
-					"weather_dust-40.gif",
-					"weather_fog-40.gif",
-					"weather_haze-40.gif",
-					"weather_heavyrain-40.gif",
-					"weather_heavysnow-40.gif",
-					"weather_icy-40.gif",
-					"weather_mostlycloudy-40.gif",
-					"weather_overcast-40.gif",
-					"weather_partlycloudy-40.gif",
-					"weather_rain-40.gif",
-					"weather_rainsnow-40.gif",
-					"weather_scatteredshowers-40.gif",
-					"weather_scatteredthunderstorms-40.gif",
-					"weather_sleet-40.gif",
-					"weather_smoke-40.gif",
-					"weather_snow-40.gif",
-					"weather_snowflurries-40.gif",
-					"weather_sunny-40.gif",
-					"weather_thunderstorms-40.gif",
-					"weather_windy-40.gif"
-					);
-				*/
-
-				var icons = new Array ( 
-					"chance_of_rain.gif",
-					"chance_of_snow.gif", 
-					"chance_of_storm.gif",
-					"cloudy.gif",
-					"dust.gif",
-					"flurries.gif",
-					"fog.gif",
-					"haze.gif",
-					"icy.gif",
-					"mist.gif",
-					"mostly_cloudy.gif",
-					"mostly_sunny.gif",
-					"partly_cloudy.gif",
-					"rain.gif",
-					"rain_snow.gif",
-					"showers.gif",
-					"sleet.gif",
-					"smoke.gif",
-					"snow.gif",
-					"storm.gif",
-					"sunny.gif",
-					"thunderstorm.gif"
-					);
-
-				var content = "";
-				var foldericons = localStorage.imgLocation;
-				if(foldericons == "http://g0.gstatic.com/images/icons/onebox/")
-					foldericons = "images/weather_icons/new/google/";
-
-				for(var i = 0; i < icons.length; i++)
-					{
-					content += "<img src=\"" + foldericons + icons[i] + "\" />";
-					}
-
-				divobj.innerHTML = content;
-				}
-
-			fillPreviewIcons();
-		</script>
 		<script language="javascript" type="text/javascript" src="js/options.js"></script>
 	</body>
 </html>
