@@ -1,3 +1,5 @@
+var currentPage = "popup";
+
 function ShowWeather() 
 	{
 	if(localStorage.weatherLocations == "")
@@ -33,14 +35,22 @@ function ShowWeather()
 		if(weatherInfo[i].icon != "www.google.co.uk" && weatherInfo[i].icon != "")
 			content += "<img align=\"left\" width=\"40\" src=\"" + weatherInfo[i].icon + "\" alt=\"" + weatherInfo[i].condition + "\" title=\"" + weatherInfo[i].condition + "\" />";
 		
-		if(weatherInfo[i].label == "Now")
-			{
+		if(weatherInfo[i].label == "Now") {
+
+		    if (provider == "YAHOO")
+		        content += "<br />";
+
 			content +=  getLabel("<b>" + weatherInfo[i].label + "</b>: ");
-			content +=  "<span class=\"now\">" + getValue(weatherInfo[i].temp) + "&deg;" + localStorage.weatherShowIn + "</span>";
+			content += "<span class=\"now\">" + getValue(weatherInfo[i].temp) + "&deg;" + localStorage.weatherShowIn + "</span>";
+
 			if(weatherInfo[i].condition != "")
-				content +=  " - " + weatherInfo[i].condition;
-			content +=  "<br />" + weatherInfo[i].wind + "<br />";
-			content +=  weatherInfo[i].humidity + "<br />";
+			    content += " - " + weatherInfo[i].condition;
+
+            if(weatherInfo[i].wind != "")
+                content += "<br />" + weatherInfo[i].wind;
+
+            if (weatherInfo[i].humidity != "")
+			    content +=  "<br />" + weatherInfo[i].humidity;
 			}
 		else
 			{
@@ -48,9 +58,10 @@ function ShowWeather()
 			content +=  weatherInfo[i].condition + "<br />";
 			content += getLabel("High/Low: ");
 			content += "<span class=\"high\">" + getValue(weatherInfo[i].high) + "&deg;" + localStorage.weatherShowIn + "</span> / ";
-			content += "<span class=\"low\">" + getValue(weatherInfo[i].low) + "&deg;" + localStorage.weatherShowIn + "</span><br />";
+			content += "<span class=\"low\">" + getValue(weatherInfo[i].low) + "&deg;" + localStorage.weatherShowIn + "</span>";
 			}
-		
+
+        content += "<br clear=\"all\" />";
 		content += "</div>";
 		}
 
@@ -122,4 +133,11 @@ function goToNextLocation()
 		current ++;
 	localStorage.weatherLocation = locations[current];
 	Init();
-	}
+}
+
+function Init() {
+    var dlocation = getDefaultLocation();
+    GetWeather(dlocation);
+}
+
+Init();

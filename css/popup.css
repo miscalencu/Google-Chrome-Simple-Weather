@@ -1,7 +1,10 @@
 ﻿body 
 	{
-	min-width:270px;
+	min-width: 270px;
+	/*
 	min-height: 330px;
+    */
+    min-height: 150px;
 	overflow-x:hidden;
 	overflow-y:hidden;
 	background-color: white;
@@ -20,6 +23,7 @@ body, table tr td
 	background-color: #F7F7F7;
 	margin: 5px;
 	clear: both;
+	vertical-align: middle;
 	}
 	
 .box_now
@@ -32,6 +36,7 @@ body, table tr td
 	margin-right: 7px;
 	margin-bottom: 10px;
 	border: 1px solid #DDDDDD;
+	background-color: White;
 	}
 	
 .box_now img

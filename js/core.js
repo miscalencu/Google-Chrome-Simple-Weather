@@ -48,16 +48,11 @@ function setDefaultVariables()
 		
 	if(!localStorage.compactMode)
 		localStorage.compactMode = "1";
-		
-	if(!localStorage.imgLocation)
-		localStorage.imgLocation = "images/weather_icons/google/";
 
-	if(localStorage.imgLocation == "images/weather_icons/new/google/")
-		localStorage.imgLocation = "images/weather_icons/google/";
-
-	// Please note: online images will load really slow!!! Use local images only.
+	if (!localStorage.imgLocation)
+		localStorage.imgLocation = "images/weather_icons/" + provider + "/" + provider;
 	}
-	
+
 function GetWeather(wlocation, wlocationcode) {
     weatherCity = "";
     weatherCityCode = "";
@@ -74,12 +69,13 @@ function GetWeather(wlocation, wlocationcode) {
 	    //alert(wlocationcode);
 	    if (arguments[1] == undefined || wlocationcode == undefined || wlocationcode == "") {
 	        wlocationcode = GetWoeid(wlocation);
-	        weatherCityCode = wlocationcode;
-        }
+	    }
+
+	    weatherCityCode = wlocationcode;
 	    //alert(wlocationcode);
 
 	    if (wlocationcode != "") {
-	        var query = escape("select item from weather.forecast where woeid=\"" + wlocationcode + "\" and u=\"" + localStorage.weatherShowIn + "\"")
+	        var query = escape("select item from weather.forecast where woeid=\"" + wlocationcode + "\" and u=\"" + localStorage.weatherShowIn.toLowerCase() + "\"")
             req.open("GET", "http://query.yahooapis.com/v1/public/yql?q=" + query + "&format=xml");
 	        req.onreadystatechange = fillData;
         }
@@ -143,29 +139,68 @@ function GetWoeid(wlocation) {
 var rr;
 
 function FillYahooWeather(docXML) {
-    rr = docXML;
-
-    var item = rr.getElementsByTagName("item")[0];
+    var item = docXML.getElementsByTagName("item")[0];
     var title = item.getElementsByTagName("title")[0].textContent;
 
     weatherCity = title.replace("Conditions for ", "").split(" at ")[0];
     weatherUnitSystem = "N/A";
-    //weatherDate = item.getElementsByTagName("pubDate")[0].textContent;
+    weatherDate = item.getElementsByTagName("pubDate")[0].textContent.replace(" ET", "");
 
     weatherCity = weatherCity.replace("|", "");
     weatherCity = weatherCity.replace("_", "");
 
     var item = docXML.getElementsByTagName("channel")[0].getElementsByTagName("item")[0];
     var weatherObj = new Object();
-    weatherObj.icon = "";
-    weatherObj.condition = "";
-    weatherObj.label = "";
-    weatherObj.temp = "";
+
+    var description = item.getElementsByTagName("description")[0].textContent;
+
+    //alert(description);
+    //weatherObj.icon = ExtractString(description, "<img src=\"", "\"");
+
+    var condition = item.getElementsByTagName("condition")[0];
+    var d = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    var ds = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+    weatherObj.icon = "http://l.yimg.com/a/i/us/we/52/" + condition.getAttribute("code") + ".gif";
+    weatherObj.condition = condition.getAttribute("text");
+    weatherObj.label = "Now";
+    weatherObj.temp = condition.getAttribute("temp");
     weatherObj.wind = "";
     weatherObj.high = "";
     weatherObj.low = "";
     weatherObj.humidity = "";
     weatherInfo[0] = weatherObj;
+
+    // forecast
+    var forecast = ExtractString(description, "Forecast:", "<a href=").replace("</b>", "").replace("<BR />", "");
+    var forecasts = forecast.split("<br />");
+
+    weatherObj = new Object();
+
+    if (forecasts.length > 0) {
+        weatherObj.icon = "";
+        weatherObj.condition = ExtractString(forecasts[0].split(" - ")[1], "", ".");
+        weatherObj.label = d[arrindex(ds, forecasts[0].split(" - ")[0])];
+        weatherObj.temp = "";
+        weatherObj.wind = "";
+        weatherObj.high = ExtractString(forecasts[0], "High: ", " ");
+        weatherObj.low = ExtractString(forecasts[0], "Low: ", "[end]");
+        weatherObj.humidity = "";
+        weatherInfo[1] = weatherObj;
+    }
+
+    if (forecasts.length > 1) {
+        weatherObj = new Object();
+        weatherObj.icon = "";
+        weatherObj.condition = ExtractString(forecasts[1].split(" - ")[1], "", ".");
+        weatherObj.label = d[arrindex(ds, forecasts[1].split(" - ")[0])];
+        weatherObj.temp = "";
+        weatherObj.wind = "";
+        weatherObj.high = ExtractString(forecasts[1], "High: ", " ");
+        weatherObj.low = ExtractString(forecasts[1], "Low: ", "[end]");
+        weatherObj.humidity = "";
+        weatherInfo[2] = weatherObj;
+    }
 }
 
 // END YAHOO FUNCTIONS
@@ -257,45 +292,47 @@ function AddInfo(node, current)
 function updateBadge()
 	{
 	timeOut = null;
-	if(localStorage.weatherLocations == "")
-		{
-		chrome.browserAction.setBadgeText({ text: "?" });
-		chrome.browserAction.setBadgeBackgroundColor({color:[255, 0, 0, 255]});
-		chrome.browserAction.setTitle({title: "No location defined!\nClick here to set a new location!" });
-		chrome.browserAction.setIcon({path: "images/icon.png" });
-		}
-	else
-		{
-		var badgeTitle = "";
-		var badgeText = "";
-		badgeTitle += (getLabel("Weather in ") + weatherCity) + "\n";
-		badgeTitle += getValue(weatherInfo[0].temp) + String.fromCharCode(176) + localStorage.weatherShowIn;
-		if(weatherInfo[0].condition != "")
-			badgeTitle += " - " + weatherInfo[0].condition;
-		badgeTitle +=  "\n" + weatherInfo[0].wind + "\n";
-		badgeTitle +=  weatherInfo[0].humidity + "\n";
+	if (localStorage.weatherLocations == "") {
+	    chrome.browserAction.setBadgeText({ text: "?" });
+	    chrome.browserAction.setBadgeBackgroundColor({ color: [255, 0, 0, 255] });
+	    chrome.browserAction.setTitle({ title: "No location defined!\nClick here to set a new location!" });
+	    chrome.browserAction.setIcon({ path: "images/icon.png" });
+	}
+	else {
+	    var badgeTitle = "";
+	    var badgeText = "";
+	    badgeTitle += (getLabel("Weather in ") + weatherCity) + "\n";
+	    badgeTitle += getValue(weatherInfo[0].temp) + String.fromCharCode(176) + localStorage.weatherShowIn;
+	    if (weatherInfo[0].condition != "")
+	        badgeTitle += " - " + weatherInfo[0].condition;
+	    badgeTitle += "\n" + weatherInfo[0].wind + "\n";
+	    badgeTitle += weatherInfo[0].humidity + "\n";
 
-		if(localStorage.weatherDate == "1")
-			badgeTitle += "Valid for: " + formatToLocalTimeDate(new Date(weatherDate)) + "\n";
+	    if (localStorage.weatherDate == "1")
+	        badgeTitle += "Valid for: " + formatToLocalTimeDate(new Date(weatherDate)) + "\n";
 
-		if(localStorage.weatherReadDate == "1")
-			badgeTitle += "Last checked on: " + formatToLocalTimeDate(new Date());
+	    if (localStorage.weatherReadDate == "1")
+	        badgeTitle += "Last checked on: " + formatToLocalTimeDate(new Date());
 
-		badgeText = getValue(weatherInfo[0].temp) + String.fromCharCode(176);
-		
-		if(badgeText.length < 4)
-			badgeText += localStorage.weatherShowIn;
+	    badgeText = getValue(weatherInfo[0].temp) + String.fromCharCode(176);
 
-		chrome.browserAction.setBadgeText({ text: badgeText });
-		chrome.browserAction.setBadgeBackgroundColor({color:[0, 153, 204, 255]});
-		chrome.browserAction.setTitle({title: badgeTitle });
-		if(weatherInfo[0].icon != "www.google.co.uk")
-			{
-			chrome.browserAction.setIcon({path: localStorage.imgLocation + weatherInfo[0].icon.split("/")[weatherInfo[0].icon.split("/").length - 1] });
-			}
-		else
-			chrome.browserAction.setIcon({path: "images/icon.png" });	
-		}
+	    if (badgeText.length < 4)
+	        badgeText += localStorage.weatherShowIn;
+
+	    chrome.browserAction.setBadgeText({ text: badgeText });
+	    chrome.browserAction.setBadgeBackgroundColor({ color: [0, 153, 204, 255] });
+	    chrome.browserAction.setTitle({ title: badgeTitle });
+	    if (weatherInfo[0].icon != "www.google.co.uk" && provider == "GOOGLE") {
+	        chrome.browserAction.setIcon({ path: localStorage.imgLocation + weatherInfo[0].icon.split("/")[weatherInfo[0].icon.split("/").length - 1] });
+	    }
+	    else {
+	        if (weatherInfo[0].icon != "" && provider == "YAHOO") {
+	            chrome.browserAction.setIcon({ path: localStorage.imgLocation + weatherInfo[0].icon.split("/")[weatherInfo[0].icon.split("/").length - 1] });
+	        }
+	        else
+	            chrome.browserAction.setIcon({ path: "images/icon.png" });
+	    }
+	}
 	}	
 
 function toCelsius(fromFarenheit)
@@ -322,9 +359,38 @@ function getLabel(str)
 	}
 
 // Format to local time from UTC
-function formatToLocalTimeDate(inDate) 
-	{
-	return dateFormat(inDate, "ddd, d mmmm yyyy, h:MM:ss TT");
+function formatToLocalTimeDate(inDate) {
+	try {
+	    return dateFormat(inDate, "ddd, d mmmm yyyy, h:MM:ss TT");
 	}
+	catch (err) {
+	    return inDate;
+	}
+}
+
+function ExtractString(content, start, end) {
+    var index1 = content.indexOf(start);
+    var index2 = content.indexOf(end, index1 + start.length + 1);
+
+    if (end == "[end]")
+        index2 = content.length;
+
+    if (index1 > -1 && index2 > -1 && index2 > index1 + start.length) {
+        return content.substring(index1 + start.length, index2);
+    }
+    else
+        return "";
+}
+
+function arrindex(arr, obj) {
+    obj = obj.replace("\n", "").replace("\r", "");
+    for (var i = 0; i < arr.length; i++) {
+        if (arr[i] == obj) {
+            return i;
+            break;
+        }
+    }
+    return -1;
+}
 
 setDefaultVariables();	
