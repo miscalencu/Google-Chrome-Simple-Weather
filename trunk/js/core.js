@@ -22,8 +22,10 @@ function getDefaultLocation()
 	
 function setDefaultVariables()
 	{
-	if(!localStorage.weatherLocations)
-		localStorage.weatherLocations = "";
+	    if (!localStorage.weatherLocations) {
+	        localStorage.weatherLocations = "";
+	        localStorage.weatherLocation = "";
+	    }
 		
 	if(!localStorage.weatherLocationsInitial)
 		localStorage.weatherLocationsInitial = localStorage.weatherLocations;
@@ -56,7 +58,12 @@ function setDefaultVariables()
 function GetWeather(wlocation, wlocationcode) {
     weatherCity = "";
     weatherCityCode = "";
-	totalItems = 0;
+    totalItems = 0;
+
+    if (wlocation == "") {
+        GoAfterWeather();
+        return;
+    }
 
 	if (provider == "GOOGLE") {
 	    weatherInfo = new Array(4);
@@ -72,8 +79,7 @@ function GetWeather(wlocation, wlocationcode) {
 	    }
 
 	    weatherCityCode = wlocationcode;
-	    //alert(wlocationcode);
-
+	    
 	    if (wlocationcode != "") {
 	        var query = escape("select item from weather.forecast where woeid=\"" + wlocationcode + "\" and u=\"" + localStorage.weatherShowIn.toLowerCase() + "\"")
             req.open("GET", "http://query.yahooapis.com/v1/public/yql?q=" + query + "&format=xml");
@@ -98,20 +104,26 @@ function fillData() {
 	    FillYahooWeather(docXML);
     }
 
-	switch (currentPage) {
-	    case "popup":
-	        ShowWeather();
-	        break;
-	    case "options_updateicon":
-	        saveData();
-	        break;
-	    case "options":
-	        checkIfValid();
-	        break;
-	    case "background":
-	        setBadge();
-	        break;
-	}
+    GoAfterWeather();
+}
+
+function GoAfterWeather() {
+    switch (currentPage) {
+        case "popup":
+            ShowWeather();
+            AddListeners();
+            break;
+        case "options_updateicon":
+            checkIfValid();
+            saveData();
+            break;
+        case "options":
+            checkIfValid();
+            break;
+        case "background":
+            setBadge();
+            break;
+    }
 }
 
 // YAHOO FUNCTIONS
@@ -144,7 +156,7 @@ function FillYahooWeather(docXML) {
 
     weatherCity = title.replace("Conditions for ", "").split(" at ")[0];
     weatherUnitSystem = "N/A";
-    weatherDate = item.getElementsByTagName("pubDate")[0].textContent.replace(" ET", "");
+    weatherDate = item.getElementsByTagName("pubDate")[0].textContent;
 
     weatherCity = weatherCity.replace("|", "");
     weatherCity = weatherCity.replace("_", "");
@@ -398,4 +410,4 @@ function arrindex(arr, obj) {
     return -1;
 }
 
-setDefaultVariables();	
+setDefaultVariables();
