@@ -107,30 +107,49 @@ function checkIfValid()
 		}
 	}
 
-function fillLocations()
-	{
-	var content = "";
-	var defaultIsPresent = false;
-	var locations = localStorage.weatherLocations.split("|");
-	if(locations != "")
-		{
-		for(var i = 0; i < locations.length; i++)
-			{
-			content += locations[i] + "&nbsp;&nbsp;&nbsp;<a href=\"javascript:removeLocation(" + i + ")\">remove</a><br />";
-			if(localStorage.weatherLocation == locations[i])
-				defaultIsPresent = true;
-			}
-        }
+	function fillLocations() {
+	    var content = "";
+	    var defaultIsPresent = false;
+	    var locations = localStorage.weatherLocations.split("|");
+	    if (locations != "") {
+	        for (var i = 0; i < locations.length; i++) {
+	            content += locations[i].split("#")[0] + "&nbsp;&nbsp;&nbsp;<a href=\"#\" id=\"removeLocation_" + i + "\">remove</a><br />";
+	            if (localStorage.weatherLocation == locations[i])
+	                defaultIsPresent = true;
+	        }
+	    }
 
-	document.getElementById("weather_locations").innerHTML = content;
+	    document.getElementById("weather_locations").innerHTML = content;
 
-	if(!defaultIsPresent)
-		{
-		localStorage.weatherLocation = locations[0];
-		}
-	currentPage = "options_updateicon";
-	//GetWeather(localStorage.weatherLocation);
+	    if (locations != "") {
+	        for (var i = 0; i < locations.length; i++) {
+	            var ii = i;
+	            document.getElementById("removeLocation_" + i).addEventListener("click", function () { removeLocation("loc_" + ii); });
+	        }
+	    }
+
+	    if (!defaultIsPresent) {
+	        localStorage.weatherLocation = locations[0];
+	    }
+
+	    currentPage = "options_updateicon";
+	    //GetWeather(localStorage.weatherLocation);
 	}
+
+function fillSkins() {
+    var ddl = document.getElementById("imgLocation");
+    if (provider == "YAHOO") {
+        ddl.options[0] = new Option("Default (from Yahoo)", "images/weather_icons/Yahoo/Yahoo/");
+    }
+
+    if (provider == "GOOGLE") {
+        ddl.options[0] = new Option("Default (from Google)", "images/weather_icons/Google/Google/");
+        ddl.options[1] = new Option("HTC (Black)", "images/weather_icons/Google/HTC/");
+        ddl.options[2] = new Option("Dotvoid", "images/weather_icons/Google/Dotvoid/");
+        ddl.options[3] = new Option("KWeather", "images/weather_icons/Google/KWeather/");
+        ddl.options[4] = new Option("New York Times", "images/weather_icons/Google/NYTimes/");
+    }
+}
 
 function fillValues()
 	{
@@ -161,13 +180,22 @@ function fillValues()
 			{
 			document.getElementById("imgLocation")[i].selected = true;
 			}
-		}	
-	
-	//document.getElementById("compactMode" + localStorage.compactMode).checked = true;
+		}
+
+    //document.getElementById("compactMode" + localStorage.compactMode).checked = true;
+
+    var poweredby = document.getElementById("poweredby");
+    if (provider == "GOOGLE")
+        poweredby.innerHTML = "<a href=\"http://code.google.com/\" target=\"_blank\"><img align=\"middle\" border=\"0\" src=\"images/code_logo.png\" alt=\"Google APIs\" title=\"Google APIs\" /></a>";
+
+    if (provider == "YAHOO")
+        poweredby.innerHTML = "<a href=\"http://developer.yahoo.com/weather/\" target=\"_blank\"><img align=\"middle\" border=\"0\" src=\"images/yahoo_logo.png\" alt=\"Yahoo Weather API\" title=\"Yahoo Weather API\" /></a>";
+
 	}
 
-function removeLocation(index)
-	{
+function removeLocation(index) {
+    index = index.replace("loc_", "");
+
 	var content = "";
 	var contentInitial = "";
 	var locations = localStorage.weatherLocations.split("|");
@@ -196,4 +224,5 @@ function addLocation()
 	}
 
 fillValues();
+fillSkins();
 fillLocations();
