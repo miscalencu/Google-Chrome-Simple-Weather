@@ -33,12 +33,12 @@ function ShowWeather()
 		content += "<div class=\"box" + ((weatherInfo[i].label == "Now")?"_now":"") + "\">";
 		
 		if(weatherInfo[i].icon != "www.google.co.uk" && weatherInfo[i].icon != "")
-			content += "<img align=\"left\" width=\"40\" src=\"" + weatherInfo[i].icon + "\" alt=\"" + weatherInfo[i].condition + "\" title=\"" + weatherInfo[i].condition + "\" />";
+			content += "<img align=\"left\" width=\"45\" src=\"" + weatherInfo[i].icon + "\" alt=\"" + weatherInfo[i].condition + "\" title=\"" + weatherInfo[i].condition + "\" />";
 		
 		if(weatherInfo[i].label == "Now") {
 
 		    if (provider == "YAHOO")
-		        content += "<br />";
+		        content += "<div style=\"height:10px\"></div>";
 
 			content +=  getLabel("<b>" + weatherInfo[i].label + "</b>: ");
 			content += "<span class=\"now\">" + getValue(weatherInfo[i].temp) + "&deg;" + localStorage.weatherShowIn + "</span>";

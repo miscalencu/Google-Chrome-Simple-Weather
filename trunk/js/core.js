@@ -49,8 +49,8 @@ function setDefaultVariables()
 	if(!localStorage.compactMode)
 		localStorage.compactMode = "1";
 
-	if (!localStorage.imgLocation)
-		localStorage.imgLocation = "images/weather_icons/" + provider + "/" + provider;
+	if (!localStorage.imgLocation || localStorage.imgLocation.indexOf("/weather_icons/" + provider + "/") == -1)
+		localStorage.imgLocation = "images/weather_icons/" + provider + "/" + provider + "/";
 	}
 
 function GetWeather(wlocation, wlocationcode) {
@@ -303,16 +303,21 @@ function updateBadge()
 	    var badgeText = "";
 	    badgeTitle += (getLabel("Weather in ") + weatherCity) + "\n";
 	    badgeTitle += getValue(weatherInfo[0].temp) + String.fromCharCode(176) + localStorage.weatherShowIn;
+
 	    if (weatherInfo[0].condition != "")
 	        badgeTitle += " - " + weatherInfo[0].condition;
-	    badgeTitle += "\n" + weatherInfo[0].wind + "\n";
-	    badgeTitle += weatherInfo[0].humidity + "\n";
+
+	    if (weatherInfo[0].wind != "")
+	        badgeTitle += "\n" + weatherInfo[0].wind;
+
+	    if (weatherInfo[0].humidity != "")
+	        badgeTitle += "\n" + weatherInfo[0].humidity;
 
 	    if (localStorage.weatherDate == "1")
-	        badgeTitle += "Valid for: " + formatToLocalTimeDate(new Date(weatherDate)) + "\n";
+	        badgeTitle += "\n\nValid for: " + formatToLocalTimeDate(new Date(weatherDate));
 
 	    if (localStorage.weatherReadDate == "1")
-	        badgeTitle += "Last checked on: " + formatToLocalTimeDate(new Date());
+	        badgeTitle += "\nLast checked on: " + formatToLocalTimeDate(new Date());
 
 	    badgeText = getValue(weatherInfo[0].temp) + String.fromCharCode(176);
 
