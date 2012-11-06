@@ -21,9 +21,10 @@ function fillPreviewIcons()
 	{
 	var divobj = document.getElementById("preview_icons");
 
-	var icons = new Array ( 
+	if (provider == "GOOGLE") {
+	    var icons = new Array(
 		"chance_of_rain.gif",
-		"chance_of_snow.gif", 
+		"chance_of_snow.gif",
 		"chance_of_storm.gif",
 		"cloudy.gif",
 		"dust.gif",
@@ -45,6 +46,14 @@ function fillPreviewIcons()
 		"sunny.gif",
 		"thunderstorm.gif"
 		);
+	}
+
+	if (provider == "YAHOO") {
+	    var icons = new Array(48);
+        for (var i = 0; i <= 47; i++) {
+            icons[i] = i + ".gif";
+        }
+	}
 
 	var content = "";
 	var foldericons = localStorage.imgLocation;
