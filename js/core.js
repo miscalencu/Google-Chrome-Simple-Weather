@@ -326,7 +326,7 @@ function updateBadge()
 	        badgeTitle += "\n" + weatherInfo[0].humidity;
 
 	    if (localStorage.weatherDate == "1")
-	        badgeTitle += "\n\nValid for: " + formatToLocalTimeDate(new Date(weatherDate));
+	        badgeTitle += "\n\nValid for: " + weatherDate;
 
 	    if (localStorage.weatherReadDate == "1")
 	        badgeTitle += "\nLast checked on: " + formatToLocalTimeDate(new Date());
