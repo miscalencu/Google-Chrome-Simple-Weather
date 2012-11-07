@@ -364,10 +364,16 @@ function toFarenheit(fromCelsius)
 
 function getValue(feedValue)
 	{
-	if(localStorage.weatherShowIn == "C")
+	if(provider == "GOOGLE")
+		{
+		if(localStorage.weatherShowIn == "C")
+			return feedValue;
+		else
+			return toFarenheit(feedValue);
+		}
+
+	if(provider == "YAHOO")
 		return feedValue;
-	else
-		return toFarenheit(feedValue);
 	}
 	
 function getLabel(str)
