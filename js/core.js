@@ -173,7 +173,7 @@ function FillYahooWeather(docXML) {
     var d = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     var ds = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-    weatherObj.icon = "http://l.yimg.com/a/i/us/we/52/" + condition.getAttribute("code") + ".gif";
+    weatherObj.icon = localStorage.imgLocation + condition.getAttribute("code") + ".gif";
     weatherObj.condition = condition.getAttribute("text");
     weatherObj.label = "Now";
     weatherObj.temp = condition.getAttribute("temp");
