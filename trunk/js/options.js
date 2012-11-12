@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById("showInF").addEventListener("click", function () { localStorage.weatherShowIn = "F"; saveData(); });
 
     document.getElementById("updateTimeout").addEventListener("click", function () { localStorage.weatherTimeout = this[this.selectedIndex].value; });
-    document.getElementById("imgLocation").addEventListener("click", function () { localStorage.imgLocation = this[this.selectedIndex].value; fillPreviewIcons(); });
+    document.getElementById("imgLocation").addEventListener("change", function () { localStorage.imgLocation = this[this.selectedIndex].value; fillPreviewIcons(); });
     document.getElementById("showLabels").addEventListener("click", function () { localStorage.weatherLabels = (this.checked ? '1' : '0'); saveData(); });
     document.getElementById("showExternal").addEventListener("click", function () { localStorage.weatherShowLinks = (this.checked ? '1' : '0'); saveData(); });
     document.getElementById("showDate").addEventListener("click", function () { localStorage.weatherDate = (this.checked ? '1' : '0'); saveData(); });
@@ -139,15 +139,22 @@ function checkIfValid()
 function fillSkins() {
     var ddl = document.getElementById("imgLocation");
     if (provider == "YAHOO") {
-        ddl.options[0] = new Option("Default (from Yahoo)", "images/weather_icons/Yahoo/Yahoo/");
+        ddl.options[0] = new Option("Default (from Yahoo)", "images/weather_icons/YAHOO/Yahoo/");
+        ddl.options[1] = new Option("Simple", "images/weather_icons/YAHOO/Simple/");
     }
 
     if (provider == "GOOGLE") {
-        ddl.options[0] = new Option("Default (from Google)", "images/weather_icons/Google/Google/");
-        ddl.options[1] = new Option("HTC (Black)", "images/weather_icons/Google/HTC/");
-        ddl.options[2] = new Option("Dotvoid", "images/weather_icons/Google/Dotvoid/");
-        ddl.options[3] = new Option("KWeather", "images/weather_icons/Google/KWeather/");
-        ddl.options[4] = new Option("New York Times", "images/weather_icons/Google/NYTimes/");
+        ddl.options[0] = new Option("Default (from Google)", "images/weather_icons/GOOGLE/Google/");
+        ddl.options[1] = new Option("HTC (Black)", "images/weather_icons/GOOGLE/HTC/");
+        ddl.options[2] = new Option("Dotvoid", "images/weather_icons/GOOGLE/Dotvoid/");
+        ddl.options[3] = new Option("KWeather", "images/weather_icons/GOOGLE/KWeather/");
+        ddl.options[4] = new Option("New York Times", "images/weather_icons/GOOGLE/NYTimes/");
+    }
+
+    for (var i = 0; i < document.getElementById("imgLocation").length; i++) {
+        if (localStorage.imgLocation == document.getElementById("imgLocation")[i].value) {
+            document.getElementById("imgLocation")[i].selected = true;
+        }
     }
 }
 
@@ -174,15 +181,7 @@ function fillValues()
 			}
 		}
 		
-	for(var i=0; i<document.getElementById("imgLocation").length; i++)
-		{
-		if(localStorage.imgLocation == document.getElementById("imgLocation")[i].value)
-			{
-			document.getElementById("imgLocation")[i].selected = true;
-			}
-		}
-
-    //document.getElementById("compactMode" + localStorage.compactMode).checked = true;
+	//document.getElementById("compactMode" + localStorage.compactMode).checked = true;
 
     var poweredby = document.getElementById("poweredby");
     if (provider == "GOOGLE")
