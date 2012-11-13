@@ -141,6 +141,7 @@ function fillSkins() {
     if (provider == "YAHOO") {
         ddl.options[0] = new Option("Default (from Yahoo)", "images/weather_icons/YAHOO/Yahoo/");
         ddl.options[1] = new Option("Simple", "images/weather_icons/YAHOO/Simple/");
+        ddl.options[2] = new Option("Nice", "images/weather_icons/YAHOO/Nice/");
     }
 
     if (provider == "GOOGLE") {
