@@ -42,7 +42,13 @@ input
 #add_location
 	{
 	display: none;
+	background-color: #BBBBBB;
 	}
+	
+#add_location td, #add_location th
+    {
+    color: White;    
+    }	
 
 th
 	{
@@ -90,3 +96,8 @@ input
 	margin: 5px;
 	border: 1px solid #DDDDDD;
 	}
+	
+#message
+    {
+    color: Yellow;    
+    }	

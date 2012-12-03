@@ -69,6 +69,8 @@ function GetWeather(wlocation, wlocationcode) {
 	    weatherInfo = new Array(4);
 	    req.open("GET", "http://www.google.co.uk/ig/api?weather=" + wlocation);
 	    req.onreadystatechange = fillData;
+
+	    req.send(null);
 	}
 
 	if (provider == "YAHOO") {
@@ -79,15 +81,17 @@ function GetWeather(wlocation, wlocationcode) {
 	    }
 
 	    weatherCityCode = wlocationcode;
-	    
+
 	    if (wlocationcode != "") {
 	        var query = escape("select item from weather.forecast where woeid=\"" + wlocationcode + "\" and u=\"" + localStorage.weatherShowIn.toLowerCase() + "\"")
-            req.open("GET", "http://query.yahooapis.com/v1/public/yql?q=" + query + "&format=xml");
+	        req.open("GET", "http://query.yahooapis.com/v1/public/yql?q=" + query + "&format=xml");
 	        req.onreadystatechange = fillData;
+	        req.send(null);
+	    }
+	    else {
+	        alert("No location found! Please try to specify City, Country, Code...");
         }
 	}
-
-	req.send(null);
 }
 
 function fillData() {
