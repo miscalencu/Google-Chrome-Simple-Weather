@@ -220,7 +220,7 @@ function removeLocation(index) {
 
 function addLocation()
 	{
-	document.getElementById("add_location").style.display = "block";
+	document.getElementById("add_location").style.display = "table-row";
 	}
 
 fillValues();

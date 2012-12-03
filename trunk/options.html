@@ -15,13 +15,22 @@
 		<h1>Settings for Lite Weather for Chrome extension</h1>
 		<br />
 
-		<table class="box" cellpadding="5" cellspacing="5" align="left">
+		<table class="box" cellpadding="5" cellspacing="0" align="left">
 			<tr>
 				<th valign="top" width="200">Current locations:</th>
 				<td>
                     <div id="weather_locations"></div>
-                    <a id="addLocationLink" href="#new">add new location</a><br />
+                    <a id="addLocationLink" href="#new">add new location</a>
                 </td>
+			</tr>
+            <tr id="add_location">
+				<th valign="top">Type in a new location to add:</th>
+				<td>
+                    <a name="new"></a>
+					<input type="text" style="width: 250px; height: 20px;" id="newLocation" value="" /> 
+					<input type="button" class="button" id="btnAdd" value="Add" /> <br/>
+					<div id="message"></div>
+				</td>
 			</tr>
 			<tr>
 				<th>Show values in</th>
@@ -84,21 +93,7 @@
 			<div id="preview_icons"></div>
 		</div>
 
-        <a name="new"></a>
-		<br clear="all" />
-		<div id="add_location">
-			<table class="box" cellpadding="5" cellspacing="5">
-				<tr>
-					<th valign="top" width="200">Type in a new location to add:</th>
-					<td>
-						<input type="text" style="width: 250px; height: 20px;" id="newLocation" value="" /> 
-						<input type="button" class="button" id="btnAdd" value="Add" /> <br/>
-						<br />
-						<div id="message"></div>
-					</td>
-				</tr>
-			</table>
-		</div>
+        <br clear="all" />
 		<br />
 		<h1>Stay tuned! Updates to follow soon:</h1>
 		Features to be implemented:

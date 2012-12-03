@@ -1,7 +1,7 @@
 {
 	"name": "Lite Weather",
 	"description" : "Displays the weather for multiple locations that you can set using the free weather API provided by Yahoo (Yahoo Weather API). You can choose from various icons sets.",
-	"version": "2.15",
+	"version": "2.20",
 	"manifest_version": 2,
 	"description": "Gets weather from Yahoo. Shows forecast for next day. Multiple locations. Multiple icons sets. Simple.",
 	"options_page": "options.html",
