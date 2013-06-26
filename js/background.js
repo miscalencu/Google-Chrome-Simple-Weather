@@ -12,10 +12,7 @@ function Init() {
 function setBadge()
 	{
 	    updateBadge();
-
-	    timeOut = window.setTimeout(function () {
-	        Init();
-	    }, pollInterval);
+	    timeOut = window.setTimeout(function () { Init(); }, pollInterval);
 	}
 
 var pollInterval = 1000 * 60 * parseInt(localStorage.weatherTimeout);  // default 10 minutes
