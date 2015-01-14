@@ -37,8 +37,7 @@ function ShowWeather()
 		
 		if(weatherInfo[i].label == "Now") {
 
-		    if (provider == "YAHOO")
-		        content += "<div style=\"height:10px\"></div>";
+		    content += "<div style=\"height:10px\"></div>";
 
 			content +=  getLabel("<b>" + weatherInfo[i].label + "</b>: ");
 			content += "<span class=\"now\">" + getValue(weatherInfo[i].temp) + "&deg;" + localStorage.weatherShowIn + "</span>";
@@ -87,16 +86,17 @@ function ShowWeather()
 		
 	//****************
 			
-	updateBadge();
+	refreshBadge();
 }
 
 function getCurrentIndex()
 	{
 	var current = -1;
+	var location = getSettings("weatherLocation");
 	var locations = localStorage.weatherLocationsInitial.split("|");
 	for(var i=0; i < locations.length; i++)
 		{
-		if(locations[i] == getDefaultLocation())
+		if (locations[i] == location)
 			current = i;
 		}
 	if(current == -1)
@@ -131,26 +131,41 @@ function goToNextLocation() {
 	else
 	    current++;
 
-	localStorage.weatherLocation = locations[current];
+	setSettings("weatherLocation", locations[current]);
 	Init();
 }
 
 function Init() {
-    var dlocation = getDefaultLocation();
-    GetWeather(dlocation);
+	var location = getSettings("weatherLocation");
+	GetWeather(location);
+
+	document.addEventListener("keyup", function (e) {
+		if (e.keyCode == 27) {   // esc
+			window.top.postMessage({ args: "close" }, '*');
+		}
+	});
 }
+
+$(document).on("weather_complete", function () {
+	console.log("complete received ...");
+	if (isExtension)
+		updateBadge();
+})
 
 function AddListeners() {
 
+	var location = getSettings("weatherLocation");
     if (document.getElementById("set_locations") != null) {
         document.getElementById("set_locations").addEventListener("click", function () { showUrl(chrome.extension.getURL('options.html')); });
     }
     else {
         document.getElementById("link_previous").addEventListener("click", function () { goToPreviousLocation(); });
         document.getElementById("link_next").addEventListener("click", function () { goToNextLocation(); });
-        document.getElementById("add_link_twc").addEventListener("click", function () { showUrl("http://www.weather.com/search/enhancedlocalsearch?where=" + getDefaultLocation()); });
-        document.getElementById("add_link_wund").addEventListener("click", function () { showUrl("http://www.wunderground.com/cgi-bin/findweather/getForecast?query=" + getDefaultLocation()); });
+        document.getElementById("add_link_twc").addEventListener("click", function () { showUrl("http://www.weather.com/search/enhancedlocalsearch?where=" + location); });
+        document.getElementById("add_link_wund").addEventListener("click", function () { showUrl("http://www.wunderground.com/cgi-bin/findweather/getForecast?query=" + location); });
     }
 }
 
-Init();
+$(document).ready(function () {
+	Init();
+});
