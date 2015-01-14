@@ -1,4 +1,3 @@
-var currentPage = "background";
 var timeOut = null;
 
 function SetRefresh() {
@@ -23,7 +22,7 @@ $(document).ready(function () {
 });
 
 function updateBadge() {
-	if (localStorage.weatherLocations == "") {
+	if (JSON.parse(getSettings("weatherLocations").length) == 0) {
 		chrome.browserAction.setBadgeText({ text: "?" });
 		chrome.browserAction.setBadgeBackgroundColor({ color: [255, 0, 0, 255] });
 		chrome.browserAction.setTitle({ title: "No location defined!\nClick here to set a new location!" });
@@ -32,25 +31,37 @@ function updateBadge() {
 	else {
 		var badgeTitle = "";
 		var badgeText = "";
-		badgeTitle += (getLabel("Weather in ") + weatherCity) + "\n";
-		badgeTitle += getValue(weatherInfo[0].temp) + String.fromCharCode(176) + localStorage.weatherShowIn;
 
-		if (weatherInfo[0].condition != "")
-			badgeTitle += " - " + weatherInfo[0].condition;
+		badgeTitle += (getLabel("Weather in ") + weatherObj.LocationCity) + "\nTemperature: " + weatherObj.Temp;
+		if (getSettings("weatherShowIn") === "C") {
+			badgeTitle += String.fromCharCode(176);
+		}
+		badgeTitle += getSettings("weatherShowIn");
 
-		if (weatherInfo[0].wind != "")
-			badgeTitle += "\n" + weatherInfo[0].wind;
+		if (weatherObj.Condition != "")
+			badgeTitle += " - " + weatherObj.Condition;
 
-		if (weatherInfo[0].humidity != "")
-			badgeTitle += "\n" + weatherInfo[0].humidity;
+		if (weatherObj.WindChill != "") {
+			badgeTitle += "\nWind Chill: " + weatherObj.WindChill + " ";
+			if (getSettings("weatherShowIn") === "C") {
+				badgeTitle += String.fromCharCode(176);
+			}
+			badgeTitle += getSettings("weatherShowIn");
+		}
 
-		if (localStorage.weatherDate == "1")
-			badgeTitle += "\n\nValid for: " + weatherDate;
+		if (weatherObj.WindSpeed != "")
+			badgeTitle += "\nWind speed: " + weatherObj.WindSpeed + " " + weatherObj.UnitSpeed;
 
-		if (localStorage.weatherReadDate == "1")
+		if (weatherObj.AtmosphereHumidity != "")
+			badgeTitle += "\nHumidity: " + weatherObj.AtmosphereHumidity + " g/m3";
+
+		if (getSettings("weatherDate") == "1")
+			badgeTitle += "\n\nValid for: " + weatherObj.Date;
+
+		if (getSettings("weatherReadDate") == "1")
 			badgeTitle += "\nLast checked on: " + formatToLocalTimeDate(new Date());
 
-		var temp = weatherInfo[0].temp;
+		var temp = weatherObj.Temp;
 		if (getSettings("weatherShowIn") === "C") {
 			badgeText = temp + String.fromCharCode(176);
 		}
@@ -65,8 +76,8 @@ function updateBadge() {
 			chrome.browserAction.setBadgeBackgroundColor({ color: [0, 153, 204, 255] });
 			chrome.browserAction.setTitle({ title: badgeTitle });
 
-			if (weatherInfo[0].icon != "") {
-				chrome.browserAction.setIcon({ path: localStorage.imgLocation + weatherInfo[0].icon.split("/")[weatherInfo[0].icon.split("/").length - 1] });
+			if (weatherObj.Icon != "") {
+				chrome.browserAction.setIcon({ path: getSettings("imgLocation") + weatherObj.Icon.split("/")[weatherObj.Icon.split("/").length - 1] });
 			}
 			else {
 				chrome.browserAction.setIcon({ path: "images/icon.png" });
@@ -77,7 +88,6 @@ function updateBadge() {
 
 var newtabid = 0;
 chrome.browserAction.onClicked.addListener(function (tab) {
-	currentPage = "background";
 	updateBadge();
 	chrome.tabs.sendMessage(tab.id, { args: "open" }, function (response) {
 		if (response != "OK") { // we are not in a tab (Settings page, etc ...)
@@ -97,7 +107,12 @@ chrome.extension.onMessage.addListener(function (request, sender, sendResponse) 
 	}
 	if (request.message == "updateBadge") {
 		console.log("'updateBadge' received ...");
-		updateBadge();
+		if (request.refresh) {
+			GetWeather();
+		}
+		else {
+			updateBadge();
+		}
 	}
 });
 

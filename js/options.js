@@ -1,17 +1,12 @@
-var currentPage = "options";
-
-// event listeners
-
 $(document).ready(function() {
 	$("#showInC").on("click", function () {
 		setSettings("weatherShowIn", "C");
-		var location = getSettings("weatherLocation");
-		GetWeather();
+		refreshBadge(true);
 	});
 
 	$("#showInF").on("click", function () {
 		setSettings("weatherShowIn", "F");
-		GetWeather();
+		refreshBadge(true);
 	});
 
 	$("#updateTimeout").on("change", function () {
@@ -21,23 +16,23 @@ $(document).ready(function() {
 	$("#imgLocation").on("change", function () {
 		setSettings("imgLocation", $(this).val());
 		fillPreviewIcons();
-		refreshBadge();
+		refreshBadge(false);
 	});
 
 	$("#showLabels").on("click", function () {
 		setSettings("weatherLabels", ($(this).is(":checked") ? '1' : '0'));
-		refreshBadge();
+		refreshBadge(false);
 	});
 
 	$("#showExternal").on("click", function () { setSettings("weatherShowLinks"($(this).is(":checked") ? '1' : '0')); });
 
 	$("#showDate").on("click", function () {
 		setSettings("weatherDate", ($(this).is(":checked") ? '1' : '0')); saveData();
-		refreshBadge();
+		refreshBadge(false);
 	});
 	$("#showReadDate").on("click", function () {
 		setSettings("weatherReadDate", ($(this).is(":checked") ? '1' : '0'));
-		refreshBadge();
+		refreshBadge(false);
 	});
 
 	$("#btnAdd").on("click", function () { checkNewLocation() } );
@@ -64,66 +59,88 @@ function fillPreviewIcons() {
 
 $(document).on("weather_complete", function () {
 	console.log("complete received ...");
-	updateBadge();
+	refreshBadge(false);
 })
 
-function checkNewLocation()	{
-	var strLocation = document.getElementById("newLocation").value;
-	document.getElementById("message").innerHTML = "";
-	GetWeather(strLocation);
+function checkNewLocation() {
+
+	$("message").html("");
+	
+	var woeid = "", name = "";
+	var query = escape("select * from geo.places where text=\"" + $("#newLocation").val() + "\"")
+	var strUrl = "https://query.yahooapis.com/v1/public/yql?q=" + query + "&format=xml"
+
+	var result = jQuery.ajax({
+		type: "GET",
+		url: strUrl,
+		success: function (xmlDoc) {
+			if (xmlDoc != null) {
+				var nodes = xmlDoc.getElementsByTagName("place");
+				if (nodes.length > 0) {
+					woeid = nodes[0].getElementsByTagName("woeid")[0].textContent;
+					name = nodes[0].getElementsByTagName("name")[0].textContent;
+				}
+			}
+
+			if (woeid != "") {
+				var locations = JSON.parse(getSettings("weatherLocations"));
+				var location = { name: name, woeid: woeid };
+				locations.push(location);
+				setSettings("weatherLocations", JSON.stringify(locations));
+				setSettings("weatherLocation", JSON.stringify(location));
+				
+				$("message").html(name + " added!");
+				$("#newLocation").val("");
+				fillLocations();
+				GetWeather();
+			}
+			else {
+				document.getElementById("message").innerHTML = "No location found! Please try to specify City, Country, Code...";
+			}
+		},
+		error: function (xhr, ajaxOptions, thrownError) {
+			alert("Error: " + thrownError);
+		}
+	});
 }
 
-function checkIfValid()
-	{
-	if(weatherCity  == "")
-		document.getElementById("message").innerHTML = "No location found! Please try to specify City, Country, Code...";
-	else
-		{
-		document.getElementById("message").innerHTML = weatherCity  + " added!";
-		var InitialLocation = document.getElementById("newLocation").value.replace("|", "");
-		
-		if(localStorage.weatherLocations == "")
-		    localStorage.weatherLocations = weatherCity + "#" + weatherCityCode;
-		else
-		    localStorage.weatherLocations += "|" + weatherCity + "#" + weatherCityCode;
-			
-		if(localStorage.weatherLocationsInitial == "")
-			localStorage.weatherLocationsInitial = InitialLocation;
-		else
-			localStorage.weatherLocationsInitial += "|" + InitialLocation;
+function fillLocations() {
+	var content = "";
+	var defaultIsPresent = false;
+	var locations = JSON.parse(getSettings("weatherLocations"));
+	var location = JSON.parse(getSettings("weatherLocation"));
+	for (var i = 0; i < locations.length; i++) {
+	    content += locations[i].name + "&nbsp;&nbsp;&nbsp;<a href=\"#\" id=\"removeLocation_" + i + "\">remove</a><br />";
+	    if (location.woeid === locations[i].woeid)
+	        defaultIsPresent = true;
+	}
+	
+	$("#weather_locations").html(content);
 
-		document.getElementById("newLocation").value = "";
-		fillLocations();
-		}
+	if (locations.length > 0) {
+	    for (var i = 0; i < locations.length; i++) {
+	        var ii = i;
+	        $("#removeLocation_" + i).on("click", function () { removeLocation("loc_" + ii); });
+	    }
 	}
 
-	function fillLocations() {
-	    var content = "";
-	    var defaultIsPresent = false;
-	    var locations = localStorage.weatherLocations.split("|");
-	    if (locations != "") {
-	        for (var i = 0; i < locations.length; i++) {
-	            content += locations[i].split("#")[0] + "&nbsp;&nbsp;&nbsp;<a href=\"#\" id=\"removeLocation_" + i + "\">remove</a><br />";
-	            if (localStorage.weatherLocation == locations[i])
-	                defaultIsPresent = true;
-	        }
-	    }
-
-	    document.getElementById("weather_locations").innerHTML = content;
-
-	    if (locations != "") {
-	        for (var i = 0; i < locations.length; i++) {
-	            var ii = i;
-	            document.getElementById("removeLocation_" + i).addEventListener("click", function () { removeLocation("loc_" + ii); });
-	        }
-	    }
-
-	    if (!defaultIsPresent) {
-	        localStorage.weatherLocation = locations[0];
-	    }
-
-	    //GetWeather(localStorage.weatherLocation);
+	if (!defaultIsPresent) {
+	    setSettings("weatherLocation", JSON.stringify(locations[0]));
 	}
+}
+
+function removeLocation(index) {
+	index = index.replace("loc_", "");
+
+	var content = "";
+	var contentInitial = "";
+	var locations = JSON.parse(getSettings("weatherLocations"));
+
+	locations.splice(index, 1);
+	setSettings("weatherLocations", JSON.stringify(locations));
+
+	fillLocations();
+}
 
 function fillSkins() {
     var ddl = document.getElementById("imgLocation");
@@ -163,31 +180,6 @@ function fillValues()
 		
     var poweredby = document.getElementById("poweredby");
     poweredby.innerHTML = "<a href=\"http://developer.yahoo.com/weather/\" target=\"_blank\"><img align=\"middle\" border=\"0\" src=\"images/yahoo_logo.png\" alt=\"Yahoo Weather API\" title=\"Yahoo Weather API\" /></a>";
-	}
-
-function removeLocation(index) {
-    index = index.replace("loc_", "");
-
-	var content = "";
-	var contentInitial = "";
-	var locations = localStorage.weatherLocations.split("|");
-	var locationsInitial = localStorage.weatherLocationsInitial.split("|");
-	
-	for(var i = 0; i < locations.length; i++)
-		{
-		if(i != index)
-			{
-			content += (content != "") ? "|" : "";
-			content += locations[i];
-			
-			contentInitial += (contentInitial != "") ? "|" : "";
-			contentInitial += locationsInitial[i];
-			}
-		}
-
-	localStorage.weatherLocations = content;
-	localStorage.weatherLocationsInitial = contentInitial;
-	fillLocations();
 	}
 
 function addLocation()
