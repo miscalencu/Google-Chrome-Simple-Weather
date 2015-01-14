@@ -1,12 +1,5 @@
 ﻿body 
 	{
-	min-width: 270px;
-	/*
-	min-height: 330px;
-    */
-    min-height: 150px;
-	overflow-x:hidden;
-	overflow-y:hidden;
 	background-color: white;
 	color: black;
 	}

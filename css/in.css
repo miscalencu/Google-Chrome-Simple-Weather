@@ -1,0 +1,23 @@
+﻿.simple_weather_splash_wrapper
+	{
+	display: block;
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 5000px;
+	height: 5000px;
+	z-index: 1000;
+	}
+
+#simple_weather_popupContainer
+	{
+	background-color: white;
+	z-index: 100;
+	-webkit-box-shadow: 5px 5px 14px 0px rgba(50, 50, 50, 0.85);
+	-moz-box-shadow:    5px 5px 14px 0px rgba(50, 50, 50, 0.85);
+	box-shadow:         5px 5px 14px 0px rgba(50, 50, 50, 0.85);
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius:		5px;
+	}
+

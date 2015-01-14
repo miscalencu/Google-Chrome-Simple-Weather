@@ -1,5 +1,3 @@
-var provider = "YAHOO"; // YAHOO, GOOGLE
-
 var req = new XMLHttpRequest();
 var weatherInfo = new Array(4);
 var weatherCity = "";
@@ -7,55 +5,53 @@ var weatherCityCode = "";
 var weatherDate = "";
 var weatherUnitSystem = ""; 
 var totalItems = 0;
-var timeOut;
 
-function getDefaultLocation()
-	{
-	if(!localStorage.weatherLocation)
-		if(!localStorage.weatherLocationsInitial)
-			return localStorage.weatherLocation = "";
-		else
-			return localStorage.weatherLocationsInitial.split("|")[0];
+var isExtension = (typeof chrome.browserAction !== "undefined");
+
+function getSettings(name) {
+	var default_val = "";
+	if (!localStorage[name]) {
+		switch (name) {
+			case "weatherShowLinks":
+				default_val = "0";
+				break;
+			case "weatherShowIn":
+				default_val = "C";
+				break;
+			case "weatherTimeout":
+				default_val = "10";
+				break;
+			case "weatherLabels":
+			case "weatherDate":
+			case "weatherReadDate":
+			case "compactMode":
+				default_val = "1";
+				break;
+			case "imgLocation":
+				default_val = "images/weather_icons/YAHOO/YAHOO/";
+				break;
+			default:
+				break;
+		}
+		return default_val;
+	}
 	else
-		return localStorage.weatherLocation;
-	}
-	
-function setDefaultVariables()
-	{
-	    if (!localStorage.weatherLocations) {
-	        localStorage.weatherLocations = "";
-	        localStorage.weatherLocation = "";
-	    }
-		
-	if(!localStorage.weatherLocationsInitial)
-		localStorage.weatherLocationsInitial = localStorage.weatherLocations;
+		return localStorage[name];
+}
 
-	if(!localStorage.weatherShowLinks)
-		localStorage.weatherShowLinks = "0";
-
-	if(!localStorage.weatherShowIn)
-		localStorage.weatherShowIn = "C";
-
-	if(!localStorage.weatherTimeout)
-		localStorage.weatherTimeout = "10";
-
-	if(!localStorage.weatherLabels)
-		localStorage.weatherLabels = "1";
-
-	if(!localStorage.weatherDate)
-		localStorage.weatherDate = "1";
-
-	if(!localStorage.weatherReadDate)
-		localStorage.weatherReadDate = "1";
-		
-	if(!localStorage.compactMode)
-		localStorage.compactMode = "1";
-
-	if (!localStorage.imgLocation || localStorage.imgLocation.indexOf("/weather_icons/" + provider + "/") == -1)
-		localStorage.imgLocation = "images/weather_icons/" + provider + "/" + provider + "/";
-	}
+function setSettings(name, value) {
+	localStorage[name] = value;
+}
 
 function GetWeather(wlocation, wlocationcode) {
+
+	if (wlocation == undefined && wlocationcode == undefined && getSettings("weatherLocation") != "")
+	{
+		var location = getSettings("weatherLocation");
+		wlocation = location.split("#")[0];
+		wlocationcode = location.split("#")[1];
+	}
+
     weatherCity = "";
     weatherCityCode = "";
     totalItems = 0;
@@ -65,55 +61,42 @@ function GetWeather(wlocation, wlocationcode) {
         return;
     }
 
-	if (provider == "GOOGLE") {
-	    weatherInfo = new Array(4);
-	    req.open("GET", "http://www.google.co.uk/ig/api?weather=" + wlocation);
-	    req.onreadystatechange = fillData;
+	weatherInfo = new Array(1);
+	    
+	weatherCityCode = wlocationcode;
 
-	    req.send(null);
+	if (wlocationcode != "") {
+		var query = escape("select item from weather.forecast where woeid=\"" + wlocationcode + "\" and u=\"" + localStorage.weatherShowIn.toLowerCase() + "\"")
+		$.ajax({
+			type: "GET",
+			url: "https://query.yahooapis.com/v1/public/yql?q=" + query + "&format=xml",
+			success: function (result) {
+				fillData(result);
+				console.log("complete fired ...");
+				$.event.trigger({
+					type: "weather_complete",
+					message: "complete fired.",
+					time: new Date()
+				});
+			},
+			error: function (xhr, ajaxOptions, thrownError) {
+				alert("Error: " + thrownError);
+			}
+		});
 	}
-
-	if (provider == "YAHOO") {
-	    weatherInfo = new Array(1);
-	    //alert(wlocationcode);
-	    if (arguments[1] == undefined || wlocationcode == undefined || wlocationcode == "") {
-	        wlocationcode = GetWoeid(wlocation);
-	    }
-
-	    weatherCityCode = wlocationcode;
-
-	    if (wlocationcode != "") {
-	        var query = escape("select item from weather.forecast where woeid=\"" + wlocationcode + "\" and u=\"" + localStorage.weatherShowIn.toLowerCase() + "\"")
-	        req.open("GET", "http://query.yahooapis.com/v1/public/yql?q=" + query + "&format=xml");
-	        req.onreadystatechange = fillData;
-	        req.send(null);
-	    }
-	    else {
-	        alert("No location found! Please try to specify City, Country, Code...");
-        }
+	else {
+	    alert("No location found! Please try to specify City, Country, Code...");
 	}
 }
 
-function fillData() {
-	if (req.readyState != 4)
-	    return;
-
-	var docXML = req.responseXML;
-
-	if (provider == "GOOGLE") {
-	    FillGoogleWeather(docXML);
-	}
-
-	if (provider == "YAHOO") {
-	    FillYahooWeather(docXML);
-    }
-
-    GoAfterWeather();
+function fillData(result) {
+	FillYahooWeather(result);
+    //GoAfterWeather();
 }
 
 function GoAfterWeather() {
     switch (currentPage) {
-        case "popup":
+    	case "popup":
             ShowWeather();
             AddListeners();
             break;
@@ -124,9 +107,6 @@ function GoAfterWeather() {
         case "options":
             checkIfValid();
             break;
-        case "background":
-            setBadge();
-            break;
     }
 }
 
@@ -136,7 +116,7 @@ function GetWoeid(wlocation) {
     var ret = "";
 
     var query = escape("select * from geo.places where text=\"" + wlocation + "\"")
-    var strUrl = "http://query.yahooapis.com/v1/public/yql?q=" + query + "&format=xml"
+    var strUrl = "https://query.yahooapis.com/v1/public/yql?q=" + query + "&format=xml"
 
 	var result = jQuery.ajax({ url: strUrl, async: false, timeout: 2000 }).responseText; // sync
 	var xmlDoc = null;
@@ -303,59 +283,12 @@ function AddInfo(node, current)
 	totalItems ++;
 }
 
+function refreshBadge() {
+	chrome.extension.sendMessage({ message: "updateBadge" }, function () { console.log("'updateBadge' sent ..."); });
+}
+
 // END GOOGLE FUNCTIONS
 	
-function updateBadge()
-	{
-	timeOut = null;
-	if (localStorage.weatherLocations == "") {
-	    chrome.browserAction.setBadgeText({ text: "?" });
-	    chrome.browserAction.setBadgeBackgroundColor({ color: [255, 0, 0, 255] });
-	    chrome.browserAction.setTitle({ title: "No location defined!\nClick here to set a new location!" });
-	    chrome.browserAction.setIcon({ path: "images/icon.png" });
-	}
-	else {
-	    var badgeTitle = "";
-	    var badgeText = "";
-	    badgeTitle += (getLabel("Weather in ") + weatherCity) + "\n";
-	    badgeTitle += getValue(weatherInfo[0].temp) + String.fromCharCode(176) + localStorage.weatherShowIn;
-
-	    if (weatherInfo[0].condition != "")
-	        badgeTitle += " - " + weatherInfo[0].condition;
-
-	    if (weatherInfo[0].wind != "")
-	        badgeTitle += "\n" + weatherInfo[0].wind;
-
-	    if (weatherInfo[0].humidity != "")
-	        badgeTitle += "\n" + weatherInfo[0].humidity;
-
-	    if (localStorage.weatherDate == "1")
-	        badgeTitle += "\n\nValid for: " + weatherDate;
-
-	    if (localStorage.weatherReadDate == "1")
-	        badgeTitle += "\nLast checked on: " + formatToLocalTimeDate(new Date());
-
-	    badgeText = getValue(weatherInfo[0].temp) + String.fromCharCode(176);
-
-	    if (badgeText.length < 4)
-	        badgeText += localStorage.weatherShowIn;
-
-	    chrome.browserAction.setBadgeText({ text: badgeText });
-	    chrome.browserAction.setBadgeBackgroundColor({ color: [0, 153, 204, 255] });
-	    chrome.browserAction.setTitle({ title: badgeTitle });
-	    if (weatherInfo[0].icon != "www.google.co.uk" && provider == "GOOGLE") {
-	        chrome.browserAction.setIcon({ path: localStorage.imgLocation + weatherInfo[0].icon.split("/")[weatherInfo[0].icon.split("/").length - 1] });
-	    }
-	    else {
-	        if (weatherInfo[0].icon != "" && provider == "YAHOO") {
-	            chrome.browserAction.setIcon({ path: localStorage.imgLocation + weatherInfo[0].icon.split("/")[weatherInfo[0].icon.split("/").length - 1] });
-	        }
-	        else
-	            chrome.browserAction.setIcon({ path: "images/icon.png" });
-	    }
-	}
-	}	
-
 function toCelsius(fromFarenheit)
 	{
 	return parseInt(5 * ((parseInt(fromFarenheit) - 32) / 9));
@@ -368,16 +301,7 @@ function toFarenheit(fromCelsius)
 
 function getValue(feedValue)
 	{
-	if(provider == "GOOGLE")
-		{
-		if(localStorage.weatherShowIn == "C")
-			return feedValue;
-		else
-			return toFarenheit(feedValue);
-		}
-
-	if(provider == "YAHOO")
-		return feedValue;
+	return feedValue;
 	}
 	
 function getLabel(str)
@@ -419,5 +343,3 @@ function arrindex(arr, obj) {
     }
     return -1;
 }
-
-setDefaultVariables();
