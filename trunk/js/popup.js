@@ -1,68 +1,59 @@
-var currentPage = "popup";
+function ShowWeather() {
+	var locations = JSON.parse(getSettings("weatherLocations"));
+	var showin = getSettings("weatherShowIn");
 
-function ShowWeather() 
-	{
-	if(localStorage.weatherLocations == "")
+	if (locations.length == 0)
 		{
-		document.getElementById("title").innerHTML = "No locations defined!";
-		document.getElementById("weather").innerHTML = "<a href=\"#\" id=\"set_locations\">Click here to set locations.</a>";
+		$("#title").html("No locations defined!");
+		$("#weather").html("<a href=\"#\" id=\"set_locations\">Click here to set locations.</a>");
 		return;
 		}
 
-	var totalLocations = localStorage.weatherLocations.split("|").length;
 	var headerContent = "";
 	headerContent += "<table width=\"100%\" cellspacing=\"3\" cellpadding=\"3\" border=\"0\">";
 	headerContent += "	<tr>";
-	headerContent += "		<td align=\"left\">" + getLabel("Weather in ") + weatherCity + "</td>";
+	headerContent += "		<td align=\"left\">" + getLabel("Weather in ") + weatherObj.City + "</td>";
 	headerContent += "		<td align=\"right\" style=\"white-space:nowrap\">";
 	headerContent += "			<a href=\"#\" id=\"link_previous\"><img align=\"absmiddle\" src=\"images/arrow_left.png\" alt=\"View previous location\" title=\"View previous location\" /></a>";
-	headerContent += "			<b>" + (1 + getCurrentIndex()) + "/" + totalLocations + "</b> ";
+	headerContent += "			<b>" + (1 + getCurrentIndex()) + "/" + locations.length + "</b> ";
 	headerContent += "			<a href=\"#\" id=\"link_next\"><img align=\"absmiddle\" src=\"images/arrow_right.png\" alt=\"View next location\" title=\"View next location\" /></a>";
 	headerContent += "		</td>";
 	headerContent += "	</tr>";
 	headerContent += "</table>";
 
-	document.getElementById("title").innerHTML = headerContent;
+	$("#title").html(headerContent);
+	$("#weather").html("");
 	
-	//****************
-	document.getElementById("weather").innerHTML = "";
-	
-	var content = "";
-	for(var i = 0; i < weatherInfo.length; i++) 
-		{
-		content += "<div class=\"box" + ((weatherInfo[i].label == "Now")?"_now":"") + "\">";
+	var content = "<div class=\"box_now\">";
 		
-		if(weatherInfo[i].icon != "www.google.co.uk" && weatherInfo[i].icon != "")
-			content += "<img align=\"left\" width=\"45\" src=\"" + weatherInfo[i].icon + "\" alt=\"" + weatherInfo[i].condition + "\" title=\"" + weatherInfo[i].condition + "\" />";
+	if(weatherObj.Icon != "")
+		content += "<img align=\"left\" width=\"45\" src=\"" + weatherObj.Icon + "\" alt=\"" + weatherObj.Condition + "\" title=\"" + weatherObj.Condition + "\" />";
 		
-		if(weatherInfo[i].label == "Now") {
+	content += "<div style=\"height:10px\"></div>" + getLabel("<b>Now:</b>: ");
+	content += "<span class=\"now\">" + weatherObj.Temp + "&deg;" + showin + "</span>";
 
-		    content += "<div style=\"height:10px\"></div>";
+	if(weatherObj.Condition != "")
+		content += " - " + weatherObj.Condition;
 
-			content +=  getLabel("<b>" + weatherInfo[i].label + "</b>: ");
-			content += "<span class=\"now\">" + getValue(weatherInfo[i].temp) + "&deg;" + localStorage.weatherShowIn + "</span>";
+	if(weatherObj.WindSpeed != "")
+		content += "<br />" + weatherObj.WindSpeed;
 
-			if(weatherInfo[i].condition != "")
-			    content += " - " + weatherInfo[i].condition;
+	if (weatherObj.AtmosphereHumidity != "")
+		content +=  "<br />" + weatherObj.AtmosphereHumidity;
 
-            if(weatherInfo[i].wind != "")
-                content += "<br />" + weatherInfo[i].wind;
+	for (var i = 0; i < weatherObj.Forecast.length; i++) {
 
-            if (weatherInfo[i].humidity != "")
-			    content +=  "<br />" + weatherInfo[i].humidity;
-			}
-		else
-			{
-			content +=  "<b>" + weatherInfo[i].label + "</b>: ";
-			content +=  weatherInfo[i].condition + "<br />";
-			content += getLabel("High/Low: ");
-			content += "<span class=\"high\">" + getValue(weatherInfo[i].high) + "&deg;" + localStorage.weatherShowIn + "</span> / ";
-			content += "<span class=\"low\">" + getValue(weatherInfo[i].low) + "&deg;" + localStorage.weatherShowIn + "</span>";
-			}
+		var weatherForecast = weatherObj.Forecast[i];
 
-        content += "<br clear=\"all\" />";
-		content += "</div>";
+		content +=  "<b>" + weatherForecast.Day + "</b>: ";
+		content += weatherForecast.Condition + "<br />";
+		content += getLabel("High/Low: ");
+		content += "<span class=\"high\">" + weatherForecast.High + "&deg;" + showin + "</span> / ";
+		content += "<span class=\"low\">" + weatherForecast.Low + "&deg;" + showin + "</span>";
 		}
+
+    content += "<br clear=\"all\" />";
+	content += "</div>";
 
 	if(localStorage.weatherShowLinks == "1")
 	{
@@ -86,19 +77,20 @@ function ShowWeather()
 		
 	//****************
 			
-	refreshBadge();
+	refreshBadge(false);
 }
 
 function getCurrentIndex()
 	{
 	var current = -1;
-	var location = getSettings("weatherLocation");
-	var locations = localStorage.weatherLocationsInitial.split("|");
+	var location = JSON.parse(getSettings("weatherLocation"));
+	var locations = JSON.parse(getSettings("weatherLocations"));
 	for(var i=0; i < locations.length; i++)
 		{
-		if (locations[i] == location)
+		if (locations[i].woeid === location.woeid)
 			current = i;
-		}
+	}
+
 	if(current == -1)
 		current = 0;
 
@@ -112,32 +104,31 @@ function showUrl(url)
 
 function goToPreviousLocation()
 	{
-	var locations = localStorage.weatherLocationsInitial.split("|");
+	var locations = JSON.parse(getSettings("weatherLocations"));
 	var current = getCurrentIndex();
 	
 	if(current == 0)
 		current = locations.length - 1;
 	else
 		current --;
-	localStorage.weatherLocation = locations[current];
+	setSettings("weatherLocation", JSON.stringify(locations[current]));
 	Init();
 	}
 
 function goToNextLocation() {
-	var locations = localStorage.weatherLocationsInitial.split("|");
+	var locations = JSON.parse(getSettings("weatherLocations"));
 	var current = getCurrentIndex();
 	if(current == locations.length - 1)
 		current = 0;
 	else
 	    current++;
 
-	setSettings("weatherLocation", locations[current]);
+	setSettings("weatherLocation", JSON.stringify(locations[current]));
 	Init();
 }
 
 function Init() {
-	var location = getSettings("weatherLocation");
-	GetWeather(location);
+	GetWeather();
 
 	document.addEventListener("keyup", function (e) {
 		if (e.keyCode == 27) {   // esc
@@ -148,8 +139,10 @@ function Init() {
 
 $(document).on("weather_complete", function () {
 	console.log("complete received ...");
-	if (isExtension)
+	if (isExtension) {
 		updateBadge();
+		ShowWeather();
+	}
 })
 
 function AddListeners() {
