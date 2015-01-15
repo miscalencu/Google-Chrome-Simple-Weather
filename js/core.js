@@ -112,7 +112,7 @@ function fillData(docXML) {
 
 	// forecast
     weatherObj.Forecast = new Array();
-    for (var i = 0; i < $(docXML).find("forecast") ; i++) {
+    $.each($(docXML).find("forecast"), function () {
     	weatherObj.Forecast.push({
     		Code: $(this).attr("code"),
     		Date: $(this).attr("date"),
@@ -121,7 +121,7 @@ function fillData(docXML) {
     		High: $(this).attr("high"),
     		Low: $(this).attr("low"),
     	});
-    }
+    });
 }
 
 function refreshBadge(getWeather) {

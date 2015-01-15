@@ -12,7 +12,7 @@ function ShowWeather() {
 	var headerContent = "";
 	headerContent += "<table width=\"100%\" cellspacing=\"3\" cellpadding=\"3\" border=\"0\">";
 	headerContent += "	<tr>";
-	headerContent += "		<td align=\"left\">" + getLabel("Weather in ") + weatherObj.City + "</td>";
+	headerContent += "		<td align=\"left\">" + getLabel("Weather in ") + weatherObj.LocationCity + "</td>";
 	headerContent += "		<td align=\"right\" style=\"white-space:nowrap\">";
 	headerContent += "			<a href=\"#\" id=\"link_previous\"><img align=\"absmiddle\" src=\"images/arrow_left.png\" alt=\"View previous location\" title=\"View previous location\" /></a>";
 	headerContent += "			<b>" + (1 + getCurrentIndex()) + "/" + locations.length + "</b> ";
@@ -29,33 +29,35 @@ function ShowWeather() {
 	if(weatherObj.Icon != "")
 		content += "<img align=\"left\" width=\"45\" src=\"" + weatherObj.Icon + "\" alt=\"" + weatherObj.Condition + "\" title=\"" + weatherObj.Condition + "\" />";
 		
-	content += "<div style=\"height:10px\"></div>" + getLabel("<b>Now:</b>: ");
+	content += "<div style=\"height:10px\"></div>" + getLabel("<b>Now</b>: ");
 	content += "<span class=\"now\">" + weatherObj.Temp + "&deg;" + showin + "</span>";
 
 	if(weatherObj.Condition != "")
 		content += " - " + weatherObj.Condition;
 
 	if(weatherObj.WindSpeed != "")
-		content += "<br />" + weatherObj.WindSpeed;
+		content += "<br />Wind speed: " + weatherObj.WindSpeed + " " + weatherObj.UnitSpeed;
 
 	if (weatherObj.AtmosphereHumidity != "")
-		content +=  "<br />" + weatherObj.AtmosphereHumidity;
+		content +=  "<br />Humidity: " + weatherObj.AtmosphereHumidity + " g/m<sup>3</sup>";
 
 	for (var i = 0; i < weatherObj.Forecast.length; i++) {
 
 		var weatherForecast = weatherObj.Forecast[i];
 
-		content +=  "<b>" + weatherForecast.Day + "</b>: ";
+		content += "<div class=\"box\">";
+		content += "<b>" + weatherForecast.Day + "</b>: ";
 		content += weatherForecast.Condition + "<br />";
 		content += getLabel("High/Low: ");
 		content += "<span class=\"high\">" + weatherForecast.High + "&deg;" + showin + "</span> / ";
 		content += "<span class=\"low\">" + weatherForecast.Low + "&deg;" + showin + "</span>";
+		content += "</div>";
 		}
 
     content += "<br clear=\"all\" />";
 	content += "</div>";
 
-	if(localStorage.weatherShowLinks == "1")
+	if(getSettings("weatherShowLinks") == "1")
 	{
 		content += "<div style=\"border-top:1px solid #CCCCCC; margin-top:5px; padding-top: 10px;\">";
 		content += "	View extended forecast details at: ";
@@ -65,19 +67,15 @@ function ShowWeather() {
 	}
 	
 	var footerContent = "";
-	if(localStorage.weatherDate == "1")
-		footerContent += "Valid for " + weatherDate + ".<br/>";
-	if(localStorage.weatherReadDate == "1")
+	if(getSettings("weatherDate") == "1")
+		footerContent += "Valid for " + weatherObj.Date + ".<br/>";
+	if (getSettings("weatherReadDate") == "1")
 		footerContent += "Last time checked on: " + formatToLocalTimeDate(new Date()) + ".<br/>";
 
 	if(footerContent != "")
 		content += "<div class=\"footer\">" + footerContent + "</div>";
 
-	document.getElementById("weather").innerHTML = content;	
-		
-	//****************
-			
-	refreshBadge(false);
+	$("#weather").html(content);	
 }
 
 function getCurrentIndex()
@@ -112,7 +110,7 @@ function goToPreviousLocation()
 	else
 		current --;
 	setSettings("weatherLocation", JSON.stringify(locations[current]));
-	Init();
+	GetWeather();
 	}
 
 function goToNextLocation() {
@@ -124,26 +122,8 @@ function goToNextLocation() {
 	    current++;
 
 	setSettings("weatherLocation", JSON.stringify(locations[current]));
-	Init();
-}
-
-function Init() {
 	GetWeather();
-
-	document.addEventListener("keyup", function (e) {
-		if (e.keyCode == 27) {   // esc
-			window.top.postMessage({ args: "close" }, '*');
-		}
-	});
 }
-
-$(document).on("weather_complete", function () {
-	console.log("complete received ...");
-	if (isExtension) {
-		updateBadge();
-		ShowWeather();
-	}
-})
 
 function AddListeners() {
 
@@ -160,5 +140,19 @@ function AddListeners() {
 }
 
 $(document).ready(function () {
-	Init();
+	GetWeather();
+
+	$(document).on("weather_complete", function () {
+		console.log("complete received ...");
+		ShowWeather();
+		if (isExtension) {
+			refreshBadge(false);
+		}
+	});
+
+	$(document).on("keyup", function (e) {
+		if (e.keyCode == 27) {   // esc
+			window.top.postMessage({ args: "close" }, '*');
+		}
+	});
 });
