@@ -2,26 +2,22 @@ var timeOut = null;
 
 function SetRefresh() {
 	clearTimeout(timeOut);
-	timeOut = window.setTimeout(function () { Init(); }, 1000 * 60 * parseInt(getSettings("weatherTimeout")));
+	timeOut = window.setTimeout(function () { GetWeather(); }, 1000 * 60 * parseInt(getSettings("weatherTimeout")));
 }
 
-function Init() {
-	var location = getSettings("weatherLocation");
-	GetWeather(location.split("#")[0], location.split("#")[1]);
-}
-
-$(document).on("weather_complete", function () {
+$(document).on("weather_complete", function (event) {
 	console.log("complete received ...");
-	if (isExtension)
-		updateBadge();
+	if (isExtension) {
+		updateBadge(event.weather);
+		}
 })
 	
 $(document).ready(function () {
-	Init();
+	GetWeather();
 	SetRefresh();
 });
 
-function updateBadge() {
+function updateBadge(weatherObj) {
 	if (JSON.parse(getSettings("weatherLocations").length) == 0) {
 		chrome.browserAction.setBadgeText({ text: "?" });
 		chrome.browserAction.setBadgeBackgroundColor({ color: [255, 0, 0, 255] });
@@ -59,7 +55,7 @@ function updateBadge() {
 			badgeTitle += "\n\nValid for: " + weatherObj.Date;
 
 		if (getSettings("weatherReadDate") == "1")
-			badgeTitle += "\nLast checked on: " + formatToLocalTimeDate(new Date());
+			badgeTitle += "\nLast checked on: " + formatToLocalTimeDate(weatherObj.RefreshDate);
 
 		var temp = weatherObj.Temp;
 		if (getSettings("weatherShowIn") === "C") {
@@ -88,7 +84,6 @@ function updateBadge() {
 
 var newtabid = 0;
 chrome.browserAction.onClicked.addListener(function (tab) {
-	updateBadge();
 	chrome.tabs.sendMessage(tab.id, { args: "open" }, function (response) {
 		if (response != "OK") { // we are not in a tab (Settings page, etc ...)
 			localStorage.OpenOnLoad = "YES";
@@ -101,18 +96,13 @@ chrome.browserAction.onClicked.addListener(function (tab) {
 
 chrome.extension.onMessage.addListener(function (request, sender, sendResponse) {
 	console.log("message received ...");
-	if (request.message == "updateTimeout") {
-		console.log("'updateTimeout' received ...");
+	if (request.message == "update_timeout") {
+		console.log("'update_timeout' received ...");
 		SetRefresh();
 	}
-	if (request.message == "updateBadge") {
-		console.log("'updateBadge' received ...");
-		if (request.refresh) {
-			GetWeather();
-		}
-		else {
-			updateBadge();
-		}
+	if (request.message == "update_badge") {
+		console.log("'update_badge' received ...");
+		updateBadge(request.weather);
 	}
 });
 

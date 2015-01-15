@@ -11,7 +11,7 @@ $(document).ready(function() {
 
 	$("#updateTimeout").on("change", function () {
 		setSettings("weatherTimeout", $(this).val());
-		chrome.extension.sendMessage({ message: "updateTimeout" }, function () { console.log("'updateTimeout' sent ..."); });
+		chrome.extension.sendMessage({ message: "update_timeout" }, function () { console.log("'updateTimeout' sent ..."); });
 	});
 	$("#imgLocation").on("change", function () {
 		setSettings("imgLocation", $(this).val());
@@ -57,9 +57,9 @@ function fillPreviewIcons() {
 	$("#preview_icons").html(content);
 }
 
-$(document).on("weather_complete", function () {
+$(document).on("weather_complete", function (event) {
 	console.log("complete received ...");
-	refreshBadge(false);
+	refreshBadge(event.weather);
 })
 
 function checkNewLocation() {
@@ -182,10 +182,9 @@ function fillValues()
     poweredby.innerHTML = "<a href=\"http://developer.yahoo.com/weather/\" target=\"_blank\"><img align=\"middle\" border=\"0\" src=\"images/yahoo_logo.png\" alt=\"Yahoo Weather API\" title=\"Yahoo Weather API\" /></a>";
 	}
 
-function addLocation()
-	{
-	document.getElementById("add_location").style.display = "table-row";
-	}
+function addLocation() {
+	$("#add_location").css("display", "table-row");
+}
 
 fillValues();
 fillSkins();

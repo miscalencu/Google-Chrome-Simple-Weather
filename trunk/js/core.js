@@ -1,5 +1,4 @@
 var isExtension = (typeof chrome.browserAction !== "undefined");
-var weatherObj = new Object();
 
 function getSettings(name) {
 	var default_val = "";
@@ -40,6 +39,7 @@ function setSettings(name, value) {
 
 function GetWeather() {
 
+	
 	var location = JSON.parse(getSettings("weatherLocation"));
 	var showin = getSettings("weatherShowIn").toLowerCase();
 	
@@ -53,10 +53,10 @@ function GetWeather() {
 			dataType: "xml",
 			url: url,
 			success: function (result) {
-				fillData(result);
 				console.log("complete fired ...");
 				$.event.trigger({
 					type: "weather_complete",
+					weather: getWeatherObject(result),
 					message: "complete fired.",
 					time: new Date()
 				});
@@ -76,8 +76,9 @@ function GetWeather() {
 	}
 }
 
-function fillData(docXML) {
+function getWeatherObject(docXML) {
 
+	var weatherObj = new Object();
 	weatherObj = new Object();
 	weatherObj.LocationCity = $(docXML).find("channel>location").attr("city");
 	weatherObj.LocationCountry = $(docXML).find("channel>location").attr("country");
@@ -106,6 +107,8 @@ function fillData(docXML) {
 	weatherObj.Temp = $(docXML).find("condition").attr("temp");
 	weatherObj.Icon = localStorage.imgLocation + $(docXML).find("condition").attr("code") + ".gif";
     weatherObj.Condition = $(docXML).find("condition").attr("text");
+	
+	weatherObj.RefreshDate = new Date();
 
     var d = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     var ds = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -122,10 +125,12 @@ function fillData(docXML) {
     		Low: $(this).attr("low"),
     	});
     });
+	
+	return weatherObj;
 }
 
-function refreshBadge(getWeather) {
-	chrome.extension.sendMessage({ message: "updateBadge", refresh: "getWeather" }, function () { console.log("'updateBadge' sent ..."); });
+function refreshBadge(weather) {
+	chrome.extension.sendMessage({ message: "update_badge", weather: weather }, function () { console.log("'update_badge' sent ..."); });
 }
 	
 function getLabel(str) {
