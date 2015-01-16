@@ -1,12 +1,17 @@
+var weatherObj = new Object();
+
 $(document).ready(function() {
+	
+	GetWeather();
+	
 	$("#showInC").on("click", function () {
 		setSettings("weatherShowIn", "C");
-		refreshBadge(true);
+		GetWeather();
 	});
 
 	$("#showInF").on("click", function () {
 		setSettings("weatherShowIn", "F");
-		refreshBadge(true);
+		GetWeather();
 	});
 
 	$("#updateTimeout").on("change", function () {
@@ -16,23 +21,28 @@ $(document).ready(function() {
 	$("#imgLocation").on("change", function () {
 		setSettings("imgLocation", $(this).val());
 		fillPreviewIcons();
-		refreshBadge(false);
+		refreshBadge(weatherObj);
 	});
 
 	$("#showLabels").on("click", function () {
+		debugger;
 		setSettings("weatherLabels", ($(this).is(":checked") ? '1' : '0'));
-		refreshBadge(false);
+		refreshBadge(weatherObj);
 	});
 
-	$("#showExternal").on("click", function () { setSettings("weatherShowLinks"($(this).is(":checked") ? '1' : '0')); });
+	$("#showExternal").on("click", function () { 
+		setSettings("weatherShowLinks"($(this).is(":checked") ? '1' : '0')); 
+		refreshBadge(weatherObj);
+	});
 
 	$("#showDate").on("click", function () {
-		setSettings("weatherDate", ($(this).is(":checked") ? '1' : '0')); saveData();
-		refreshBadge(false);
+		setSettings("weatherDate", ($(this).is(":checked") ? '1' : '0'));
+		refreshBadge(weatherObj);
 	});
+	
 	$("#showReadDate").on("click", function () {
 		setSettings("weatherReadDate", ($(this).is(":checked") ? '1' : '0'));
-		refreshBadge(false);
+		refreshBadge(weatherObj);
 	});
 
 	$("#btnAdd").on("click", function () { checkNewLocation() } );
@@ -58,7 +68,8 @@ function fillPreviewIcons() {
 }
 
 $(document).on("weather_complete", function (event) {
-	console.log("complete received ...");
+	console.log("weather complete received ...");
+	weatherObj = event.weather;
 	refreshBadge(event.weather);
 })
 
@@ -98,9 +109,9 @@ function checkNewLocation() {
 				document.getElementById("message").innerHTML = "No location found! Please try to specify City, Country, Code...";
 			}
 		},
-		error: function (xhr, ajaxOptions, thrownError) {
-			alert("Error: " + thrownError);
-		}
+		fail: function (jqXHR, textStatus) {
+				alert("Error: " + textStatus);
+			}
 	});
 }
 
