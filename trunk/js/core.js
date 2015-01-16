@@ -38,8 +38,6 @@ function setSettings(name, value) {
 }
 
 function GetWeather() {
-
-	
 	var location = JSON.parse(getSettings("weatherLocation"));
 	var showin = getSettings("weatherShowIn").toLowerCase();
 	
@@ -108,7 +106,7 @@ function getWeatherObject(docXML) {
 	weatherObj.Icon = localStorage.imgLocation + $(docXML).find("condition").attr("code") + ".gif";
     weatherObj.Condition = $(docXML).find("condition").attr("text");
 	
-	weatherObj.RefreshDate = new Date();
+	weatherObj.RefreshDate = Date();
 
     var d = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     var ds = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];

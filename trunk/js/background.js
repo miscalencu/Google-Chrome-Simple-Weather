@@ -17,6 +17,16 @@ $(document).ready(function () {
 });
 
 function updateBadge(weatherObj) {
+	chrome.browserAction.setBadgeBackgroundColor({ color: [255, 0, 0, 255] });
+	chrome.browserAction.setBadgeText({ text: "." });
+	setTimeout(function() { chrome.browserAction.setBadgeText({ text: ".." }); }, 100);
+	setTimeout(function() { chrome.browserAction.setBadgeText({ text: "..." }); }, 200);
+	setTimeout(function() { chrome.browserAction.setBadgeText({ text: "...." }); }, 300);
+	setTimeout(function() { chrome.browserAction.setBadgeText({ text: "....." }); }, 400);
+	setTimeout(function() { goUpdateBadge(weatherObj) }, 500);
+}
+
+function goUpdateBadge(weatherObj) {
 	console.log("updating badge with weather object queried at " + weatherObj.RefreshDate);
 	if (JSON.parse(getSettings("weatherLocations")).length == 0) {
 		chrome.browserAction.setBadgeText({ text: "?" });
@@ -52,7 +62,7 @@ function updateBadge(weatherObj) {
 			badgeTitle += "\nHumidity: " + weatherObj.AtmosphereHumidity + " g/m3";
 
 		if (getSettings("weatherDate") == "1")
-			badgeTitle += "\n\nValid for: " + weatherObj.Date;
+			badgeTitle += "\n\nValid for: " + formatToLocalTimeDate(weatherObj.Date);
 
 		if (getSettings("weatherReadDate") == "1")
 			badgeTitle += "\nLast checked on: " + formatToLocalTimeDate(weatherObj.RefreshDate);
