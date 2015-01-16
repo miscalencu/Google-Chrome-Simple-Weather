@@ -14,11 +14,11 @@ $(document).on("weather_complete", function (event) {
 	
 $(document).ready(function () {
 	GetWeather();
-	SetRefresh();
 });
 
 function updateBadge(weatherObj) {
-	if (JSON.parse(getSettings("weatherLocations").length) == 0) {
+	console.log("updating badge with weather object queried at " + weatherObj.RefreshDate);
+	if (JSON.parse(getSettings("weatherLocations")).length == 0) {
 		chrome.browserAction.setBadgeText({ text: "?" });
 		chrome.browserAction.setBadgeBackgroundColor({ color: [255, 0, 0, 255] });
 		chrome.browserAction.setTitle({ title: "No location defined!\nClick here to set a new location!" });
@@ -80,6 +80,7 @@ function updateBadge(weatherObj) {
 			}
 		}
 	}
+	SetRefresh();
 }
 
 var newtabid = 0;

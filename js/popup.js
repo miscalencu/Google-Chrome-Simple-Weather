@@ -148,8 +148,11 @@ $(document).ready(function () {
 		console.log("complete received ...");
 		ShowWeather(event.weather);
 		AddListeners();
-		if (isExtension) {
+		try { // could not be an extension
 			refreshBadge(event.weather);
+		}
+		catch(e) {
+			console.log("Sorry, cannot update badge ... ");
 		}
 	});
 
