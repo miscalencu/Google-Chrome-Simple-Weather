@@ -61,8 +61,8 @@ function GetWeather() {
 					time: new Date()
 				});
 			},
-			error: function (xhr, ajaxOptions, thrownError) {
-				alert("Error: " + thrownError);
+			fail: function (jqXHR, textStatus) {
+				alert("Error: " + textStatus);
 			}
 		});
 	}
