@@ -118,7 +118,7 @@ chrome.extension.onMessage.addListener(function (request, sender, sendResponse) 
 	if (request.message == "check_timeout") {
 		console.log("'check_timeout' received ...");
 		if(timeOut == null) {
-			SetRefresh();
+			GetWeather();
 		}
 	}
 });
