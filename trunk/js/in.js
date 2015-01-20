@@ -48,6 +48,7 @@
 
 	return;
 }
+
 function CloseWeatherPopup() {
 	var sw_iframeContainer = document.getElementById("simple_weather_splash_wrapper_popup");
 	sw_iframeContainer.style.display = "none";
@@ -78,3 +79,7 @@ document.addEventListener("keyup", function (e) {
 	if (e.altKey && event.keyCode == 87) 
 		OpenWeatherPopup();
 });
+
+(function() {
+	chrome.extension.sendMessage({ message: "check_timeout" }, function () { console.log("'check_timeout' sent ..."); });
+})();

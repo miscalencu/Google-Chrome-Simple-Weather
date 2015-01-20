@@ -115,6 +115,12 @@ chrome.extension.onMessage.addListener(function (request, sender, sendResponse) 
 		console.log("'update_badge' received ...");
 		updateBadge(request.weather);
 	}
+	if (request.message == "check_timeout") {
+		console.log("'check_timeout' received ...");
+		if(timeOut == null) {
+			SetRefresh();
+		}
+	}
 });
 
 chrome.webNavigation.onCompleted.addListener(function (details) {
