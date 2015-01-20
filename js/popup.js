@@ -104,7 +104,6 @@ function showUrl(url)
 
 function goToPreviousLocation()
 	{
-	debugger;
 	var locations = JSON.parse(getSettings("weatherLocations"));
 	var current = getCurrentIndex();
 	

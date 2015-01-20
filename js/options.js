@@ -25,7 +25,6 @@ $(document).ready(function() {
 	});
 
 	$("#showLabels").on("click", function () {
-		debugger;
 		setSettings("weatherLabels", ($(this).is(":checked") ? '1' : '0'));
 		refreshBadge(weatherObj);
 	});
