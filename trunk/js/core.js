@@ -103,7 +103,7 @@ function getWeatherObject(docXML) {
 	weatherObj.Date = $(docXML).find("condition").attr("date");
 	weatherObj.Description = $(docXML).find("item>description").text();
 	weatherObj.Temp = $(docXML).find("condition").attr("temp");
-	weatherObj.Icon = localStorage.imgLocation + $(docXML).find("condition").attr("code") + ".gif";
+	weatherObj.Icon = getSettings("imgLocation") + $(docXML).find("condition").attr("code") + ".gif";
     weatherObj.Condition = $(docXML).find("condition").attr("text");
 	
 	weatherObj.RefreshDate = Date();
@@ -134,12 +134,21 @@ function refreshBadge(weather) {
 }
 	
 function getLabel(str) {
-	return (localStorage.weatherLabels == "1") ? str : "";
+	return (getSettings("weatherLabels") == "1") ? str : "";
 }
 
 function DateDiff(date1, date2) {
     var datediff = date1.getTime() - date2.getTime(); //store the getTime diff - or +
     return (datediff / 1000); //Convert values to -/+ seconds and return value      
+}
+
+function OpenWindow(url) {
+	if(url === "options") {
+		chrome.tabs.create({url: chrome.extension.getURL('options.html')});
+		return;
+	}
+	
+	chrome.tabs.create({url: url});
 }
 
 // Format to local time from UTC
