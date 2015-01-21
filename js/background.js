@@ -111,15 +111,27 @@ chrome.extension.onMessage.addListener(function (request, sender, sendResponse) 
 		console.log("'update_timeout' received ...");
 		SetRefresh();
 	}
+	
 	if (request.message == "update_badge") {
 		console.log("'update_badge' received ...");
 		updateBadge(request.weather);
 	}
-	if (request.message == "check_timeout") {
-		console.log("'check_timeout' received ...");
-		if(timeOut == null) {
-			GetWeather();
-		}
+	
+	if (request.message == "reset_timeout_required") {
+		console.log("'reset_timeout_required' received ...");
+		var response = "NO";
+		if(localStorage["weatherRefreshDate"] != null) {
+			var timePassed = DateDiff(new Date(), new Date(localStorage["weatherRefreshDate"]));
+			if(timePassed > (parseInt(localStorage["weatherTimeout"]) + 1) * 60) { // something went wrong and the timeOut stopped or is null (more than a minute passed)
+				response = "YES";
+				}
+			}
+		sendResponse({status: response});
+	}
+	
+	if (request.message == "reset_timeout") {
+		console.log("'reset_timeout' received ...");
+		GetWeather();
 	}
 });
 

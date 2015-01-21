@@ -124,6 +124,8 @@ function getWeatherObject(docXML) {
     	});
     });
 	
+	setSettings("weatherRefreshDate", Date());
+	
 	return weatherObj;
 }
 
@@ -133,6 +135,11 @@ function refreshBadge(weather) {
 	
 function getLabel(str) {
 	return (localStorage.weatherLabels == "1") ? str : "";
+}
+
+function DateDiff(date1, date2) {
+    var datediff = date1.getTime() - date2.getTime(); //store the getTime diff - or +
+    return (datediff / 1000); //Convert values to -/+ seconds and return value      
 }
 
 // Format to local time from UTC
