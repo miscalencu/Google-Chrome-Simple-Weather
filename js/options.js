@@ -1,42 +1,60 @@
-var weatherObj = new Object();
+var weatherObj = null;
 
 $(document).ready(function() {
 	
-	GetWeather();
+	var locations = JSON.parse(getSettings("weatherLocations"));
+	if(locations.length > 0) {
+		GetWeather();
+	}
 	
 	$("#showInC").on("click", function () {
 		setSettings("weatherShowIn", "C");
-		GetWeather();
+		var locations = JSON.parse(getSettings("weatherLocations"));
+		if(locations.length > 0) {
+			GetWeather();
+		}
 	});
 
 	$("#showInF").on("click", function () {
 		setSettings("weatherShowIn", "F");
-		GetWeather();
+		var locations = JSON.parse(getSettings("weatherLocations"));
+		if(locations.length > 0) {
+			GetWeather();
+			}
 	});
 
 	$("#updateTimeout").on("change", function () {
 		setSettings("weatherTimeout", $(this).val());
 		chrome.extension.sendMessage({ message: "update_timeout" }, function () { console.log("'updateTimeout' sent ..."); });
 	});
+	
 	$("#imgLocation").on("change", function () {
 		setSettings("imgLocation", $(this).val());
 		fillPreviewIcons();
-		refreshBadge(weatherObj);
+		if(weatherObj != null) {
+			refreshBadge(weatherObj);
+		}
 	});
 
 	$("#showLabels").on("click", function () {
 		setSettings("weatherLabels", ($(this).is(":checked") ? '1' : '0'));
-		refreshBadge(weatherObj);
+		if(weatherObj != null) {
+			refreshBadge(weatherObj);
+		}
 	});
 
 	$("#showExternal").on("click", function () { 
 		setSettings("weatherShowLinks"($(this).is(":checked") ? '1' : '0')); 
-		refreshBadge(weatherObj);
+		if(weatherObj != null) {
+			refreshBadge(weatherObj);
+			}
 	});
 
 	$("#showDate").on("click", function () {
 		setSettings("weatherDate", ($(this).is(":checked") ? '1' : '0'));
-		refreshBadge(weatherObj);
+		if(weatherObj != null) {
+			refreshBadge(weatherObj);
+		}
 	});
 	
 	$("#showReadDate").on("click", function () {
@@ -47,7 +65,10 @@ $(document).ready(function() {
 	$("#btnAdd").on("click", function () { checkNewLocation() } );
 	$("#addLocationLink").on("click", function () { addLocation(); });
 
+	fillValues();
+	fillSkins();
 	fillPreviewIcons();
+	fillLocations();
 });
 
 function fillPreviewIcons() {
@@ -79,16 +100,17 @@ function checkNewLocation() {
 	var woeid = "", name = "";
 	var query = escape("select * from geo.places where text=\"" + $("#newLocation").val() + "\"")
 	var strUrl = "https://query.yahooapis.com/v1/public/yql?q=" + query + "&format=xml"
+	console.log("getting info from " + strUrl);
 
 	var result = jQuery.ajax({
 		type: "GET",
+		dataType: "xml",
 		url: strUrl,
 		success: function (xmlDoc) {
 			if (xmlDoc != null) {
-				var nodes = xmlDoc.getElementsByTagName("place");
-				if (nodes.length > 0) {
-					woeid = nodes[0].getElementsByTagName("woeid")[0].textContent;
-					name = nodes[0].getElementsByTagName("name")[0].textContent;
+				if ($(xmlDoc).find("place").length > 0) {
+					woeid = $($(xmlDoc).find("place>woeid")[0]).text();
+					name = $($(xmlDoc).find("place>name")[0]).text();
 				}
 			}
 
@@ -105,7 +127,7 @@ function checkNewLocation() {
 				GetWeather();
 			}
 			else {
-				document.getElementById("message").innerHTML = "No location found! Please try to specify City, Country, Code...";
+				$("#message").html("No location found! Please try to specify City, Country, Code...");
 			}
 		},
 		fail: function (jqXHR, textStatus) {
@@ -153,49 +175,36 @@ function removeLocation(index) {
 }
 
 function fillSkins() {
-    var ddl = document.getElementById("imgLocation");
-    ddl.options[0] = new Option("Default (from Yahoo)", "images/weather_icons/YAHOO/Yahoo/");
-    ddl.options[1] = new Option("Simple", "images/weather_icons/YAHOO/Simple/");
-    ddl.options[2] = new Option("Nice", "images/weather_icons/YAHOO/Nice/");
+    var ddl = $("#imgLocation");
+    ddl.append($('<option></option>').val("images/weather_icons/YAHOO/Yahoo/").html("Default (from Yahoo)"));
+	ddl.append($('<option></option>').val("images/weather_icons/YAHOO/Simple/").html("Simple"));
+	ddl.append($('<option></option>').val("images/weather_icons/YAHOO/Nice/").html("Nice"));
     
-    for (var i = 0; i < document.getElementById("imgLocation").length; i++) {
-        if (localStorage.imgLocation == document.getElementById("imgLocation")[i].value) {
-            document.getElementById("imgLocation")[i].selected = true;
-        }
-    }
+	$("imgLocation").val(getSettings("imgLocation"));
 }
 
 function fillValues()
 	{
-	document.getElementById("showIn" + localStorage.weatherShowIn).checked = true;
-	if(localStorage.weatherShowLinks == "1")
-		document.getElementById("showExternal").checked = true;
+	$("#showIn" + getSettings("weatherShowIn")).attr("checked", "checked");
+	if(getSettings("weatherShowLinks") == "1")
+		$("#showExternal").attr("checked", "checked");
 
-	if(localStorage.weatherLabels == "1")
-		document.getElementById("showLabels").checked = true;
+	if(getSettings("weatherLabels") == "1")
+		$("#showLabels").attr("checked", "checked");
 
-	if(localStorage.weatherDate == "1")
-		document.getElementById("showDate").checked = true;
+	if(getSettings("weatherDate") == "1")
+		$("#showDate").attr("checked", "checked");
 
-	if(localStorage.weatherReadDate == "1")
-		document.getElementById("showReadDate").checked = true;
+	if(getSettings("weatherReadDate") == "1")
+		$("#showReadDate").attr("checked", "checked");
 
-	for(var i=0; i<document.getElementById("updateTimeout").length; i++)
-		{
-		if(localStorage.weatherTimeout == document.getElementById("updateTimeout")[i].value)
-			{
-			document.getElementById("updateTimeout")[i].selected = true;
-			}
-		}
+	$("#updateTimeout").val(getSettings("weatherTimeout"));
 		
-    var poweredby = document.getElementById("poweredby");
-    poweredby.innerHTML = "<a href=\"http://developer.yahoo.com/weather/\" target=\"_blank\"><img align=\"middle\" border=\"0\" src=\"images/yahoo_logo.png\" alt=\"Yahoo Weather API\" title=\"Yahoo Weather API\" /></a>";
+	var poweredby = $("#poweredby");
+    poweredby.html("<a href=\"http://developer.yahoo.com/weather/\" target=\"_blank\"><img align=\"middle\" border=\"0\" src=\"images/yahoo_logo.png\" alt=\"Yahoo Weather API\" title=\"Yahoo Weather API\" /></a>");
 	}
 
 function addLocation() {
-	$("#add_location").css("display", "table-row");
+	$("#add_location").show();
+	$("#newLocation").focus();
 }
-
-fillValues();
-fillSkins();
-fillLocations();
