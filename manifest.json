@@ -20,7 +20,9 @@
 		"128": "images/icon_128.png"
 	},
 	"permissions": [
-	    "webNavigation", "tabs"
+	    "webNavigation", 
+		"tabs",
+		"geolocation"
 	],
 	"web_accessible_resources": 
 		[

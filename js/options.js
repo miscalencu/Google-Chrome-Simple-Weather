@@ -69,7 +69,28 @@ $(document).ready(function() {
 	fillSkins();
 	fillPreviewIcons();
 	fillLocations();
+
+	getGeoPosition();
 });
+
+
+function getGeoPosition() {
+	if (navigator.geolocation) {
+		console.log('Geolocation is supported!');
+		navigator.geolocation.getCurrentPosition(geoSuccess, geoError, { timeout: 10000, enableHighAccuracy: true, maximumAge:  60 * 60 * 1000 });
+	}
+	else {
+		console.log('Geolocation is not supported for this Browser/OS version yet.');
+	}
+}
+
+function geoSuccess(position) {
+	console.log("Latitude: " + position.coords.latitude + ", Longitude: " + position.coords.longitude);
+}
+
+function geoError(error) {
+	console.log('Error occurred. Error code: ' + error.code + " (" + error.message + ")");
+}
 
 function fillPreviewIcons() {
 	var icons = new Array(48);
