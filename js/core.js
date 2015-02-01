@@ -7,6 +7,9 @@ function getSettings(name) {
 			case "weatherLocations":
 				default_val = "[]";
 				break;
+		    case "weatherLocation":
+		        default_val = null;
+		        break;
 			case "weatherShowLinks":
 				default_val = "0";
 				break;
@@ -40,7 +43,7 @@ function setSettings(name, value) {
 function GetWeather() {
 	var location = JSON.parse(getSettings("weatherLocation"));
 	var showin = getSettings("weatherShowIn").toLowerCase();
-	
+	debugger;
 	if (location != null) {
 		var query = escape("select * from weather.forecast where woeid=\"" + location.woeid + "\" and u=\"" + showin + "\"");
 		var url = "https://query.yahooapis.com/v1/public/yql?q=" + query + "&format=xml";
