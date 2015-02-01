@@ -6,34 +6,43 @@ function SetRefresh() {
 }
 
 $(document).on("weather_complete", function (event) {
-	console.log("complete received ...");
-	if (isExtension) {
-		updateBadge(event.weather);
-		}
-})
+    console.log("complete received ...");
+    if (isExtension) {
+        updateBadge(event.weather);
+    }
+});
 	
 $(document).ready(function () {
 
 	var locations = JSON.parse(getSettings("weatherLocations"));
 	if (locations.length == 0) {
-		chrome.browserAction.setBadgeText({ text: "?" });
-		chrome.browserAction.setBadgeBackgroundColor({ color: [255, 0, 0, 255] });
-		chrome.browserAction.setTitle({ title: "No location defined!\nClick here to set a new location!" });
-		chrome.browserAction.setIcon({ path: "images/icon.png" });
+	    updateEmptyBadge();
 		return;
 	}
 
 	GetWeather();
 });
 
+function updateEmptyBadge() {
+    chrome.browserAction.setBadgeText({ text: "?" });
+    chrome.browserAction.setBadgeBackgroundColor({ color: [255, 0, 0, 255] });
+    chrome.browserAction.setTitle({ title: "No location defined!\nClick here to set a new location!" });
+    chrome.browserAction.setIcon({ path: "images/icon.png" });
+}
+
 function updateBadge(weatherObj) {
-	chrome.browserAction.setBadgeBackgroundColor({ color: [255, 0, 0, 255] });
-	chrome.browserAction.setBadgeText({ text: "." });
-	setTimeout(function() { chrome.browserAction.setBadgeText({ text: ".." }); }, 100);
-	setTimeout(function() { chrome.browserAction.setBadgeText({ text: "..." }); }, 200);
-	setTimeout(function() { chrome.browserAction.setBadgeText({ text: "...." }); }, 300);
-	setTimeout(function() { chrome.browserAction.setBadgeText({ text: "....." }); }, 400);
-	setTimeout(function() { goUpdateBadge(weatherObj) }, 500);
+    if (weatherObj == null) {
+        updateEmptyBadge();
+    }
+    else {
+        chrome.browserAction.setBadgeBackgroundColor({ color: [255, 0, 0, 255] });
+        chrome.browserAction.setBadgeText({ text: "." });
+        setTimeout(function () { chrome.browserAction.setBadgeText({ text: ".." }); }, 100);
+        setTimeout(function () { chrome.browserAction.setBadgeText({ text: "..." }); }, 200);
+        setTimeout(function () { chrome.browserAction.setBadgeText({ text: "...." }); }, 300);
+        setTimeout(function () { chrome.browserAction.setBadgeText({ text: "....." }); }, 400);
+        setTimeout(function () { goUpdateBadge(weatherObj) }, 500);
+    }
 }
 
 function goUpdateBadge(weatherObj) {

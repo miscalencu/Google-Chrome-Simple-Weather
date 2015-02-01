@@ -114,6 +114,11 @@ $(document).on("weather_complete", function (event) {
 	refreshBadge(event.weather);
 })
 
+$(document).on("weather_nolocation", function (event) {
+    console.log("weather_nolocation received ...");
+    refreshBadge(null);
+})
+
 function checkNewLocation() {
 
 	$("message").html("");
@@ -178,7 +183,13 @@ function fillLocations() {
 	}
 
 	if (!defaultIsPresent) {
-	    setSettings("weatherLocation", JSON.stringify(locations[0]));
+	    if (locations[0] != null) {
+	        setSettings("weatherLocation", JSON.stringify(locations[0]));
+	    }
+	    else {
+	        setSettings("weatherLocation", null);
+	    }
+	    GetWeather();
 	}
 }
 
