@@ -43,7 +43,6 @@ function setSettings(name, value) {
 function GetWeather() {
 	var location = JSON.parse(getSettings("weatherLocation"));
 	var showin = getSettings("weatherShowIn").toLowerCase();
-	debugger;
 	if (location != null) {
 		var query = escape("select * from weather.forecast where woeid=\"" + location.woeid + "\" and u=\"" + showin + "\"");
 		var url = "https://query.yahooapis.com/v1/public/yql?q=" + query + "&format=xml";
@@ -107,6 +106,7 @@ function getWeatherObject(docXML) {
 	weatherObj.Description = $(docXML).find("item>description").text();
 	weatherObj.Temp = $(docXML).find("condition").attr("temp");
 	weatherObj.Icon = getSettings("imgLocation") + $(docXML).find("condition").attr("code") + ".gif";
+	weatherObj.ConditionCode = $(docXML).find("condition").attr("code");
     weatherObj.Condition = $(docXML).find("condition").attr("text");
 	
 	weatherObj.RefreshDate = Date();
@@ -134,6 +134,68 @@ function getWeatherObject(docXML) {
 
 function refreshBadge(weather) {
 	chrome.extension.sendMessage({ message: "update_badge", weather: weather }, function () { console.log("'update_badge' sent ..."); });
+}
+
+function ShowWeatherBackground(weatherObj) {
+
+	// fill background array
+	var bg = new Array();
+	bg[0] = "storm.jpg"; // 'tornado'
+	bg[1] = "storm.jpg"; // 'tropical storm'
+	bg[2] = "storm.jpg"; // 'hurricane'
+	bg[3] = "storm.jpg"; // 'severe thunderstorms'
+	bg[4] = "storm.jpg"; // 'thunderstorms
+	bg[5] = "rain_snow.jpg"; // 'mixed rain and snow'
+	bg[6] = "rain_snow.jpg"; // 'mixed rain and sleet'
+	bg[7] = "rain_snow.jpg"; // 'mixed snow and sleet'
+	bg[8] = "freezing_drizzle.jpg"; // 'freezing drizzle'
+	bg[9] = "freezing_drizzle.jpg"; // 'drizzle'
+	bg[10] = "freezing_drizzle.jpg"; // 'freezing rain'
+	bg[11] = "showers.jpg"; // 'showers'
+	bg[12] = "showers.jpg"; // 'showers'
+	bg[13] = "light_snow.jpg"; // 'snow flurries'
+	bg[14] = "light_snow.jpg"; // 'light snow showers'
+	bg[15] = "blowing_snow.jpg"; // 'blowing snow'
+	bg[16] = "snow.jpg"; // 'snow'
+	bg[17] = "hail.jpg"; // 'hail'
+	bg[18] = "sleet.jpg"; // 'sleet'
+	bg[19] = "dust.jpg"; // 'dust'
+	bg[20] = "foggy.jpg"; // 'foggy'
+	bg[21] = "haze.jpg"; // 'haze'
+	bg[22] = "foggy.jpg"; // 'smoky'
+	bg[23] = "blow.jpg"; // 'blustery'
+	bg[24] = "windy.jpg"; // 'windy'
+	bg[25] = "cold.jpg"; // 'cold'
+	bg[26] = "cloudy.jpg"; // 'cloudy'
+	bg[27] = "mostly-cloudy-night.jpg"; // 'mostly cloudy (night)'
+	bg[28] = "mostly-cloudy-day.jpg"; // 'mostly cloudy (day)'
+	bg[29] = "partly_cloudy_night.jpg"; // 'partly cloudy (night)'
+	bg[30] = "partly_cloudy_day.jpg"; // 'partly cloudy (day)'
+	bg[31] = "clear_night.jpg"; // 'clear (night)'
+	bg[32] = "sunny.jpg"; // 'sunny'
+	bg[33] = "fair_night.jpg"; // 'fair (night)'
+	bg[34] = "fair_day.jpg"; // 'fair (day)'
+	bg[35] = "rain_snow.jpg"; // 'mixed rain and hail'
+	bg[36] = "hot.jpg"; // 'hot'
+	bg[37] = "thunderstorms.jpg"; // 'isolated thunderstorms'
+	bg[38] = "thunderstorms.jpg"; // 'scattered thunderstorms'
+	bg[39] = "thunderstorms.jpg"; // 'scattered thunderstorms'
+	bg[40] = "showers.jpg"; // 'scattered showers'
+	bg[41] = "heavy_snow.jpg"; // 'heavy snow'
+	bg[42] = "scattered_snow.jpg"; // 'scattered snow showers'
+	bg[43] = "heavy_snow.jpg"; // 'heavy snow'
+	bg[44] = "partly_cloudy_day.jpg"; // 'partly cloudy'
+	bg[45] = "thunderstorms.jpg"; // 'thundershowers'
+	bg[46] = "light_snow.jpg"; // 'snow showers'
+	bg[47] = "thunderstorms.jpg"; // 'isolated thundershowers'
+	bg[3200] = ""; // 'not available'
+
+	// apply background image
+	if (bg[weatherObj.ConditionCode] != undefined) {
+		$("body").css("background-image", "url('../images/backgrounds/" + bg[weatherObj.ConditionCode] + "')");
+	}
+
+
 }
 	
 function getLabel(str) {

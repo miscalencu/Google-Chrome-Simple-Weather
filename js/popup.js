@@ -34,6 +34,9 @@ function ShowWeather(weatherObj) {
 	if (weatherObj.AtmosphereHumidity != "")
 		content +=  "<br />Humidity: " + weatherObj.AtmosphereHumidity + " g/m<sup>3</sup>";
 
+	content += "</div>";
+	content += "<div class=\"box_forecast\">";
+
 	for (var i = 0; i < weatherObj.Forecast.length; i++) {
 
 		var weatherForecast = weatherObj.Forecast[i];
@@ -47,8 +50,9 @@ function ShowWeather(weatherObj) {
 		content += "</div>";
 		}
 
-    content += "<br clear=\"all\" />";
 	content += "</div>";
+
+    content += "<br clear=\"all\" />";
 
 	if(getSettings("weatherShowLinks") == "1")
 	{
@@ -68,7 +72,7 @@ function ShowWeather(weatherObj) {
 	if(footerContent != "")
 		content += "<div class=\"footer\">" + footerContent + "</div>";
 
-	$("#weather").html(content);	
+	$("#weather").html(content);
 }
 
 function getCurrentIndex()
@@ -138,7 +142,9 @@ function AddListeners() {
 }
 
 $(document).ready(function () {
+
 	var locations = JSON.parse(getSettings("weatherLocations"));
+	
 	if (locations.length == 0) {
 		$("#title").html("No locations defined!");
 		$("#weather").html("<a href=\"#\" id=\"set_locations\">Click here to set locations.</a>");
@@ -149,9 +155,23 @@ $(document).ready(function () {
 		GetWeather();
 	}
 
+	chrome.extension.onMessage.addListener(function (request, sender, sendResponse) {
+		console.log("message received ...");
+		if (request.message == "goto_previous") {
+			console.log("'goto_previous' received ...");
+			goToPreviousLocation();
+		}
+
+		if (request.message == "goto_next") {
+			console.log("'goto_next' received ...");
+			goToNextLocation();
+		}
+	});
+
 	$(document).on("weather_complete", function (event) {
 		console.log("complete received ...");
 		ShowWeather(event.weather);
+		ShowWeatherBackground(event.weather);
 		AddListeners();
 		try { // could not be an extension
 			refreshBadge(event.weather);
@@ -159,11 +179,20 @@ $(document).ready(function () {
 		catch(e) {
 			console.log("Sorry, cannot update badge ... ");
 		}
+		$(document).focus();
 	});
 
 	$(document).on("keyup", function (e) {
 		if (e.keyCode == 27) {   // esc
 			window.top.postMessage({ args: "close" }, '*');
+		}
+
+		if (e.keyCode == 37) {   // left
+			goToPreviousLocation();
+		}
+
+		if (e.keyCode == 39) {   // right
+			goToNextLocation();
 		}
 	});
 });

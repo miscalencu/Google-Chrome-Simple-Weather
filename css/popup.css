@@ -1,19 +1,33 @@
 ﻿body 
 	{
-	background-color: white;
-	color: black;
+	background-color: #000;
+	color: white;
+	background-size: cover;
+	background-repeat: no-repeat;
+	font-family: Trebuchet MS;
+	font-size: 12px;
+	padding: 0;
+	margin: 0;
 	}
 
-body, table tr td
+table tr td
 	{
 	font-family: Trebuchet MS;
 	font-size: 12px;
+	padding: 10px;
 	}
+	
+
+#main_container 
+{
+	background-color: rgba(0, 0, 0, 0.4);
+	padding: 0px;
+	height: 480px;
+}
 
 .box, .box_now
 	{
 	padding: 7px;
-	background-color: #F7F7F7;
 	margin: 5px;
 	clear: both;
 	vertical-align: middle;
@@ -21,8 +35,12 @@ body, table tr td
 	
 .box_now
 	{
-	background-color: #f3f9fd;
-	}	
+	float: left;
+	}
+
+.box_forecast {
+	float: right;
+}
 
 .box img, .box_now img
 	{
