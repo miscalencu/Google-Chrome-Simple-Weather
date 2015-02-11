@@ -1,6 +1,6 @@
 ﻿function OpenWeatherPopup() {
-	var w = 600;
-	var h = 400;
+	var w = 740;
+	var h = 480;
 	var url = chrome.extension.getURL("popup.htm");
 
 	var sw_splashContainer = document.getElementById("simple_weather_splash_wrapper_popup");
@@ -18,10 +18,10 @@
 		sw_splashContainer.appendChild(sw_iframeContainer);
 	}
 
-	sw_iframeContainer.style.width = (w + 14) + "px";
-	sw_iframeContainer.style.height = (h + 14) + "px";
+	sw_iframeContainer.style.width = w + "px";
+	sw_iframeContainer.style.height = h + "px";
 
-	sw_iframeContainer.innerHTML = "<iframe class=\"sw_framepopup\" frameborder=\"0\" width=\"" + w + "\" height=\"" + h + "\" src=\"" + url + "\"></iframe>";
+	sw_iframeContainer.innerHTML = "<iframe class=\"sw_framepopup\" id=\"sw_framepopup\" name=\"sw_framepopup\" frameborder=\"0\" width=\"" + w + "\" height=\"" + h + "\" src=\"" + url + "\"></iframe>";
 	sw_splashContainer.style.display = "block";
 
 	var myWidth = window.innerWidth, myHeight = window.innerHeight;
@@ -36,22 +36,28 @@
 
 	sw_iframeContainer.style.top = Top + "px";
 	sw_iframeContainer.style.left = Left + "px";
-	sw_iframeContainer.style.padding = "7px";
-
+	
 	document.addEventListener("keyup", function (e) {
-		if (e.keyCode == 27) { CloseWeatherPopup(); }   // esc
+		if (e.keyCode == 27) {   // esc
+			CloseWeatherPopup();
+		}
 	});
 
 	document.addEventListener("click", function (e) {
 		CloseWeatherPopup(); // mouse click
 	});
 
+	// does not work without the timeout
+	setTimeout(document.getElementById("sw_framepopup").focus(), 100);
+	
+	weatherOpened = true;
 	return;
 }
 
 function CloseWeatherPopup() {
 	var sw_iframeContainer = document.getElementById("simple_weather_splash_wrapper_popup");
 	sw_iframeContainer.style.display = "none";
+	weatherOpened = false;
 }
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
@@ -76,11 +82,13 @@ window.addEventListener("message", function (e) {
 
 // open popup on Alt + w
 document.addEventListener("keyup", function (e) {
-	if (e.altKey && event.keyCode == 87) 
+	if (e.altKey && e.keyCode == 87) {  // alt + w
 		OpenWeatherPopup();
+	}
 });
 
-(function() {
+(function () {
+	var weatherOpened = false;
 	chrome.extension.sendMessage({ message: "reset_timeout_required" }, function (response) { 
 		// console.log("'reset_timeout_required' sent ... " + response.status + " received!"); 
 		if(response.status == "YES") {
