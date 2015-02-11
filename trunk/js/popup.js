@@ -20,9 +20,9 @@ function ShowWeather(weatherObj) {
 	var content = "<div class=\"box_now\">";
 		
 	if(weatherObj.Icon != "")
-		content += "<img align=\"left\" width=\"45\" src=\"" + weatherObj.Icon + "\" alt=\"" + weatherObj.Condition + "\" title=\"" + weatherObj.Condition + "\" />";
+		content += "<img width=\"45\" src=\"" + weatherObj.Icon + "\" alt=\"" + weatherObj.Condition + "\" title=\"" + weatherObj.Condition + "\" />";
 		
-	content += "<div style=\"height:10px\"></div>" + getLabel("<b>Now</b>: ");
+	content += "<br /><div style=\"height:10px\"></div>" + getLabel("<b>Now</b>: ");
 	content += "<span class=\"now\">" + weatherObj.Temp + "&deg;" + showin + "</span>";
 
 	if(weatherObj.Condition != "")
@@ -51,28 +51,30 @@ function ShowWeather(weatherObj) {
 		}
 
 	content += "</div>";
+	content += "<br clear=\"all\" />";
 
-    content += "<br clear=\"all\" />";
+	$("#weather").html(content);
 
+    var footerContent = "";
 	if(getSettings("weatherShowLinks") == "1")
 	{
-		content += "<div style=\"border-top:1px solid #CCCCCC; margin-top:5px; padding-top: 10px;\">";
-		content += "	View extended forecast details at: ";
-		content += "	<a href=\"#\" id=\"add_link_twc\"><img hspace=\"5\" align=\"absmiddle\" border=\"0\" src=\"images/icons/twc.png\" alt=\"Weather.com\" title=\"Weather.com\" /></a>";
-		content += "	<a href=\"#\" id=\"add_link_wund\"><img hspace=\"5\" align=\"absmiddle\" border=\"0\" src=\"images/icons/wu.png\" alt=\"Wunderground.com\" title=\"Wunderground.com\" /></a>";
-		content += "</div>";
+		footerContent += "<div class=\"separator\"></div>";
+		footerContent += "<div class=\"inner_content\">";
+		footerContent += "View extended forecast details at: ";
+		footerContent += "<a href=\"#\" id=\"add_link_twc\"><img hspace=\"5\" align=\"absmiddle\" border=\"0\" src=\"images/icons/twc.png\" alt=\"Weather.com\" title=\"Weather.com\" /></a>";
+		footerContent += "<a href=\"#\" id=\"add_link_wund\"><img hspace=\"5\" align=\"absmiddle\" border=\"0\" src=\"images/icons/wu.png\" alt=\"Wunderground.com\" title=\"Wunderground.com\" /></a>";
+		footerContent += "</div>";
+		footerContent += "<div class=\"separator\"></div>";
 	}
 	
-	var footerContent = "";
+	footerContent += "<div class=\"inner_content\" style=\"font-size: 10px; margin-bottom:0\">";
 	if(getSettings("weatherDate") == "1")
 		footerContent += "Valid for " + weatherObj.Date + ".<br/>";
 	if (getSettings("weatherReadDate") == "1")
 		footerContent += "Last time checked on: " + formatToLocalTimeDate(new Date()) + ".<br/>";
+	footerContent += "</div>";
 
-	if(footerContent != "")
-		content += "<div class=\"footer\">" + footerContent + "</div>";
-
-	$("#weather").html(content);
+	$("#footer").html(footerContent);
 }
 
 function getCurrentIndex()

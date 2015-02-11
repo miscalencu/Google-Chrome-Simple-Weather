@@ -36,10 +36,13 @@ table tr td
 .box_now
 	{
 	float: left;
+	width: 50%;
 	}
 
 .box_forecast {
 	float: right;
+	width: 40%;
+	text-align: right;
 }
 
 .box img, .box_now img
@@ -78,11 +81,22 @@ table tr td
 	font-weight: bold;
 	}
 
-.footer
+#weather {
+	height: 335px;
+}
+
+#footer
 	{
 	color: #AAAAAA;
-	font-size: 10px;
-	border-top: 1px solid #AAAAAA;
-	margin-top: 10px;
-	padding-top: 10px;
+	font-size: 11px;
+	padding: 10px 0 0 0;
 	}
+
+.inner_content {
+	padding: 10px;
+}
+
+.separator {
+	height: 1px;
+	background-color: white;
+}
