@@ -44,7 +44,7 @@ $(document).ready(function() {
 	});
 
 	$("#showExternal").on("click", function () { 
-		setSettings("weatherShowLinks"($(this).is(":checked") ? '1' : '0')); 
+		setSettings("weatherShowLinks", ($(this).is(":checked") ? '1' : '0')); 
 		if(weatherObj != null) {
 			refreshBadge(weatherObj);
 			}
