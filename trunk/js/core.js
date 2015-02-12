@@ -192,7 +192,8 @@ function ShowWeatherBackground(weatherObj) {
 
 	// apply background image
 	if (bg[weatherObj.ConditionCode] != undefined) {
-		$("body").css("background-image", "url('../images/backgrounds/" + bg[weatherObj.ConditionCode] + "')");
+	    $("body").css("background-image", "url('../images/backgrounds/" + bg[weatherObj.ConditionCode] + "')");
+	    $("body").css("background-color", "transparent");
 	}
 
 
