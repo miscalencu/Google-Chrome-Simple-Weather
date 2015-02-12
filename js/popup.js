@@ -1,80 +1,84 @@
 function ShowWeather(weatherObj) {
 	var locations = JSON.parse(getSettings("weatherLocations"));
 	var showin = getSettings("weatherShowIn");
-	
-	var headerContent = "";
-	headerContent += "<table width=\"100%\" cellspacing=\"3\" cellpadding=\"3\" border=\"0\">";
-	headerContent += "	<tr>";
-	headerContent += "		<td align=\"left\">" + getLabel("Weather in ") + weatherObj.LocationCity + "</td>";
-	headerContent += "		<td align=\"right\" style=\"white-space:nowrap\">";
-	headerContent += "			<a href=\"#\" id=\"link_previous\"><img align=\"absmiddle\" src=\"images/arrow_left.png\" alt=\"View previous location\" title=\"View previous location\" /></a>";
-	headerContent += "			<b>" + (1 + getCurrentIndex()) + "/" + locations.length + "</b> ";
-	headerContent += "			<a href=\"#\" id=\"link_next\"><img align=\"absmiddle\" src=\"images/arrow_right.png\" alt=\"View next location\" title=\"View next location\" /></a>";
-	headerContent += "		</td>";
-	headerContent += "	</tr>";
-	headerContent += "</table>";
 
-	$("#title").html(headerContent);
-	$("#weather").html("");
-	
-	var content = "<div class=\"box_now\">";
-		
-	if(weatherObj.Icon != "")
-		content += "<img width=\"45\" src=\"" + weatherObj.Icon + "\" alt=\"" + weatherObj.Condition + "\" title=\"" + weatherObj.Condition + "\" />";
-		
-	content += "<br /><div style=\"height:10px\"></div>" + getLabel("<b>Now</b>: ");
-	content += "<span class=\"now\">" + weatherObj.Temp + "&deg;" + showin + "</span>";
+	$("#main_container").fadeOut("fast", function () {
 
-	if(weatherObj.Condition != "")
-		content += " - " + weatherObj.Condition;
+		var headerContent = "";
+		headerContent += "<div class=\"pull-left\">" + getLabel("Weather in ") + weatherObj.LocationCity + ((weatherObj.LocationCountry.length == 0) ? "" : (" - " + weatherObj.LocationCountry)) + ((weatherObj.LocationRegion.length == 0) ? "" : (" - " + weatherObj.LocationRegion)) + "</div>";
+		headerContent += "<div class=\"pull-right links\">";
+		headerContent += "	<a href=\"#\" id=\"link_previous\"><span class=\"glyphicon glyphicon-chevron-left\"title=\"View previous location\"></span></a>";
+		headerContent += "	<b>" + (1 + getCurrentIndex()) + " / " + locations.length + "</b> ";
+		headerContent += "	<a href=\"#\" id=\"link_next\"><span class=\"glyphicon glyphicon-chevron-right\" title=\"View next location\" /></span></a>";
+		headerContent += "</div>";
 
-	if(weatherObj.WindSpeed != "")
-		content += "<br />Wind speed: " + weatherObj.WindSpeed + " " + weatherObj.UnitSpeed;
+		$("#title").html(headerContent);
+		$("#weather").html("");
 
-	if (weatherObj.AtmosphereHumidity != "")
-		content +=  "<br />Humidity: " + weatherObj.AtmosphereHumidity + " g/m<sup>3</sup>";
+		var content = "<div class=\"box_now\">";
 
-	content += "</div>";
-	content += "<div class=\"box_forecast\">";
+		if (weatherObj.Icon != "")
+			content += "<img width=\"45\" src=\"" + weatherObj.Icon + "\" alt=\"" + weatherObj.Condition + "\" title=\"" + weatherObj.Condition + "\" />";
 
-	for (var i = 0; i < weatherObj.Forecast.length; i++) {
+		content += "<br /><div style=\"height:10px\"></div>" + getLabel("<b>Now</b>: ");
+		content += "<span class=\"now\">" + weatherObj.Temp + "&deg;" + showin + "</span>";
 
-		var weatherForecast = weatherObj.Forecast[i];
+		if (weatherObj.Condition != "")
+			content += " - " + weatherObj.Condition;
 
-		content += "<div class=\"box\">";
-		content += "<b>" + weatherForecast.Day + "</b>: ";
-		content += weatherForecast.Condition + "<br />";
-		content += getLabel("High/Low: ");
-		content += "<span class=\"high\">" + weatherForecast.High + "&deg;" + showin + "</span> / ";
-		content += "<span class=\"low\">" + weatherForecast.Low + "&deg;" + showin + "</span>";
+		if (weatherObj.WindSpeed != "")
+			content += "<br />Wind speed: " + weatherObj.WindSpeed + " " + weatherObj.UnitSpeed;
+
+		if (weatherObj.AtmosphereHumidity != "")
+			content += "<br />Humidity: " + weatherObj.AtmosphereHumidity + " g/m<sup>3</sup>";
+
 		content += "</div>";
+		content += "<div class=\"box_forecast\">";
+
+		for (var i = 0; i < weatherObj.Forecast.length; i++) {
+
+			var weatherForecast = weatherObj.Forecast[i];
+
+			content += "<div class=\"box\">";
+			content += "<b>" + weatherForecast.Day + "</b>: ";
+			content += weatherForecast.Condition + "<br />";
+			content += getLabel("High/Low: ");
+			content += "<span class=\"high\">" + weatherForecast.High + "&deg;" + showin + "</span> / ";
+			content += "<span class=\"low\">" + weatherForecast.Low + "&deg;" + showin + "</span>";
+			content += "</div>";
 		}
 
-	content += "</div>";
-	content += "<br clear=\"all\" />";
+		content += "</div>";
+		content += "<br clear=\"all\" />";
 
-	$("#weather").html(content);
+		$("#weather").html(content);
 
-    var footerContent = "";
-	if(getSettings("weatherShowLinks") == "1")
-	{
-		footerContent += "<div class=\"separator\"></div>";
-		footerContent += "<div class=\"inner_content\">";
-		footerContent += "View extended forecast details at: ";
-		footerContent += "<a href=\"#\" id=\"add_link_twc\"><img hspace=\"5\" align=\"absmiddle\" border=\"0\" src=\"images/icons/twc.png\" alt=\"Weather.com\" title=\"Weather.com\" /></a>";
-		footerContent += "<a href=\"#\" id=\"add_link_wund\"><img hspace=\"5\" align=\"absmiddle\" border=\"0\" src=\"images/icons/wu.png\" alt=\"Wunderground.com\" title=\"Wunderground.com\" /></a>";
+		var footerContent = "";
+		if (getSettings("weatherShowLinks") == "1") {
+			footerContent += "<div class=\"separator\"></div>";
+			footerContent += "<div class=\"inner_content\">";
+			footerContent += "View extended forecast details at: ";
+			footerContent += "<a href=\"#\" id=\"add_link_twc\"><img hspace=\"5\" align=\"absmiddle\" border=\"0\" src=\"images/icons/twc.png\" alt=\"Weather.com\" title=\"Weather.com\" /></a>";
+			footerContent += "<a href=\"#\" id=\"add_link_wund\"><img hspace=\"5\" align=\"absmiddle\" border=\"0\" src=\"images/icons/wu.png\" alt=\"Wunderground.com\" title=\"Wunderground.com\" /></a>";
+			footerContent += "</div>";
+			footerContent += "<div class=\"separator\"></div>";
+		}
+
+		footerContent += "<div class=\"inner_content\" style=\"font-size: 10px; margin-bottom:0\">";
+		if (getSettings("weatherDate") == "1")
+			footerContent += "Valid for " + weatherObj.Date + ".<br/>";
+		if (getSettings("weatherReadDate") == "1")
+			footerContent += "Last time checked on: " + formatToLocalTimeDate(new Date()) + ".<br/>";
 		footerContent += "</div>";
-		footerContent += "<div class=\"separator\"></div>";
-	}
-	
-	footerContent += "<div class=\"inner_content\" style=\"font-size: 10px; margin-bottom:0\">";
-	if(getSettings("weatherDate") == "1")
-		footerContent += "Valid for " + weatherObj.Date + ".<br/>";
-	if (getSettings("weatherReadDate") == "1")
-		footerContent += "Last time checked on: " + formatToLocalTimeDate(new Date()) + ".<br/>";
-	footerContent += "</div>";
 
-	$("#footer").html(footerContent);
+		$("#footer").html(footerContent);
+
+		ShowWeatherBackground(weatherObj);
+
+		$('#main_container').fadeIn("fast");
+
+		AddListeners();
+	});
 }
 
 function getCurrentIndex()
@@ -150,6 +154,7 @@ $(document).ready(function () {
 	if (locations.length == 0) {
 		$("#title").html("No locations defined!");
 		$("#weather").html("<a href=\"#\" id=\"set_locations\">Click here to set locations.</a>");
+		$("#main_container").show();
 		AddListeners();
 		return;
 		}
@@ -173,8 +178,6 @@ $(document).ready(function () {
 	$(document).on("weather_complete", function (event) {
 		console.log("complete received ...");
 		ShowWeather(event.weather);
-		ShowWeatherBackground(event.weather);
-		AddListeners();
 		try { // could not be an extension
 			refreshBadge(event.weather);
 		}
