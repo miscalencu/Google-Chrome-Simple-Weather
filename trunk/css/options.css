@@ -3,21 +3,33 @@ body, input
 	font-family: Trebuchet MS;
 	font-size: 12px;
 	margin: 20px;
+	background-color: #000;
+	color: #ccc;
 	}
 
 .box
 	{
 	padding: 7px;
-	background-color: #F7F7F7;
 	margin: 5px;
 	clear: both;
 	font-size: 12px;
 	width: 550px;
 	}
 
+.box, #preview {
+	background-color: #333;
+	float: left;
+	padding-right: 10px;
+	height: 320px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 10px;
+}
+
 h1
 	{
-	border-bottom: 1px solid #CCCCCC;
+	color: #fff;
+	border-bottom: 1px solid #fff;
 	margin-bottom: 16px;
 	}
 
@@ -31,6 +43,7 @@ input
 	{
 	margin: 0;
 	padding: 0;
+	font-size: 12px;
 	}
 
 .spacer
@@ -68,11 +81,6 @@ a:hover
 	text-decoration: none;
 	}
 
-input
-	{
-	font-size: 12px;
-	}
-
 .button
 	{
 	background-color: #0099cc;
@@ -85,7 +93,6 @@ input
 #preview
 	{
 	padding: 7px;
-	background-color: #F7F7F7;
 	margin: 5px;
 	float:left;
 	width: 650px;
@@ -100,4 +107,8 @@ input
 #message
     {
     color: Yellow;    
-    }	
+    }
+
+.clear {
+	clear: both;
+}
