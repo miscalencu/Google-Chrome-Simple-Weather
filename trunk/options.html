@@ -2,18 +2,28 @@
 <html>
 	<head>
 		<title>Settings for the Simply Weather extension</title>
-		<link href="/css/options.css" media="screen" rel="stylesheet" type="text/css" />
 		<script src="/js/jquery/jquery-1.11.0.min.js"></script>
 		<script src="/js/jquery/jquery-migrate-1.2.1.min.js"></script>
+
+		<link rel="stylesheet" href="/bootstrap/3.3.2/css/bootstrap.min.css">
+		<script src="/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+		<link href="/css/options.css" media="screen" rel="stylesheet" type="text/css" />
+		<link href="/css/weather.css" media="screen" rel="stylesheet" type="text/css" />
 	</head>
 	<body>
 		<script type="text/javascript" src="js/dateformat.js"></script>
 		<script type="text/javascript" src="js/core.js"></script>
-		
+			
 		<div class="header">
-			<img class="text-middle" border="0" src="images/icon_128.png" alt="Google Weather for Chrome" title="Google Weather for Chrome" />
-			<span id="power">powered by</span>
-			<span id="poweredby"></span>
+			<div class="logo">
+				<div class="icon_weather_large" title="Google Weather for Chrome">
+					<span class="basecloud"></span>
+					<span class="icon-windy icon-sunny"></span>
+				</div>
+			</div>
+			<span class="power">powered by</span>
+			<span class="poweredby"></span>
 		</div>
 
 		<h1>Settings for Simply Weather for Chrome extension</h1>
