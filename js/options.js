@@ -232,7 +232,7 @@ function fillValues()
 
 	$("#updateTimeout").val(getSettings("weatherTimeout"));
 		
-	var poweredby = $("#poweredby");
+	var poweredby = $(".poweredby");
     poweredby.html("<a href=\"http://developer.yahoo.com/weather/\" target=\"_blank\"><img align=\"middle\" border=\"0\" src=\"images/yahoo_logo.png\" alt=\"Yahoo Weather API\" title=\"Yahoo Weather API\" /></a>");
 	}
 
