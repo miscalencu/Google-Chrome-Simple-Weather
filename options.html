@@ -10,84 +10,88 @@
 		<script type="text/javascript" src="js/dateformat.js"></script>
 		<script type="text/javascript" src="js/core.js"></script>
 		
-		<img class="text-middle" border="0" src="images/icon_128.png" alt="Google Weather for Chrome" title="Google Weather for Chrome" />
-		<span id="power">powered by</span>
-		<span id="poweredby"></span>
+		<div class="header">
+			<img class="text-middle" border="0" src="images/icon_128.png" alt="Google Weather for Chrome" title="Google Weather for Chrome" />
+			<span id="power">powered by</span>
+			<span id="poweredby"></span>
+		</div>
 
 		<h1>Settings for Simply Weather for Chrome extension</h1>
-		<br />
-
-		<table class="box" cellpadding="5" cellspacing="0" align="left">
-			<tr>
-				<th valign="top" width="200">Current locations:</th>
-				<td>
-                    <div id="weather_locations"></div>
-                    <a id="addLocationLink" href="#new">add new location</a>
-                </td>
-			</tr>
-            <tr id="add_location">
-				<th valign="top">Type in a new location to add:</th>
-				<td>
-                    <a name="new"></a>
-					<input type="text" style="width: 250px; height: 20px;" id="newLocation" value="" /> 
-					<input type="button" class="button" id="btnAdd" value="Add" /> <br/>
-					<div id="message"></div>
-				</td>
-			</tr>
-			<tr>
-				<th>Show values in</th>
-				<td>
-					<input type="radio" value="C" id="showInC" name="showIn" /> &deg;C
-					&nbsp;&nbsp;&nbsp;
-					<input type="radio" value="F" id="showInF" name="showIn" /> &deg;F
-				</td>
-			</tr>
-			<tr>
-				<th>Background update timeout</th>
-				<td>
-					<select name="updateTimeout" id="updateTimeout">
-						<option value="1">1 minute</option>
-						<option value="5">5 minutes</option>
-						<option value="10">10 minutes</option>
-						<option value="15">15 minutes</option>
-						<option value="30">30 minutes</option>
-						<option value="60">1 hour</option>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<th>Icons</th>
-				<td>
-					<select name="imgLocation" id="imgLocation"></select>
-				</td>
-			</tr>
-			<tr>
-				<th>Show labels</th>
-				<td>
-					<input type="checkbox" value="C" id="showLabels" name="showLabels" />
-					<small>(show "Weather in", "Now", "High/Low")</small>
-				</td>
-			</tr>
-			<tr>
-				<th>Show external links</th>
-				<td>
-					<input type="checkbox" value="C" id="showExternal" name="showExternal" />
-					<small>(links to Weather.com and Weatherunderground.com)</small>
-				</td>
-			</tr>
-			<tr>
-				<th>Show weather date</th>
-				<td>
-					<input type="checkbox" value="C" id="showDate" name="showDate" />
-				</td>
-			</tr>
-			<tr>
-				<th>Show last read date</th>
-				<td>
-					<input type="checkbox" value="C" id="showReadDate" name="showReadDate" />
-				</td>
-			</tr>
-		</table>
+		
+		<div class="box">
+			<table cellpadding="5" cellspacing="0" align="left">
+				<tr>
+					<th valign="top" width="200">Current locations:</th>
+					<td>
+						<div id="weather_locations"></div>
+						<a id="addLocationLink" href="#new">add new location</a>
+					</td>
+				</tr>
+				<tr id="add_location">
+					<th valign="top">Type in a new location to add:</th>
+					<td>
+						<a name="new"></a>
+						<input type="text" style="width: 250px; height: 20px;" id="newLocation" value="" /> 
+						<input type="button" class="button" id="btnAdd" value="Add" /> <br/>
+						<div id="message"></div>
+					</td>
+				</tr>
+				<tr>
+					<th>Show values in</th>
+					<td>
+						<input type="radio" value="C" id="showInC" name="showIn" /> &deg;C
+						&nbsp;&nbsp;&nbsp;
+						<input type="radio" value="F" id="showInF" name="showIn" /> &deg;F
+					</td>
+				</tr>
+				<tr>
+					<th>Background update timeout</th>
+					<td>
+						<select name="updateTimeout" id="updateTimeout">
+							<option value="1">1 minute</option>
+							<option value="5">5 minutes</option>
+							<option value="10">10 minutes</option>
+							<option value="15">15 minutes</option>
+							<option value="30">30 minutes</option>
+							<option value="60">1 hour</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>Icons</th>
+					<td>
+						<select name="imgLocation" id="imgLocation"></select>
+					</td>
+				</tr>
+				<tr>
+					<th>Show labels</th>
+					<td>
+						<input type="checkbox" value="C" id="showLabels" name="showLabels" />
+						<small>(show "Weather in", "Now", "High/Low")</small>
+					</td>
+				</tr>
+				<tr>
+					<th>Show external links</th>
+					<td>
+						<input type="checkbox" value="C" id="showExternal" name="showExternal" />
+						<small>(links to Weather.com and Weatherunderground.com)</small>
+					</td>
+				</tr>
+				<tr>
+					<th>Show weather date</th>
+					<td>
+						<input type="checkbox" value="C" id="showDate" name="showDate" />
+					</td>
+				</tr>
+				<tr>
+					<th>Show last read date</th>
+					<td>
+						<input type="checkbox" value="C" id="showReadDate" name="showReadDate" />
+					</td>
+				</tr>
+			</table>
+			<br class="clear" />
+		</div>
 
 		<div id="preview">
 			<b>Icons preview:</b>
@@ -95,7 +99,7 @@
 			<div id="preview_icons"></div>
 		</div>
 
-        <br clear="all" />
+        <br class="clear" />
 		<br />
 		<h1>Support this extension:</h1>
 				
@@ -107,6 +111,6 @@
 			if you like my work!
 		</b>
 
-		<script language="javascript" type="text/javascript" src="js/options.js"></script>
+		<script type="text/javascript" src="js/options.js"></script>
 	</body>
 </html>
