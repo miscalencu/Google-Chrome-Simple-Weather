@@ -32,11 +32,13 @@
 div.icon_weather {
 	width: 80px;
 	height: 80px;
+	line-height: 80px;
 }
 
 div.icon_weather_large {
 	width: 120px;
 	height: 120px;
+	line-height: 120px;
 }
 
 	div.icon_weather_large * {
@@ -46,6 +48,10 @@ div.icon_weather_large {
 div.icon_weather_small {
 	width: 50px;
 	height: 50px;
+	margin: 5px;
+	float: left;
+	vertical-align: central;
+	line-height: 50px;
 }
 
 	div.icon_weather_small * {
