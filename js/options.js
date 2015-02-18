@@ -102,7 +102,13 @@ function fillPreviewIcons() {
 	}
 
 	for (var i = 0; i < icons.length; i++) {
-		content += "<img src=\"" + foldericons + icons[i] + "\" />";
+		icon = getIcon(i, "icon_weather_small");
+		if (icon != "") {
+			content += icon;
+		}
+		else {
+			content += "<img src=\"" + foldericons + icons[i] + "\" />";
+		}
 	}
 
 	$("#preview_icons").html(content);
@@ -233,7 +239,7 @@ function fillValues()
 	$("#updateTimeout").val(getSettings("weatherTimeout"));
 		
 	var poweredby = $(".poweredby");
-    poweredby.html("<a href=\"http://developer.yahoo.com/weather/\" target=\"_blank\"><img align=\"middle\" border=\"0\" src=\"images/yahoo_logo.png\" alt=\"Yahoo Weather API\" title=\"Yahoo Weather API\" /></a>");
+    poweredby.html("<a href=\"http://developer.yahoo.com/weather/\" target=\"_blank\"><img align=\"middle\" border=\"0\" src=\"images/yahoo_logo.png\" width=\"180\" alt=\"Yahoo Weather API\" title=\"Yahoo Weather API\" /></a>");
 	}
 
 function addLocation() {

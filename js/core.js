@@ -251,3 +251,169 @@ function arrindex(arr, obj) {
     }
     return -1;
 }
+
+function getIcon(code, classname) {
+
+	var icon = "";
+	var title = "";
+	if(classname == undefined)
+		classname = "";
+
+	switch (code) {
+		default:
+		case 0:
+			icon = "<span class=\"basethundercloud\"></span><span class=\"icon-thunder\"></span>"; // 'tornado'
+			title = "Tornado";
+			break;
+		case 1:
+			icon = ""; // 'tropical storm'
+			break;
+		case 2:
+			icon = ""; // 'hurricane'
+			break;
+		case 3:
+			icon = ""; // 'severe thunderstorms'
+			break;
+		case 4:
+			icon = ""; // 'thunderstorms
+			break;
+		case 5:
+			icon = ""; // 'mixed rain and snow'
+			break;
+		case 6:
+			icon = ""; // 'mixed rain and sleet'
+			break;
+		case 7:
+			icon = ""; // 'mixed snow and sleet'
+			break;
+		case 8:
+			icon = ""; // 'freezing drizzle'
+			break;
+		case 9:
+			icon = ""; // 'drizzle'
+			break;
+		case 10:
+			icon = ""; // 'freezing rain'
+			break;
+		case 11:
+			icon = ""; // 'showers'
+			break;
+		case 12:
+			icon = ""; // 'showers'
+			break;
+		case 13:
+			icon = ""; // 'snow flurries'
+			break;
+		case 14:
+			icon = ""; // 'light snow showers'
+			break;
+		case 15:
+			icon = ""; // 'blowing snow'
+			break;
+		case 16:
+			icon = ""; // 'snow'
+			break;
+		case 17:
+			icon = ""; // 'hail'
+			break;
+		case 18:
+			icon = ""; // 'sleet'
+			break;
+		case 19:
+			icon = ""; // 'dust'
+			break;
+		case 20:
+			icon = ""; // 'foggy'
+			break;
+		case 21:
+			icon = ""; // 'haze'
+			break;
+		case 22:
+			icon = ""; // 'smoky'
+			break;
+		case 23:
+			icon = ""; // 'blustery'
+			break;
+		case 24:
+			icon = ""; // 'windy'
+			break;
+		case 25:
+			icon = ""; // 'cold'
+			break;
+		case 26:
+			icon = ""; // 'cloudy'
+			break;
+		case 27:
+			icon = ""; // 'mostly cloudy (night)'
+			break;
+		case 28:
+			icon = ""; // 'mostly cloudy (day)'
+			break;
+		case 29:
+			icon = ""; // 'partly cloudy (night)'
+			break;
+		case 30:
+			icon = ""; // 'partly cloudy (day)'
+			break;
+		case 31:
+			icon = ""; // 'clear (night)'
+			break;
+		case 32:
+			icon = ""; // 'sunny'
+			break;
+		case 33:
+			icon = ""; // 'fair (night)'
+			break;
+		case 34:
+			icon = ""; // 'fair (day)'
+			break;
+		case 35:
+			icon = ""; // 'mixed rain and hail'
+			break;
+		case 36:
+			icon = ""; // 'hot'
+			break;
+		case 37:
+			icon = ""; // 'isolated thunderstorms'
+			break;
+		case 38:
+			icon = "";// 'scattered thunderstorms'
+			break;
+		case 39:
+			icon = ""; // 'scattered thunderstorms'
+			break;
+		case 40:
+			icon = ""; // 'scattered showers'
+			break;
+		case 41:
+			icon = ""; // 'heavy snow'
+			break;
+		case 42:
+			icon = ""; // 'scattered snow showers'
+			break;
+		case 43:
+			icon = ""; // 'heavy snow'
+			break;
+		case 44:
+			icon = ""; // 'partly cloudy'
+			break;
+		case 45:
+			icon = ""; // 'thundershowers'
+			break;
+		case 46:
+			icon = ""; // 'snow showers'
+			break;
+		case 47:
+			icon = ""; // 'isolated thundershowers'
+			break;
+		case 3200:
+			icon = ""; // 'not available'
+			break;
+	}
+
+	if (icon != "") {
+		icon = "<div class=\"" + classname + "\" title=\"" + title + "\">" + icon + "</div>";
+	}
+
+	return icon;
+}
