@@ -252,21 +252,20 @@ function arrindex(arr, obj) {
     return -1;
 }
 
-function getIcon(code, classname) {
+function getIcon(code) {
 
 	var icon = "";
 	var title = "";
-	if(classname == undefined)
-		classname = "";
 
 	switch (code) {
 		default:
 		case 0:
-			icon = "<span class=\"basethundercloud\"></span><span class=\"icon-thunder\"></span>"; // 'tornado'
+			icon = "<i class=\"wi wi-tornado\"></i>"; // 'tornado'
 			title = "Tornado";
 			break;
 		case 1:
-			icon = ""; // 'tropical storm'
+			icon = "<i class=\"wi wi-day-thunderstorm\"></i>"; // 'tropical storm'
+			title = "Tropical Storm";
 			break;
 		case 2:
 			icon = ""; // 'hurricane'
@@ -412,7 +411,7 @@ function getIcon(code, classname) {
 	}
 
 	if (icon != "") {
-		icon = "<div class=\"" + classname + "\" title=\"" + title + "\">" + icon + "</div>";
+		icon = icon.replace("<i ", "<i title=\"" + title + "\" ");
 	}
 
 	return icon;
