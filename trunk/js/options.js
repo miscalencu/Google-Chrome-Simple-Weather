@@ -1,4 +1,5 @@
 var weatherObj = null;
+var isDay = 1;
 
 $(document).ready(function() {
 	
@@ -62,6 +63,31 @@ $(document).ready(function() {
 		refreshBadge(weatherObj);
 	});
 
+	$(".logo").on("click", function () {
+	    debugger;
+	    switch (isDay) {
+	        case 1:
+	            $(this).find(".wi").removeClass("wi-day-cloudy");
+	            $(this).find(".wi").addClass("wi-night-cloudy");
+	            isDay = 0;
+	            break;
+	        case 0:
+	            $(this).find(".wi").removeClass("wi-night-cloudy");
+	            $(this).find(".wi").addClass("wi-cloudy");
+	            isDay = -1;
+	            break;
+	        case -1:
+	            $(this).find(".wi").removeClass("wi-cloudy");
+	            $(this).find(".wi").addClass("wi-day-cloudy");
+	            isDay = 1;
+	            break;
+	        default:
+	            break
+	    }
+
+	    fillPreviewIcons();
+	});
+
 	$("#btnAdd").on("click", function () { checkNewLocation() } );
 	$("#addLocationLink").on("click", function () { addLocation(); });
 
@@ -70,7 +96,7 @@ $(document).ready(function() {
 	fillPreviewIcons();
 	fillLocations();
 
-	getGeoPosition();
+	//getGeoPosition();
 });
 
 
@@ -102,9 +128,9 @@ function fillPreviewIcons() {
 	}
 
 	for (var i = 0; i < icons.length; i++) {
-		icon = getIcon(i);
+		icon = getIcon(i, isDay);
 		if (icon != "") {
-			content += icon;
+		    content += "<div>" + icon + "</div>";
 		}
 		else {
 			content += "<img src=\"" + foldericons + icons[i] + "\" />";
