@@ -22,6 +22,8 @@ body
 		position: absolute;
 		left: 20px;
 		top: 20px;
+		font-size: 100px;
+		color: white;
 	}
 
 	.header .power {
@@ -123,7 +125,19 @@ a:hover
 	margin: 5px;
 	border: 1px solid #DDDDDD;
 	}
-	
+
+#preview_icons .wi {
+	border: 1px solid #DDDDDD;
+	font-size: 30px;
+	height: 50px;
+	width: 50px;
+	line-height: 50px;
+	text-align: center;
+	vertical-align: central;
+	color: white;
+	margin: 5px;
+}
+
 #message
     {
     color: Yellow;    

@@ -102,7 +102,7 @@ function fillPreviewIcons() {
 	}
 
 	for (var i = 0; i < icons.length; i++) {
-		icon = getIcon(i, "icon_weather_small");
+		icon = getIcon(i);
 		if (icon != "") {
 			content += icon;
 		}
