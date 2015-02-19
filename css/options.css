@@ -126,16 +126,20 @@ a:hover
 	border: 1px solid #DDDDDD;
 	}
 
-#preview_icons .wi {
+#preview_icons div {
 	border: 1px solid #DDDDDD;
-	font-size: 30px;
-	height: 50px;
-	width: 50px;
-	line-height: 50px;
+	height: 54px;
+	width: 54px;
 	text-align: center;
-	vertical-align: central;
+	vertical-align: middle;
 	color: white;
 	margin: 5px;
+    float: left;
+}
+
+#preview_icons .wi {
+	font-size: 28px;
+	line-height: 54px;
 }
 
 #message

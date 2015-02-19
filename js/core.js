@@ -252,8 +252,9 @@ function arrindex(arr, obj) {
     return -1;
 }
 
-function getIcon(code) {
+function getIcon(code, isDay) {
 
+    var daypart = (isDay == 1) ? "-day" : ((isDay == 0) ? "-night" : "");
 	var icon = "";
 	var title = "";
 
@@ -264,20 +265,24 @@ function getIcon(code) {
 			title = "Tornado";
 			break;
 		case 1:
-			icon = "<i class=\"wi wi-day-thunderstorm\"></i>"; // 'tropical storm'
+		    icon = "<i class=\"wi wi" + daypart + "-rain\"></i>"; // 'tropical storm'
 			title = "Tropical Storm";
 			break;
 		case 2:
-			icon = ""; // 'hurricane'
+		    icon = "<i class=\"wi wi-hurricane\"></i>"; // 'hurricane'
+		    title = "Hurricane";
 			break;
 		case 3:
-			icon = ""; // 'severe thunderstorms'
+		    icon = "<i class=\"wi wi" + daypart + "-thunderstorm\"></i>"; // 'severe thunderstorms'
+		    title = "Severe Thunderstorms";
 			break;
 		case 4:
-			icon = ""; // 'thunderstorms
+		    icon = "<i class=\"wi wi-storm-showers\"></i>"; // 'thunderstorms
+		    title = "Thunderstorms";
 			break;
 		case 5:
-			icon = ""; // 'mixed rain and snow'
+		    icon = "<i class=\"wi wi-rain-mix\"></i>"; // 'mixed rain and snow'
+		    title = "Mixed rain and snow";
 			break;
 		case 6:
 			icon = ""; // 'mixed rain and sleet'
