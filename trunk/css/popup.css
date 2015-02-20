@@ -70,6 +70,13 @@ table tr td
 	width: 50%;
 	}
 
+	.box_now .wi {
+		font-size: 100px;
+		text-align: center;
+		width: 100px;
+		padding-top: 10px;
+	}
+
 .box_forecast {
 	float: right;
 	width: 40%;

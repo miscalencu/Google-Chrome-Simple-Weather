@@ -128,8 +128,8 @@ a:hover
 
 #preview_icons div {
 	border: 1px solid #DDDDDD;
-	height: 54px;
-	width: 54px;
+	height: 50px;
+	width: 50px;
 	text-align: center;
 	vertical-align: middle;
 	color: white;
@@ -139,7 +139,7 @@ a:hover
 
 #preview_icons .wi {
 	font-size: 28px;
-	line-height: 54px;
+	line-height: 50px;
 }
 
 #message

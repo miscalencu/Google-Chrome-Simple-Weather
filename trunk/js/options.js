@@ -64,7 +64,6 @@ $(document).ready(function() {
 	});
 
 	$(".logo").on("click", function () {
-	    debugger;
 	    switch (isDay) {
 	        case 1:
 	            $(this).find(".wi").removeClass("wi-day-cloudy");
@@ -119,11 +118,11 @@ function geoError(error) {
 }
 
 function fillPreviewIcons() {
-	var icons = new Array(48);
+	var icons = new Array(49);
 	var foldericons = getSettings("imgLocation");
 	var content = "";
 
-	for (var i = 0; i <= 47; i++) {
+	for (var i = 0; i <= 48; i++) {
 		icons[i] = i + ".gif";
 	}
 
@@ -243,13 +242,13 @@ function fillSkins() {
     ddl.append($('<option></option>').val("images/weather_icons/YAHOO/Yahoo/").html("Default (from Yahoo)"));
 	ddl.append($('<option></option>').val("images/weather_icons/YAHOO/Simple/").html("Simple"));
 	ddl.append($('<option></option>').val("images/weather_icons/YAHOO/Nice/").html("Nice"));
-    
-	$("imgLocation").val(getSettings("imgLocation"));
+	$("#imgLocation").val(getSettings("imgLocation"));
 }
 
 function fillValues()
 	{
 	$("#showIn" + getSettings("weatherShowIn")).attr("checked", "checked");
+
 	if(getSettings("weatherShowLinks") == "1")
 		$("#showExternal").attr("checked", "checked");
 
