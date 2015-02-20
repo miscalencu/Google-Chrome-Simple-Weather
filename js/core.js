@@ -76,6 +76,47 @@ function GetWeather() {
 	}
 }
 
+function findIfIsDay(weatherObj) {
+	try
+	{
+		debugger;
+		var sunrise = weatherObj.AstronomySunrise.replace(" ", ":").split(":");
+		var sunset = weatherObj.AstronomySunset.replace(" ", ":").split(":");
+
+		sunrise[0] = parseInt(sunrise[0]);
+		sunrise[1] = parseInt(sunrise[1]);
+
+		sunset[0] = parseInt(sunset[0]);
+		sunset[1] = parseInt(sunset[1]);
+		
+		if(sunrise[2].toLowerCase() == "pm")
+			sunrise[1] += 12;
+
+		if (sunset[2].toLowerCase() == "pm")
+			sunset[0] += 12;
+
+		var span1 = sunrise[0] * 60 + sunrise[1];
+		var span2 = sunset[0] * 60 + sunset[1];
+
+		var currenttime = weatherObj.Date.match(/[0-1]?[0-9]:[0-5]?[0-9] [APap][mM]/).replace(" ", ":").split(":");
+		currenttime[0] = parseInt(currenttime[0]);
+		currenttime[1] = parseInt(currenttime[1]);
+		if (currenttime[2].toLowerCase() == "pm")
+			currenttime[0] += 12;
+
+		var span = currenttime[0] * 60 + currenttime[1];
+
+		if ((span1 <= span) && (span <= span2))
+			return 1;
+		else
+			return 0;
+	}
+	catch(ex) // cannot convert
+	{
+		return -1;
+	}
+}
+
 function getWeatherObject(docXML) {
 
 	var weatherObj = new Object();
@@ -254,12 +295,11 @@ function arrindex(arr, obj) {
 
 function getIcon(code, isDay) {
 
-    var daypart = (isDay == 1) ? "-day" : ((isDay == 0) ? "-night" : "");
+	var daypart = (isDay == 1) ? "-day" : ((isDay == 0) ? "-night" : "");
 	var icon = "";
 	var title = "";
 
-	switch (code) {
-		default:
+	switch (parseInt(code)) {
 		case 0:
 			icon = "<i class=\"wi wi-tornado\"></i>"; // 'tornado'
 			title = "Tornado";
@@ -277,141 +317,187 @@ function getIcon(code, isDay) {
 		    title = "Severe Thunderstorms";
 			break;
 		case 4:
-		    icon = "<i class=\"wi wi-storm-showers\"></i>"; // 'thunderstorms
+		    icon = "<i class=\"wi wi" + daypart + "-storm-showers\"></i>"; // 'thunderstorms
 		    title = "Thunderstorms";
 			break;
 		case 5:
-		    icon = "<i class=\"wi wi-rain-mix\"></i>"; // 'mixed rain and snow'
+			icon = "<i class=\"wi wi" + daypart + "-rain-mix\"></i>"; // 'mixed rain and snow'
 		    title = "Mixed rain and snow";
 			break;
 		case 6:
-			icon = ""; // 'mixed rain and sleet'
+			icon = "<i class=\"wi wi" + daypart + "-sleet\"></i>"; // 'mixed rain and sleet'
+			title = "Mixed rain and sleet";
 			break;
 		case 7:
-			icon = ""; // 'mixed snow and sleet'
+			icon = "<i class=\"wi wi" + daypart + "-sleet\"></i>"; // 'mixed snow and sleet'
+			title = "Mixed snow and sleet";
 			break;
 		case 8:
-			icon = ""; // 'freezing drizzle'
+			icon = "<i class=\"wi wi-snowflake-cold\"></i>"; // 'freezing drizzle'
+			title = "Freezing drizzle";
 			break;
 		case 9:
-			icon = ""; // 'drizzle'
+			icon = "<i class=\"wi wi-sprinkles\"></i>"; // 'drizzle'
+			title = "Drizzle";
 			break;
 		case 10:
-			icon = ""; // 'freezing rain'
+			icon = "<i class=\"wi wi" + daypart + "-hail\"></i>"; // 'freezing rain'
+			title = "Freezing rain";
 			break;
 		case 11:
-			icon = ""; // 'showers'
+			icon = "<i class=\"wi wi" + daypart + "-showers\"></i>"; // 'showers'
+			title = "Showers";
 			break;
 		case 12:
-			icon = ""; // 'showers'
+			icon = "<i class=\"wi wi" + daypart + "-sprinkle\"></i>"; // 'showers'
+			title = "Showers";
 			break;
 		case 13:
-			icon = ""; // 'snow flurries'
+			icon = "<i class=\"wi wi" + daypart + "-snow\"></i>"; // 'snow flurries'
+			title = "Snow flurries";
 			break;
 		case 14:
-			icon = ""; // 'light snow showers'
+			icon = "<i class=\"wi wi" + daypart + "-snow\"></i>"; // 'light snow showers'
+			title = "Light snow showers";
 			break;
 		case 15:
-			icon = ""; // 'blowing snow'
+			icon = "<i class=\"wi wi" + daypart + "-snow-wind\"></i>"; // 'blowing snow'
+			title = "Blowing snow";
 			break;
 		case 16:
-			icon = ""; // 'snow'
+			icon = "<i class=\"wi wi" + daypart + "-snow\"></i>"; // 'snow'
+			title = "Snow";
 			break;
 		case 17:
-			icon = ""; // 'hail'
+			icon = "<i class=\"wi wi" + daypart + "-hail\"></i>"; // 'hail'
+			title = "Hail";
 			break;
 		case 18:
-			icon = ""; // 'sleet'
+			icon = "<i class=\"wi wi" + daypart + "-sleet\"></i>"; // 'sleet'
+			title = "Sleet";
 			break;
 		case 19:
-			icon = ""; // 'dust'
+			icon = "<i class=\"wi wi-dust\"></i>"; // 'dust'
+			title = "Dust";
 			break;
 		case 20:
-			icon = ""; // 'foggy'
+			icon = "<i class=\"wi wi" + daypart + "-fog\"></i>"; // 'foggy'
+			title = "Foggy";
 			break;
 		case 21:
-			icon = ""; // 'haze'
+			icon = "<i class=\"wi wi-day-haze\"></i>"; // 'haze'
+			title = "Haze";
 			break;
 		case 22:
-			icon = ""; // 'smoky'
+			icon = "<i class=\"wi wi-smoke\"></i>"; // 'smoky'
+			title = "Smoky";
 			break;
 		case 23:
-			icon = ""; // 'blustery'
+			icon = "<i class=\"wi wi-strong-wind\"></i>"; // 'blustery'
+			title = "Blustery";
 			break;
 		case 24:
-			icon = ""; // 'windy'
+			icon = "<i class=\"wi wi-windy\"></i>"; // 'windy'
+			title = "Windy";
 			break;
 		case 25:
-			icon = ""; // 'cold'
+			icon = "<i class=\"wi wi-snowflake-cold\"></i>"; // 'cold'
+			title = "Cold";
 			break;
 		case 26:
-			icon = ""; // 'cloudy'
+			icon = "<i class=\"wi wi" + daypart + "-cloudy\"></i>"; // 'cloudy'
+			title = "Cloudy";
 			break;
 		case 27:
-			icon = ""; // 'mostly cloudy (night)'
+			icon = "<i class=\"wi wi-night-cloudy-windy\"></i>"; // 'mostly cloudy (night)'
+			title = "Mostly cloudy (night)";
 			break;
 		case 28:
-			icon = ""; // 'mostly cloudy (day)'
+			icon = "<i class=\"wi wi-day-cloudy-windy\"></i>"; // 'mostly cloudy (day)'
+			title = "Mostly cloudy (day)";
 			break;
 		case 29:
-			icon = ""; // 'partly cloudy (night)'
+			icon = "<i class=\"wi wi-night-partly-cloudy\"></i>"; // 'partly cloudy (night)'
+			title = "Partly cloudy (night)";
 			break;
 		case 30:
-			icon = ""; // 'partly cloudy (day)'
+			icon = "<i class=\"wi wi-day-cloudy\"></i>"; // 'partly cloudy (day)'
+			title = "Partly cloudy (day)";
 			break;
 		case 31:
-			icon = ""; // 'clear (night)'
+			icon = "<i class=\"wi wi-stars\"></i>"; // 'clear (night)'
+			title = "Clear (night)";
 			break;
 		case 32:
-			icon = ""; // 'sunny'
+			icon = "<i class=\"wi wi-day-sunny\"></i>"; // 'sunny'
+			title = "Sunny";
 			break;
 		case 33:
-			icon = ""; // 'fair (night)'
+			icon = "<i class=\"wi wi-night-clear\"></i>"; // 'fair (night)'
+			title = "Fair (night)";
 			break;
 		case 34:
-			icon = ""; // 'fair (day)'
+			icon = "<i class=\"wi wi-day-sunny-overcast\"></i>"; // 'fair (day)'
+			title = "Fair (day)";
 			break;
 		case 35:
-			icon = ""; // 'mixed rain and hail'
+			icon = "<i class=\"wi wi" + daypart + "-hail\"></i>"; // 'mixed rain and hail'
+			title = "Mixed rain and hail";
 			break;
 		case 36:
-			icon = ""; // 'hot'
+			icon = "<i class=\"wi wi-hot\"></i>"; // 'hot'
+			title = "Hot";
 			break;
 		case 37:
-			icon = ""; // 'isolated thunderstorms'
+			icon = "<i class=\"wi wi" + daypart + "-thunderstorm\"></i>"; // 'isolated thunderstorms'
+			title = "Isolated thunderstorms";
 			break;
 		case 38:
-			icon = "";// 'scattered thunderstorms'
+			icon = "<i class=\"wi wi-lightning\"></i>";// 'scattered thunderstorms'
+			title = "Scattered thunderstorms";
 			break;
 		case 39:
-			icon = ""; // 'scattered thunderstorms'
+			icon = "<i class=\"wi wi-lightning\"></i>"; // 'scattered thunderstorms'
+			title = "Scattered thunderstorms";
 			break;
 		case 40:
-			icon = ""; // 'scattered showers'
+			icon = "<i class=\"wi wi" + daypart + "-storm-showers\"></i>"; // 'scattered showers'
+			title = "Scattered showers";
 			break;
 		case 41:
-			icon = ""; // 'heavy snow'
+			icon = "<i class=\"wi wi" + daypart + "-snow\"></i>"; // 'heavy snow'
+			title = "Heavy snow";
 			break;
 		case 42:
-			icon = ""; // 'scattered snow showers'
+			icon = "<i class=\"wi wi" + daypart + "-snow-thunderstorm\"></i>"; // 'scattered snow showers
+			title = "Scattered snow showers";
 			break;
 		case 43:
-			icon = ""; // 'heavy snow'
+			icon = "<i class=\"wi wi" + daypart + "-snow\"></i>"; // 'heavy snow'
+			title = "Heavy snow";
 			break;
 		case 44:
-			icon = ""; // 'partly cloudy'
+			icon = "<i class=\"wi wi" + daypart + "-cloudy\"></i>"; // 'partly cloudy'
+			title = "Partly cloudy";
 			break;
 		case 45:
-			icon = ""; // 'thundershowers'
+			icon = "<i class=\"wi wi" + daypart + "-thunderstorm\"></i>"; // 'thundershowers'
+			title = "Thundershowers";
 			break;
 		case 46:
-			icon = ""; // 'snow showers'
+			icon = "<i class=\"wi wi" + daypart + "-snow\"></i>"; // 'snow showers'
+			title = "Snow showers";
 			break;
 		case 47:
-			icon = ""; // 'isolated thundershowers'
+			icon = "<i class=\"wi wi" + daypart + "-storm-showers\"></i>"; // 'isolated thundershowers'
+			title = "Isolated thundershowers";
 			break;
+		case 48:
 		case 3200:
-			icon = ""; // 'not available'
+			icon = "<i class=\"wi wi-thermometer-exterior\"></i>"; // 'not available'
+			title = "Not available";
+			break;
+		default:
 			break;
 	}
 

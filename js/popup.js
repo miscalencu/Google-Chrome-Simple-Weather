@@ -17,8 +17,10 @@ function ShowWeather(weatherObj) {
 
 		var content = "<div class=\"box_now\">";
 
-		if (weatherObj.Icon != "")
-			content += "<img width=\"45\" src=\"" + weatherObj.Icon + "\" alt=\"" + weatherObj.Condition + "\" title=\"" + weatherObj.Condition + "\" />";
+		//if (weatherObj.Icon != "")
+		//	content += "<img width=\"45\" src=\"" + weatherObj.Icon + "\" alt=\"" + weatherObj.Condition + "\" title=\"" + weatherObj.Condition + "\" />";
+
+		content += getIcon(weatherObj.ConditionCode, findIfIsDay(weatherObj));
 
 		content += "<br /><div style=\"height:10px\"></div>" + getLabel("<b>Now</b>: ");
 		content += "<span class=\"now\">" + weatherObj.Temp + "&deg;" + showin + "</span>";
