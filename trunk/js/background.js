@@ -94,12 +94,20 @@ function goUpdateBadge(weatherObj) {
 		chrome.browserAction.setBadgeBackgroundColor({ color: [0, 153, 204, 255] });
 		chrome.browserAction.setTitle({ title: badgeTitle });
 
-		if (weatherObj.Icon != "") {
-			chrome.browserAction.setIcon({ path: getSettings("imgLocation") + weatherObj.Icon.split("/")[weatherObj.Icon.split("/").length - 1] });
-		}
-		else {
-			chrome.browserAction.setIcon({ path: "images/icon.png" });
-		}
+		//if (weatherObj.Icon != "") {
+		//	chrome.browserAction.setIcon({ path: getSettings("imgLocation") + weatherObj.Icon.split("/")[weatherObj.Icon.split("/").length - 1] });
+		//}
+		//else {
+		//	chrome.browserAction.setIcon({ path: "images/icon.png" });
+		//}
+
+		$("#canvas").html(getIcon(weatherObj.ConditionCode, findIfIsDay(weatherObj)));
+		html2canvas($("#canvas"), {
+		    onrendered: function (canvas) {
+		        // canvas is the final rendered <canvas> element
+		        chrome.browserAction.setIcon({ imageData: canvas.getContext("2d").getImageData(0, 0, 19, 19) });
+		    }
+		});
 	}
 	SetRefresh();
 }

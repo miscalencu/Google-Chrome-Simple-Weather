@@ -79,7 +79,6 @@ function GetWeather() {
 function findIfIsDay(weatherObj) {
 	try
 	{
-		debugger;
 		var sunrise = weatherObj.AstronomySunrise.replace(" ", ":").split(":");
 		var sunset = weatherObj.AstronomySunset.replace(" ", ":").split(":");
 
@@ -469,7 +468,9 @@ function getIcon(code, isDay) {
 			title = "Heavy snow";
 			break;
 		case 42:
-			icon = "<i class=\"wi wi" + daypart + "-snow-thunderstorm\"></i>"; // 'scattered snow showers
+		    icon = "<i class=\"wi wi" + daypart + "-snow-thunderstorm\"></i>"; // 'scattered snow showers
+		    if (daypart == "")
+		        icon = "<i class=\"wi wi-snow\"></i>";
 			title = "Scattered snow showers";
 			break;
 		case 43:

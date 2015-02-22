@@ -4,6 +4,7 @@
 		<title>Settings for the Simply Weather extension</title>
 		<script src="/js/jquery/jquery-1.11.0.min.js"></script>
 		<script src="/js/jquery/jquery-migrate-1.2.1.min.js"></script>
+        <script src="/js/html2canvas.js"></script>
 
 		<link rel="stylesheet" href="/bootstrap/3.3.2/css/bootstrap.min.css">
 		<script src="/bootstrap/3.3.2/js/bootstrap.min.js"></script>
@@ -17,30 +18,26 @@
 			
 		<div class="header">
 			<div class="logo">
-				<i class="wi wi-day-cloudy" title="Google Weather for Chrome"></i>
+                <i class="wi wi-day-cloudy" title="Simply Weather for Chrome"></i>
 			</div>
 			<span class="power">powered by</span>
 			<span class="poweredby"></span>
 		</div>
 
-		<h1>Settings for Simply Weather for Chrome extension</h1>
+		<h1>Settings for Simply Weather extension</h1>
 		
 		<div class="box">
-			<table cellpadding="5" cellspacing="0" align="left">
+			<table cellpadding="5" cellspacing="2" align="left" width="550">
 				<tr>
 					<th valign="top" width="200">Current locations:</th>
 					<td>
-						<div id="weather_locations"></div>
-						<a id="addLocationLink" href="#new">add new location</a>
-					</td>
-				</tr>
-				<tr id="add_location">
-					<th valign="top">Type in a new location to add:</th>
-					<td>
-						<a name="new"></a>
-						<input type="text" style="width: 250px; height: 20px;" id="newLocation" value="" /> 
-						<input type="button" class="button" id="btnAdd" value="Add" /> <br/>
-						<div id="message"></div>
+                        <div id="weather_locations"></div>
+                        <a id="addLocationLink" href="#new" data-toggle="popover" data-content="Click here to search and add a new location.">
+                            <span class="glyphicon glyphicon glyphicon-search"></span> add new location
+                        </a>
+                        <a id="addGeoLocationLink" href="#new" data-toggle="popover" data-content="Click here to automatically add your current location using geo-location.">
+                            <span class="glyphicon glyphicon-map-marker"></span> add your location
+                        </a>
 					</td>
 				</tr>
 				<tr>
@@ -62,12 +59,6 @@
 							<option value="30">30 minutes</option>
 							<option value="60">1 hour</option>
 						</select>
-					</td>
-				</tr>
-				<tr>
-					<th>Icons</th>
-					<td>
-						<select name="imgLocation" id="imgLocation"></select>
 					</td>
 				</tr>
 				<tr>
@@ -100,16 +91,45 @@
 			<br class="clear" />
 		</div>
 
-		<div id="preview" class="box">
-			<b>Icons preview:</b>
-			<br />
-			<div id="preview_icons"></div>
-		</div>
+        <div class="modal fade" id="add_location">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Add new location:</h4>
+                    </div>
+                    <div class="modal-body">
+                        <table>
+                            <tr>
+                                <th valign="top">Type in a new location to add:</th>
+                                <td>
+                                    <a name="new"></a>
+                                    <input type="text" style="width: 250px; height: 20px;" id="newLocation" value="" />
+                                    <input type="button" class="button" id="btnAdd" value="Add" /> <br />
+                                    <div id="message"></div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
 
-        <br class="clear" />
-		<br />
-		<h1>Support this extension:</h1>			
-		<b>Please <a target="_blank" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZFBNDULJRKPXC"><img border="0" src="https://www.paypal.com/en_GB/i/btn/btn_donate_SM.gif" align="absmiddle" alt="PayPal - The safer, easier way to pay online." /></a> if you like my work!</b>
+        <div class="box" id="preview">
+            <b>Icons preview: <span></span></b>
+            <div id="preview_icons"></div>
+        </div>
+
+        <div class="footer">
+            <br class="clear" />
+            <br />
+            <h1>Support this extension:</h1>
+            <b>Please <a target="_blank" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZFBNDULJRKPXC"><img border="0" src="https://www.paypal.com/en_GB/i/btn/btn_donate_SM.gif" align="absmiddle" alt="PayPal - The safer, easier way to pay online." /></a> if you like my work!</b>
+        </div>
+
 		<script type="text/javascript" src="js/options.js"></script>
 	</body>
 </html>
