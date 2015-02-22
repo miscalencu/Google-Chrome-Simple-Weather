@@ -4,13 +4,26 @@ body
 	font-size: 12px;
 	margin: 20px;
 	background-color: #000;
-	color: #ccc;
+	color: #000;
+	}
+
+a, a:link, a:active, a:visited
+	{
+	color: #CC0000;
+	text-decoration: underline;
+	}
+
+a:hover
+	{
+	color: #CC0000;
+	text-decoration: none;
 	}
 
 .header {
 	clear: both;
 	height:150px;
 	position: relative;
+    color: #fff;
 }
 
 .header .logo,  .header .power, .header .poweredby {
@@ -24,11 +37,12 @@ body
 		top: 20px;
 		font-size: 100px;
 		color: white;
+        cursor: pointer;
 	}
 
 	.header .power {
 		position: absolute;
-		left: 180px;
+		left: 190px;
 		top: 110px;
 		font-size: 16px;
 	}
@@ -43,13 +57,14 @@ body
 	{
 	padding: 15px;
 	margin: 5px;
-	font-size: 12px;
+	font-size: 13px;
 	background-color: #333;
 	float: left;
 	height: 330px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	border-radius: 10px;
+    color: #fff;
 }
 
 h1
@@ -61,11 +76,14 @@ h1
 	}
 
 
-input
+input, select
 	{
 	margin: 0;
 	padding: 0;
-	font-size: 12px;
+	font-size: 14px;
+    font-weight: bold;
+    color: #000;
+    padding: 3px;
 	}
 
 .spacer
@@ -77,30 +95,42 @@ input
 #add_location
 	{
 	display: none;
-	background-color: #BBBBBB;
+    color: black;
 	}
 	
-#add_location td, #add_location th
+#add_location td
     {
     color: White;    
-    }	
+    }
+
+a.removeLocation, a.removeLocation:visited, a.removeLocation:hover, a.removeLocation:active {
+    padding-right: 10px;
+    text-decoration: none;
+    font-size: 11px;
+}
+
+    a.removeLocation .glyphicon {
+        font-size: 14px;
+    }
+
+#addLocationLink, #addGeoLocationLink {
+    text-decoration: none;
+    line-height: 40px;
+    margin-top: 10px;
+}
+
+span.selectLocation {
+    cursor: pointer;
+}
+
+.current {
+    color: yellow;
+}
 
 th
 	{
 	color: #0099cc;
 	text-align: left;
-	}
-
-a, a:link, a:active, a:visited
-	{
-	color: #CC0000;
-	text-decoration: underline;
-	}
-
-a:hover
-	{
-	color: #CC0000;
-	text-decoration: none;
 	}
 
 .button
@@ -119,6 +149,10 @@ a:hover
 	float:left;
 	width: 650px;
 	}
+
+    #preview b {
+        padding: 10px 10px 20px 5px;
+    }
 
 #preview_icons img
 	{
@@ -149,4 +183,23 @@ a:hover
 
 .clear {
 	clear: both;
+}
+
+.popover {
+    color: black;
+}
+
+.footer {
+    color: white;
+}
+
+.modal-dialog {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.modal-content {
+  margin: 0 auto;
 }

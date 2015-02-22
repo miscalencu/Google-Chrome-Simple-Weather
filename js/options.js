@@ -2,12 +2,6 @@ var weatherObj = null;
 var isDay = 1;
 
 $(document).ready(function() {
-	
-	var locations = JSON.parse(getSettings("weatherLocations"));
-	if(locations.length > 0) {
-		GetWeather();
-	}
-	
 	$("#showInC").on("click", function () {
 		setSettings("weatherShowIn", "C");
 		var locations = JSON.parse(getSettings("weatherLocations"));
@@ -29,14 +23,6 @@ $(document).ready(function() {
 		chrome.extension.sendMessage({ message: "update_timeout" }, function () { console.log("'updateTimeout' sent ..."); });
 	});
 	
-	$("#imgLocation").on("change", function () {
-		setSettings("imgLocation", $(this).val());
-		fillPreviewIcons();
-		if(weatherObj != null) {
-			refreshBadge(weatherObj);
-		}
-	});
-
 	$("#showLabels").on("click", function () {
 		setSettings("weatherLabels", ($(this).is(":checked") ? '1' : '0'));
 		if(weatherObj != null) {
@@ -86,18 +72,28 @@ $(document).ready(function() {
 
 	    fillPreviewIcons();
 	});
-
 	$("#btnAdd").on("click", function () { checkNewLocation() } );
 	$("#addLocationLink").on("click", function () { addLocation(); });
 
 	fillValues();
-	fillSkins();
 	fillPreviewIcons();
 	fillLocations();
 
-	//getGeoPosition();
-});
+	$('[data-toggle="popover"]').popover({ trigger: "hover" });
 
+	$('#preview_icons .wi').on("hover", function () {
+	    $("#preview b span").text($(this).attr("title"));
+	});
+
+	var locations = JSON.parse(getSettings("weatherLocations"));
+	if (locations.length > 0) {
+	    GetWeather();
+	}
+	else {
+	    refreshBadge(null);
+	}
+    //getGeoPosition();
+});
 
 function getGeoPosition() {
 	if (navigator.geolocation) {
@@ -194,39 +190,49 @@ function checkNewLocation() {
 }
 
 function fillLocations() {
-	var content = "";
+    var content = "";
+    var classname = "";
 	var defaultIsPresent = false;
 	var locations = JSON.parse(getSettings("weatherLocations"));
 	var location = JSON.parse(getSettings("weatherLocation"));
 	for (var i = 0; i < locations.length; i++) {
-	    content += locations[i].name + "&nbsp;&nbsp;&nbsp;<a href=\"#\" id=\"removeLocation_" + i + "\">remove</a><br />";
-	    if (location.woeid === locations[i].woeid)
+
+	    classname = "";
+	    if (location.woeid === locations[i].woeid) {
 	        defaultIsPresent = true;
+	        classname = "current";
+	    }
+
+	    content += "<a href=\"#\" title=\"Remove this location!\" class=\"removeLocation " + classname + "\" data-id=\"" + i + "\"> <span class=\"glyphicon glyphicon-remove\"></span> remove</a>";
+	    content += "<span title=\"Remove this location!\" class=\"selectLocation " + classname + "\" data-id=\"" + i + "\">" + locations[i].name + "</span><br />";
 	}
 	
 	$("#weather_locations").html(content);
 
-	if (locations.length > 0) {
-	    for (var i = 0; i < locations.length; i++) {
-	        var ii = i;
-	        $("#removeLocation_" + i).on("click", function () { removeLocation("loc_" + ii); });
-	    }
-	}
+	$(".removeLocation").on("click", function () {
+	    removeLocation($(this).data("id"));
+	});
+
+	$(".selectLocation").on("click", function () {
+	    setSettings("weatherLocation", JSON.stringify(locations[$(this).data("id")]));
+	    fillLocations();
+	    GetWeather();
+	});
 
 	if (!defaultIsPresent) {
 	    if (locations[0] != null) {
 	        setSettings("weatherLocation", JSON.stringify(locations[0]));
+	        fillLocations();
+	        GetWeather();
 	    }
 	    else {
 	        setSettings("weatherLocation", null);
+	        refreshBadge(null);
 	    }
-	    GetWeather();
 	}
 }
 
 function removeLocation(index) {
-	index = index.replace("loc_", "");
-
 	var content = "";
 	var contentInitial = "";
 	var locations = JSON.parse(getSettings("weatherLocations"));
@@ -268,6 +274,7 @@ function fillValues()
 	}
 
 function addLocation() {
-	$("#add_location").show();
+    //$("#add_location").show();
+    $("#add_location").modal();
 	$("#newLocation").focus();
 }
