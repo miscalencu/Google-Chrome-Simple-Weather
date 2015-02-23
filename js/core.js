@@ -22,11 +22,7 @@ function getSettings(name) {
 			case "weatherLabels":
 			case "weatherDate":
 			case "weatherReadDate":
-			case "compactMode":
 				default_val = "1";
-				break;
-			case "imgLocation":
-				default_val = "images/weather_icons/YAHOO/YAHOO/";
 				break;
 			default:
 				break;
@@ -145,7 +141,6 @@ function getWeatherObject(docXML) {
 	weatherObj.Date = $(docXML).find("condition").attr("date");
 	weatherObj.Description = $(docXML).find("item>description").text();
 	weatherObj.Temp = $(docXML).find("condition").attr("temp");
-	weatherObj.Icon = getSettings("imgLocation") + $(docXML).find("condition").attr("code") + ".gif";
 	weatherObj.ConditionCode = $(docXML).find("condition").attr("code");
     weatherObj.Condition = $(docXML).find("condition").attr("text");
 	

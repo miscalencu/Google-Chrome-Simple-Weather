@@ -142,7 +142,18 @@ th
 
     #preview b {
         padding: 10px 10px 20px 5px;
+		color: yellow;
     }
+
+#updateTimeout {
+	color: black;
+	padding: 3px;
+	cursor: pointer;
+}
+
+input {
+	cursor: pointer;
+}
 
 #preview_icons img
 	{

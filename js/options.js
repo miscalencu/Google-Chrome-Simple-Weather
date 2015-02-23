@@ -96,22 +96,9 @@ $(document).ready(function() {
 });
 
 function fillPreviewIcons() {
-	var icons = new Array(49);
-	var foldericons = getSettings("imgLocation");
 	var content = "";
-
-	for (var i = 0; i <= 48; i++) {
-		icons[i] = i + ".gif";
-	}
-
 	for (var i = 0; i < icons.length; i++) {
-		icon = getIcon(i, isDay);
-		if (icon != "") {
-		    content += "<div>" + icon + "</div>";
-		}
-		else {
-			content += "<img src=\"" + foldericons + icons[i] + "\" />";
-		}
+		content += "<div>" + getIcon(i, isDay) + "</div>";
 	}
 
 	$("#preview_icons").html(content);
@@ -240,14 +227,6 @@ function removeLocation(index) {
 	fillLocations();
 }
 
-function fillSkins() {
-    var ddl = $("#imgLocation");
-    ddl.append($('<option></option>').val("images/weather_icons/YAHOO/Yahoo/").html("Default (from Yahoo)"));
-	ddl.append($('<option></option>').val("images/weather_icons/YAHOO/Simple/").html("Simple"));
-	ddl.append($('<option></option>').val("images/weather_icons/YAHOO/Nice/").html("Nice"));
-	$("#imgLocation").val(getSettings("imgLocation"));
-}
-
 function fillValues()
 	{
 	$("#showIn" + getSettings("weatherShowIn")).attr("checked", "checked");
@@ -272,7 +251,11 @@ function fillValues()
 
 function addLocation() {
     $("#add_location").modal();
-	$("#newLocation").focus();
+    $("#newLocation").on("keyup", function (e) {
+    	if (e.keyCode == 13) {
+    		checkNewLocation();
+    	}
+    });
 }
 
 function addGeoLocation() {
@@ -288,6 +271,7 @@ function getGeoPosition() {
 	}
 	else {
 		console.log('Geolocation is not supported for this Browser/OS version yet.');
+		$("#geo_message").html("Geolocation is not supported for this Browser/OS version yet.");
 	}
 }
 
