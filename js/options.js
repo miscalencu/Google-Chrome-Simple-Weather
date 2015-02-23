@@ -97,7 +97,7 @@ $(document).ready(function() {
 
 function fillPreviewIcons() {
 	var content = "";
-	for (var i = 0; i < icons.length; i++) {
+	for (var i = 0; i < 49; i++) {
 		content += "<div>" + getIcon(i, isDay) + "</div>";
 	}
 
@@ -124,7 +124,7 @@ function checkNewLocation() {
 	var strUrl = "https://query.yahooapis.com/v1/public/yql?q=" + query + "&format=xml"
 	console.log("getting info from " + strUrl);
 
-	var result = jQuery.ajax({
+	var result = $.ajax({
 		type: "GET",
 		dataType: "xml",
 		url: strUrl,
@@ -276,7 +276,55 @@ function getGeoPosition() {
 }
 
 function geoSuccess(position) {
-	$("#geo_message").html("Latitude: " + position.coords.latitude + ", Longitude: " + position.coords.longitude);
+    //$("#geo_message").html("Latitude: " + position.coords.latitude + ", Longitude: " + position.coords.longitude);
+
+    var query = "select * from flickr.places where lat=" + position.coords.latitude + " and lon=" + position.coords.longitude + " and api_key = \"90c343bd2df7f534667b4bb524481d56\"";
+    var strUrl = "https://query.yahooapis.com/v1/public/yql?q=" + query + "&format=xml"
+
+    $.ajax({
+        type: "GET",
+        dataType: "xml",
+        url: strUrl,
+        success: function (xmlDoc) {
+            if (xmlDoc != null) {
+                var message = "";
+                var place = $(xmlDoc).find("place")[0];
+                if (place != null) {
+                    var name = $(place).attr("name");
+                    var woeid = $(place).attr("woeid");
+                    var woe_name = $(place).attr("woe_name");
+
+                    var text = "<b>" + woe_name + "</b> (" + name + ")";
+                    message += "<a title=\"Add this location!\" data-woeid=\"" + woeid + "\" data-name=\"" + woe_name + "\" class=\"foundGeoLocation\"><span class=\"glyphicon glyphicon-plus\"></span> add</a> <span style=\"color: black\">" + text + "</span><br />";
+
+                    $("#geo_message").html(message);
+
+                    $(".foundGeoLocation").on("click", function () {
+                        var locations = JSON.parse(getSettings("weatherLocations"));
+                        var location = { name: $(this).data("name"), woeid: $(this).data("woeid") };
+                        locations.push(location);
+                        setSettings("weatherLocations", JSON.stringify(locations));
+                        setSettings("weatherLocation", JSON.stringify(location));
+
+                        $("#message").html(name + " added!");
+                        $("#newLocation").val("");
+                        fillLocations();
+                        setTimeout(function () {
+                            $("#geo_location").modal("hide");
+                            GetWeather();
+                        });
+                    });
+                }
+            }
+
+            if ($("#geo_message").html() === "") {
+                $("#geo_message").html("Sorry, no location found at these coordinated! Try to search for your location instead.");
+            }
+        },
+        fail: function (jqXHR, textStatus) {
+            alert("Error: " + textStatus);
+        }
+    });
 }
 
 function geoError(error) {
