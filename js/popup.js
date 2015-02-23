@@ -87,7 +87,7 @@ function ShowWeather(weatherObj) {
 		if (getSettings("weatherReadDate") == "1")
 		    footerContent += "Last time checked on: " + formatToLocalTimeDate(new Date()) + ".<br/>";
 
-		footerContent += "<div class=\"tips\">Tips: Press Ctrl + w to open this popup. Use the narrows to change locations. Press ESC to close.</div>";
+		footerContent += "<div class=\"tips\">Tips: Press Alt + w to open this popup. Use the narrows to change locations. Press ESC to close.</div>";
 
 		footerContent += "</div>";
 
