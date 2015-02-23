@@ -117,6 +117,10 @@ span.selectLocation {
     color: yellow;
 }
 
+.box th, .box td {
+    padding: 3px;
+}
+
 th
 	{
 	color: #0099cc;
@@ -177,7 +181,7 @@ input {
 	line-height: 50px;
 }
 
-.foundLocation {
+.foundLocation, .foundGeoLocation {
 	cursor: pointer;
 	text-decoration: none;
 }
