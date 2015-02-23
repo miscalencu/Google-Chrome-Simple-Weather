@@ -60,7 +60,7 @@ a:hover
 	font-size: 13px;
 	background-color: #333;
 	float: left;
-	height: 330px;
+	min-height: 330px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	border-radius: 10px;

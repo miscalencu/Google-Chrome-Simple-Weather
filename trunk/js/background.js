@@ -50,7 +50,7 @@ function goUpdateBadge(weatherObj) {
 	var badgeTitle = "";
 	var badgeText = "";
 
-	badgeTitle += (getLabel("Weather in ") + weatherObj.LocationCity) + "\nTemperature: " + weatherObj.Temp;
+	badgeTitle += (getLabel("Weather in ") + weatherObj.LocationCity) + getLabel("\nTemperature: ", " - ") + weatherObj.Temp;
 	if (getSettings("weatherShowIn") === "C") {
 		badgeTitle += String.fromCharCode(176);
 	}
@@ -60,23 +60,27 @@ function goUpdateBadge(weatherObj) {
 		badgeTitle += " - " + weatherObj.Condition;
 
 	if (weatherObj.WindChill != "") {
-		badgeTitle += "\nWind Chill: " + weatherObj.WindChill + " ";
+	    badgeTitle += getLabel("\nWind Chill: ", " (") + weatherObj.WindChill + " ";
 		if (getSettings("weatherShowIn") === "C") {
 			badgeTitle += String.fromCharCode(176);
 		}
 		badgeTitle += getSettings("weatherShowIn");
+		badgeTitle += getLabel("", ")");
 	}
 
 	if (weatherObj.WindSpeed != "")
-		badgeTitle += "\nWind speed: " + weatherObj.WindSpeed + " " + weatherObj.UnitSpeed;
+	    badgeTitle += "\n" + getLabel("Wind speed: ") + weatherObj.WindSpeed + " " + weatherObj.UnitSpeed;
 
 	if (weatherObj.AtmosphereHumidity != "")
-		badgeTitle += "\nHumidity: " + weatherObj.AtmosphereHumidity + " g/m3";
+	    badgeTitle += getLabel("\nHumidity: ", ", ") + weatherObj.AtmosphereHumidity + " g/m3";
 
-	if (getSettings("weatherDate") == "1")
-		badgeTitle += "\n\nValid for: " + formatToLocalTimeDate(weatherObj.Date);
+	if ((getSettings("weatherDate") === "1") || (getSettings("weatherReadDate") === "1"))
+	    badgeTitle += "\n";
+    
+	if (getSettings("weatherDate") === "1")
+		badgeTitle += "\nValid for: " + formatToLocalTimeDate(weatherObj.Date);
 
-	if (getSettings("weatherReadDate") == "1")
+	if (getSettings("weatherReadDate") === "1")
 		badgeTitle += "\nLast checked on: " + formatToLocalTimeDate(weatherObj.RefreshDate);
 
 	var temp = weatherObj.Temp;
@@ -97,7 +101,6 @@ function goUpdateBadge(weatherObj) {
 		$("#canvas").html(getIcon(weatherObj.ConditionCode, findIfIsDay(weatherObj)));
 		html2canvas($("#canvas"), {
 		    onrendered: function (canvas) {
-		        // canvas is the final rendered <canvas> element
 		        chrome.browserAction.setIcon({ imageData: canvas.getContext("2d").getImageData(0, 0, 19, 19) });
 		    }
 		});

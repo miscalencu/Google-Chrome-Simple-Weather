@@ -234,8 +234,10 @@ function ShowWeatherBackground(weatherObj) {
 
 }
 	
-function getLabel(str) {
-	return (getSettings("weatherLabels") == "1") ? str : "";
+function getLabel(str, def) {
+    if (def == undefined)
+        def = "";
+	return (getSettings("weatherLabels") == "1") ? str : def;
 }
 
 function DateDiff(date1, date2) {
