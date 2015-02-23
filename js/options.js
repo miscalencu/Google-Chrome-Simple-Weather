@@ -74,6 +74,7 @@ $(document).ready(function() {
 	});
 	$("#btnAdd").on("click", function () { checkNewLocation() } );
 	$("#addLocationLink").on("click", function () { addLocation(); });
+	$("#addGeoLocationLink").on("click", function () { addGeoLocation(); });
 
 	fillValues();
 	fillPreviewIcons();
@@ -92,26 +93,7 @@ $(document).ready(function() {
 	else {
 	    refreshBadge(null);
 	}
-    //getGeoPosition();
 });
-
-function getGeoPosition() {
-	if (navigator.geolocation) {
-		console.log('Geolocation is supported!');
-		navigator.geolocation.getCurrentPosition(geoSuccess, geoError, { timeout: 10000, enableHighAccuracy: true, maximumAge:  60 * 60 * 1000 });
-	}
-	else {
-		console.log('Geolocation is not supported for this Browser/OS version yet.');
-	}
-}
-
-function geoSuccess(position) {
-	console.log("Latitude: " + position.coords.latitude + ", Longitude: " + position.coords.longitude);
-}
-
-function geoError(error) {
-	console.log('Error occurred. Error code: ' + error.code + " (" + error.message + ")");
-}
 
 function fillPreviewIcons() {
 	var icons = new Array(49);
@@ -161,25 +143,40 @@ function checkNewLocation() {
 		url: strUrl,
 		success: function (xmlDoc) {
 			if (xmlDoc != null) {
-				if ($(xmlDoc).find("place").length > 0) {
-					woeid = $($(xmlDoc).find("place>woeid")[0]).text();
-					name = $($(xmlDoc).find("place>name")[0]).text();
-				}
+				var message = "";
+				$.each($(xmlDoc).find("place"), function(){
+					var name = $(this).find("name").text();
+					var woeid = $(this).find("woeid").text();
+					var country = $(this).find("country").text();
+					var admin1 = $(this).find("admin1").text();
+					var admin2 = $(this).find("admin2").text();
+					var admin3 = $(this).find("admin3").text();
+
+					var text = "<b>" + name + "</b> (" + country + ((admin1 != "") ? (" - " + admin1) : "") + ((admin2 != "") ? (" - " + admin2) : "") + ((admin3 != "") ? (" - " + admin3) : "") + ")";
+
+					message += "<a title=\"Add this location!\" data-woeid=\"" + woeid + "\" data-name=\"" + name + "\" class=\"foundLocation\"><span class=\"glyphicon glyphicon-plus\"></span> add</a> <span style=\"color: black\">" + text + "</span><br />";
+				});
+
+				$("#message").html(message);
+
+				$(".foundLocation").on("click", function () {
+					var locations = JSON.parse(getSettings("weatherLocations"));
+					var location = { name: $(this).data("name"), woeid: $(this).data("woeid") };
+					locations.push(location);
+					setSettings("weatherLocations", JSON.stringify(locations));
+					setSettings("weatherLocation", JSON.stringify(location));
+
+					$("#message").html(name + " added!");
+					$("#newLocation").val("");
+					fillLocations();
+					setTimeout(function () {
+						$("#add_location").modal("hide");
+						GetWeather();
+					});
+				});
 			}
 
-			if (woeid != "") {
-				var locations = JSON.parse(getSettings("weatherLocations"));
-				var location = { name: name, woeid: woeid };
-				locations.push(location);
-				setSettings("weatherLocations", JSON.stringify(locations));
-				setSettings("weatherLocation", JSON.stringify(location));
-				
-				$("message").html(name + " added!");
-				$("#newLocation").val("");
-				fillLocations();
-				GetWeather();
-			}
-			else {
+			if($("#message").html() === "") {
 				$("#message").html("No location found! Please try to specify City, Country, Code...");
 			}
 		},
@@ -274,7 +271,29 @@ function fillValues()
 	}
 
 function addLocation() {
-    //$("#add_location").show();
     $("#add_location").modal();
 	$("#newLocation").focus();
+}
+
+function addGeoLocation() {
+	$("#geo_location").modal();
+	getGeoPosition();
+}
+
+function getGeoPosition() {
+	if (navigator.geolocation) {
+		console.log('Geolocation is supported!');
+		navigator.geolocation.getCurrentPosition(geoSuccess, geoError, { timeout: 10000, enableHighAccuracy: true, maximumAge: 60 * 60 * 1000 });
+	}
+	else {
+		console.log('Geolocation is not supported for this Browser/OS version yet.');
+	}
+}
+
+function geoSuccess(position) {
+	$("#geo_message").html("Latitude: " + position.coords.latitude + ", Longitude: " + position.coords.longitude);
+}
+
+function geoError(error) {
+	$("#geo_message").html("<b>Error occurred.<b><br /> Error code: " + error.code + " (" + error.message + ")");
 }
