@@ -277,6 +277,7 @@ function addLocation() {
 
 function addGeoLocation() {
 	$("#geo_location").modal();
+	$("#geo_message").html("Please wait ...");
 	getGeoPosition();
 }
 
