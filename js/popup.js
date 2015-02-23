@@ -17,22 +17,37 @@ function ShowWeather(weatherObj) {
 
 		var content = "<div class=\"box_now\">";
 
-		//if (weatherObj.Icon != "")
-		//	content += "<img width=\"45\" src=\"" + weatherObj.Icon + "\" alt=\"" + weatherObj.Condition + "\" title=\"" + weatherObj.Condition + "\" />";
-
-		content += getIcon(weatherObj.ConditionCode, findIfIsDay(weatherObj));
-
-		content += "<br /><div style=\"height:10px\"></div>" + getLabel("<b>Now</b>: ");
+		var isDay = findIfIsDay(weatherObj);
+		content += "<span class=\"temp\">" + getIcon(weatherObj.ConditionCode, isDay) + "</span>";
 		content += "<span class=\"now\">" + weatherObj.Temp + "&deg;" + showin + "</span>";
 
 		if (weatherObj.Condition != "")
-			content += " - " + weatherObj.Condition;
+		    content += "<div class=\"condition\">" + getLabel("Now: ") + "<b>" + weatherObj.Condition + "</b></div>";
+
+		if (weatherObj.WindChill != "")
+		    content += "<i title=\"Wind chill\" class=\"wi wi-thermometer-exterior\" style=\"font-size: 18px\"></i> " + getLabel("Wind chill: ") + weatherObj.WindChill + "&deg;" + showin;
+
+		content += "<br />";
 
 		if (weatherObj.WindSpeed != "")
-			content += "<br />Wind speed: " + weatherObj.WindSpeed + " " + weatherObj.UnitSpeed;
+		    content += "<br /><i title=\"Wind speed\" class=\"wi wi-strong-wind\"></i> " + getLabel("Wind speed: ") + weatherObj.WindSpeed + " " + weatherObj.UnitSpeed + " <i title=\"" + weatherObj.WindDirection + " deg.\" class=\"wi wi-wind-default _" + weatherObj.WindDirection + "-deg\"></i>";
 
 		if (weatherObj.AtmosphereHumidity != "")
-			content += "<br />Humidity: " + weatherObj.AtmosphereHumidity + " g/m<sup>3</sup>";
+		    content += "<br /><i class=\"wi wi-cloud-refresh\"></i> " + getLabel("Humidity: ") + weatherObj.AtmosphereHumidity + " g/m<sup>3</sup>";
+
+		if (weatherObj.AtmospherePressure != "")
+		    content += "<br /><i title=\"Pressure\" class=\"wi wi-cloud-down\"></i> " + getLabel("Pressure: ") + weatherObj.AtmospherePressure + " " + weatherObj.UnitPressure;
+
+		if (weatherObj.AtmosphereVisibility != "")
+		    content += "<br /><i title=\"Visibility\" class=\"wi wi-windy\"></i> " + getLabel("Visibility: ") + weatherObj.AtmosphereVisibility + " " + weatherObj.UnitDistance;
+
+		content += "<br />";
+
+		if (weatherObj.AstronomySunrise != "")
+		    content += "<br /><i title=\"Sunrise\" class=\"wi wi-sunrise\"></i>" + getLabel("Sunrise: ") + weatherObj.AstronomySunrise;
+
+		if (weatherObj.AstronomySunset != "")
+		    content += "<br /><i title=\"Sunset\" class=\"wi wi-sunset\"></i>" + getLabel("Sunset: ") + weatherObj.AstronomySunset;
 
 		content += "</div>";
 		content += "<div class=\"box_forecast\">";
@@ -42,8 +57,8 @@ function ShowWeather(weatherObj) {
 			var weatherForecast = weatherObj.Forecast[i];
 
 			content += "<div class=\"box\">";
-			content += "<b>" + weatherForecast.Day + "</b>: ";
-			content += weatherForecast.Condition + "<br />";
+			content += getIcon(weatherForecast.Code, isDay);
+			content += "<span class=\"subtitle\"><b>" + weatherForecast.Day + "</b>: " + weatherForecast.Condition + "</span><br />";
 			content += getLabel("High/Low: ");
 			content += "<span class=\"high\">" + weatherForecast.High + "&deg;" + showin + "</span> / ";
 			content += "<span class=\"low\">" + weatherForecast.Low + "&deg;" + showin + "</span>";
@@ -70,7 +85,10 @@ function ShowWeather(weatherObj) {
 		if (getSettings("weatherDate") == "1")
 			footerContent += "Valid for " + weatherObj.Date + ".<br/>";
 		if (getSettings("weatherReadDate") == "1")
-			footerContent += "Last time checked on: " + formatToLocalTimeDate(new Date()) + ".<br/>";
+		    footerContent += "Last time checked on: " + formatToLocalTimeDate(new Date()) + ".<br/>";
+
+		footerContent += "<div class=\"tips\">Tips: Press Ctrl + w to open this popup. Use the narrows to change locations. Press ESC to close.</div>";
+
 		footerContent += "</div>";
 
 		$("#footer").html(footerContent);

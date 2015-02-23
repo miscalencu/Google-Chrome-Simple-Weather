@@ -1,9 +1,9 @@
 {
 	"name": "Simply Weather",
-	"description" : "Displays the weather for multiple locations that you can set using the free weather API provided by Yahoo (Yahoo Weather API). You can choose from various icons sets.",
-	"version": "2.20",
+	"description" : "Displays the weather for multiple locations that you can set using the free weather API provided by Yahoo (Yahoo Weather API).",
+	"version": "1.0",
 	"manifest_version": 2,
-	"description": "Gets weather from Yahoo. Shows forecast for next day. Multiple locations. Multiple icons sets. Simple.",
+	"description": "Gets weather from Yahoo. Shows forecast for next days. Multiple locations. Simple.",
 	"options_page": "options.html",
 	"background": { "page": "background.html" },
 	"content_security_policy": "script-src 'self' https://*.yahooapis.com; object-src 'self'",
@@ -17,7 +17,8 @@
 		"default_title": "Simply Weather"
 	},
 	"icons": {
-		"128": "images/icon_128.png"
+        "128": "images/icon_128.png",
+        "16": "images/icon.png"
 	},
 	"permissions": [
 	    "webNavigation", 
