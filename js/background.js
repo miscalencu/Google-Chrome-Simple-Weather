@@ -60,7 +60,7 @@ function goUpdateBadge(weatherObj) {
 		badgeTitle += " - " + weatherObj.Condition;
 
 	if (weatherObj.WindChill != "") {
-	    badgeTitle += getLabel("\nWind Chill: ", " (") + weatherObj.WindChill + " ";
+	    badgeTitle += getLabel("\nWind Chill: ", " (") + weatherObj.WindChill;
 		if (getSettings("weatherShowIn") === "C") {
 			badgeTitle += String.fromCharCode(176);
 		}
