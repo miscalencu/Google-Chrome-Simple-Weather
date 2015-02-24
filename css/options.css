@@ -9,13 +9,13 @@ body
 
 a, a:link, a:active, a:visited
 	{
-	color: #CC0000;
+	color: #FF390C;
 	text-decoration: underline;
 	}
 
 a:hover
 	{
-	color: #CC0000;
+	color: #FF390C;
 	text-decoration: none;
 	}
 
@@ -114,7 +114,7 @@ span.selectLocation {
 }
 
 .current {
-    color: yellow;
+    color: #FFE97F;
 }
 
 .box th, .box td {
@@ -146,7 +146,7 @@ th
 
     #preview b {
         padding: 10px 10px 20px 5px;
-		color: yellow;
+		color: #FFE97F;
     }
 
 #updateTimeout {
@@ -188,7 +188,7 @@ input {
 
 #message, #geo_message
     {
-    color: #CC0000;    
+    color: #FF390C;    
 	min-width: 300px;
     }
 
