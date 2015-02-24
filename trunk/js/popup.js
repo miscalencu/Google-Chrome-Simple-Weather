@@ -58,10 +58,12 @@ function ShowWeather(weatherObj) {
 
 			content += "<div class=\"box\">";
 			content += getIcon(weatherForecast.Code, isDay);
+			content += "<div style=\"width:180px\">";
 			content += "<span class=\"subtitle\"><b>" + weatherForecast.Day + "</b>: " + weatherForecast.Condition + "</span><br />";
 			content += getLabel("High/Low: ");
 			content += "<span class=\"high\">" + weatherForecast.High + "&deg;" + showin + "</span> / ";
 			content += "<span class=\"low\">" + weatherForecast.Low + "&deg;" + showin + "</span>";
+			content += "</div>";
 			content += "</div>";
 		}
 
