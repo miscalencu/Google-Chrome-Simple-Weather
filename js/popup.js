@@ -89,7 +89,8 @@ function ShowWeather(weatherObj) {
 		if (getSettings("weatherReadDate") == "1")
 		    footerContent += "Last time checked on: " + formatToLocalTimeDate(new Date()) + ".<br/>";
 
-		footerContent += "<div class=\"tips\">Tips: Press Alt + w to open this popup. Use the narrows to change locations. Press ESC to close.</div>";
+		var manifest = chrome.runtime.getManifest();
+		footerContent += "<div class=\"tips\">Press Alt + w to open this popup.<br />Use the arrows to change locations. Press ESC to close (v" + manifest.version + ").</div>";
 
 		footerContent += "</div>";
 
