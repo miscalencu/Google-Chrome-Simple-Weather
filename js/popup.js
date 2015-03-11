@@ -100,7 +100,7 @@ function ShowWeather(weatherObj) {
 
 		$('#main_container').fadeIn("fast");
 
-		AddListeners();
+		AddListeners(weatherObj);
 	});
 }
 
@@ -148,7 +148,7 @@ function goToNextLocation() {
 	GetWeather();
 }
 
-function AddListeners() {
+function AddListeners(weatherObj) {
 	var location = JSON.parse(getSettings("weatherLocation"));
     if ($("#set_locations").length > 0) {
         $("#set_locations").on("click", function () { 
@@ -162,7 +162,7 @@ function AddListeners() {
         $("#link_previous").on("click", function () { goToPreviousLocation(); });
         $("#link_next").on("click", function () { goToNextLocation(); });
         $("#add_link_twc").on("click", function () { 
-			chrome.extension.sendMessage({ message: "open_window", url: "http://www.weather.com/search/enhancedlocalsearch?where=" + location.name }, function () { console.log("'open_window' sent ..."); });
+        	chrome.extension.sendMessage({ message: "open_window", url: weatherObj.Link }, function () { console.log("'open_window' sent ..."); });
 			});
         $("#add_link_wund").on("click", function () { 
 			chrome.extension.sendMessage({ message: "open_window", url: "http://www.wunderground.com/cgi-bin/findweather/getForecast?query=" + location.name }, function () { console.log("'open_window' sent ..."); });
@@ -178,7 +178,7 @@ $(document).ready(function () {
 		$("#title").html("No locations defined!");
 		$("#weather").html("<a href=\"#\" id=\"set_locations\">Click here to set locations.</a>");
 		$("#main_container").show();
-		AddListeners();
+		AddListeners(null);
 		return;
 		}
 	else {
