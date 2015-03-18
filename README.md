@@ -1,4 +1,4 @@
-# googleweatherchrome
+# Google Chrome - Simple Weather
 
 Displays the weather using a free weather API provided by Yahoo.
 
