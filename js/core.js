@@ -153,15 +153,19 @@ function getWeatherObject(docXML) {
 
 	// forecast
     weatherObj.Forecast = new Array();
+    var nr = 0;
     $.each($(docXML).find("forecast"), function () {
-    	weatherObj.Forecast.push({
-    		Code: $(this).attr("code"),
-    		Date: $(this).attr("date"),
-    		Condition: $(this).attr("text"),
-    		Day: d[arrindex(ds, $(this).attr("day"))],
-    		High: $(this).attr("high"),
-    		Low: $(this).attr("low"),
-    	});
+    	if (nr <= 5) {
+    		weatherObj.Forecast.push({
+    			Code: $(this).attr("code"),
+    			Date: $(this).attr("date"),
+    			Condition: $(this).attr("text"),
+    			Day: d[arrindex(ds, $(this).attr("day"))],
+    			High: $(this).attr("high"),
+    			Low: $(this).attr("low"),
+    		});
+    		nr++;
+    	}
     });
 	
 	setSettings("weatherRefreshDate", Date());
