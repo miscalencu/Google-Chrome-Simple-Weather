@@ -54,6 +54,10 @@ function ShowWeather(weatherObj) {
 
 		for (var i = 0; i < weatherObj.Forecast.length; i++) {
 
+			if (i > 4) {
+				break;
+			}
+
 			var weatherForecast = weatherObj.Forecast[i];
 
 			content += "<div class=\"box\">";

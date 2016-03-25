@@ -38,9 +38,8 @@ function setSettings(name, value) {
 
 function GetWeather() {
 	var location = JSON.parse(getSettings("weatherLocation"));
-	var showin = getSettings("weatherShowIn").toLowerCase();
 	if (location != null) {
-		var query = escape("select * from weather.forecast where woeid=\"" + location.woeid + "\" and u=\"" + showin + "\"");
+		var query = escape("select * from weather.forecast where woeid=\"" + location.woeid + "\" and u=\"F\"");
 		var url = "https://query.yahooapis.com/v1/public/yql?q=" + query + "&format=xml";
 		console.log("getting weather from: " + url);
 
@@ -125,7 +124,7 @@ function getWeatherObject(docXML) {
 	weatherObj.UnitSpeed = $(docXML).find("channel>units").attr("speed");
 	weatherObj.UnitTemperature = $(docXML).find("channel>units").attr("temperature");
 
-	weatherObj.WindChill = $(docXML).find("channel>wind").attr("chill");
+	weatherObj.WindChill = fillInTemperature($(docXML).find("channel>wind").attr("chill"));
 	weatherObj.WindDirection = $(docXML).find("channel>wind").attr("direction");
 	weatherObj.WindSpeed = $(docXML).find("channel>wind").attr("speed");
 
@@ -140,7 +139,7 @@ function getWeatherObject(docXML) {
 	weatherObj.PubDate = $(docXML).find("item>pubDate").text();
 	weatherObj.Date = $(docXML).find("condition").attr("date");
 	weatherObj.Description = $(docXML).find("item>description").text();
-	weatherObj.Temp = $(docXML).find("condition").attr("temp");
+	weatherObj.Temp = fillInTemperature($(docXML).find("condition").attr("temp"));
 	weatherObj.ConditionCode = $(docXML).find("condition").attr("code");
 	weatherObj.Condition = $(docXML).find("condition").attr("text");
 
@@ -153,19 +152,15 @@ function getWeatherObject(docXML) {
 
 	// forecast
     weatherObj.Forecast = new Array();
-    var nr = 0;
     $.each($(docXML).find("forecast"), function () {
-    	if (nr <= 5) {
-    		weatherObj.Forecast.push({
-    			Code: $(this).attr("code"),
-    			Date: $(this).attr("date"),
-    			Condition: $(this).attr("text"),
-    			Day: d[arrindex(ds, $(this).attr("day"))],
-    			High: $(this).attr("high"),
-    			Low: $(this).attr("low"),
-    		});
-    		nr++;
-    	}
+    	weatherObj.Forecast.push({
+    		Code: $(this).attr("code"),
+    		Date: $(this).attr("date"),
+    		Condition: $(this).attr("text"),
+    		Day: d[arrindex(ds, $(this).attr("day"))],
+    		High: fillInTemperature($(this).attr("high")),
+    		Low: fillInTemperature($(this).attr("low")),
+    	});
     });
 	
 	setSettings("weatherRefreshDate", Date());
@@ -510,4 +505,16 @@ function getIcon(code, isDay) {
 	}
 
 	return icon;
+}
+
+function FarenheightToCelsius(degrees) {
+	return Math.round((degrees - 32) / 1.8);
+}
+
+function fillInTemperature(degrees) {
+	var showin = getSettings("weatherShowIn").toLowerCase();
+	if (showin.toUpperCase() == "C") {
+		degrees = FarenheightToCelsius(degrees);
+	}
+	return degrees;
 }
