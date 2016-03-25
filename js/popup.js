@@ -81,8 +81,9 @@ function ShowWeather(weatherObj) {
 			footerContent += "<div class=\"separator\"></div>";
 			footerContent += "<div class=\"inner_content\">";
 			footerContent += "View extended forecast details at: ";
-			footerContent += "<a href=\"#\" id=\"add_link_twc\"><img hspace=\"5\" align=\"absmiddle\" border=\"0\" src=\"images/icons/twc.png\" alt=\"Weather.com\" title=\"Weather.com\" /></a>";
+			footerContent += "<a href=\"#\" id=\"add_link_twc\" style=\"display:none\"><img hspace=\"5\" align=\"absmiddle\" border=\"0\" src=\"images/icons/twc.png\" alt=\"Weather.com\" title=\"Weather.com\" /></a>";
 			footerContent += "<a href=\"#\" id=\"add_link_wund\"><img hspace=\"5\" align=\"absmiddle\" border=\"0\" src=\"images/icons/wu.png\" alt=\"Wunderground.com\" title=\"Wunderground.com\" /></a>";
+			footerContent += "<a href=\"#\" id=\"add_link_yw\"><img hspace=\"5\" align=\"absmiddle\" border=\"0\" src=\"images/icons/yw.png\" alt=\"Yahoo Weather\" title=\"Yahoo Weather\" /></a>";
 			footerContent += "</div>";
 			footerContent += "<div class=\"separator\"></div>";
 		}
@@ -165,12 +166,18 @@ function AddListeners(weatherObj) {
     else {
         $("#link_previous").on("click", function () { goToPreviousLocation(); });
         $("#link_next").on("click", function () { goToNextLocation(); });
+
         $("#add_link_twc").on("click", function () { 
-        	chrome.extension.sendMessage({ message: "open_window", url: weatherObj.Link }, function () { console.log("'open_window' sent ..."); });
-			});
+        	chrome.extension.sendMessage({ message: "open_window", url: weatherObj.WeatherLink }, function () { console.log("'open_window' sent ..."); });
+        });
+
         $("#add_link_wund").on("click", function () { 
 			chrome.extension.sendMessage({ message: "open_window", url: "http://www.wunderground.com/cgi-bin/findweather/getForecast?query=" + location.name }, function () { console.log("'open_window' sent ..."); });
-			});
+        });
+
+        $("#add_link_yw").on("click", function () {
+        	chrome.extension.sendMessage({ message: "open_window", url: weatherObj.YahooLink }, function () { console.log("'open_window' sent ..."); });
+        });
     }
 }
 

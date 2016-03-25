@@ -143,7 +143,8 @@ function getWeatherObject(docXML) {
 	weatherObj.ConditionCode = $(docXML).find("condition").attr("code");
 	weatherObj.Condition = $(docXML).find("condition").attr("text");
 
-	weatherObj.Link = "http://www.weather.com/weather/today/l/" + $(docXML).find("link").text().split("/").pop().replace(".html", "");
+	weatherObj.WeatherLink = "http://www.weather.com/weather/today/l/" + $(docXML).find("link").text().split("/").pop().replace(".html", "");
+	weatherObj.YahooLink = $(docXML).find("link").text().split("*").pop();
 	
 	weatherObj.RefreshDate = Date();
 
