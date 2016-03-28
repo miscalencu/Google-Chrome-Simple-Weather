@@ -179,3 +179,22 @@ table tr td
 	width: 100%;
     color: #666;
 }
+
+.loading {
+	position: relative;
+	margin: auto;
+	color: black;
+}
+
+	.loading img {
+		position: absolute;
+		padding-top: 110px;
+		padding-left: 270px;
+		
+	}
+
+	.loading p {
+		position: absolute;
+		padding-top: 270px;
+		padding-left: 290px;
+	}

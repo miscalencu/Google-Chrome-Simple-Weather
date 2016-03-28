@@ -4,6 +4,8 @@ function ShowWeather(weatherObj) {
 
 	$("#main_container").fadeOut("fast", function () {
 
+		$(".loading").show();
+
 		var headerContent = "";
 		headerContent += "<div class=\"pull-left\">" + getLabel("Weather in ") + weatherObj.LocationCity + ((weatherObj.LocationCountry.length == 0) ? "" : (" - " + weatherObj.LocationCountry)) + ((weatherObj.LocationRegion.length == 0) ? "" : (" - " + weatherObj.LocationRegion)) + "</div>";
 		headerContent += "<div class=\"pull-right links\">";
@@ -103,6 +105,7 @@ function ShowWeather(weatherObj) {
 
 		ShowWeatherBackground(weatherObj);
 
+		$(".loading").hide();
 		$('#main_container').fadeIn("fast");
 
 		AddListeners(weatherObj);
