@@ -2,36 +2,45 @@ var isExtension = (typeof chrome.browserAction !== "undefined");
 
 function getSettings(name) {
 	var default_val = "";
-	if (!localStorage[name]) {
-		switch (name) {
-			case "weatherLocations":
-				default_val = "[]";
-				break;
-		    case "weatherLocation":
-		        default_val = null;
-		        break;
-			case "weatherShowLinks":
-				default_val = "0";
-				break;
-			case "weatherShowIn":
-				default_val = "C";
-				break;
-			case "weatherTimeout":
-				default_val = "10";
-				break;
-			case "weatherLabels":
-			case "weatherDate":
-			case "weatherReadDate":
-				default_val = "1";
-				break;
-			default:
-				break;
-		}
-		return default_val;
+	var val = localStorage[name];
+	
+	switch (name) {
+		case "weatherLocations":
+			default_val = "[]";
+			break;
+		case "weatherLocation":
+		    default_val = null;
+		    break;
+		case "weatherShowLinks":
+			default_val = "0";
+			break;
+		case "weatherShowIn":
+			default_val = "C";
+			break;
+		case "weatherTimeout":
+			{
+				default_val = "60";
+				if (val && parseInt(val) < 60) {
+					val = "60";
+				}
+			}
+			break;
+		case "weatherLabels":
+		case "weatherDate":
+		case "weatherReadDate":
+			default_val = "1";
+			break;
+		default:
+			break;
 	}
-	else
-		return localStorage[name];
+
+	if (!localStorage[name]) {
+		val = default_val;
+	}
+
+	return val;
 }
+
 function setSettings(name, value) {
 	localStorage[name] = value;
 }
@@ -39,7 +48,7 @@ function setSettings(name, value) {
 function GetWeather() {
 	var location = JSON.parse(getSettings("weatherLocation"));
 	if (location != null) {
-		var query = escape("select * from weather.forecast where woeid=\"" + location.woeid + "\" and u=\"F\"");
+		var query = escape("select * from weather.forecast where woeid in (" + location.woeid + ") and u=\"F\"");
 		var url = "https://query.yahooapis.com/v1/public/yql?q=" + query + "&format=xml";
 		console.log("getting weather from: " + url);
 
@@ -48,13 +57,23 @@ function GetWeather() {
 			dataType: "xml",
 			url: url,
 			success: function (result) {
-				console.log("complete fired ...");
-				$.event.trigger({
-					type: "weather_complete",
-					weather: getWeatherObject(result),
-					message: "complete fired.",
-					time: new Date()
-				});
+				if ($(result).find("query").attr("yahoo:count") != "0") { // no data received
+					console.log("complete fired ...");
+					$.event.trigger({
+						type: "weather_complete",
+						weather: getWeatherObject(result),
+						message: "complete fired.",
+						time: new Date()
+					});
+				} else {
+					// show some error
+					chrome.browserAction.setBadgeText({ text: "!" });
+					chrome.browserAction.setBadgeBackgroundColor({ color: [255, 0, 0, 255] });
+					chrome.browserAction.setTitle({ title: "No data received from Yahoo!\rI will try again in a minute!" });
+
+					// try again in a minute
+					setTimeout(GetWeather, 60 * 1000);
+				}
 			},
 			fail: function (jqXHR, textStatus) {
 				alert("Error: " + textStatus);
