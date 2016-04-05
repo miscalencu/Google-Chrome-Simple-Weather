@@ -110,9 +110,9 @@ function isValidWeatherObject(weatherObj) {
 	}
 
 	if (weatherObj.RefreshDate != null) {
-		var diff = new Date(new Date() - weatherObj.RefreshDate); // difference in milliseconds
+		var diff = DateDiff(new Date(), new Date(weatherObj.RefreshDate)); // difference in seconds
 		var timeout = getSettings("weatherTimeout"); // timeout in minutes
-		if (diff / 1000 / 60 > timeout) {
+		if (diff / 60 > timeout) {
 			return false;
 		}
 	}

@@ -1,7 +1,7 @@
 {
 	"name": "Simple Weather",
 	"description" : "Displays the weather for multiple locations that you can set using the free weather API provided by Yahoo (Yahoo Weather API).",
-	"version": "1.31",
+	"version": "1.32",
 	"manifest_version": 2,
 	"description": "Gets weather from Yahoo. Shows forecast for next days. Multiple locations. Simple.",
 	"options_page": "options.html",
