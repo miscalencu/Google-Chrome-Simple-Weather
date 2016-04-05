@@ -1,4 +1,5 @@
 var isExtension = (typeof chrome.browserAction !== "undefined");
+var G_TIMEOUT = null;
 
 function getSettings(name) {
 	var default_val = "";
@@ -34,6 +35,10 @@ function getSettings(name) {
 			break;
 	}
 
+	if (name.indexOf("w_") == 0) {
+		default_val = null;
+	}
+
 	if (!localStorage[name]) {
 		val = default_val;
 	}
@@ -58,25 +63,34 @@ function GetWeather() {
 			url: url,
 			success: function (result) {
 				if ($(result).find("query").attr("yahoo:count") != "0") { // no data received
+					clearTimeout(G_TIMEOUT);
+					G_TIMEOUT = null;
 					console.log("complete fired ...");
+					// save weather object
+					setSettings("w_" + location.woeid, JSON.stringify(getWeatherObject(result)));
+
 					$.event.trigger({
 						type: "weather_complete",
-						weather: getWeatherObject(result),
 						message: "complete fired.",
 						time: new Date()
 					});
 				} else {
-					// show some error
-					chrome.browserAction.setBadgeText({ text: "!" });
-					chrome.browserAction.setBadgeBackgroundColor({ color: [255, 0, 0, 255] });
-					chrome.browserAction.setTitle({ title: "No data received from Yahoo!\rI will try again in a minute!" });
+					$.event.trigger({
+						type: "weather_error",
+						message: "error fired.",
+						time: new Date()
+					});
 
 					// try again in a minute
-					setTimeout(GetWeather, 60 * 1000);
+					G_TIMEOUT = setTimeout(GetWeather, 60 * 1000);
 				}
 			},
 			fail: function (jqXHR, textStatus) {
-				alert("Error: " + textStatus);
+				$.event.trigger({
+					type: "weather_error",
+					message: "error fired.",
+					time: new Date()
+				});
 			}
 		});
 	}
@@ -87,6 +101,39 @@ function GetWeather() {
 			message: "no location fired.",
 			time: new Date()
 		});
+	}
+}
+
+function isValidWeatherObject(weatherObj) {
+	if (weatherObj == null) {
+		return false;
+	}
+
+	if (weatherObj.RefreshDate != null) {
+		var diff = new Date(new Date() - weatherObj.RefreshDate); // difference in milliseconds
+		var timeout = getSettings("weatherTimeout"); // timeout in minutes
+		if (diff / 1000 / 60 > timeout) {
+			return false;
+		}
+	}
+
+	return true;
+}
+
+// checks every minute if it needs to download weather data
+function GetWeatherCheck() {
+	console.log("checking weather valability ...");
+	var location = JSON.parse(getSettings("weatherLocation"));
+	if (location == null) {
+		return;
+	}
+	var weatherObj = JSON.parse(getSettings("w_" + location.woeid));
+	if (!isValidWeatherObject(weatherObj)) {
+		console.log("it is NOT valid!");
+		GetWeather();
+	}
+	else {
+		console.log("it is valid!");
 	}
 }
 
@@ -188,8 +235,8 @@ function getWeatherObject(docXML) {
 	return weatherObj;
 }
 
-function refreshBadge(weather) {
-	chrome.extension.sendMessage({ message: "update_badge", weather: weather }, function () { console.log("'update_badge' sent ..."); });
+function refreshBadge() {
+	chrome.extension.sendMessage({ message: "update_badge" }, function () { console.log("'update_badge' sent ..."); });
 }
 
 function ShowWeatherBackground(weatherObj) {

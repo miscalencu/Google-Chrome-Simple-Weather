@@ -1,13 +1,26 @@
-function ShowWeather(weatherObj) {
+function ShowWeather() {
 	var locations = JSON.parse(getSettings("weatherLocations"));
 	var showin = getSettings("weatherShowIn");
 
+	var location = JSON.parse(getSettings("weatherLocation"));
+	var weatherObj = JSON.parse(getSettings("w_" + location.woeid));
+
+	if (weatherObj == null) {
+		$(".loading").addClass("fa-spin");
+		GetWeather();
+		return;
+	}
+
+	try { // could not be an extension
+		refreshBadge(weatherObj);
+	}
+	catch (e) {
+		console.log("Sorry, cannot update badge ... ");
+	}
+
 	$("#main_container").fadeOut("fast", function () {
-
-		$(".loading").show();
-
 		var headerContent = "";
-		headerContent += "<div class=\"pull-left\">" + getLabel("Weather in ") + weatherObj.LocationCity + ((weatherObj.LocationCountry.length == 0) ? "" : (" - " + weatherObj.LocationCountry)) + ((weatherObj.LocationRegion.length == 0) ? "" : (" - " + weatherObj.LocationRegion)) + "</div>";
+		headerContent += "<div class=\"pull-left\"><i class=\"wi wi-refresh loading\" title=\"Click to refresh now!\"></i> " + getLabel("Weather in ") + weatherObj.LocationCity + ((weatherObj.LocationCountry.length == 0) ? "" : (" - " + weatherObj.LocationCountry)) + ((weatherObj.LocationRegion.length == 0) ? "" : (" - " + weatherObj.LocationRegion)) + "</div>";
 		headerContent += "<div class=\"pull-right links\">";
 		headerContent += "	<a href=\"#\" id=\"link_previous\"><span class=\"glyphicon glyphicon-chevron-left\"title=\"View previous location\"></span></a>";
 		headerContent += "	<b>" + (1 + getCurrentIndex()) + " / " + locations.length + "</b> ";
@@ -105,8 +118,8 @@ function ShowWeather(weatherObj) {
 
 		ShowWeatherBackground(weatherObj);
 
-		$(".loading").hide();
 		$('#main_container').fadeIn("fast");
+		$(".loading").removeClass("fa-spin");
 
 		AddListeners(weatherObj);
 	});
@@ -141,7 +154,7 @@ function goToPreviousLocation()
 	else
 		current --;
 	setSettings("weatherLocation", JSON.stringify(locations[current]));
-	GetWeather();
+	ShowWeather();
 	}
 
 function goToNextLocation() {
@@ -153,7 +166,7 @@ function goToNextLocation() {
 	    current++;
 
 	setSettings("weatherLocation", JSON.stringify(locations[current]));
-	GetWeather();
+	ShowWeather();
 }
 
 function AddListeners(weatherObj) {
@@ -181,6 +194,11 @@ function AddListeners(weatherObj) {
         $("#add_link_yw").on("click", function () {
         	chrome.extension.sendMessage({ message: "open_window", url: weatherObj.YahooLink }, function () { console.log("'open_window' sent ..."); });
         });
+
+        $(".loading").css("cursor", "pointer").on("click", function () {
+        	$(".loading").addClass("fa-spin");
+        	GetWeather();
+        });
     }
 }
 
@@ -196,7 +214,7 @@ $(document).ready(function () {
 		return;
 		}
 	else {
-		GetWeather();
+		ShowWeather();
 	}
 
 	chrome.extension.onMessage.addListener(function (request, sender, sendResponse) {
@@ -212,15 +230,15 @@ $(document).ready(function () {
 		}
 	});
 
+	$(document).on("weather_error", function (event) {
+		console.log("error received ...");
+		$(".loading").removeClass("fa-spin");
+		$(document).focus();
+	});
+
 	$(document).on("weather_complete", function (event) {
 		console.log("complete received ...");
-		ShowWeather(event.weather);
-		try { // could not be an extension
-			refreshBadge(event.weather);
-		}
-		catch(e) {
-			console.log("Sorry, cannot update badge ... ");
-		}
+		ShowWeather();
 		$(document).focus();
 	});
 

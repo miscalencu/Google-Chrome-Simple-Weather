@@ -6,7 +6,7 @@ $(document).ready(function() {
 		setSettings("weatherShowIn", "C");
 		var locations = JSON.parse(getSettings("weatherLocations"));
 		if(locations.length > 0) {
-			GetWeather();
+			refreshBadge();
 		}
 	});
 
@@ -14,7 +14,7 @@ $(document).ready(function() {
 		setSettings("weatherShowIn", "F");
 		var locations = JSON.parse(getSettings("weatherLocations"));
 		if(locations.length > 0) {
-			GetWeather();
+			refreshBadge();
 			}
 	});
 
@@ -25,28 +25,18 @@ $(document).ready(function() {
 	
 	$("#showLabels").on("click", function () {
 		setSettings("weatherLabels", ($(this).is(":checked") ? '1' : '0'));
-		if(weatherObj != null) {
-			refreshBadge(weatherObj);
-		}
 	});
 
 	$("#showExternal").on("click", function () { 
 		setSettings("weatherShowLinks", ($(this).is(":checked") ? '1' : '0')); 
-		if(weatherObj != null) {
-			refreshBadge(weatherObj);
-			}
 	});
 
 	$("#showDate").on("click", function () {
 		setSettings("weatherDate", ($(this).is(":checked") ? '1' : '0'));
-		if(weatherObj != null) {
-			refreshBadge(weatherObj);
-		}
 	});
 	
 	$("#showReadDate").on("click", function () {
 		setSettings("weatherReadDate", ($(this).is(":checked") ? '1' : '0'));
-		refreshBadge(weatherObj);
 	});
 
 	$(".logo").on("click", function () {
@@ -87,12 +77,7 @@ $(document).ready(function() {
 	});
 
 	var locations = JSON.parse(getSettings("weatherLocations"));
-	if (locations.length > 0) {
-	    GetWeather();
-	}
-	else {
-	    refreshBadge(null);
-	}
+	refreshBadge();
 });
 
 function fillPreviewIcons() {
@@ -106,13 +91,12 @@ function fillPreviewIcons() {
 
 $(document).on("weather_complete", function (event) {
 	console.log("weather complete received ...");
-	weatherObj = event.weather;
-	refreshBadge(event.weather);
+	refreshBadge();
 })
 
 $(document).on("weather_nolocation", function (event) {
     console.log("weather_nolocation received ...");
-    refreshBadge(null);
+    refreshBadge();
 })
 
 function checkNewLocation() {
@@ -211,7 +195,7 @@ function fillLocations() {
 	    }
 	    else {
 	        setSettings("weatherLocation", null);
-	        refreshBadge(null);
+	        refreshBadge();
 	    }
 	}
 }
@@ -245,8 +229,7 @@ function fillValues()
 
 	$("#updateTimeout").val(getSettings("weatherTimeout"));
 		
-	var poweredby = $(".poweredby");
-    poweredby.html("<a href=\"http://developer.yahoo.com/weather/\" target=\"_blank\"><img align=\"middle\" border=\"0\" src=\"images/yahoo_logo.png\" width=\"180\" alt=\"Yahoo Weather API\" title=\"Yahoo Weather API\" /></a>");
+	$(".poweredby").html("<a href=\"http://developer.yahoo.com/weather/\" target=\"_blank\"><img align=\"middle\" border=\"0\" src=\"images/yahoo_logo.png\" width=\"180\" alt=\"Yahoo Weather API\" title=\"Yahoo Weather API\" /></a>");
 	}
 
 function addLocation() {

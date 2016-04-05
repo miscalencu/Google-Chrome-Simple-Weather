@@ -2,13 +2,13 @@ var timeOut = null;
 
 function SetRefresh() {
 	clearTimeout(timeOut);
-	timeOut = window.setTimeout(function () { GetWeather(); }, 1000 * 60 * parseInt(getSettings("weatherTimeout")));
+	timeOut = window.setTimeout(function () { GetWeatherCheck(); }, 1000 * 60);
 }
 
 $(document).on("weather_complete", function (event) {
     console.log("complete received ...");
     if (isExtension) {
-        updateBadge(event.weather);
+        updateBadge();
     }
 });
 	
@@ -20,7 +20,7 @@ $(document).ready(function () {
 		return;
 	}
 
-	GetWeather();
+	updateBadge();
 });
 
 function updateEmptyBadge() {
@@ -30,19 +30,31 @@ function updateEmptyBadge() {
     chrome.browserAction.setIcon({ path: "images/icon.png" });
 }
 
-function updateBadge(weatherObj) {
-    if (weatherObj == null) {
-        updateEmptyBadge();
-    }
-    else {
-        chrome.browserAction.setBadgeBackgroundColor({ color: [255, 0, 0, 255] });
-        chrome.browserAction.setBadgeText({ text: "." });
-        setTimeout(function () { chrome.browserAction.setBadgeText({ text: ".." }); }, 100);
-        setTimeout(function () { chrome.browserAction.setBadgeText({ text: "..." }); }, 200);
-        setTimeout(function () { chrome.browserAction.setBadgeText({ text: "...." }); }, 300);
-        setTimeout(function () { chrome.browserAction.setBadgeText({ text: "....." }); }, 400);
-        setTimeout(function () { goUpdateBadge(weatherObj) }, 500);
-    }
+function updateBadge() {
+	var location = JSON.parse(getSettings("weatherLocation"));
+	if (location == null) {
+		updateEmptyBadge();
+	}
+
+	var weatherObj = JSON.parse(getSettings("w_" + location.woeid));
+	if (isValidWeatherObject(weatherObj)) {
+		chrome.browserAction.setBadgeBackgroundColor({ color: [255, 0, 0, 255] });
+		chrome.browserAction.setBadgeText({ text: "." });
+		setTimeout(function () { chrome.browserAction.setBadgeText({ text: ".." }); }, 100);
+		setTimeout(function () { chrome.browserAction.setBadgeText({ text: "..." }); }, 200);
+		setTimeout(function () { chrome.browserAction.setBadgeText({ text: "...." }); }, 300);
+		setTimeout(function () { chrome.browserAction.setBadgeText({ text: "....." }); }, 400);
+		setTimeout(function () { goUpdateBadge(weatherObj) }, 500);
+	}
+	else {
+		chrome.browserAction.setBadgeText({ text: "!" });
+		chrome.browserAction.setBadgeBackgroundColor({ color: [255, 0, 0, 255] });
+		chrome.browserAction.setTitle({ title: "No valid data available!" });
+
+		if (G_TIMEOUT == null) { // no download already scheduled
+			GetWeather();
+		}
+	}
 }
 
 function goUpdateBadge(weatherObj) {
@@ -136,7 +148,7 @@ chrome.extension.onMessage.addListener(function (request, sender, sendResponse) 
 	
 	if (request.message == "update_badge") {
 		console.log("'update_badge' received ...");
-		updateBadge(request.weather);
+		updateBadge();
 	}
 	
 	if (request.message == "reset_timeout_required") {
@@ -153,7 +165,6 @@ chrome.extension.onMessage.addListener(function (request, sender, sendResponse) 
 	
 	if (request.message == "reset_timeout") {
 		console.log("'reset_timeout' received ...");
-		GetWeather();
 	}
 	
 	if(request.message == "open_window") {

@@ -39,7 +39,7 @@ table tr td
 	height: 30px;
 	line-height: 30px;
 	clear: both;
-	text-indent: 10px;
+	text-indent: 5px;
 	font-weight: 500;
 	}
 
@@ -180,21 +180,27 @@ table tr td
     color: #666;
 }
 
-.loading {
-	position: relative;
-	margin: auto;
-	color: black;
+.fa-spin {
+  -webkit-animation: spin 2s infinite linear;
+  animation: spin 2s infinite linear;
 }
-
-	.loading img {
-		position: absolute;
-		padding-top: 110px;
-		padding-left: 270px;
-		
-	}
-
-	.loading p {
-		position: absolute;
-		padding-top: 270px;
-		padding-left: 290px;
-	}
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
