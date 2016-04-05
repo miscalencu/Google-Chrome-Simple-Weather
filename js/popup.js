@@ -107,7 +107,7 @@ function ShowWeather() {
 		if (getSettings("weatherDate") == "1")
 			footerContent += "Valid for " + weatherObj.Date + ".<br/>";
 		if (getSettings("weatherReadDate") == "1")
-		    footerContent += "Last time checked on: " + formatToLocalTimeDate(new Date()) + ".<br/>";
+			footerContent += "Last time checked on: " + formatToLocalTimeDate(weatherObj.RefreshDate) + ".<br/>";
 
 		var manifest = chrome.runtime.getManifest();
 		footerContent += "<div class=\"tips\">Press Alt + w to open this popup.<br />Use the arrows to change locations. Press ESC to close (v" + manifest.version + ").</div>";
