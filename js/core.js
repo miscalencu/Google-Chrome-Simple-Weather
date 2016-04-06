@@ -1,5 +1,4 @@
 var isExtension = (typeof chrome.browserAction !== "undefined");
-var G_TIMEOUT = null;
 
 function getSettings(name) {
 	var default_val = "";
@@ -63,8 +62,6 @@ function GetWeather() {
 			url: url,
 			success: function (result) {
 				if ($(result).find("query").attr("yahoo:count") != "0") { // no data received
-					clearTimeout(G_TIMEOUT);
-					G_TIMEOUT = null;
 					console.log("complete fired ...");
 					// save weather object
 					setSettings("w_" + location.woeid, JSON.stringify(getWeatherObject(result)));
@@ -80,9 +77,6 @@ function GetWeather() {
 						message: "error fired.",
 						time: new Date()
 					});
-
-					// try again in a minute
-					G_TIMEOUT = setTimeout(GetWeather, 60 * 1000);
 				}
 			},
 			fail: function (jqXHR, textStatus) {
@@ -118,23 +112,6 @@ function isValidWeatherObject(weatherObj) {
 	}
 
 	return true;
-}
-
-// checks every minute if it needs to download weather data
-function GetWeatherCheck() {
-	console.log("checking weather valability ...");
-	var location = JSON.parse(getSettings("weatherLocation"));
-	if (location == null) {
-		return;
-	}
-	var weatherObj = JSON.parse(getSettings("w_" + location.woeid));
-	if (!isValidWeatherObject(weatherObj)) {
-		console.log("it is NOT valid!");
-		GetWeather();
-	}
-	else {
-		console.log("it is valid!");
-	}
 }
 
 function findIfIsDay(weatherObj) {

@@ -92,7 +92,7 @@ document.addEventListener("keyup", function (e) {
 	chrome.extension.sendMessage({ message: "reset_timeout_required" }, function (response) { 
 		// console.log("'reset_timeout_required' sent ... " + response.status + " received!"); 
 		if(response.status == "YES") {
-			chrome.extension.sendMessage({ message: "reset_timeout" }, function () 	{ 	console.log("'reset_timeout' sent ..."); 	});
+			chrome.extension.sendMessage({ message: "reset_timeout" }, function () 	{ 	/* console.log("'reset_timeout' sent ...");  */	});
 			}
 	});
 })();

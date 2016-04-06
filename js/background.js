@@ -2,7 +2,30 @@ var timeOut = null;
 
 function SetRefresh() {
 	clearTimeout(timeOut);
+
+	// check every minute
 	timeOut = window.setTimeout(function () { GetWeatherCheck(); }, 1000 * 60);
+}
+
+// checks every minute if it needs to download weather data
+function GetWeatherCheck() {
+	console.log("checking weather valability ...");
+	var location = JSON.parse(getSettings("weatherLocation"));
+	if (location == null) {
+		return;
+	}
+	var weatherObj = JSON.parse(getSettings("w_" + location.woeid));
+	if (!isValidWeatherObject(weatherObj)) {
+		console.log("it is NOT valid!");
+		GetWeather();
+	}
+	else {
+		console.log("it is valid!");
+		updateBadge();
+	}
+
+	// check every minute
+	SetRefresh();
 }
 
 $(document).on("weather_complete", function (event) {
@@ -34,6 +57,7 @@ function updateBadge() {
 	var location = JSON.parse(getSettings("weatherLocation"));
 	if (location == null) {
 		updateEmptyBadge();
+		return;
 	}
 
 	var weatherObj = JSON.parse(getSettings("w_" + location.woeid));
@@ -51,9 +75,7 @@ function updateBadge() {
 		chrome.browserAction.setBadgeBackgroundColor({ color: [255, 0, 0, 255] });
 		chrome.browserAction.setTitle({ title: "No valid data available!" });
 
-		if (G_TIMEOUT == null) { // no download already scheduled
-			GetWeather();
-		}
+		GetWeatherCheck();
 	}
 }
 
@@ -117,7 +139,6 @@ function goUpdateBadge(weatherObj) {
 		    }
 		});
 	}
-	SetRefresh();
 }
 
 var newtabid = 0;
@@ -143,7 +164,7 @@ chrome.extension.onMessage.addListener(function (request, sender, sendResponse) 
 	console.log("message received ...");
 	if (request.message == "update_timeout") {
 		console.log("'update_timeout' received ...");
-		SetRefresh();
+		GetWeatherCheck();
 	}
 	
 	if (request.message == "update_badge") {
@@ -152,19 +173,26 @@ chrome.extension.onMessage.addListener(function (request, sender, sendResponse) 
 	}
 	
 	if (request.message == "reset_timeout_required") {
-		console.log("'reset_timeout_required' received ...");
+		//console.log("'reset_timeout_required' received ...");
+
+		var location = JSON.parse(getSettings("weatherLocation"));
+		if (location == null) {
+			return;
+		}
+
+		var weatherObj = JSON.parse(getSettings("w_" + location.woeid));
+
 		var response = "NO";
-		if(getSettings("weatherRefreshDate") != null) {
-			var timePassed = DateDiff(new Date(), new Date(getSettings("weatherRefreshDate")));
-			if(timePassed > (parseInt(getSettings("weatherTimeout")) + 1) * 60) { // something went wrong and the timeOut stopped or is null (more than a minute passed)
-				response = "YES";
-				}
-			}
+		if (!isValidWeatherObject(weatherObj)) { // something went wrong and the timeOut stopped or is null (more than a minute passed)
+			response = "YES";
+		}
+
 		sendResponse({status: response});
 	}
 	
 	if (request.message == "reset_timeout") {
 		console.log("'reset_timeout' received ...");
+		GetWeatherCheck();
 	}
 	
 	if(request.message == "open_window") {
