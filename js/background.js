@@ -68,7 +68,7 @@ function updateBadge() {
 		setTimeout(function () { chrome.browserAction.setBadgeText({ text: "..." }); }, 200);
 		setTimeout(function () { chrome.browserAction.setBadgeText({ text: "...." }); }, 300);
 		setTimeout(function () { chrome.browserAction.setBadgeText({ text: "....." }); }, 400);
-		setTimeout(function () { goUpdateBadge(weatherObj) }, 500);
+		setTimeout(function () { goUpdateBadge(weatherObj); }, 500);
 	}
 	else {
 		chrome.browserAction.setBadgeText({ text: "!" });
@@ -153,7 +153,7 @@ chrome.browserAction.onClicked.addListener(function (tab) {
 	chrome.tabs.sendMessage(tab.id, { args: "open" }, function (response) {
 		if (response != "OK") { // we are not in a tab (Settings page, etc ...)
 			setSettings("OpenOnLoad", "YES");
-			chrome.tabs.create({ url: "chrome://newtab" }, function(tab) {
+			chrome.tabs.create({ url: "https://www.google.ro/_/chrome/newtab" }, function(tab) {
 				newtabid = tab.id;
 			});
 		}
