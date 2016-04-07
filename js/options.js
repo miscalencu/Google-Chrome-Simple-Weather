@@ -172,7 +172,7 @@ function fillLocations() {
 	    }
 
 	    content += "<a href=\"#\" title=\"Remove this location!\" class=\"removeLocation " + classname + "\" data-id=\"" + i + "\"> <span class=\"glyphicon glyphicon-remove\"></span> remove</a>";
-	    content += "<span title=\"Remove this location!\" class=\"selectLocation " + classname + "\" data-id=\"" + i + "\">" + locations[i].name + "</span><br />";
+	    content += "<span title=\"Select this location!\" class=\"selectLocation " + classname + "\" data-id=\"" + i + "\">" + locations[i].name + "</span><br />";
 	}
 	
 	$("#weather_locations").html(content);

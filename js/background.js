@@ -81,7 +81,7 @@ function updateBadge(showAnimation) {
 	else {
 		chrome.browserAction.setBadgeText({ text: "!" });
 		chrome.browserAction.setBadgeBackgroundColor({ color: [255, 0, 0, 255] });
-		chrome.browserAction.setTitle({ title: "No valid data available!" });
+		chrome.browserAction.setTitle({ title: "No valid data available!\nWill try again soon ..." });
 	}
 }
 
