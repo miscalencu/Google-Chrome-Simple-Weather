@@ -91,7 +91,7 @@ function fillPreviewIcons() {
 
 $(document).on("weather_complete", function (event) {
 	console.log("weather complete received ...");
-	refreshBadge();
+	refreshBadge(true);
 })
 
 $(document).on("weather_nolocation", function (event) {

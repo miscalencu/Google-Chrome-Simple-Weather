@@ -1,4 +1,9 @@
-function ShowWeather() {
+function ShowWeather(showBadgeAnimation) {
+
+	if (showBadgeAnimation == undefined) {
+		showBadgeAnimation = false;
+	}
+
 	var locations = JSON.parse(getSettings("weatherLocations"));
 	var showin = getSettings("weatherShowIn");
 
@@ -12,7 +17,7 @@ function ShowWeather() {
 	}
 
 	try { // could not be an extension
-		refreshBadge(weatherObj);
+		refreshBadge(showBadgeAnimation);
 	}
 	catch (e) {
 		console.log("Sorry, cannot update badge ... ");
@@ -238,7 +243,7 @@ $(document).ready(function () {
 
 	$(document).on("weather_complete", function (event) {
 		console.log("complete received ...");
-		ShowWeather();
+		ShowWeather(true);
 		$(document).focus();
 	});
 

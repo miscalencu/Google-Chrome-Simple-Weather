@@ -21,7 +21,7 @@ function GetWeatherCheck() {
 	}
 	else {
 		console.log("it is valid!");
-		updateBadge();
+		updateBadge(false);
 	}
 
 	// check every minute
@@ -31,7 +31,7 @@ function GetWeatherCheck() {
 $(document).on("weather_complete", function (event) {
     console.log("complete received ...");
     if (isExtension) {
-        updateBadge();
+        updateBadge(true);
     }
 });
 	
@@ -43,7 +43,8 @@ $(document).ready(function () {
 		return;
 	}
 
-	updateBadge();
+	updateBadge(true);
+	SetRefresh();
 });
 
 function updateEmptyBadge() {
@@ -53,7 +54,12 @@ function updateEmptyBadge() {
     chrome.browserAction.setIcon({ path: "images/icon.png" });
 }
 
-function updateBadge() {
+function updateBadge(showAnimation) {
+
+	if (showAnimation == undefined) {
+		showAnimation = false;
+	}
+
 	var location = JSON.parse(getSettings("weatherLocation"));
 	if (location == null) {
 		updateEmptyBadge();
@@ -63,19 +69,19 @@ function updateBadge() {
 	var weatherObj = JSON.parse(getSettings("w_" + location.woeid));
 	if (isValidWeatherObject(weatherObj)) {
 		chrome.browserAction.setBadgeBackgroundColor({ color: [255, 0, 0, 255] });
-		chrome.browserAction.setBadgeText({ text: "." });
-		setTimeout(function () { chrome.browserAction.setBadgeText({ text: ".." }); }, 100);
-		setTimeout(function () { chrome.browserAction.setBadgeText({ text: "..." }); }, 200);
-		setTimeout(function () { chrome.browserAction.setBadgeText({ text: "...." }); }, 300);
-		setTimeout(function () { chrome.browserAction.setBadgeText({ text: "....." }); }, 400);
+		if (showAnimation) {
+			chrome.browserAction.setBadgeText({ text: "." });
+			setTimeout(function () { chrome.browserAction.setBadgeText({ text: ".." }); }, 100);
+			setTimeout(function () { chrome.browserAction.setBadgeText({ text: "..." }); }, 200);
+			setTimeout(function () { chrome.browserAction.setBadgeText({ text: "...." }); }, 300);
+			setTimeout(function () { chrome.browserAction.setBadgeText({ text: "....." }); }, 400);
+		}
 		setTimeout(function () { goUpdateBadge(weatherObj); }, 500);
 	}
 	else {
 		chrome.browserAction.setBadgeText({ text: "!" });
 		chrome.browserAction.setBadgeBackgroundColor({ color: [255, 0, 0, 255] });
 		chrome.browserAction.setTitle({ title: "No valid data available!" });
-
-		GetWeatherCheck();
 	}
 }
 
@@ -153,7 +159,7 @@ chrome.browserAction.onClicked.addListener(function (tab) {
 	chrome.tabs.sendMessage(tab.id, { args: "open" }, function (response) {
 		if (response != "OK") { // we are not in a tab (Settings page, etc ...)
 			setSettings("OpenOnLoad", "YES");
-			chrome.tabs.create({ url: "https://www.google.ro/_/chrome/newtab" }, function(tab) {
+			chrome.tabs.create({ url: "chrome://newtab" }, function(tab) {
 				newtabid = tab.id;
 			});
 		}
@@ -169,7 +175,7 @@ chrome.extension.onMessage.addListener(function (request, sender, sendResponse) 
 	
 	if (request.message == "update_badge") {
 		console.log("'update_badge' received ...");
-		updateBadge();
+		updateBadge(request.showAnimation);
 	}
 	
 	if (request.message == "reset_timeout_required") {

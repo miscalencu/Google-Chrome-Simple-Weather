@@ -212,8 +212,13 @@ function getWeatherObject(docXML) {
 	return weatherObj;
 }
 
-function refreshBadge() {
-	chrome.extension.sendMessage({ message: "update_badge" }, function () { console.log("'update_badge' sent ..."); });
+function refreshBadge(showAnimation) {
+
+	if(showAnimation == undefined) {
+		showAnimation = false;
+	}
+
+	chrome.extension.sendMessage({ message: "update_badge", showAnimation: showAnimation }, function () { console.log("'update_badge' sent ..."); });
 }
 
 function ShowWeatherBackground(weatherObj) {
