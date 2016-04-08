@@ -49,6 +49,7 @@ function setSettings(name, value) {
 	localStorage[name] = value;
 }
 
+// this should be triggered only by the background page
 function GetWeather() {
 	var location = JSON.parse(getSettings("weatherLocation"));
 	if (location != null) {

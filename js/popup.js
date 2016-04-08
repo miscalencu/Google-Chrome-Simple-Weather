@@ -10,10 +10,13 @@ function ShowWeather(showBadgeAnimation) {
 	var location = JSON.parse(getSettings("weatherLocation"));
 	var weatherObj = JSON.parse(getSettings("w_" + location.woeid));
 
-	if (weatherObj == null) {
+	if (!isValidWeatherObject(weatherObj)) {
 		$(".loading").addClass("fa-spin");
 		GetWeather();
-		return;
+
+		if (weatherObj == null) {
+			return;
+		}
 	}
 
 	try { // could not be an extension
