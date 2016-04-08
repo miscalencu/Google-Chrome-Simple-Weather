@@ -90,9 +90,12 @@ function goUpdateBadge(weatherObj) {
 	var badgeTitle = "";
 	var badgeText = "";
 
-	badgeTitle += (getLabel("Weather in ") + weatherObj.LocationCity) + getLabel("\nTemperature: ", " - ") + weatherObj.Temp;
+	badgeTitle += (getLabel("Weather in ") + weatherObj.LocationCity) + getLabel("\nTemperature: ", " - ") + fillInTemperature(weatherObj.Temp);
 	if (getSettings("weatherShowIn") === "C") {
 		badgeTitle += String.fromCharCode(176);
+	}
+	else {
+		badgeTitle += " ";
 	}
 	badgeTitle += getSettings("weatherShowIn");
 
@@ -100,10 +103,13 @@ function goUpdateBadge(weatherObj) {
 		badgeTitle += " - " + weatherObj.Condition;
 
 	if (weatherObj.WindChill != "") {
-	    badgeTitle += getLabel("\nWind Chill: ", " (") + weatherObj.WindChill;
-		if (getSettings("weatherShowIn") === "C") {
-			badgeTitle += String.fromCharCode(176);
-		}
+	    badgeTitle += getLabel("\nWind Chill: ", " (") + fillInTemperature(weatherObj.WindChill);
+	    if (getSettings("weatherShowIn") === "C") {
+	    	badgeTitle += String.fromCharCode(176);
+	    }
+	    else {
+	    	badgeTitle += " ";
+	    }
 		badgeTitle += getSettings("weatherShowIn");
 		badgeTitle += getLabel("", ")");
 	}
@@ -123,12 +129,13 @@ function goUpdateBadge(weatherObj) {
 	if (getSettings("weatherReadDate") === "1")
 		badgeTitle += "\nLast checked on: " + formatToLocalTimeDate(weatherObj.RefreshDate);
 
-	var temp = weatherObj.Temp;
+	var temp = fillInTemperature(weatherObj.Temp);
 	if (getSettings("weatherShowIn") === "C") {
-		badgeText = temp + String.fromCharCode(176);
+		badgeText = String(temp) + String.fromCharCode(176);
 	}
-	else
-		badgeText = temp;
+	else {
+		badgeText = String(temp) + " ";
+	}
 
 	if (badgeText.length < 4)
 		badgeText += getSettings("weatherShowIn");

@@ -42,13 +42,13 @@ function ShowWeather(showBadgeAnimation) {
 
 		var isDay = findIfIsDay(weatherObj);
 		content += "<span class=\"temp\">" + getIcon(weatherObj.ConditionCode, isDay) + "</span>";
-		content += "<span class=\"now\">" + weatherObj.Temp + "&deg;" + showin + "</span>";
+		content += "<span class=\"now\">" + fillInTemperature(weatherObj.Temp) + ((showin === "C") ? "&deg;" : " ") + showin + "</span>";
 
 		if (weatherObj.Condition != "")
 		    content += "<div class=\"condition\">" + getLabel("Now: ") + "<b>" + weatherObj.Condition + "</b></div>";
 
 		if (weatherObj.WindChill != "")
-		    content += "<i title=\"Wind chill\" class=\"wi wi-thermometer-exterior\" style=\"font-size: 18px\"></i> " + getLabel("Wind chill: ") + weatherObj.WindChill + "&deg;" + showin;
+			content += "<i title=\"Wind chill\" class=\"wi wi-thermometer-exterior\" style=\"font-size: 18px\"></i> " + getLabel("Wind chill: ") + fillInTemperature(weatherObj.WindChill) + ((showin === "C") ? "&deg;" : " ") + showin;
 
 		content += "<br />";
 
@@ -88,8 +88,8 @@ function ShowWeather(showBadgeAnimation) {
 			content += "<div style=\"width:180px\">";
 			content += "<span class=\"subtitle\"><b>" + weatherForecast.Day + "</b>: " + weatherForecast.Condition + "</span><br />";
 			content += getLabel("High/Low: ");
-			content += "<span class=\"high\">" + weatherForecast.High + "&deg;" + showin + "</span> / ";
-			content += "<span class=\"low\">" + weatherForecast.Low + "&deg;" + showin + "</span>";
+			content += "<span class=\"high\">" + fillInTemperature(weatherForecast.High) + ((showin === "C") ? "&deg;" : " ") + showin + "</span> / ";
+			content += "<span class=\"low\">" + fillInTemperature(weatherForecast.Low) + ((showin === "C") ? "&deg;" : " ") + showin + "</span>";
 			content += "</div>";
 			content += "</div>";
 		}

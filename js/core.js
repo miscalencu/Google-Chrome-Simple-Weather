@@ -155,6 +155,7 @@ function findIfIsDay(weatherObj) {
 	}
 }
 
+// store in farenheight always
 function getWeatherObject(docXML) {
 
 	var weatherObj = new Object();
@@ -168,7 +169,7 @@ function getWeatherObject(docXML) {
 	weatherObj.UnitSpeed = $(docXML).find("channel>units").attr("speed");
 	weatherObj.UnitTemperature = $(docXML).find("channel>units").attr("temperature");
 
-	weatherObj.WindChill = fillInTemperature($(docXML).find("channel>wind").attr("chill"));
+	weatherObj.WindChill = $(docXML).find("channel>wind").attr("chill");
 	weatherObj.WindDirection = $(docXML).find("channel>wind").attr("direction");
 	weatherObj.WindSpeed = $(docXML).find("channel>wind").attr("speed");
 
@@ -183,7 +184,7 @@ function getWeatherObject(docXML) {
 	weatherObj.PubDate = $(docXML).find("item>pubDate").text();
 	weatherObj.Date = $(docXML).find("condition").attr("date");
 	weatherObj.Description = $(docXML).find("item>description").text();
-	weatherObj.Temp = fillInTemperature($(docXML).find("condition").attr("temp"));
+	weatherObj.Temp = $(docXML).find("condition").attr("temp");
 	weatherObj.ConditionCode = $(docXML).find("condition").attr("code");
 	weatherObj.Condition = $(docXML).find("condition").attr("text");
 
@@ -203,8 +204,8 @@ function getWeatherObject(docXML) {
     		Date: $(this).attr("date"),
     		Condition: $(this).attr("text"),
     		Day: d[arrindex(ds, $(this).attr("day"))],
-    		High: fillInTemperature($(this).attr("high")),
-    		Low: fillInTemperature($(this).attr("low")),
+    		High: $(this).attr("high"),
+    		Low: $(this).attr("low"),
     	});
     });
 	
@@ -563,7 +564,7 @@ function FarenheightToCelsius(degrees) {
 
 function fillInTemperature(degrees) {
 	var showin = getSettings("weatherShowIn").toLowerCase();
-	if (showin.toUpperCase() == "C") {
+	if (showin.toUpperCase() === "C") {
 		degrees = FarenheightToCelsius(degrees);
 	}
 	return degrees;
