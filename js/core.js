@@ -14,9 +14,12 @@ function getSettings(name) {
 		case "weatherShowLinks":
 			default_val = "0";
 			break;
-		case "weatherShowIn":
-			default_val = "C";
-			break;
+	    case "weatherShowIn":
+	        default_val = "C";
+	        break;
+	    case "measurementSystem":
+	        default_val = (getSettings("weatherShowIn") == "C") ? "Metric" : "Imperial";
+	        break;
 		case "weatherTimeout":
 			{
 				default_val = "60";
@@ -30,6 +33,9 @@ function getSettings(name) {
 		case "weatherReadDate":
 			default_val = "1";
 			break;
+	    case "useFlickrImages":
+	        default_val = "1";
+	        break;
 		default:
 			break;
 	}
@@ -223,7 +229,96 @@ function refreshBadge(showAnimation) {
 	chrome.extension.sendMessage({ message: "update_badge", showAnimation: showAnimation }, function () { console.log("'update_badge' sent ..."); });
 }
 
-function ShowWeatherBackground(weatherObj) {
+function ShowWeatherBackground(weatherObj, woeid, isDay) {
+
+    var url = StaticWeatherBackgroundImage(weatherObj);
+    var useFlickrImages = getSettings("useFlickrImages");
+
+    if (useFlickrImages == "1") {
+        $(".preload_image").html("<i class=\"wi loading_small wi-refresh fa-spin\" /> Loading Flickr image ...");
+
+        var min_upload_date = new Date();
+        min_upload_date.setDate(min_upload_date.getDate() - 30);
+        var mm = min_upload_date.getMonth() + 1; // getMonth() is zero-based
+        var dd = min_upload_date.getDate();
+
+        var f_url = "https://api.flickr.com/services/rest";
+        var f_data = "" +
+            "api_key=d68a0a0edeac7e677f29e8243d778d66" +
+            "&method=flickr.photos.search" +
+            "&woe_id=" + woeid +
+            "&text=landscape" +
+            "&safe_search=1" +
+            "&min_upload_date=" + [min_upload_date.getFullYear(), !mm[1] && '0', mm, dd].join('') +
+            "&media=photos" +
+            "&tags=" + (isDay ? "day" : "light");
+
+        console.log("get images from: " + f_url + "?" + f_data + "...");
+
+        // get from flickr
+        $.ajax({
+            url: f_url,
+            data: f_data,
+            success: function (result) {
+                var photos = $(result).find("photo");
+                if (photos.length > 0) {
+                    var random = Math.floor(Math.random() * photos.length);
+                    var photo_id = $(photos).eq(random).attr("id");
+
+                    var f_data = "" +
+                        "api_key=d68a0a0edeac7e677f29e8243d778d66" +
+                        "&method=flickr.photos.getSizes" +
+                        "&photo_id=" + photo_id;
+
+                    console.log("get image from: " + f_url + "?" + f_data + "...");
+
+                    $.ajax({
+                        url: f_url,
+                        data: f_data,
+                        success: function (result) {
+                            var image = $(result).find("[label='Medium 640']");
+                            if (image.length > 0) {
+                                url = $(image).attr("source");
+                                SetWeatherBackGroud(url);
+                            }
+                            else {
+                                SetWeatherBackGroud(url);
+                            }
+                        },
+                        fail: function (jqXHR, textStatus) {
+                            // an error occured - show default image
+                            SetWeatherBackGroud(url);
+                        }
+                    });
+                }
+                else {
+                    SetWeatherBackGroud(url);
+                }
+            },
+            fail: function (jqXHR, textStatus) {
+                // an error occured - show default image
+                SetWeatherBackGroud(url);
+            }
+        });
+    }
+    else {
+        SetWeatherBackGroud(url);
+    }
+}
+
+function SetWeatherBackGroud(url) {
+
+    // apply background image
+    if (url != "") {
+        preloadImage(url, function () {
+            $(".preload_image").html("");
+            $("body").css("background-color", "transparent");
+            $("body").css("background-image", "url('" + url + "')");
+        });
+    }
+}
+
+function StaticWeatherBackgroundImage(weatherObj) {
 
 	// fill background array
 	var bg = new Array();
@@ -277,13 +372,23 @@ function ShowWeatherBackground(weatherObj) {
 	bg[47] = "thunderstorms.jpg"; // 'isolated thundershowers'
 	bg[3200] = ""; // 'not available'
 
-	// apply background image
 	if (bg[weatherObj.ConditionCode] != undefined) {
-	    $("body").css("background-image", "url('../images/backgrounds/" + bg[weatherObj.ConditionCode] + "')");
-	    $("body").css("background-color", "transparent");
+	    return "../images/backgrounds/" + bg[weatherObj.ConditionCode];
 	}
 
+	return "";
+}
 
+
+function preloadImage(source, callback) {
+    var preloaderDiv = $('<div style="display: none;"></div>').prependTo(document.body);
+    var image = $("<img/>").attr("src", source).appendTo(preloaderDiv);
+
+    $(image).on("load", function () {
+        $(preloaderDiv).remove();
+        if (callback)
+            callback();
+    });
 }
 	
 function getLabel(str, def) {
@@ -568,4 +673,39 @@ function fillInTemperature(degrees) {
 		degrees = FarenheightToCelsius(degrees);
 	}
 	return degrees;
+}
+
+function fillPressure(pressure, unitPressure) {
+    pressure = parseFloat(pressure);
+
+    if (unitPressure == "in" && pressure > 500) { // fix Yahoo bug
+        pressure =  Math.round(pressure / 33.8637526 * 100) / 100;
+    }
+
+    var system = getSettings("measurementSystem");
+    if (system == "Metric" && unitPressure == "in") {
+        pressure = Math.round(pressure * 33.8637526 * 100) / 100;
+        unitPressure = "mb";
+    }
+    return pressure + " " + unitPressure;
+}
+
+function fillVisibility(distance, unitDistance) {
+    distance = parseFloat(distance);
+    var system = getSettings("measurementSystem");
+    if (system == "Metric" && unitDistance == "mi") {
+        distance = Math.round(distance * 1.60934 * 100) / 100;
+        unitDistance = "km";
+    }
+    return distance + " " + unitDistance;
+}
+
+function fillWindSpeed(speed, unitSpeed) {
+    speed = parseFloat(speed);
+    var system = getSettings("measurementSystem");
+    if (system == "Metric" && unitSpeed == "mph") {
+        speed = Math.round(speed * 1.60934 * 100) / 100;
+        unitSpeed = "kmh";
+    }
+    return speed + " " + unitSpeed;
 }

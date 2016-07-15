@@ -1,6 +1,10 @@
 ﻿body 
 	{
-	background-color: white;
+	background-color: black;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+
 	color: white;
 	background-size: cover;
 	background-repeat: no-repeat;
@@ -177,7 +181,7 @@ table tr td
     bottom: 0;
     right: 0;
 	width: 100%;
-    color: #666;
+    color: #999;
 }
 
 .fa-spin {
@@ -203,4 +207,9 @@ table tr td
     -webkit-transform: rotate(359deg);
     transform: rotate(359deg);
   }
+}
+
+.loading, .loading_small {
+    padding-right: 4px;
+    padding-bottom: 2px;
 }

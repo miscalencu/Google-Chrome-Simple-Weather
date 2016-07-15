@@ -115,10 +115,16 @@ function goUpdateBadge(weatherObj) {
 	}
 
 	if (weatherObj.WindSpeed != "")
-	    badgeTitle += "\n" + getLabel("Wind speed: ") + weatherObj.WindSpeed + " " + weatherObj.UnitSpeed;
+	    badgeTitle += "\n" + getLabel("Wind speed: ") + fillWindSpeed(weatherObj.WindSpeed, weatherObj.UnitSpeed);
 
 	if (weatherObj.AtmosphereHumidity != "")
-	    badgeTitle += getLabel("\nHumidity: ", ", ") + weatherObj.AtmosphereHumidity + " g/m3";
+	    badgeTitle += getLabel("\nHumidity: ", ", ") + weatherObj.AtmosphereHumidity + "%";
+
+	if (weatherObj.AtmospherePressure != "")
+	    badgeTitle += getLabel("\nPressure: ", ", ") + fillPressure(weatherObj.AtmospherePressure, weatherObj.UnitPressure);
+
+	if (weatherObj.AtmosphereVisibility != "")
+	    badgeTitle += getLabel("\nVisibility: ", ", ") + fillVisibility(weatherObj.AtmosphereVisibility, weatherObj.UnitDistance);
 
 	if ((getSettings("weatherDate") === "1") || (getSettings("weatherReadDate") === "1"))
 	    badgeTitle += "\n";

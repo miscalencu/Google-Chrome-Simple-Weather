@@ -18,6 +18,22 @@ $(document).ready(function() {
 			}
 	});
 
+	$("#measurementSystemImperial").on("click", function () {
+	    setSettings("measurementSystem", "Imperial");
+	    var locations = JSON.parse(getSettings("weatherLocations"));
+	    if (locations.length > 0) {
+	        refreshBadge();
+	    }
+	});
+
+	$("#measurementSystemMetric").on("click", function () {
+	    setSettings("measurementSystem", "Metric");
+	    var locations = JSON.parse(getSettings("weatherLocations"));
+	    if (locations.length > 0) {
+	        refreshBadge();
+	    }
+	});
+
 	$("#updateTimeout").on("change", function () {
 		setSettings("weatherTimeout", $(this).val());
 		chrome.extension.sendMessage({ message: "update_timeout" }, function () { console.log("'updateTimeout' sent ..."); });
@@ -25,6 +41,10 @@ $(document).ready(function() {
 	
 	$("#showLabels").on("click", function () {
 		setSettings("weatherLabels", ($(this).is(":checked") ? '1' : '0'));
+	});
+
+	$("#useFlickrImages").on("click", function () {
+	    setSettings("useFlickrImages", ($(this).is(":checked") ? '1' : '0'));
 	});
 
 	$("#showExternal").on("click", function () { 
@@ -213,10 +233,15 @@ function removeLocation(index) {
 
 function fillValues()
 	{
-	$("#showIn" + getSettings("weatherShowIn")).attr("checked", "checked");
+    $("#showIn" + getSettings("weatherShowIn")).attr("checked", "checked");
+
+    $("#measurementSystem" + getSettings("measurementSystem")).attr("checked", "checked");
 
 	if(getSettings("weatherShowLinks") == "1")
-		$("#showExternal").attr("checked", "checked");
+	    $("#showExternal").attr("checked", "checked");
+
+	if (getSettings("useFlickrImages") == "1")
+	    $("#useFlickrImages").attr("checked", "checked");
 
 	if(getSettings("weatherLabels") == "1")
 		$("#showLabels").attr("checked", "checked");

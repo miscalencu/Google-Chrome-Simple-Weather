@@ -34,6 +34,7 @@ function ShowWeather(showBadgeAnimation) {
 		headerContent += "	<b>" + (1 + getCurrentIndex()) + " / " + locations.length + "</b> ";
 		headerContent += "	<a href=\"#\" id=\"link_next\"><span class=\"glyphicon glyphicon-chevron-right\" title=\"View next location\" /></span></a>";
 		headerContent += "</div>";
+		headerContent += "<div class=\"pull-right preload_image\" style=\"padding-right: 20px; font-size: 0.8em;\"></div>";
 
 		$("#title").html(headerContent);
 		$("#weather").html("");
@@ -53,16 +54,16 @@ function ShowWeather(showBadgeAnimation) {
 		content += "<br />";
 
 		if (weatherObj.WindSpeed != "")
-		    content += "<br /><i title=\"Wind speed\" class=\"wi wi-strong-wind\"></i> " + getLabel("Wind speed: ") + weatherObj.WindSpeed + " " + weatherObj.UnitSpeed + " <i title=\"" + weatherObj.WindDirection + " deg.\" class=\"wi wi-wind-default _" + weatherObj.WindDirection + "-deg\"></i>";
+		    content += "<br /><i title=\"Wind speed\" class=\"wi wi-strong-wind\"></i> " + getLabel("Wind speed: ") + fillWindSpeed(weatherObj.WindSpeed, weatherObj.UnitSpeed) + " <i title=\"" + weatherObj.WindDirection + " deg.\" class=\"wi wi-wind-default _" + weatherObj.WindDirection + "-deg\"></i>";
 
 		if (weatherObj.AtmosphereHumidity != "")
-		    content += "<br /><i class=\"wi wi-cloud-refresh\"></i> " + getLabel("Humidity: ") + weatherObj.AtmosphereHumidity + " g/m<sup>3</sup>";
+		    content += "<br /><i class=\"wi wi-cloud-refresh\"></i> " + getLabel("Humidity: ") + weatherObj.AtmosphereHumidity + "%</sup>";
 
 		if (weatherObj.AtmospherePressure != "")
-		    content += "<br /><i title=\"Pressure\" class=\"wi wi-cloud-down\"></i> " + getLabel("Pressure: ") + weatherObj.AtmospherePressure + " " + weatherObj.UnitPressure;
+		    content += "<br /><i title=\"Pressure\" class=\"wi wi-cloud-down\"></i> " + getLabel("Pressure: ") + fillPressure(weatherObj.AtmospherePressure, weatherObj.UnitPressure);
 
 		if (weatherObj.AtmosphereVisibility != "")
-		    content += "<br /><i title=\"Visibility\" class=\"wi wi-windy\"></i> " + getLabel("Visibility: ") + weatherObj.AtmosphereVisibility + " " + weatherObj.UnitDistance;
+		    content += "<br /><i title=\"Visibility\" class=\"wi wi-windy\"></i> " + getLabel("Visibility: ") + fillVisibility(weatherObj.AtmosphereVisibility, weatherObj.UnitDistance);
 
 		content += "<br />";
 
@@ -124,7 +125,7 @@ function ShowWeather(showBadgeAnimation) {
 
 		$("#footer").html(footerContent);
 
-		ShowWeatherBackground(weatherObj);
+		ShowWeatherBackground(weatherObj, location.woeid, isDay);
 
 		$('#main_container').fadeIn("fast");
 		$(".loading").removeClass("fa-spin");
