@@ -251,7 +251,7 @@ function ShowWeatherBackground(weatherObj, woeid, isDay) {
             "&safe_search=1" +
             "&min_upload_date=" + [min_upload_date.getFullYear(), !mm[1] && '0', mm, dd].join('') +
             "&media=photos" +
-            "&tags=" + (isDay ? "day" : "light");
+            "&tags=" + (isDay ? "day" : "night");
 
         console.log("get images from: " + f_url + "?" + f_data + "...");
 
