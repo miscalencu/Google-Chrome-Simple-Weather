@@ -73,6 +73,10 @@ function GetWeather() {
 					// save weather object
 					setSettings("w_" + location.woeid, JSON.stringify(getWeatherObject(result)));
 
+                    // reset image and image URL
+					setSettings("image_" + location.woeid, "");
+					setSettings("imageurl_" + location.woeid, "");
+
 					$.event.trigger({
 						type: "weather_complete",
 						message: "complete fired.",
@@ -235,83 +239,117 @@ function ShowWeatherBackground(weatherObj, woeid, isDay) {
     var useFlickrImages = getSettings("useFlickrImages");
 
     if (useFlickrImages == "1") {
-        $(".preload_image").html("<i class=\"wi loading_small wi-refresh fa-spin\" /> Loading Flickr image ...");
-
-        var min_upload_date = new Date();
-        min_upload_date.setDate(min_upload_date.getDate() - 30);
-        var mm = min_upload_date.getMonth() + 1; // getMonth() is zero-based
-        var dd = min_upload_date.getDate();
-
-        var f_url = "https://api.flickr.com/services/rest";
-        var f_data = "" +
-            "api_key=d68a0a0edeac7e677f29e8243d778d66" +
-            "&method=flickr.photos.search" +
-            "&woe_id=" + woeid +
-            "&text=landscape" +
-            "&safe_search=1" +
-            "&min_upload_date=" + [min_upload_date.getFullYear(), !mm[1] && '0', mm, dd].join('') +
-            "&media=photos" +
-            "&tags=" + (isDay ? "day" : "night");
-
-        console.log("get images from: " + f_url + "?" + f_data + "...");
-
-        // get from flickr
-        $.ajax({
-            url: f_url,
-            data: f_data,
-            success: function (result) {
-                var photos = $(result).find("photo");
-                if (photos.length > 0) {
-                    var random = Math.floor(Math.random() * photos.length);
-                    var photo_id = $(photos).eq(random).attr("id");
-
-                    var f_data = "" +
-                        "api_key=d68a0a0edeac7e677f29e8243d778d66" +
-                        "&method=flickr.photos.getSizes" +
-                        "&photo_id=" + photo_id;
-
-                    console.log("get image from: " + f_url + "?" + f_data + "...");
-
-                    $.ajax({
-                        url: f_url,
-                        data: f_data,
-                        success: function (result) {
-                            var image = $(result).find("[label='Medium 640']");
-                            if (image.length > 0) {
-                                url = $(image).attr("source");
-                                SetWeatherBackGroud(url);
-                            }
-                            else {
-                                SetWeatherBackGroud(url);
-                            }
-                        },
-                        fail: function (jqXHR, textStatus) {
-                            // an error occured - show default image
-                            SetWeatherBackGroud(url);
-                        }
-                    });
-                }
-                else {
-                    SetWeatherBackGroud(url);
-                }
-            },
-            fail: function (jqXHR, textStatus) {
-                // an error occured - show default image
-                SetWeatherBackGroud(url);
+        var stored_image = getSettings("image_" + woeid);
+        if (stored_image != "") {
+            SetWeatherBackGroud(stored_image, woeid);
+            var stored_url = getSettings("imageurl_" + woeid);
+            if (stored_url != "") {
+                $(".preload_image").html("<a href='" + stored_url + "' target='_blank'> View image details ...</a>");
             }
-        });
+        }
+        else {
+
+            $(".preload_image").html("<i class=\"wi loading_small wi-time-12 fa-spin\" /> Loading Flickr image ...");
+
+            var min_taken_date = new Date();
+            min_taken_date.setDate(min_taken_date.getDate() - 30);
+            var mm = min_taken_date.getMonth() + 1; // getMonth() is zero-based
+            var dd = min_taken_date.getDate();
+
+            var f_url = "https://api.flickr.com/services/rest";
+            var f_data = "" +
+                "api_key=d68a0a0edeac7e677f29e8243d778d66" +
+                "&method=flickr.photos.search" +
+                "&woe_id=" + woeid +
+                "&text=landscape" +
+                "&safe_search=1" +
+                "&accuracy=11" +
+                "&min_taken_date=" + [min_taken_date.getFullYear(), !mm[1] && '0', mm, dd].join('') +
+                "&media=photos" +
+                "&tags=" + (isDay ? "day" : "night");
+
+            console.log("get images from: " + f_url + "?" + f_data + "...");
+
+            // get from flickr
+            $.ajax({
+                url: f_url,
+                data: f_data,
+                success: function (result) {
+                    var photos = $(result).find("photo");
+                    if (photos.length > 0) {
+                        var random = Math.floor(Math.random() * photos.length);
+                        var photo = $(photos).eq(random);
+                        var photo_id = $(photo).attr("id");
+                        var photo_owner = $(photo).attr("owner");
+
+                        var image_url = "https://www.flickr.com/photos/" + photo_owner + "/" + photo_id + "/";
+                        setSettings("imageurl_" + woeid, image_url);
+                        
+                        var f_data = "" +
+                            "api_key=d68a0a0edeac7e677f29e8243d778d66" +
+                            "&method=flickr.photos.getSizes" +
+                            "&photo_id=" + photo_id;
+
+                        console.log("get image from: " + f_url + "?" + f_data + "...");
+
+                        $.ajax({
+                            url: f_url,
+                            data: f_data,
+                            success: function (result) {
+                                var image = $(result).find("[label='Medium 640']");
+                                if (image.length > 0) {
+                                    url = $(image).attr("source");
+                                    SetWeatherBackGroud(url, woeid);
+                                    setSettings("image_" + woeid, url);
+                                }
+                                else {
+                                    SetWeatherBackGroud(url, woeid);
+                                    $(".preload_image").html("");
+                                }
+                            },
+                            fail: function (jqXHR, textStatus) {
+                                // an error occured - show default image
+                                SetWeatherBackGroud(url, woeid);
+                                $(".preload_image").html("");
+                            }
+                        });
+                    }
+                    else {
+                        SetWeatherBackGroud(url, woeid);
+                        $(".preload_image").html("");
+                    }
+                },
+                fail: function (jqXHR, textStatus) {
+                    // an error occured - show default image
+                    SetWeatherBackGroud(url, woeid);
+                    $(".preload_image").html("");
+                }
+            });
+        }
     }
     else {
-        SetWeatherBackGroud(url);
+        SetWeatherBackGroud(url, woeid);
+        $(".preload_image").html("");
     }
 }
 
-function SetWeatherBackGroud(url) {
+function SetWeatherBackGroud(url, woeid) {
 
+    var useFlickrImages = getSettings("useFlickrImages");
     // apply background image
     if (url != "") {
         preloadImage(url, function () {
-            $(".preload_image").html("");
+            if (useFlickrImages == "0") {
+                $(".preload_image").html("");
+            }
+            else {
+                var image_url = getSettings("imageurl_" + woeid);
+                if (image_url != "") {
+                    $(".preload_image").html("<a href='" + image_url + "' target='_blank'> View image details ...</a>");
+                } else {
+                    $(".preload_image").html("");
+                }
+            }
             $("body").css("background-color", "transparent");
             $("body").css("background-image", "url('" + url + "')");
         });

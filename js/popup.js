@@ -34,7 +34,7 @@ function ShowWeather(showBadgeAnimation) {
 		headerContent += "	<b>" + (1 + getCurrentIndex()) + " / " + locations.length + "</b> ";
 		headerContent += "	<a href=\"#\" id=\"link_next\"><span class=\"glyphicon glyphicon-chevron-right\" title=\"View next location\" /></span></a>";
 		headerContent += "</div>";
-		headerContent += "<div class=\"pull-right preload_image\" style=\"padding-right: 20px; font-size: 0.8em;\"></div>";
+		headerContent += "<div class=\"pull-right preload_image\" style=\"padding-right: 20px;\"></div>";
 
 		$("#title").html(headerContent);
 		$("#weather").html("");

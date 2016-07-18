@@ -209,7 +209,21 @@ table tr td
   }
 }
 
-.loading, .loading_small {
+.loading {
     padding-right: 4px;
     padding-bottom: 2px;
 }
+
+.loading_small {
+    padding-right: 5px;
+    padding-bottom: 0px;
+}
+
+.preload_image {
+    color: #ffefa0;
+    font-size: 0.75em;
+}
+
+    .preload_image a {
+        color: #ffefa0;
+    }
