@@ -264,9 +264,9 @@ function ShowWeatherBackground(weatherObj, woeid, isDay) {
                 "&text=landscape" +
                 "&safe_search=1" +
                 "&accuracy=11" +
-                "&min_taken_date=" + [min_taken_date.getFullYear(), !mm[1] && '0', mm, dd].join('') +
-                "&media=photos" +
-                "&tags=" + (isDay ? "day" : "night");
+                "&min_taken_date=" + [min_taken_date.getFullYear(), ((mm < 10) ? "0" : "") + mm, dd].join('-') +
+                "&media=photos"; // +
+                //"&tags=" + (isDay ? "day" : "night");
 
             console.log("get images from: " + f_url + "?" + f_data + "...");
 
