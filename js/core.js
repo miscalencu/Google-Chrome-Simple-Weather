@@ -429,7 +429,7 @@ function getWeatherCondition(condition) {
         return condition;
     }
     else {
-        var condition_label = "condition_" + condition.toLowerCase().replace(" ", "_").replace(/()/g, "");
+        var condition_label = "condition_" + condition.toLowerCase().replace(" ", "_").replace("(", "").replace(")", "");
         console.log("condition label: " + condition_label);
         return chrome.i18n.getMessage(condition_label);
     }

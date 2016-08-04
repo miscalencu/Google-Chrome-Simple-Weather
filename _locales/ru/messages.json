@@ -1,470 +1,470 @@
 ﻿{
   "application_title": {
-    "message": "Vremea simplă",
+    "message": "Простой погоды",
     "description": "The title of the application, displayed in the web store."
   },
   "application_description": {
-    "message": "Afișează vremea pentru mai multe locații pe care le puteți seta folosind API-ul meteo gratuit furnizat de Yahoo (Yahoo Meteo API).",
+    "message": "Показывает погоду для нескольких мест, которые можно установить с помощью бесплатного API погоды предоставляемые Yahoo (Yahoo Weather API).",
     "description": "The description of the application, displayed in the web store."
   },
   "warning_nolocation": {
-    "message": "Nici o locație definită!",
+    "message": "Местоположение не определено!",
     "description": "Text to be displayed when no location is defined"
   },
   "action_setlocation": {
-    "message": "Apasa aici pentru a seta o nouă locație!",
+    "message": "Нажмите здесь, чтобы установить новое место!",
     "description": "Text to be displayed when clicking on link to set location"
   },
   "warning_nodata": {
-    "message": "Nu există date valide disponibile!",
+    "message": "Нет достоверных данных доступны!",
     "description": "Text to be displayed when no data is available for a location"
   },
   "action_updatingsoon": {
-    "message": "Se actualizează în curând ...",
+    "message": "Обновление в ближайшее время ...",
     "description": "Text to be displayed as a notification that data will be updated soon"
   },
   "label_weatherin": {
-    "message": "Vremea în",
+    "message": "Погода в",
     "description": "Label to be displayed as a prefix for the weather location"
   },
   "label_temperature": {
-    "message": "Temperatura",
+    "message": "Температура",
     "description": "Label for: Temperature"
   },
   "label_windchill": {
-    "message": "Vânt rece",
+    "message": "Wind Chill",
     "description": "Label for: Wind Chill"
   },
   "label_windspeed": {
-    "message": "Viteza vântului",
+    "message": "Скорость ветра",
     "description": "Label for: Wind Speed"
   },
   "label_humidity": {
-    "message": "Umiditate",
+    "message": "Влажность",
     "description": "Label for: Humidity"
   },
   "label_pressure": {
-    "message": "Presiune",
+    "message": "Давление",
     "description": "Label for: Pressure"
   },
   "label_visibility": {
-    "message": "Vizibilitate",
+    "message": "Видимость",
     "description": "Label for: Visibility"
   },
   "label_validfor": {
-    "message": "Valabil pentru",
+    "message": "Годен до",
     "description": "Label for: Valid for"
   },
   "label_lastcheckedon": {
-    "message": "Ultima verificare pe",
+    "message": "Последняя проверка на",
     "description": "Label for: Last checked on"
   },
   "condition_tornado": {
-    "message": "Tornadă",
+    "message": "Торнадо",
     "description": "Condition name for: Tornado"
   },
   "condition_tropical_storm": {
-    "message": "Furtună tropicală",
+    "message": "Тропическая буря",
     "description": "Condition name for: Tropical storm"
   },
   "condition_hurricane": {
-    "message": "Uragan",
+    "message": "Ураган",
     "description": "Condition name for: Hurricane"
   },
   "condition_severe_thunderstorms": {
-    "message": "Furtuni puternice",
+    "message": "Сильные грозы",
     "description": "Condition name for: Severe thunderstorms"
   },
   "condition_thunderstorms": {
-    "message": "Furtuni",
+    "message": "Грозы",
     "description": "Condition name for: Thunderstorms"
   },
   "condition_mixed_rain_and_snow": {
-    "message": "Ploaie amestecate și zăpadă",
+    "message": "Смешанный дождь и снег",
     "description": "Condition name for: Mixed rain and snow"
   },
   "condition_mixed_rain_and_sleet": {
-    "message": "Ploaie mixt și lapoviță",
+    "message": "Смешанный дождь и мокрый снег",
     "description": "Condition name for: Mixed rain and sleet"
   },
   "condition_mixed_snow_and_sleet": {
-    "message": "Zăpadă mixt și lapoviță",
+    "message": "Смешанный снег и мокрый снег",
     "description": "Condition name for: Mixed snow and sleet"
   },
   "condition_freezing_drizzle": {
-    "message": "Congelare burniță",
+    "message": "Изморозь",
     "description": "Condition name for: Freezing drizzle"
   },
   "condition_drizzle": {
-    "message": "Burniță",
+    "message": "Изморось",
     "description": "Condition name for: Drizzle"
   },
   "condition_freezing_rain": {
-    "message": "Ploaie inghetata",
+    "message": "Ледяной дождь",
     "description": "Condition name for: Freezing rain"
   },
   "condition_showers": {
-    "message": "Averse",
+    "message": "Ливни",
     "description": "Condition name for: Showers"
   },
   "condition_snow_flurries": {
-    "message": "Fulgi de zăpadă",
+    "message": "Порывы снега",
     "description": "Condition name for: Snow flurries"
   },
   "condition_light_snow_showers": {
-    "message": "Averse de ninsoare ușoară",
+    "message": "Легкие дожди снег",
     "description": "Condition name for: Light snow showers"
   },
   "condition_blowing_snow": {
-    "message": "Viscol",
+    "message": "Низовая метель",
     "description": "Condition name for: Blowing snow"
   },
   "condition_snow": {
-    "message": "Zăpadă",
+    "message": "Снег",
     "description": "Condition name for: Snow"
   },
   "condition_hail": {
-    "message": "Grindină",
+    "message": "Град",
     "description": "Condition name for: Hail"
   },
   "condition_sleet": {
-    "message": "Lapoviţă",
+    "message": "Мокрый снег",
     "description": "Condition name for: Sleet"
   },
   "condition_dust": {
-    "message": "Praf",
+    "message": "Пыли",
     "description": "Condition name for: Dust"
   },
   "condition_foggy": {
-    "message": "Cețos",
+    "message": "Туманный",
     "description": "Condition name for: Foggy"
   },
   "condition_haze": {
-    "message": "Ceață",
+    "message": "Мгла",
     "description": "Condition name for: Haze"
   },
   "condition_smoky": {
-    "message": "Fumuriu",
+    "message": "Дымчатый",
     "description": "Condition name for: Smoky"
   },
   "condition_blustery": {
-    "message": "Blustery",
+    "message": "Бушующий",
     "description": "Condition name for: Blustery"
   },
   "condition_windy": {
-    "message": "Bătut de vânturi",
+    "message": "Ветреный",
     "description": "Condition name for: Windy"
   },
   "condition_cold": {
-    "message": "Rece",
+    "message": "Холодно",
     "description": "Condition name for: Cold"
   },
   "condition_cloudy": {
-    "message": "Noros",
+    "message": "Облачный",
     "description": "Condition name for: Cloudy"
   },
   "condition_mostly_cloudy_night": {
-    "message": "Cea mai mare parte tulbure (noapte)",
+    "message": "Местами облачно (ночь)",
     "description": "Condition name for: Mostly cloudy (night)"
   },
   "condition_mostly_cloudy_day": {
-    "message": "Cea mai mare parte tulbure (zi)",
+    "message": "Местами облачно (день)",
     "description": "Condition name for: Mostly cloudy (day)"
   },
   "condition_partly_cloudy_night": {
-    "message": "Parțial înnorat (noapte)",
+    "message": "Кратковременные дожди (ночью)",
     "description": "Condition name for: Partly cloudy (night)"
   },
   "condition_partly_cloudy_day": {
-    "message": "Parțial înnorat (zi)",
+    "message": "Кратковременные дожди (день)",
     "description": "Condition name for: Partly cloudy (day)"
   },
   "condition_clear_night": {
-    "message": "Clar (noapte)",
+    "message": "Ясная ночь)",
     "description": "Condition name for: Clear (night)"
   },
   "condition_sunny": {
-    "message": "Cu soare",
+    "message": "Солнечно",
     "description": "Condition name for: Sunny"
   },
   "condition_mostly_sunny": {
-    "message": "In mare parte cu soare",
+    "message": "Облачно с прояснениями",
     "description": "Condition name for: Sunny"
   },
   "condition_fair_night": {
-    "message": "Echitabil (noapte)",
+    "message": "Fair (ночь)",
     "description": "Condition name for: Fair (night)"
   },
   "condition_fair_day": {
-    "message": "Echitabil (zi)",
+    "message": "Ярмарка (день)",
     "description": "Condition name for: Fair (day)"
   },
   "condition_mixed_rain_and_hail": {
-    "message": "Ploaie amestecate și grindină",
+    "message": "Смешанный дождь и град",
     "description": "Condition name for: Mixed rain and hail"
   },
   "condition_hot": {
-    "message": "Fierbinte",
+    "message": "Горячий",
     "description": "Condition name for: Hot"
   },
   "condition_isolated_thunderstorms": {
-    "message": "Furtuni izolate",
+    "message": "Изолированные гроз",
     "description": "Condition name for: Isolated thunderstorms"
   },
   "condition_scattered_thunderstorms": {
-    "message": "Furtuni imprastiate",
+    "message": "Рассеянные грозы",
     "description": "Condition name for: Scattered thunderstorms"
   },
   "condition_scattered_showers": {
-    "message": "Ploi ușoare",
+    "message": "Переменная облачность",
     "description": "Condition name for: Scattered showers"
   },
   "condition_heavy_snow": {
-    "message": "Zăpadă grea",
+    "message": "Снегопад",
     "description": "Condition name for: Heavy snow"
   },
   "condition_scattered_snow_showers": {
-    "message": "Averse răzlețe de zăpadă",
+    "message": "Местами снег",
     "description": "Condition name for: Scattered snow showers"
   },
   "condition_partly_cloudy": {
-    "message": "Parțial înorat",
+    "message": "Переменная облачность",
     "description": "Condition name for: Partly cloudy"
   },
   "condition_thundershowers": {
-    "message": "Ploaie cu tunete și fulgere",
+    "message": "Дождь с громом и молнией",
     "description": "Condition name for: Thundershowers"
   },
   "condition_snow_showers": {
-    "message": "Averse de zăpadă",
+    "message": "Снегопады",
     "description": "Condition name for: Snow showers"
   },
   "condition_isolated_thundershowers": {
-    "message": "Ploaie izolate cu tunete și fulgere",
+    "message": "Изолированные дождь с громом и молнией",
     "description": "Condition name for: Isolated thundershowers"
   },
   "condition_not_available": {
-    "message": "Nu e disponibil",
+    "message": "Недоступен",
     "description": "Condition name for: Not available"
   },
   "action_refreshnow": {
-    "message": "Apasa aici pentru a reîmprospăta acum!",
+    "message": "Нажмите здесь, чтобы обновить сейчас!",
     "description": "Text to be displayed when clicking on link to refresh data"
   },
   "action_viewnextlocation": {
-    "message": "Vizualizare locație următoare",
+    "message": "Следующая местоположение",
     "description": "Text to be displayed when clicking to navigate to next location"
   },
   "action_viewprevlocation": {
-    "message": "Vezi locatia precedenta",
+    "message": "Предыдущая местоположение",
     "description": "Text to be displayed when clicking to navigate to previous location"
   },
   "label_now": {
-    "message": "Acum",
+    "message": "Теперь",
     "description": "Label for: Now"
   },
   "label_sunrise": {
-    "message": "Răsărit",
+    "message": "Восход",
     "description": "Label for: Sunrise"
   },
   "label_sunset": {
-    "message": "Apus de soare",
+    "message": "Закат солнца",
     "description": "Label for: Sunset"
   },
   "dayofweek_monday": {
-    "message": "Luni",
+    "message": "Понедельник",
     "description": "Label for day of week: Monday"
   },
   "dayofweek_tuesday": {
-    "message": "Marţi",
+    "message": "Вторник",
     "description": "Label for day of week: Tuesday"
   },
   "dayofweek_wednesday": {
-    "message": "Miercuri",
+    "message": "Среда",
     "description": "Label for day of week: Wednesday"
   },
   "dayofweek_thursday": {
-    "message": "Joi",
+    "message": "Четверг",
     "description": "Label for day of week: Thursday"
   },
   "dayofweek_friday": {
-    "message": "Vineri",
+    "message": "Пятница",
     "description": "Label for day of week: Friday"
   },
   "dayofweek_saturday": {
-    "message": "Sâmbătă",
+    "message": "Суббота",
     "description": "Label for day of week: Saturday"
   },
   "dayofweek_sunday": {
-    "message": "Duminică",
+    "message": "Воскресенье",
     "description": "Label for day of week: Sunday"
   },
   "popup_text_viewexernallinks": {
-    "message": "Vizualizați extins la detaliile de prognoză",
+    "message": "Просмотреть дополнительные данные прогноз на",
     "description": "Text to be dispayed in the popup page for links to external forecast data"
   },
   "popup_text_tiptoopen": {
-    "message": "Apăsați pe Alt + w pentru a deschide acest pop-up",
+    "message": "Нажмите Alt + W, чтобы открыть это всплывающее окно",
     "description": "Text to be dispayed in the popup page as a tip for quick open"
   },
   "popup_text_othertips": {
-    "message": "Utilizați săgețile pentru a schimba locațiile. Apasati ESC pentru a închide.",
+    "message": "Используйте стрелки, чтобы изменить местоположение. Нажмите клавишу ESC, чтобы закрыть.",
     "description": "Text to be dispayed in the popup page for other tips"
   },
   "popup_text_viewimage": {
-    "message": "Vizualizare detalii fotografie ",
+    "message": "Просмотреть детали изображения",
     "description": "Text to be dispayed in the popup in the link that opens the main background image details"
   },
   "popup_text_loadingimage": {
-    "message": "Se incarca imaginea Flickr",
+    "message": "Загрузка изображений Flickr",
     "description": "Text to be dispayed in the popup near the image preloader animation"
   },
   "options_text_powered_by": {
-    "message": "cu sprijinul",
+    "message": "питаться от",
     "description": "Options page text: powered by"
   },
   "options_text_settings": {
-    "message": "Setările",
+    "message": "Настройки",
     "description": "Options page text: Settings"
   },
   "options_label_currentlocations": {
-    "message": "Locaţii curente",
+    "message": "Текущие места",
     "description": "Options page label for: Current locations"
   },
   "options_tooltip_addnewlocation": {
-    "message": "Apasa aici pentru a căuta și de a adăuga o nouă locație.",
+    "message": "Нажмите здесь, чтобы найти и добавить новое местоположение.",
     "description": "Options page tooltip for 'Add new location' link"
   },
   "options_label_addnewlocation": {
-    "message": "Adăugați o locație nouă",
+    "message": "добавить новое местоположение",
     "description": "Options page text for 'Add new location' link"
   },
   "options_label_addyourlocation": {
-    "message": "adăugați locația",
+    "message": "добавить свое местоположение",
     "description": "Options page text for 'Add your location' link"
   },
   "options_label_addthislocation": {
-    "message": "adăugați această locație",
+    "message": "добавить это местоположение",
     "description": "Options page text for 'Add this location' link"
   },
   "options_tooltip_addyourlocation": {
-    "message": "Apasa aici pentru a adăuga automat locația curentă geo-locație.",
+    "message": "Нажмите здесь, чтобы автоматически добавить текущее местоположение с помощью гео-местоположение.",
     "description": "Options page tooltip for 'Add your location' link"
   },
   "options_label_showin": {
-    "message": "Afișați valorile din",
+    "message": "Показать значения в",
     "description": "Options page label for: 'Show in' (C or F)"
   },
   "options_label_measurement": {
-    "message": "Sistemul de măsurare",
+    "message": "Система измерения",
     "description": "Options page label for: System of measurement"
   },
   "options_label_measurement_metric": {
-    "message": "Metric",
+    "message": "Метрический",
     "description": "Options page 'Metric' value for: System of measurement"
   },
   "options_label_measurement_imperial": {
-    "message": "Imperial",
+    "message": "Имперский",
     "description": "Options page 'Imperial' value for: System of measurement"
   },
   "options_label_timeout": {
-    "message": "Timeout actualizare fundal",
+    "message": "Тайм-аут обновления фона",
     "description": "Options page label for: Background update timeout"
   },
   "options_label_hour": {
-    "message": "ora",
+    "message": "час",
     "description": "Options page label for: hour"
   },
   "options_label_hours": {
-    "message": "ore",
+    "message": "часов",
     "description": "Options page label for: hours"
   },
   "options_label_flickr": {
-    "message": "Utilizați imagini Flickr",
+    "message": "Использование изображений Flickr",
     "description": "Options page label for: Use Flickr images"
   },
   "options_text_flickr": {
-    "message": "Utilizați Flickr pentru imagini de fundal în loc de imagini statice",
+    "message": "Использование Flickr для фоновых изображений вместо статических изображений",
     "description": "Options page description for: Use Flickr images"
   },
   "options_label_labels": {
-    "message": "Etichete specifice Afișează limbi străine",
+    "message": "Показать специфичные для языка этикетки",
     "description": "Options page label for: Show language-specific labels"
   },
   "options_text_labels": {
-    "message": "Arată 'Vremea in', 'Acum', 'Maxim/Minim' ",
+    "message": "шоу 'Погода в', 'Сейчас', 'Высокая/Низкий' ",
     "description": "Options page description for: Show language-specific labels"
   },
   "options_label_extlinks": {
-    "message": "Afișați link-uri externe",
+    "message": "Показать внешние ссылки",
     "description": "Options page label for: Show external links"
   },
   "options_text_extlinks": {
-    "message": "link-uri către Weather.com și Weatherunderground.com",
+    "message": "ссылки на Weather.com и Weatherunderground.com",
     "description": "Options page description for: Show external links"
   },
   "options_label_weatherdate": {
-    "message": "Afișați data meteo",
+    "message": "Показать дату погоды",
     "description": "Options page label for: Show weather date"
   },
   "options_label_refreshdate": {
-    "message": "Afișați ultima dată citire",
+    "message": "Показать дату последнего чтения",
     "description": "Options page label for: Show last read date"
   },
   "options_label_typelocation": {
-    "message": "Tastați într-o nouă locație pentru a adăuga",
+    "message": "Введите в новое место, чтобы добавить",
     "description": "Options page label for: Type in a new location to add"
   },
   "options_label_search": {
-    "message": "Căutare",
+    "message": "Поиск",
     "description": "Options page label for: Search"
   },
   "options_label_close": {
-    "message": "Închide",
+    "message": "Закрыть",
     "description": "Options page label for: Close"
   },
   "options_label_remove": {
-    "message": "Elimina",
+    "message": "Удалить",
     "description": "Options page label for: Remove"
   },
   "options_label_pleasewait": {
-    "message": "Te rog asteapta",
+    "message": "Пожалуйста, подождите",
     "description": "Options page label for: Please wait"
   },
   "options_label_iconspreview": {
-    "message": "Pictogramele de previzualizare",
+    "message": "Иконки предварительного просмотра",
     "description": "Options page label for: Icons Preview"
   },
   "options_label_supportextension": {
-    "message": "Susține această extensie",
+    "message": "Поддержка этого расширения",
     "description": "Options page label for: Support this extension"
   },
   "options_label_donateextension": {
-    "message": "Vă rugăm să donați dacă vă place munca mea!",
+    "message": "Пожалуйста, поддержите, если Вам нравится моя работа!",
     "description": "Options page label for: Please donate if you like my work!"
   },
   "options_message_nogeolocation": {
-    "message": "Localizare geografică nu este acceptată pentru această versiune de browser / OS încă.",
+    "message": "Geolocation не поддерживается для этой версии браузера / OS пока.",
     "description": "Options page message to be displayed when geolocation is not supported."
   },
   "options_message_nolocation": {
-    "message": "Din păcate, nici o locație găsit la aceste coordonate! Încercați să căutați locația în loc ..",
+    "message": "К сожалению, местоположение не найдено на этих координироваться! Попробуйте искать вашего местоположения вместо ..",
     "description": "Options page message to be displayed when no location is found."
   },
   "options_label_removelocation": {
-    "message": "Eliminați această locație!",
+    "message": "Удалить это место!",
     "description": "Options page label for: Remove this location!"
   },
   "options_label_selectlocation": {
-    "message": "Selectați această locație!",
+    "message": "Выберите это место!",
     "description": "Options page label for: Select this location!"
   },
   "label_high": {
-    "message": "Maxim",
+    "message": "Высокая",
     "description": "Label for: High"
   },
   "label_low": {
-    "message": "Minim",
+    "message": "Низкий",
     "description": "Label for: Low"
   }
 }

@@ -187,6 +187,10 @@
     "message": "Sunny",
     "description": "Condition name for: Sunny"
   },
+  "condition_mostly_sunny": {
+    "message": "Mostly sunny",
+    "description": "Condition name for: Sunny"
+  },
   "condition_fair_night": {
     "message": "Fair (night)",
     "description": "Condition name for: Fair (night)"
@@ -388,7 +392,7 @@
     "description": "Options page label for: Show language-specific labels"
   },
   "options_text_labels": {
-    "message": "show \"Weather in\", \"Now\", \"High/Low",
+    "message": "show 'Weather in', 'Now', 'High/Low' ",
     "description": "Options page description for: Show language-specific labels"
   },
   "options_label_extlinks": {
@@ -454,5 +458,13 @@
   "options_label_selectlocation": {
     "message": "Select this location!",
     "description": "Options page label for: Select this location!"
+  },
+  "label_high": {
+    "message": "High",
+    "description": "Label for: High"
+  },
+  "label_low": {
+    "message": "Low",
+    "description": "Label for: Low"
   }
 }
