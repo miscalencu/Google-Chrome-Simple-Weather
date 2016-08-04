@@ -1,6 +1,6 @@
 var isExtension = (typeof chrome.browserAction !== "undefined");
 var currentPage = "unknown";
-var debugEnabled = !chrome.app.isInstalled;
+var debugEnabled = !('update_url' in chrome.runtime.getManifest());
 
 if (!debugEnabled) {
     console.log = function () { };
