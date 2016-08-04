@@ -183,6 +183,10 @@
     "message": "Clear (night)",
     "description": "Condition name for: Clear (night)"
   },
+  "condition_clear": {
+    "message": "Clear",
+    "description": "Condition name for: Clear"
+  },
   "condition_sunny": {
     "message": "Sunny",
     "description": "Condition name for: Sunny"
@@ -448,7 +452,7 @@
     "description": "Options page message to be displayed when geolocation is not supported."
   },
   "options_message_nolocation": {
-    "message": "Sorry, no location found at these coordinated! Try to search for your location instead..",
+    "message": "Sorry, no location found at these coordinates! Try to search for your location instead ...",
     "description": "Options page message to be displayed when no location is found."
   },
   "options_label_removelocation": {
@@ -466,5 +470,13 @@
   "label_low": {
     "message": "Low",
     "description": "Label for: Low"
+  },
+  "label_add": {
+    "message": "Add",
+    "description": "Label for: Add"
+  },
+  "options_text_notfound": {
+    "message": "No location found! Please try to specify City, Country, Code...",
+    "description": "Options text to be displayed when no location is found."
   }
 }

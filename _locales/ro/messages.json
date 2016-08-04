@@ -179,6 +179,10 @@
     "message": "Parțial înnorat (zi)",
     "description": "Condition name for: Partly cloudy (day)"
   },
+  "condition_clear": {
+    "message": "Clar",
+    "description": "Condition name for: Clear"
+  },
   "condition_clear_night": {
     "message": "Clar (noapte)",
     "description": "Condition name for: Clear (night)"
@@ -466,5 +470,13 @@
   "label_low": {
     "message": "Minim",
     "description": "Label for: Low"
+  },
+  "label_add": {
+    "message": "Adaugă",
+    "description": "Label for: Add"
+  },
+  "options_text_notfound": {
+    "message": "Nu s-a găsit nici o localitate! Incearca sa speficiti Orasul, Tara, Codul Postal ...",
+    "description": "Options text to be displayed when no location is found."
   }
 }

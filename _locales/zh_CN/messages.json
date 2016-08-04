@@ -1,482 +1,482 @@
 ﻿{
   "application_title": {
-    "message": "Простой погоды",
+    "message": "简单的天气",
     "description": "The title of the application, displayed in the web store."
   },
   "application_description": {
-    "message": "Показывает погоду для нескольких мест, которые можно установить с помощью бесплатного API погоды предоставляемые Yahoo (Yahoo Weather API).",
+    "message": "显示，你可以使用雅虎（雅虎天气API）提供的免费天气API设置多个地点的天气。",
     "description": "The description of the application, displayed in the web store."
   },
   "warning_nolocation": {
-    "message": "Местоположение не определено!",
+    "message": "没有位置定义！",
     "description": "Text to be displayed when no location is defined"
   },
   "action_setlocation": {
-    "message": "Нажмите здесь, чтобы установить новое место!",
+    "message": "点击此处设置新的位置！",
     "description": "Text to be displayed when clicking on link to set location"
   },
   "warning_nodata": {
-    "message": "Нет достоверных данных доступны!",
+    "message": "无有效数据！",
     "description": "Text to be displayed when no data is available for a location"
   },
   "action_updatingsoon": {
-    "message": "Обновление в ближайшее время ...",
+    "message": "更新很快...",
     "description": "Text to be displayed as a notification that data will be updated soon"
   },
   "label_weatherin": {
-    "message": "Погода в",
+    "message": "天气",
     "description": "Label to be displayed as a prefix for the weather location"
   },
   "label_temperature": {
-    "message": "Температура",
+    "message": "温度",
     "description": "Label for: Temperature"
   },
   "label_windchill": {
-    "message": "Ветром фактором",
+    "message": "风寒",
     "description": "Label for: Wind Chill"
   },
   "label_windspeed": {
-    "message": "Скорость ветра",
+    "message": "风速",
     "description": "Label for: Wind Speed"
   },
   "label_humidity": {
-    "message": "Влажность",
+    "message": "湿度",
     "description": "Label for: Humidity"
   },
   "label_pressure": {
-    "message": "Давление",
+    "message": "压力",
     "description": "Label for: Pressure"
   },
   "label_visibility": {
-    "message": "Видимость",
+    "message": "能见度",
     "description": "Label for: Visibility"
   },
   "label_validfor": {
-    "message": "Годен до",
+    "message": "有效期",
     "description": "Label for: Valid for"
   },
   "label_lastcheckedon": {
-    "message": "Последняя проверка на",
+    "message": "最后查了",
     "description": "Label for: Last checked on"
   },
   "condition_tornado": {
-    "message": "Торнадо",
+    "message": "龙卷风",
     "description": "Condition name for: Tornado"
   },
   "condition_tropical_storm": {
-    "message": "Тропическая буря",
+    "message": "热带风暴",
     "description": "Condition name for: Tropical storm"
   },
   "condition_hurricane": {
-    "message": "Ураган",
+    "message": "飓风",
     "description": "Condition name for: Hurricane"
   },
   "condition_severe_thunderstorms": {
-    "message": "Сильные грозы",
+    "message": "强雷暴天气",
     "description": "Condition name for: Severe thunderstorms"
   },
   "condition_thunderstorms": {
-    "message": "Грозы",
+    "message": "雷暴",
     "description": "Condition name for: Thunderstorms"
   },
   "condition_mixed_rain_and_snow": {
-    "message": "Смешанный дождь и снег",
+    "message": "混合雨雪",
     "description": "Condition name for: Mixed rain and snow"
   },
   "condition_mixed_rain_and_sleet": {
-    "message": "Смешанный дождь и мокрый снег",
+    "message": "混合雨和雨夹雪",
     "description": "Condition name for: Mixed rain and sleet"
   },
   "condition_mixed_snow_and_sleet": {
-    "message": "Смешанный снег и мокрый снег",
+    "message": "混合雪和雨夹雪",
     "description": "Condition name for: Mixed snow and sleet"
   },
   "condition_freezing_drizzle": {
-    "message": "Изморозь",
+    "message": "冻毛毛雨",
     "description": "Condition name for: Freezing drizzle"
   },
   "condition_drizzle": {
-    "message": "Изморось",
+    "message": "细雨",
     "description": "Condition name for: Drizzle"
   },
   "condition_freezing_rain": {
-    "message": "Ледяной дождь",
+    "message": "冻雨",
     "description": "Condition name for: Freezing rain"
   },
   "condition_showers": {
-    "message": "Ливни",
+    "message": "阵雨",
     "description": "Condition name for: Showers"
   },
   "condition_snow_flurries": {
-    "message": "Порывы снега",
+    "message": "雪飘雪",
     "description": "Condition name for: Snow flurries"
   },
   "condition_light_snow_showers": {
-    "message": "Легкие дожди снег",
+    "message": "光阵雪",
     "description": "Condition name for: Light snow showers"
   },
   "condition_blowing_snow": {
-    "message": "Низовая метель",
+    "message": "吹雪",
     "description": "Condition name for: Blowing snow"
   },
   "condition_snow": {
-    "message": "Снег",
+    "message": "雪",
     "description": "Condition name for: Snow"
   },
   "condition_hail": {
-    "message": "Град",
+    "message": "冰雹",
     "description": "Condition name for: Hail"
   },
   "condition_sleet": {
-    "message": "Мокрый снег",
+    "message": "霰",
     "description": "Condition name for: Sleet"
   },
   "condition_dust": {
-    "message": "Пыли",
+    "message": "灰尘",
     "description": "Condition name for: Dust"
   },
   "condition_foggy": {
-    "message": "Туманный",
+    "message": "有雾",
     "description": "Condition name for: Foggy"
   },
   "condition_haze": {
-    "message": "Мгла",
+    "message": "阴霾",
     "description": "Condition name for: Haze"
   },
   "condition_smoky": {
-    "message": "Дымчатый",
+    "message": "烟",
     "description": "Condition name for: Smoky"
   },
   "condition_blustery": {
-    "message": "Бушующий",
+    "message": "大风",
     "description": "Condition name for: Blustery"
   },
   "condition_windy": {
-    "message": "Ветреный",
+    "message": "有风",
     "description": "Condition name for: Windy"
   },
   "condition_cold": {
-    "message": "Холодно",
+    "message": "冷",
     "description": "Condition name for: Cold"
   },
   "condition_cloudy": {
-    "message": "Облачный",
+    "message": "多云的",
     "description": "Condition name for: Cloudy"
   },
   "condition_mostly_cloudy_night": {
-    "message": "Местами облачно (ночь)",
+    "message": "晴间多云（夜间）",
     "description": "Condition name for: Mostly cloudy (night)"
   },
   "condition_mostly_cloudy_day": {
-    "message": "Местами облачно (день)",
+    "message": "晴间多云（日）",
     "description": "Condition name for: Mostly cloudy (day)"
   },
   "condition_partly_cloudy_night": {
-    "message": "Кратковременные дожди (ночью)",
+    "message": "晴间多云（夜间）",
     "description": "Condition name for: Partly cloudy (night)"
   },
   "condition_partly_cloudy_day": {
-    "message": "Кратковременные дожди (день)",
+    "message": "晴间多云（日）",
     "description": "Condition name for: Partly cloudy (day)"
   },
   "condition_clear_night": {
-    "message": "Ясная (ночь)",
+    "message": "晴（夜间）",
     "description": "Condition name for: Clear (night)"
   },
   "condition_clear": {
-    "message": "Чисто",
+    "message": "晴",
     "description": "Condition name for: Clear (night)"
   },
   "condition_sunny": {
-    "message": "Солнечно",
+    "message": "晴朗",
     "description": "Condition name for: Sunny"
   },
   "condition_mostly_sunny": {
-    "message": "Облачно с прояснениями",
+    "message": "大多时间晴天",
     "description": "Condition name for: Sunny"
   },
   "condition_fair_night": {
-    "message": "Fair (ночь)",
+    "message": "展览会（夜）",
     "description": "Condition name for: Fair (night)"
   },
   "condition_fair_day": {
-    "message": "Ярмарка (день)",
+    "message": "展览会（天）",
     "description": "Condition name for: Fair (day)"
   },
   "condition_mixed_rain_and_hail": {
-    "message": "Смешанный дождь и град",
+    "message": "混合雨水和冰雹",
     "description": "Condition name for: Mixed rain and hail"
   },
   "condition_hot": {
-    "message": "Горячий",
+    "message": "热",
     "description": "Condition name for: Hot"
   },
   "condition_isolated_thunderstorms": {
-    "message": "Изолированные гроз",
+    "message": "雷暴",
     "description": "Condition name for: Isolated thunderstorms"
   },
   "condition_scattered_thunderstorms": {
-    "message": "Рассеянные грозы",
+    "message": "零星雷阵雨",
     "description": "Condition name for: Scattered thunderstorms"
   },
   "condition_scattered_showers": {
-    "message": "Переменная облачность",
+    "message": "零星阵雨",
     "description": "Condition name for: Scattered showers"
   },
   "condition_heavy_snow": {
-    "message": "Снегопад",
+    "message": "暴雪",
     "description": "Condition name for: Heavy snow"
   },
   "condition_scattered_snow_showers": {
-    "message": "Местами снег",
+    "message": "零星阵雪",
     "description": "Condition name for: Scattered snow showers"
   },
   "condition_partly_cloudy": {
-    "message": "Переменная облачность",
+    "message": "局部阴天",
     "description": "Condition name for: Partly cloudy"
   },
   "condition_thundershowers": {
-    "message": "Дождь с громом и молнией",
+    "message": "雨雷电",
     "description": "Condition name for: Thundershowers"
   },
   "condition_snow_showers": {
-    "message": "Снегопады",
+    "message": "阵雪",
     "description": "Condition name for: Snow showers"
   },
   "condition_isolated_thundershowers": {
-    "message": "Изолированные дождь с громом и молнией",
+    "message": "孤雨雷电",
     "description": "Condition name for: Isolated thundershowers"
   },
   "condition_not_available": {
-    "message": "Недоступен",
+    "message": "不可用",
     "description": "Condition name for: Not available"
   },
   "action_refreshnow": {
-    "message": "Нажмите здесь, чтобы обновить сейчас!",
+    "message": "点击这里现在刷新！",
     "description": "Text to be displayed when clicking on link to refresh data"
   },
   "action_viewnextlocation": {
-    "message": "Следующая местоположение",
+    "message": "查看下一个位置",
     "description": "Text to be displayed when clicking to navigate to next location"
   },
   "action_viewprevlocation": {
-    "message": "Предыдущая местоположение",
+    "message": "查看以前的位置",
     "description": "Text to be displayed when clicking to navigate to previous location"
   },
   "label_now": {
-    "message": "Теперь",
+    "message": "现在",
     "description": "Label for: Now"
   },
   "label_sunrise": {
-    "message": "Восход",
+    "message": "日出",
     "description": "Label for: Sunrise"
   },
   "label_sunset": {
-    "message": "Закат солнца",
+    "message": "日落",
     "description": "Label for: Sunset"
   },
   "dayofweek_monday": {
-    "message": "Понедельник",
+    "message": "星期一",
     "description": "Label for day of week: Monday"
   },
   "dayofweek_tuesday": {
-    "message": "Вторник",
+    "message": "星期二",
     "description": "Label for day of week: Tuesday"
   },
   "dayofweek_wednesday": {
-    "message": "Среда",
+    "message": "星期三",
     "description": "Label for day of week: Wednesday"
   },
   "dayofweek_thursday": {
-    "message": "Четверг",
+    "message": "星期四",
     "description": "Label for day of week: Thursday"
   },
   "dayofweek_friday": {
-    "message": "Пятница",
+    "message": "星期五",
     "description": "Label for day of week: Friday"
   },
   "dayofweek_saturday": {
-    "message": "Суббота",
+    "message": "星期六",
     "description": "Label for day of week: Saturday"
   },
   "dayofweek_sunday": {
-    "message": "Воскресенье",
+    "message": "星期日",
     "description": "Label for day of week: Sunday"
   },
   "popup_text_viewexernallinks": {
-    "message": "Просмотреть дополнительные данные прогноз на",
+    "message": "在扩展查看详细预测",
     "description": "Text to be dispayed in the popup page for links to external forecast data"
   },
   "popup_text_tiptoopen": {
-    "message": "Нажмите Alt + W, чтобы открыть это всплывающее окно",
+    "message": "按Alt + W来打开这个弹出",
     "description": "Text to be dispayed in the popup page as a tip for quick open"
   },
   "popup_text_othertips": {
-    "message": "Используйте стрелки, чтобы изменить местоположение. Нажмите клавишу ESC, чтобы закрыть.",
+    "message": "使用箭头改变位置。按ESC关闭。",
     "description": "Text to be dispayed in the popup page for other tips"
   },
   "popup_text_viewimage": {
-    "message": "Просмотреть детали изображения",
+    "message": "查看图像细节",
     "description": "Text to be dispayed in the popup in the link that opens the main background image details"
   },
   "popup_text_loadingimage": {
-    "message": "Загрузка изображений Flickr",
+    "message": "装载的Flickr图片",
     "description": "Text to be dispayed in the popup near the image preloader animation"
   },
   "options_text_powered_by": {
-    "message": "питаться от",
+    "message": "供电",
     "description": "Options page text: powered by"
   },
   "options_text_settings": {
-    "message": "Настройки",
+    "message": "设置",
     "description": "Options page text: Settings"
   },
   "options_label_currentlocations": {
-    "message": "Текущие места",
+    "message": "当前位置",
     "description": "Options page label for: Current locations"
   },
   "options_tooltip_addnewlocation": {
-    "message": "Нажмите здесь, чтобы найти и добавить новое местоположение.",
+    "message": "单击此处搜索并添加新的位置。",
     "description": "Options page tooltip for 'Add new location' link"
   },
   "options_label_addnewlocation": {
-    "message": "добавить новое местоположение",
+    "message": "添加新的位置",
     "description": "Options page text for 'Add new location' link"
   },
   "options_label_addyourlocation": {
-    "message": "добавить свое местоположение",
+    "message": "添加你的位置",
     "description": "Options page text for 'Add your location' link"
   },
   "options_label_addthislocation": {
-    "message": "добавить это местоположение",
+    "message": "添加此位置",
     "description": "Options page text for 'Add this location' link"
   },
   "options_tooltip_addyourlocation": {
-    "message": "Нажмите здесь, чтобы автоматически добавить текущее местоположение с помощью гео-местоположение.",
+    "message": "点击这里使用地理位置自动将您的当前位置。",
     "description": "Options page tooltip for 'Add your location' link"
   },
   "options_label_showin": {
-    "message": "Показать значения в",
+    "message": "显示值",
     "description": "Options page label for: 'Show in' (C or F)"
   },
   "options_label_measurement": {
-    "message": "Система измерения",
+    "message": "测量系统",
     "description": "Options page label for: System of measurement"
   },
   "options_label_measurement_metric": {
-    "message": "Метрический",
+    "message": "公",
     "description": "Options page 'Metric' value for: System of measurement"
   },
   "options_label_measurement_imperial": {
-    "message": "Имперский",
+    "message": "帝国",
     "description": "Options page 'Imperial' value for: System of measurement"
   },
   "options_label_timeout": {
-    "message": "Тайм-аут обновления фона",
+    "message": "背景更新超时",
     "description": "Options page label for: Background update timeout"
   },
   "options_label_hour": {
-    "message": "час",
+    "message": "小时",
     "description": "Options page label for: hour"
   },
   "options_label_hours": {
-    "message": "часов",
+    "message": "小时",
     "description": "Options page label for: hours"
   },
   "options_label_flickr": {
-    "message": "Использование изображений Flickr",
+    "message": "使用Flickr图片",
     "description": "Options page label for: Use Flickr images"
   },
   "options_text_flickr": {
-    "message": "Использование Flickr для фоновых изображений вместо статических изображений",
+    "message": "使用Flickr的背景图像，而不是静态图像",
     "description": "Options page description for: Use Flickr images"
   },
   "options_label_labels": {
-    "message": "Показать специфичные для языка этикетки",
+    "message": "显示语言特定标签",
     "description": "Options page label for: Show language-specific labels"
   },
   "options_text_labels": {
-    "message": "шоу 'Погода в', 'Сейчас', 'Высокая/Низкий' ",
+    "message": "节目'天气'，'现在'，'高/低",
     "description": "Options page description for: Show language-specific labels"
   },
   "options_label_extlinks": {
-    "message": "Показать внешние ссылки",
+    "message": "显示外部链接",
     "description": "Options page label for: Show external links"
   },
   "options_text_extlinks": {
-    "message": "ссылки на Weather.com и Weatherunderground.com",
+    "message": "链接Weather.com和Weatherunderground.com",
     "description": "Options page description for: Show external links"
   },
   "options_label_weatherdate": {
-    "message": "Показать дату погоды",
+    "message": "显示天气日期",
     "description": "Options page label for: Show weather date"
   },
   "options_label_refreshdate": {
-    "message": "Показать дату последнего чтения",
+    "message": "显示最后读取的日期",
     "description": "Options page label for: Show last read date"
   },
   "options_label_typelocation": {
-    "message": "Введите в новое место, чтобы добавить",
+    "message": "输入一个新的位置添加",
     "description": "Options page label for: Type in a new location to add"
   },
   "options_label_search": {
-    "message": "Поиск",
+    "message": "搜索",
     "description": "Options page label for: Search"
   },
   "options_label_close": {
-    "message": "Закрыть",
+    "message": "关",
     "description": "Options page label for: Close"
   },
   "options_label_remove": {
-    "message": "Удалить",
+    "message": "去掉",
     "description": "Options page label for: Remove"
   },
   "options_label_pleasewait": {
-    "message": "Пожалуйста, подождите",
+    "message": "请稍候",
     "description": "Options page label for: Please wait"
   },
   "options_label_iconspreview": {
-    "message": "Иконки предварительного просмотра",
+    "message": "图标预览",
     "description": "Options page label for: Icons Preview"
   },
   "options_label_supportextension": {
-    "message": "Поддержка этого расширения",
+    "message": "支持这个扩展",
     "description": "Options page label for: Support this extension"
   },
   "options_label_donateextension": {
-    "message": "Пожалуйста, поддержите, если Вам нравится моя работа!",
+    "message": "如果你喜欢我的工作请捐助！",
     "description": "Options page label for: Please donate if you like my work!"
   },
   "options_message_nogeolocation": {
-    "message": "Geolocation не поддерживается для этой версии браузера / OS пока.",
+    "message": "地理位置不支持该浏览器/操作系统版本呢。",
     "description": "Options page message to be displayed when geolocation is not supported."
   },
   "options_message_nolocation": {
-    "message": "К сожалению, местоположение не найдено на этих координироваться! Попробуйте искать вашего местоположения вместо ..",
+    "message": "对不起，没有位置这些协调找到了！尝试搜索您的位置，而不是..",
     "description": "Options page message to be displayed when no location is found."
   },
   "options_label_removelocation": {
-    "message": "Удалить это место!",
+    "message": "删除此位置！",
     "description": "Options page label for: Remove this location!"
   },
   "options_label_selectlocation": {
-    "message": "Выберите это место!",
+    "message": "选择这个位置！",
     "description": "Options page label for: Select this location!"
   },
   "label_high": {
-    "message": "Высокая",
+    "message": "高",
     "description": "Label for: High"
   },
   "label_low": {
-    "message": "Низкий",
+    "message": "低",
     "description": "Label for: Low"
   },
   "label_add": {
-    "message": "добавлять",
+    "message": "加",
     "description": "Label for: Add"
   },
   "options_text_notfound": {
-    "message": "Местоположение не найдено! Пожалуйста, попробуйте указать город, страна, код ...",
+    "message": "没有发现地点！请尝试指定城市，国家，代码...",
     "description": "Options text to be displayed when no location is found."
   }
 }

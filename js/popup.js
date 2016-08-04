@@ -87,7 +87,7 @@ function ShowWeather(showBadgeAnimation) {
 
 			content += "<div class=\"box\">";
 			content += getIcon(weatherForecast.Code, isDay);
-			content += "<div style=\"width:180px\">";
+			content += "<div style=\"width:240px\">";
 			content += "<span class=\"subtitle\"><b>" + getWeatherDay(weatherForecast.Day) + "</b>: " + getWeatherCondition(weatherForecast.Condition) + "</span><br />";
 			content += getLabel(chrome.i18n.getMessage("label_high") + "/" + chrome.i18n.getMessage("label_low") + ": ");
 			content += "<span class=\"high\">" + fillInTemperature(weatherForecast.High) + ((showin === "C") ? "&deg;" : " ") + showin + "</span> / ";

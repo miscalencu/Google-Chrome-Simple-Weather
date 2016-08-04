@@ -149,7 +149,7 @@ function checkNewLocation() {
 
 					var text = "<b>" + name + "</b> (" + country + ((admin1 != "") ? (" - " + admin1) : "") + ((admin2 != "") ? (" - " + admin2) : "") + ((admin3 != "") ? (" - " + admin3) : "") + ")";
 
-					message += "<a title=\"Add this location!\" data-woeid=\"" + woeid + "\" data-name=\"" + name + "\" class=\"foundLocation\"><span class=\"glyphicon glyphicon-plus\"></span> add</a> <span style=\"color: black\">" + text + "</span><br />";
+					message += "<a title=\"" + chrome.i18n.getMessage("options_label_addthislocation") + "!\" data-woeid=\"" + woeid + "\" data-name=\"" + name + "\" class=\"foundLocation\"><span class=\"glyphicon glyphicon-plus\"></span> " + chrome.i18n.getMessage("label_add") + "</a> <span style=\"color: black\">" + text + "</span><br />";
 				});
 
 				$("#message").html(message);
@@ -172,7 +172,7 @@ function checkNewLocation() {
 			}
 
 			if($("#message").html() === "") {
-				$("#message").html("No location found! Please try to specify City, Country, Code...");
+			    $("#message").html(chrome.i18n.getMessage("options_text_notfound"));
 			}
 		},
 		fail: function (jqXHR, textStatus) {
