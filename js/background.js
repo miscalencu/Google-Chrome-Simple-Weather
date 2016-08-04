@@ -50,7 +50,7 @@ $(document).ready(function () {
 function updateEmptyBadge() {
     chrome.browserAction.setBadgeText({ text: "?" });
     chrome.browserAction.setBadgeBackgroundColor({ color: [255, 0, 0, 255] });
-    chrome.browserAction.setTitle({ title: "No location defined!\nClick here to set a new location!" });
+    chrome.browserAction.setTitle({ title: chrome.i18n.getMessage("warning_nolocation") + "\n" + chrome.i18n.getMessage("action_setlocation") });
     chrome.browserAction.setIcon({ path: "images/icon.png" });
 }
 
@@ -81,7 +81,7 @@ function updateBadge(showAnimation) {
 	else {
 		chrome.browserAction.setBadgeText({ text: "!" });
 		chrome.browserAction.setBadgeBackgroundColor({ color: [255, 0, 0, 255] });
-		chrome.browserAction.setTitle({ title: "No valid data available!\nUpdating soon ..." });
+		chrome.browserAction.setTitle({ title: chrome.i18n.getMessage("warning_nodata") + "\n" + chrome.i18n.getMessage("action_updatingsoon") });
 	}
 }
 
@@ -90,7 +90,7 @@ function goUpdateBadge(weatherObj) {
 	var badgeTitle = "";
 	var badgeText = "";
 
-	badgeTitle += (getLabel("Weather in ") + weatherObj.LocationCity) + getLabel("\nTemperature: ", " - ") + fillInTemperature(weatherObj.Temp);
+	badgeTitle += (getLabel(chrome.i18n.getMessage("label_weatherin") + " ") + weatherObj.LocationCity) + getLabel("\n" + chrome.i18n.getMessage("label_temperature") + ": ", " - ") + fillInTemperature(weatherObj.Temp);
 	if (getSettings("weatherShowIn") === "C") {
 		badgeTitle += String.fromCharCode(176);
 	}
@@ -100,10 +100,10 @@ function goUpdateBadge(weatherObj) {
 	badgeTitle += getSettings("weatherShowIn");
 
 	if (weatherObj.Condition != "")
-		badgeTitle += " - " + weatherObj.Condition;
+		badgeTitle += " - " + getWeatherCondition(weatherObj.Condition);
 
 	if (weatherObj.WindChill != "") {
-	    badgeTitle += getLabel("\nWind Chill: ", " (") + fillInTemperature(weatherObj.WindChill);
+	    badgeTitle += getLabel("\n" + chrome.i18n.getMessage("label_windchill") + ": ", " (") + fillInTemperature(weatherObj.WindChill);
 	    if (getSettings("weatherShowIn") === "C") {
 	    	badgeTitle += String.fromCharCode(176);
 	    }
@@ -115,25 +115,25 @@ function goUpdateBadge(weatherObj) {
 	}
 
 	if (weatherObj.WindSpeed != "")
-	    badgeTitle += "\n" + getLabel("Wind speed: ") + fillWindSpeed(weatherObj.WindSpeed, weatherObj.UnitSpeed);
+	    badgeTitle += "\n" + getLabel(chrome.i18n.getMessage("label_windspeed") + ": ") + fillWindSpeed(weatherObj.WindSpeed, weatherObj.UnitSpeed);
 
 	if (weatherObj.AtmosphereHumidity != "")
-	    badgeTitle += getLabel("\nHumidity: ", ", ") + weatherObj.AtmosphereHumidity + "%";
+	    badgeTitle += getLabel("\n" + chrome.i18n.getMessage("label_humidity") + ": ", ", ") + weatherObj.AtmosphereHumidity + "%";
 
 	if (weatherObj.AtmospherePressure != "")
-	    badgeTitle += getLabel("\nPressure: ", ", ") + fillPressure(weatherObj.AtmospherePressure, weatherObj.UnitPressure);
+	    badgeTitle += getLabel("\n" + chrome.i18n.getMessage("label_pressure") + ": ", ", ") + fillPressure(weatherObj.AtmospherePressure, weatherObj.UnitPressure);
 
 	if (weatherObj.AtmosphereVisibility != "")
-	    badgeTitle += getLabel("\nVisibility: ", ", ") + fillVisibility(weatherObj.AtmosphereVisibility, weatherObj.UnitDistance);
+	    badgeTitle += getLabel("\n" + chrome.i18n.getMessage("label_visibility") + ": ", ", ") + fillVisibility(weatherObj.AtmosphereVisibility, weatherObj.UnitDistance);
 
 	if ((getSettings("weatherDate") === "1") || (getSettings("weatherReadDate") === "1"))
 	    badgeTitle += "\n";
     
 	if (getSettings("weatherDate") === "1")
-		badgeTitle += "\nValid for: " + formatToLocalTimeDate(weatherObj.Date);
+	    badgeTitle += "\n" + chrome.i18n.getMessage("label_validfor") + ": " + formatToLocalTimeDate(weatherObj.Date);
 
 	if (getSettings("weatherReadDate") === "1")
-		badgeTitle += "\nLast checked on: " + formatToLocalTimeDate(weatherObj.RefreshDate);
+	    badgeTitle += "\n" + chrome.i18n.getMessage("label_lastcheckedon") + ": " + formatToLocalTimeDate(weatherObj.RefreshDate);
 
 	var temp = fillInTemperature(weatherObj.Temp);
 	if (getSettings("weatherShowIn") === "C") {

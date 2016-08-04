@@ -1,4 +1,10 @@
 var isExtension = (typeof chrome.browserAction !== "undefined");
+var currentPage = "unknown";
+var debugEnabled = !chrome.app.isInstalled;
+
+if (!debugEnabled) {
+    console.log = function () { };
+}
 
 function getSettings(name) {
 	var default_val = "";
@@ -12,7 +18,7 @@ function getSettings(name) {
 		    default_val = null;
 		    break;
 		case "weatherShowLinks":
-			default_val = "0";
+			default_val = "1";
 			break;
 	    case "weatherShowIn":
 	        default_val = "C";
@@ -244,12 +250,12 @@ function ShowWeatherBackground(weatherObj, woeid, isDay) {
             SetWeatherBackGroud(stored_image, woeid);
             var stored_url = getSettings("imageurl_" + woeid);
             if (stored_url != "") {
-                $(".preload_image").html("<a href='" + stored_url + "' target='_blank'> View image details ...</a>");
+                $(".preload_image").html("<a href='" + stored_url + "' target='_blank'>" + chrome.i18n.getMessage("popup_text_viewimage") + " ...</a>");
             }
         }
         else {
 
-            $(".preload_image").html("<i class=\"wi loading_small wi-time-12 fa-spin\" /> Loading Flickr image ...");
+            $(".preload_image").html("<i class=\"wi loading_small wi-time-12 fa-spin\" />" + chrome.i18n.getMessage("popup_text_loadingimage") + " ...");
 
             var min_taken_date = new Date();
             min_taken_date.setDate(min_taken_date.getDate() - 30);
@@ -345,7 +351,7 @@ function SetWeatherBackGroud(url, woeid) {
             else {
                 var image_url = getSettings("imageurl_" + woeid);
                 if (image_url != "") {
-                    $(".preload_image").html("<a href='" + image_url + "' target='_blank'> View image details ...</a>");
+                    $(".preload_image").html("<a href='" + image_url + "' target='_blank'>" + chrome.i18n.getMessage("popup_text_viewimage") + " ...</a>");
                 } else {
                     $(".preload_image").html("");
                 }
@@ -417,6 +423,28 @@ function StaticWeatherBackgroundImage(weatherObj) {
 	return "";
 }
 
+function getWeatherCondition(condition) {
+    var lang = chrome.i18n.getUILanguage();
+    if (lang.indexOf("en-") == 0) {
+        return condition;
+    }
+    else {
+        var condition_label = "condition_" + condition.toLowerCase().replace(" ", "_").replace(/()/g, "");
+        console.log("condition label: " + condition_label);
+        return chrome.i18n.getMessage(condition_label);
+    }
+}
+
+function getWeatherDay(day) {
+    var lang = chrome.i18n.getUILanguage();
+    if (lang.indexOf("en-") == 0) {
+        return day;
+    }
+    else {
+        var day_label = "dayofweek_" + condition.toLowerCase();
+        return chrome.i18n.getMessage(day_label);
+    }
+}
 
 function preloadImage(source, callback) {
     var preloaderDiv = $('<div style="display: none;"></div>').prependTo(document.body);
@@ -694,6 +722,8 @@ function getIcon(code, isDay) {
 			break;
 	}
 
+	title = getWeatherCondition(title);
+
 	if (icon != "") {
 		icon = icon.replace("<i ", "<i title=\"" + title + "\" ");
 	}
@@ -746,4 +776,21 @@ function fillWindSpeed(speed, unitSpeed) {
         unitSpeed = "kmh";
     }
     return speed + " " + unitSpeed;
+}
+
+function localizeHtmlPage() {
+    //Localize by replacing __MSG_***__ meta tags
+    var objects = document.getElementsByTagName('html');
+    for (var j = 0; j < objects.length; j++) {
+        var obj = objects[j];
+
+        var valStrH = obj.innerHTML.toString();
+        var valNewH = valStrH.replace(/__MSG_(\w+)__/g, function (match, v1) {
+            return v1 ? chrome.i18n.getMessage(v1) : "";
+        });
+
+        if (valNewH != valStrH) {
+            obj.innerHTML = valNewH;
+        }
+    }
 }

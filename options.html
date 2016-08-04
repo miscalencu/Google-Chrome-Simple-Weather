@@ -18,30 +18,30 @@
 			
 		<div class="header">
 			<div class="logo">
-                <i class="wi wi-day-cloudy" title="Simply Weather for Chrome"></i>
+                <i class="wi wi-day-cloudy" title="__MSG_application_title__"></i>
 			</div>
-			<span class="power">powered by</span>
+			<span class="power">__MSG_options_text_powered_by__</span>
 			<span class="poweredby"></span>
 		</div>
 
-		<h1>Settings for Simply Weather extension</h1>
+		<h1>__MSG_application_title__ - __MSG_options_text_settings__ </h1>
 		
 		<div class="box">
 			<table cellpadding="5" cellspacing="2" align="left" width="550">
 				<tr>
-					<th valign="top" width="200">Current locations:</th>
+					<th valign="top" width="200">__MSG_options_label_currentlocations__:</th>
 					<td>
                         <div id="weather_locations"></div>
-                        <a id="addLocationLink" href="#new" data-toggle="popover" data-content="Click here to search and add a new location.">
-                            <span class="glyphicon glyphicon glyphicon-search"></span> add new location
+                        <a id="addLocationLink" href="#new" data-toggle="popover" data-content="__MSG_options_tooltip_addnewlocation__">
+                            <span class="glyphicon glyphicon glyphicon-search"></span> __MSG_options_label_addnewlocation__
                         </a>
-                        <a id="addGeoLocationLink" href="#new" data-toggle="popover" data-content="Click here to automatically add your current location using geo-location.">
-                            <span class="glyphicon glyphicon-map-marker"></span> add your location
+                        <a id="addGeoLocationLink" href="#new" data-toggle="popover" data-content="__MSG_options_tooltip_addyourlocation__">
+                            <span class="glyphicon glyphicon-map-marker"></span> __MSG_options_label_addyourlocation__
                         </a>
 					</td>
 				</tr>
 				<tr>
-					<th>Show values in</th>
+					<th>__MSG_options_label_showin__</th>
 					<td>
 						<input type="radio" value="C" id="showInC" name="showIn" /> &deg;C
 						&nbsp;&nbsp;&nbsp;
@@ -49,54 +49,54 @@
 					</td>
 				</tr>
                 <tr>
-                    <th>System of measurement</th>
+                    <th>__MSG_options_label_measurement__</th>
                     <td>
-                        <input type="radio" value="F" id="measurementSystemMetric" name="measurementSystem" /> Metric
+                        <input type="radio" value="F" id="measurementSystemMetric" name="measurementSystem" /> __MSG_options_label_measurement_metric__
                         &nbsp;&nbsp;&nbsp;
-                        <input type="radio" value="C" id="measurementSystemImperial" name="measurementSystem" /> Imperial
+                        <input type="radio" value="C" id="measurementSystemImperial" name="measurementSystem" /> __MSG_options_label_measurement_imperial__
                     </td>
                 </tr>
 				<tr>
-					<th>Background update timeout</th>
+					<th>__MSG_options_label_timeout__</th>
 					<td>
 						<select name="updateTimeout" id="updateTimeout">
-							<option value="60">1 hour</option>
-							<option value="120">2 hours</option>
-							<option value="180">3 hours</option>
-							<option value="240">4 hours</option>
-							<option value="360">6 hours</option>
+							<option value="60">1 __MSG_options_label_hour__</option>
+							<option value="120">2 __MSG_options_label_hours__</option>
+							<option value="180">3 __MSG_options_label_hours__</option>
+							<option value="240">4 __MSG_options_label_hours__</option>
+							<option value="360">6 __MSG_options_label_hours__</option>
 						</select>
 					</td>
 				</tr>
                 <tr>
-                    <th>Use Flickr images</th>
+                    <th>__MSG_options_label_flickr__</th>
                     <td>
                         <input type="checkbox" value="1" id="useFlickrImages" name="useFlickrImages" />
-                        <small>(use Flickr for background images, instead of static images)</small>
+                        <small>(__MSG_options_text_flickr__)</small>
                     </td>
                 </tr>
 				<tr>
-					<th>Show labels</th>
+					<th>__MSG_options_label_labels__</th>
 					<td>
 						<input type="checkbox" value="C" id="showLabels" name="showLabels" />
-						<small>(show "Weather in", "Now", "High/Low")</small>
+						<small>(__MSG_options_text_labels__)</small>
 					</td>
 				</tr>
 				<tr>
-					<th>Show external links</th>
+					<th>__MSG_options_label_extlinks__</th>
 					<td>
 						<input type="checkbox" value="C" id="showExternal" name="showExternal" />
-						<small>(links to Weather.com and Weatherunderground.com)</small>
+						<small>(__MSG_options_text_extlinks__)</small>
 					</td>
 				</tr>
 				<tr>
-					<th>Show weather date</th>
+					<th>__MSG_options_label_weatherdate__</th>
 					<td>
 						<input type="checkbox" value="C" id="showDate" name="showDate" />
 					</td>
 				</tr>
 				<tr>
-					<th>Show last read date</th>
+					<th>__MSG_options_label_refreshdate__</th>
 					<td>
 						<input type="checkbox" value="C" id="showReadDate" name="showReadDate" />
 					</td>
@@ -110,20 +110,20 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Add new location:</h4>
+                        <h4 class="modal-title">__MSG_options_label_addnewlocation__:</h4>
                     </div>
                     <div class="modal-body">
 						<a name="new"></a>
 						<div class="form-group">
-							<label for="newLocation">Type in a new location to add: </label>
+							<label for="newLocation">__MSG_options_label_typelocation__: </label>
 							<input type="text" style="width:200px; padding: 4px" id="newLocation" name="newLocation" value="" />
-							<input type="button" class="btn btn-primary" id="btnAdd" value="Search" /> <br />
+							<input type="button" class="btn btn-primary" id="btnAdd" value="__MSG_options_label_search__" /> <br />
 						</div>
 						
                         <div id="message"></div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">__MSG_options_label_close__</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
@@ -134,31 +134,32 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Add your location:</h4>
+                        <h4 class="modal-title">__MSG_options_label_addyourlocation__:</h4>
                     </div>
                     <div class="modal-body">
 						<a name="geo"></a>
-						<div id="geo_message">Please wait ...</div>
+						<div id="geo_message">__MSG_options_label_pleasewait__ ...</div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">__MSG_options_label_close__</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
 
         <div class="box" id="preview">
-            <b>Icons preview: <span></span></b>
+            <b>__MSG_options_label_iconspreview__: <span></span></b>
             <div id="preview_icons"></div>
         </div>
 
         <div class="footer">
             <br class="clear" />
             <br />
-            <h1>Support this extension:</h1>
-            <b>Please <a target="_blank" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZFBNDULJRKPXC"><img border="0" src="https://www.paypal.com/en_GB/i/btn/btn_donate_SM.gif" align="absmiddle" alt="PayPal - The safer, easier way to pay online." /></a> if you like my work!</b>
+            <h1>__MSG_options_label_supportextension__:</h1>
+            <b> __MSG_options_label_donateextension__<br /><br /><a target="_blank" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZFBNDULJRKPXC"><img border="0" src="https://www.paypal.com/en_GB/i/btn/btn_donate_SM.gif" align="absmiddle" alt="PayPal - The safer, easier way to pay online." /></a></b>
         </div>
 
 		<script type="text/javascript" src="js/options.js"></script>
+        <script type="text/javascript" src="js/ga.js"></script>
 	</body>
 </html>

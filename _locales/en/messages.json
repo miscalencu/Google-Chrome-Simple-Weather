@@ -1,0 +1,458 @@
+﻿{
+  "application_title": {
+    "message": "Simple Weather",
+    "description": "The title of the application, displayed in the web store."
+  },
+  "application_description": {
+    "message": "Displays the weather for multiple locations that you can set using the free weather API provided by Yahoo (Yahoo Weather API).",
+    "description": "The description of the application, displayed in the web store."
+  },
+  "warning_nolocation": {
+    "message": "No location defined!",
+    "description": "Text to be displayed when no location is defined"
+  },
+  "action_setlocation": {
+    "message": "Click here to set a new location!",
+    "description": "Text to be displayed when clicking on link to set location"
+  },
+  "warning_nodata": {
+    "message": "No valid data available!",
+    "description": "Text to be displayed when no data is available for a location"
+  },
+  "action_updatingsoon": {
+    "message": "Updating soon ...",
+    "description": "Text to be displayed as a notification that data will be updated soon"
+  },
+  "label_weatherin": {
+    "message": "Weather in",
+    "description": "Label to be displayed as a prefix for the weather location"
+  },
+  "label_temperature": {
+    "message": "Temperature",
+    "description": "Label for: Temperature"
+  },
+  "label_windchill": {
+    "message": "Wind Chill",
+    "description": "Label for: Wind Chill"
+  },
+  "label_windspeed": {
+    "message": "Wind Speed",
+    "description": "Label for: Wind Speed"
+  },
+  "label_humidity": {
+    "message": "Humidity",
+    "description": "Label for: Humidity"
+  },
+  "label_pressure": {
+    "message": "Pressure",
+    "description": "Label for: Pressure"
+  },
+  "label_visibility": {
+    "message": "Visibility",
+    "description": "Label for: Visibility"
+  },
+  "label_validfor": {
+    "message": "Valid for",
+    "description": "Label for: Valid for"
+  },
+  "label_lastcheckedon": {
+    "message": "Last checked on",
+    "description": "Label for: Last checked on"
+  },
+  "condition_tornado": {
+    "message": "Tornado",
+    "description": "Condition name for: Tornado"
+  },
+  "condition_tropical_storm": {
+    "message": "Tropical storm",
+    "description": "Condition name for: Tropical storm"
+  },
+  "condition_hurricane": {
+    "message": "Hurricane",
+    "description": "Condition name for: Hurricane"
+  },
+  "condition_severe_thunderstorms": {
+    "message": "Severe thunderstorms",
+    "description": "Condition name for: Severe thunderstorms"
+  },
+  "condition_thunderstorms": {
+    "message": "Thunderstorms",
+    "description": "Condition name for: Thunderstorms"
+  },
+  "condition_mixed_rain_and_snow": {
+    "message": "Mixed rain and snow",
+    "description": "Condition name for: Mixed rain and snow"
+  },
+  "condition_mixed_rain_and_sleet": {
+    "message": "Mixed rain and sleet",
+    "description": "Condition name for: Mixed rain and sleet"
+  },
+  "condition_mixed_snow_and_sleet": {
+    "message": "Mixed snow and sleet",
+    "description": "Condition name for: Mixed snow and sleet"
+  },
+  "condition_freezing_drizzle": {
+    "message": "Freezing drizzle",
+    "description": "Condition name for: Freezing drizzle"
+  },
+  "condition_drizzle": {
+    "message": "Drizzle",
+    "description": "Condition name for: Drizzle"
+  },
+  "condition_freezing_rain": {
+    "message": "Freezing rain",
+    "description": "Condition name for: Freezing rain"
+  },
+  "condition_showers": {
+    "message": "Showers",
+    "description": "Condition name for: Showers"
+  },
+  "condition_snow_flurries": {
+    "message": "Snow flurries",
+    "description": "Condition name for: Snow flurries"
+  },
+  "condition_light_snow_showers": {
+    "message": "Light snow showers",
+    "description": "Condition name for: Light snow showers"
+  },
+  "condition_blowing_snow": {
+    "message": "Blowing snow",
+    "description": "Condition name for: Blowing snow"
+  },
+  "condition_snow": {
+    "message": "Snow",
+    "description": "Condition name for: Snow"
+  },
+  "condition_hail": {
+    "message": "Hail",
+    "description": "Condition name for: Hail"
+  },
+  "condition_sleet": {
+    "message": "Sleet",
+    "description": "Condition name for: Sleet"
+  },
+  "condition_dust": {
+    "message": "Dust",
+    "description": "Condition name for: Dust"
+  },
+  "condition_foggy": {
+    "message": "Foggy",
+    "description": "Condition name for: Foggy"
+  },
+  "condition_haze": {
+    "message": "Haze",
+    "description": "Condition name for: Haze"
+  },
+  "condition_smoky": {
+    "message": "Smoky",
+    "description": "Condition name for: Smoky"
+  },
+  "condition_blustery": {
+    "message": "Blustery",
+    "description": "Condition name for: Blustery"
+  },
+  "condition_windy": {
+    "message": "Windy",
+    "description": "Condition name for: Windy"
+  },
+  "condition_cold": {
+    "message": "Cold",
+    "description": "Condition name for: Cold"
+  },
+  "condition_cloudy": {
+    "message": "Cloudy",
+    "description": "Condition name for: Cloudy"
+  },
+  "condition_mostly_cloudy_night": {
+    "message": "Mostly cloudy (night)",
+    "description": "Condition name for: Mostly cloudy (night)"
+  },
+  "condition_mostly_cloudy_day": {
+    "message": "Mostly cloudy (day)",
+    "description": "Condition name for: Mostly cloudy (day)"
+  },
+  "condition_partly_cloudy_night": {
+    "message": "Partly cloudy (night)",
+    "description": "Condition name for: Partly cloudy (night)"
+  },
+  "condition_partly_cloudy_day": {
+    "message": "Partly cloudy (day)",
+    "description": "Condition name for: Partly cloudy (day)"
+  },
+  "condition_clear_night": {
+    "message": "Clear (night)",
+    "description": "Condition name for: Clear (night)"
+  },
+  "condition_sunny": {
+    "message": "Sunny",
+    "description": "Condition name for: Sunny"
+  },
+  "condition_fair_night": {
+    "message": "Fair (night)",
+    "description": "Condition name for: Fair (night)"
+  },
+  "condition_fair_day": {
+    "message": "Fair (day)",
+    "description": "Condition name for: Fair (day)"
+  },
+  "condition_mixed_rain_and_hail": {
+    "message": "Mixed rain and hail",
+    "description": "Condition name for: Mixed rain and hail"
+  },
+  "condition_hot": {
+    "message": "Hot",
+    "description": "Condition name for: Hot"
+  },
+  "condition_isolated_thunderstorms": {
+    "message": "Isolated thunderstorms",
+    "description": "Condition name for: Isolated thunderstorms"
+  },
+  "condition_scattered_thunderstorms": {
+    "message": "Scattered thunderstorms",
+    "description": "Condition name for: Scattered thunderstorms"
+  },
+  "condition_scattered_showers": {
+    "message": "Scattered showers",
+    "description": "Condition name for: Scattered showers"
+  },
+  "condition_heavy_snow": {
+    "message": "Heavy snow",
+    "description": "Condition name for: Heavy snow"
+  },
+  "condition_scattered_snow_showers": {
+    "message": "Scattered snow showers",
+    "description": "Condition name for: Scattered snow showers"
+  },
+  "condition_partly_cloudy": {
+    "message": "Partly cloudy",
+    "description": "Condition name for: Partly cloudy"
+  },
+  "condition_thundershowers": {
+    "message": "Thundershowers",
+    "description": "Condition name for: Thundershowers"
+  },
+  "condition_snow_showers": {
+    "message": "Snow showers",
+    "description": "Condition name for: Snow showers"
+  },
+  "condition_isolated_thundershowers": {
+    "message": "Isolated thundershowers",
+    "description": "Condition name for: Isolated thundershowers"
+  },
+  "condition_not_available": {
+    "message": "Not available",
+    "description": "Condition name for: Not available"
+  },
+  "action_refreshnow": {
+    "message": "Click here to refresh now!",
+    "description": "Text to be displayed when clicking on link to refresh data"
+  },
+  "action_viewnextlocation": {
+    "message": "View next location",
+    "description": "Text to be displayed when clicking to navigate to next location"
+  },
+  "action_viewprevlocation": {
+    "message": "View previous location",
+    "description": "Text to be displayed when clicking to navigate to previous location"
+  },
+  "label_now": {
+    "message": "Now",
+    "description": "Label for: Now"
+  },
+  "label_sunrise": {
+    "message": "Sunrise",
+    "description": "Label for: Sunrise"
+  },
+  "label_sunset": {
+    "message": "Sunset",
+    "description": "Label for: Sunset"
+  },
+  "dayofweek_monday": {
+    "message": "Monday",
+    "description": "Label for day of week: Monday"
+  },
+  "dayofweek_tuesday": {
+    "message": "Tuesday",
+    "description": "Label for day of week: Tuesday"
+  },
+  "dayofweek_wednesday": {
+    "message": "Wednesday",
+    "description": "Label for day of week: Wednesday"
+  },
+  "dayofweek_thursday": {
+    "message": "Thursday",
+    "description": "Label for day of week: Thursday"
+  },
+  "dayofweek_friday": {
+    "message": "Friday",
+    "description": "Label for day of week: Friday"
+  },
+  "dayofweek_saturday": {
+    "message": "Saturday",
+    "description": "Label for day of week: Saturday"
+  },
+  "dayofweek_sunday": {
+    "message": "Sunday",
+    "description": "Label for day of week: Sunday"
+  },
+  "popup_text_viewexernallinks": {
+    "message": "View extended forecast details at",
+    "description": "Text to be dispayed in the popup page for links to external forecast data"
+  },
+  "popup_text_tiptoopen": {
+    "message": "Press Alt+w to open this popup",
+    "description": "Text to be dispayed in the popup page as a tip for quick open"
+  },
+  "popup_text_othertips": {
+    "message": "Use the arrows to change locations. Press ESC to close.",
+    "description": "Text to be dispayed in the popup page for other tips"
+  },
+  "popup_text_viewimage": {
+    "message": "View image details",
+    "description": "Text to be dispayed in the popup in the link that opens the main background image details"
+  },
+  "popup_text_loadingimage": {
+    "message": "Loading Flickr image",
+    "description": "Text to be dispayed in the popup near the image preloader animation"
+  },
+  "options_text_powered_by": {
+    "message": "powered by",
+    "description": "Options page text: powered by"
+  },
+  "options_text_settings": {
+    "message": "Settings",
+    "description": "Options page text: Settings"
+  },
+  "options_label_currentlocations": {
+    "message": "Current locations",
+    "description": "Options page label for: Current locations"
+  },
+  "options_tooltip_addnewlocation": {
+    "message": "Click here to search and add a new location.",
+    "description": "Options page tooltip for 'Add new location' link"
+  },
+  "options_label_addnewlocation": {
+    "message": "add new location",
+    "description": "Options page text for 'Add new location' link"
+  },
+  "options_label_addyourlocation": {
+    "message": "add your location",
+    "description": "Options page text for 'Add your location' link"
+  },
+  "options_label_addthislocation": {
+    "message": "add this location",
+    "description": "Options page text for 'Add this location' link"
+  },
+  "options_tooltip_addyourlocation": {
+    "message": "Click here to automatically add your current location using geo-location.",
+    "description": "Options page tooltip for 'Add your location' link"
+  },
+  "options_label_showin": {
+    "message": "Show values in",
+    "description": "Options page label for: 'Show in' (C or F)"
+  },
+  "options_label_measurement": {
+    "message": "System of measurement",
+    "description": "Options page label for: System of measurement"
+  },
+  "options_label_measurement_metric": {
+    "message": "Metric",
+    "description": "Options page 'Metric' value for: System of measurement"
+  },
+  "options_label_measurement_imperial": {
+    "message": "Imperial",
+    "description": "Options page 'Imperial' value for: System of measurement"
+  },
+  "options_label_timeout": {
+    "message": "Background update timeout",
+    "description": "Options page label for: Background update timeout"
+  },
+  "options_label_hour": {
+    "message": "hour",
+    "description": "Options page label for: hour"
+  },
+  "options_label_hours": {
+    "message": "hours",
+    "description": "Options page label for: hours"
+  },
+  "options_label_flickr": {
+    "message": "Use Flickr images",
+    "description": "Options page label for: Use Flickr images"
+  },
+  "options_text_flickr": {
+    "message": "Use Flickr for background images instead of static images",
+    "description": "Options page description for: Use Flickr images"
+  },
+  "options_label_labels": {
+    "message": "Show language specific labels",
+    "description": "Options page label for: Show language-specific labels"
+  },
+  "options_text_labels": {
+    "message": "show \"Weather in\", \"Now\", \"High/Low",
+    "description": "Options page description for: Show language-specific labels"
+  },
+  "options_label_extlinks": {
+    "message": "Show external links",
+    "description": "Options page label for: Show external links"
+  },
+  "options_text_extlinks": {
+    "message": "links to Weather.com and Weatherunderground.com",
+    "description": "Options page description for: Show external links"
+  },
+  "options_label_weatherdate": {
+    "message": "Show weather date",
+    "description": "Options page label for: Show weather date"
+  },
+  "options_label_refreshdate": {
+    "message": "Show last read date",
+    "description": "Options page label for: Show last read date"
+  },
+  "options_label_typelocation": {
+    "message": "Type in a new location to add",
+    "description": "Options page label for: Type in a new location to add"
+  },
+  "options_label_search": {
+    "message": "Search",
+    "description": "Options page label for: Search"
+  },
+  "options_label_close": {
+    "message": "Close",
+    "description": "Options page label for: Close"
+  },
+  "options_label_remove": {
+    "message": "Remove",
+    "description": "Options page label for: Remove"
+  },
+  "options_label_pleasewait": {
+    "message": "Please wait",
+    "description": "Options page label for: Please wait"
+  },
+  "options_label_iconspreview": {
+    "message": "Icons preview",
+    "description": "Options page label for: Icons Preview"
+  },
+  "options_label_supportextension": {
+    "message": "Support this extension",
+    "description": "Options page label for: Support this extension"
+  },
+  "options_label_donateextension": {
+    "message": "Please donate if you like my work!",
+    "description": "Options page label for: Please donate if you like my work!"
+  },
+  "options_message_nogeolocation": {
+    "message": "Geolocation is not supported for this Browser/OS version yet.",
+    "description": "Options page message to be displayed when geolocation is not supported."
+  },
+  "options_message_nolocation": {
+    "message": "Sorry, no location found at these coordinated! Try to search for your location instead..",
+    "description": "Options page message to be displayed when no location is found."
+  },
+  "options_label_removelocation": {
+    "message": "Remove this location!",
+    "description": "Options page label for: Remove this location!"
+  },
+  "options_label_selectlocation": {
+    "message": "Select this location!",
+    "description": "Options page label for: Select this location!"
+  }
+}

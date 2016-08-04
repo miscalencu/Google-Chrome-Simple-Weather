@@ -1,34 +1,35 @@
 {
-	"name": "Simple Weather",
-	"description" : "Displays the weather for multiple locations that you can set using the free weather API provided by Yahoo (Yahoo Weather API).",
-	"version": "1.48",
-	"manifest_version": 2,
-	"description": "Gets weather from Yahoo. Shows forecast for next days. Multiple locations. Simple.",
-	"options_page": "options.html",
-	"background": { "page": "background.html" },
-	"content_security_policy": "script-src 'self' https://*.yahooapis.com; object-src 'self'",
-	"content_scripts": [{
-		"matches": ["<all_urls>"],
-		"css": ["css/in.css"],
-		"js": ["js/in.js"]
-		}],	
-	"browser_action": {
-		"default_icon": "images/icon.png",
-		"default_title": "Simple Weather"
-	},
-	"icons": {
-        "128": "images/icon_128.png",
-        "16": "images/icon.png"
-	},
-	"permissions": [
-	    "webNavigation", 
-		"tabs",
-		"geolocation"
-	],
-	"web_accessible_resources": 
-		[
-			"popup.htm", 
-			"images/opa75.png", 
-			"images/opa50_black.png"
-		]
+  "name": "__MSG_application_title__",
+  "description": "__MSG_application_description__",
+  "version": "1.50",
+  "manifest_version": 2,
+  "default_locale": "en",
+  "options_page": "options.html",
+  "background": { "page": "background.html" },
+  "content_security_policy": "script-src 'self' https://www.google-analytics.com https://*.yahooapis.com; object-src 'self'",
+  "content_scripts": [
+    {
+      "matches": [ "<all_urls>" ],
+      "css": [ "css/in.css" ],
+      "js": [ "js/in.js" ]
+    }
+  ],
+  "browser_action": {
+    "default_icon": "images/icon.png",
+    "default_title": "Simple Weather"
+  },
+  "icons": {
+    "128": "images/icon_128.png",
+    "16": "images/icon.png"
+  },
+  "permissions": [
+    "webNavigation",
+    "tabs",
+    "geolocation"
+  ],
+  "web_accessible_resources": [
+    "popup.htm",
+    "images/opa75.png",
+    "images/opa50_black.png"
+  ]
 }

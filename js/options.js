@@ -1,7 +1,11 @@
 var weatherObj = null;
 var isDay = 1;
+currentPage = "options";
 
-$(document).ready(function() {
+$(document).ready(function () {
+
+    localizeHtmlPage();
+
 	$("#showInC").on("click", function () {
 		setSettings("weatherShowIn", "C");
 		var locations = JSON.parse(getSettings("weatherLocations"));
@@ -191,8 +195,8 @@ function fillLocations() {
 	        classname = "current";
 	    }
 
-	    content += "<a href=\"#\" title=\"Remove this location!\" class=\"removeLocation " + classname + "\" data-id=\"" + i + "\"> <span class=\"glyphicon glyphicon-remove\"></span> remove</a>";
-	    content += "<span title=\"Select this location!\" class=\"selectLocation " + classname + "\" data-id=\"" + i + "\">" + locations[i].name + "</span><br />";
+	    content += "<a href=\"#\" title=\"" + chrome.i18n.getMessage("options_label_removelocation") + "\" class=\"removeLocation " + classname + "\" data-id=\"" + i + "\"> <span class=\"glyphicon glyphicon-remove\"></span> " + chrome.i18n.getMessage("options_label_remove") + "</a>";
+	    content += "<span title=\"" + chrome.i18n.getMessage("options_label_selectlocation") + "\" class=\"selectLocation " + classname + "\" data-id=\"" + i + "\">" + locations[i].name + "</span><br />";
 	}
 	
 	$("#weather_locations").html(content);
@@ -268,7 +272,7 @@ function addLocation() {
 
 function addGeoLocation() {
 	$("#geo_location").modal();
-	$("#geo_message").html("Please wait ...");
+	$("#geo_message").html(chrome.i18n.getMessage("options_label_pleasewait") + " ...");
 	getGeoPosition();
 }
 
@@ -279,7 +283,7 @@ function getGeoPosition() {
 	}
 	else {
 		console.log('Geolocation is not supported for this Browser/OS version yet.');
-		$("#geo_message").html("Geolocation is not supported for this Browser/OS version yet.");
+		$("#geo_message").html(chrome.i18n.getMessage("options_message_nogeolocation"));
 	}
 }
 
@@ -303,7 +307,7 @@ function geoSuccess(position) {
                     var woe_name = $(place).attr("woe_name");
 
                     var text = "<b>" + woe_name + "</b> (" + name + ")";
-                    message += "<a title=\"Add this location!\" data-woeid=\"" + woeid + "\" data-name=\"" + woe_name + "\" class=\"foundGeoLocation\"><span class=\"glyphicon glyphicon-plus\"></span> add</a> <span style=\"color: black\">" + text + "</span><br />";
+                    message += "<a title=\"" + chrome.i18n.getMessage("options_label_addthislocation") + "!\" data-woeid=\"" + woeid + "\" data-name=\"" + woe_name + "\" class=\"foundGeoLocation\"><span class=\"glyphicon glyphicon-plus\"></span> add</a> <span style=\"color: black\">" + text + "</span><br />";
 
                     $("#geo_message").html(message);
 
@@ -326,7 +330,7 @@ function geoSuccess(position) {
             }
 
             if ($("#geo_message").html() === "") {
-                $("#geo_message").html("Sorry, no location found at these coordinated! Try to search for your location instead.");
+                $("#geo_message").html(chrome.i18n.getMessage("options_message_nolocation"));
             }
         },
         fail: function (jqXHR, textStatus) {
