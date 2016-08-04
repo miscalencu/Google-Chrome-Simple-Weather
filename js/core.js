@@ -441,7 +441,7 @@ function getWeatherDay(day) {
         return day;
     }
     else {
-        var day_label = "dayofweek_" + condition.toLowerCase();
+        var day_label = "dayofweek_" + day.toLowerCase();
         return chrome.i18n.getMessage(day_label);
     }
 }
