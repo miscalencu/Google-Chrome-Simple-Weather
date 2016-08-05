@@ -6,6 +6,8 @@ $(document).ready(function () {
 
     localizeHtmlPage();
 
+    $("body").show();
+
 	$("#showInC").on("click", function () {
 		setSettings("weatherShowIn", "C");
 		var locations = JSON.parse(getSettings("weatherLocations"));
@@ -96,10 +98,6 @@ $(document).ready(function () {
 
 	$('[data-toggle="popover"]').popover({ trigger: "hover" });
 
-	$('#preview_icons .wi').on("hover", function () {
-	    $("#preview b span").text($(this).attr("title"));
-	});
-
 	var locations = JSON.parse(getSettings("weatherLocations"));
 	refreshBadge();
 });
@@ -111,6 +109,10 @@ function fillPreviewIcons() {
 	}
 
 	$("#preview_icons").html(content);
+
+	$('#preview_icons .wi').on("hover", function () {
+	    $("#preview b span").text($(this).attr("title"));
+	});
 }
 
 $(document).on("weather_complete", function (event) {
