@@ -1,4 +1,5 @@
 var timeOut = null;
+currentPage = "background";
 
 function SetRefresh() {
 	clearTimeout(timeOut);
