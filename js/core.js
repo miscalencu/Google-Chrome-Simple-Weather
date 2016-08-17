@@ -74,7 +74,7 @@ function GetWeather() {
 			dataType: "xml",
 			url: url,
 			success: function (result) {
-				if ($(result).find("query").attr("yahoo:count") != "0") { // no data received
+				if ($(result).find("query").attr("yahoo:count") != "0") { // if data received
 					console.log("complete fired ...");
 					// save weather object
 					setSettings("w_" + location.woeid, JSON.stringify(getWeatherObject(result)));
@@ -240,21 +240,20 @@ function refreshBadge(showAnimation) {
 }
 
 function ShowWeatherBackground(weatherObj, woeid, isDay) {
-
     var url = StaticWeatherBackgroundImage(weatherObj);
     var useFlickrImages = getSettings("useFlickrImages");
 
     if (useFlickrImages == "1") {
         var stored_image = getSettings("image_" + woeid);
-        if (stored_image != "") {
+        if (stored_image != "") { // no refresh since last storing of image
             SetWeatherBackGroud(stored_image, woeid);
             var stored_url = getSettings("imageurl_" + woeid);
             if (stored_url != "") {
                 $(".preload_image").html("<a href='" + stored_url + "' target='_blank'>" + chrome.i18n.getMessage("popup_text_viewimage") + " ...</a>");
             }
+            return;
         }
         else {
-
             $(".preload_image").html("<i class=\"wi loading_small wi-time-12 fa-spin\" />" + chrome.i18n.getMessage("popup_text_loadingimage") + " ...");
 
             var min_taken_date = new Date();
@@ -340,7 +339,6 @@ function ShowWeatherBackground(weatherObj, woeid, isDay) {
 }
 
 function SetWeatherBackGroud(url, woeid) {
-
     var useFlickrImages = getSettings("useFlickrImages");
     // apply background image
     if (url != "") {
@@ -356,7 +354,7 @@ function SetWeatherBackGroud(url, woeid) {
                     $(".preload_image").html("");
                 }
             }
-            $("body").css("background-color", "transparent");
+            $("body").css("background-color", "rgb(52, 73, 94)");
             $("body").css("background-image", "url('" + url + "')");
         });
     }
