@@ -96,7 +96,7 @@ function GetWeather() {
 					});
 				}
 			},
-			fail: function (jqXHR, textStatus) {
+			error: function (jqXHR, textStatus) {
 				$.event.trigger({
 					type: "weather_error",
 					message: "error fired.",
@@ -246,6 +246,10 @@ function ShowWeatherBackground(weatherObj, woeid, isDay) {
     if (useFlickrImages == "1") {
         var stored_image = getSettings("image_" + woeid);
         if (stored_image != "") { // no refresh since last storing of image
+            if (stored_image == "NA") { // not available
+                stored_image = url; // use static image
+            }
+
             SetWeatherBackGroud(stored_image, woeid);
             var stored_url = getSettings("imageurl_" + woeid);
             if (stored_url != "") {
@@ -312,7 +316,7 @@ function ShowWeatherBackground(weatherObj, woeid, isDay) {
                                     $(".preload_image").html("");
                                 }
                             },
-                            fail: function (jqXHR, textStatus) {
+                            error: function (jqXHR, textStatus) {
                                 // an error occured - show default image
                                 SetWeatherBackGroud(url, woeid);
                                 $(".preload_image").html("");
@@ -321,10 +325,11 @@ function ShowWeatherBackground(weatherObj, woeid, isDay) {
                     }
                     else {
                         SetWeatherBackGroud(url, woeid);
+                        setSettings("image_" + woeid, "NA"); // not available
                         $(".preload_image").html("");
                     }
                 },
-                fail: function (jqXHR, textStatus) {
+                error: function (jqXHR, textStatus) {
                     // an error occured - show default image
                     SetWeatherBackGroud(url, woeid);
                     $(".preload_image").html("");
@@ -412,13 +417,14 @@ function StaticWeatherBackgroundImage(weatherObj) {
 	bg[45] = "thunderstorms.jpg"; // 'thundershowers'
 	bg[46] = "light_snow.jpg"; // 'snow showers'
 	bg[47] = "thunderstorms.jpg"; // 'isolated thundershowers'
-	bg[3200] = ""; // 'not available'
+	//bg[3200] = ""; // 'not available'
 
 	if (bg[weatherObj.ConditionCode] != undefined) {
 	    return "../images/backgrounds/" + bg[weatherObj.ConditionCode];
 	}
-
-	return "";
+	else {
+	    return "";
+	}
 }
 
 function getWeatherCondition(condition) {

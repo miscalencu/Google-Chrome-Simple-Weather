@@ -11,13 +11,8 @@ function ShowWeather(showBadgeAnimation) {
 	var location = JSON.parse(getSettings("weatherLocation"));
 	var weatherObj = JSON.parse(getSettings("w_" + location.woeid));
 
-	if (!isValidWeatherObject(weatherObj)) {
-		$(".loading").addClass("fa-spin");
-		GetWeather();
-
-		if (weatherObj == null) {
-			return;
-		}
+	if (weatherObj == null || weatherObj == undefined) {
+	    return;
 	}
 
 	try { // could not be an extension
@@ -154,18 +149,25 @@ function getCurrentIndex()
 	return current;
 	}
 
-function goToPreviousLocation()
-	{
-	var locations = JSON.parse(getSettings("weatherLocations"));
-	var current = getCurrentIndex();
-	
-	if(current == 0)
-		current = locations.length - 1;
-	else
-		current --;
-	setSettings("weatherLocation", JSON.stringify(locations[current]));
-	ShowWeather();
-	}
+function goToPreviousLocation() {
+    var locations = JSON.parse(getSettings("weatherLocations"));
+    var current = getCurrentIndex();
+
+    if (current == 0)
+        current = locations.length - 1;
+    else
+        current--;
+    setSettings("weatherLocation", JSON.stringify(locations[current]));
+
+    var weatherObj = JSON.parse(getSettings("w_" + locations[current].woeid));
+    if (!isValidWeatherObject(weatherObj)) {
+        $(".loading").addClass("fa-spin");
+        GetWeather();
+    }
+    else {
+        ShowWeather();
+    }
+}
 
 function goToNextLocation() {
 	var locations = JSON.parse(getSettings("weatherLocations"));
@@ -176,7 +178,15 @@ function goToNextLocation() {
 	    current++;
 
 	setSettings("weatherLocation", JSON.stringify(locations[current]));
-	ShowWeather();
+
+	var weatherObj = JSON.parse(getSettings("w_" + locations[current].woeid));
+	if (!isValidWeatherObject(weatherObj)) {
+	    $(".loading").addClass("fa-spin");
+	    GetWeather();
+	}
+	else {
+	    ShowWeather();
+	}
 }
 
 function AddListeners(weatherObj) {
@@ -242,12 +252,13 @@ $(document).ready(function () {
 
 	$(document).on("weather_error", function (event) {
 		console.log("error received ...");
-		$(".loading").removeClass("fa-spin");
+		// try to show wather even if the object data is invalid (expired) - this means there has been and error
+		ShowWeather(false);
 		$(document).focus();
 	});
 
 	$(document).on("weather_complete", function (event) {
-		console.log("complete received ...");
+	    console.log("complete received ...");
 		ShowWeather(true);
 		$(document).focus();
 	});
