@@ -1,0 +1,482 @@
+﻿{
+  "application_title": {
+    "message": "सरल मौसम",
+    "description": "The title of the application, displayed in the web store."
+  },
+  "application_description": {
+    "message": "कई स्थानों है कि आप याहू (याहू मौसम एपीआई) द्वारा उपलब्ध कराए मुक्त मौसम एपीआई का उपयोग कर सेट कर सकते हैं के लिए मौसम प्रदर्शित करता है।",
+    "description": "The description of the application, displayed in the web store."
+  },
+  "warning_nolocation": {
+    "message": "कोई स्थान परिभाषित!",
+    "description": "Text to be displayed when no location is defined"
+  },
+  "action_setlocation": {
+    "message": "एक नए स्थान निर्धारित करने के लिए यहाँ क्लिक करें!",
+    "description": "Text to be displayed when clicking on link to set location"
+  },
+  "warning_nodata": {
+    "message": "कोई मान्य डेटा उपलब्ध है!",
+    "description": "Text to be displayed when no data is available for a location"
+  },
+  "action_updatingsoon": {
+    "message": "जल्द ही अद्यतन कर रहा है ...",
+    "description": "Text to be displayed as a notification that data will be updated soon"
+  },
+  "label_weatherin": {
+    "message": "में मौसम",
+    "description": "Label to be displayed as a prefix for the weather location"
+  },
+  "label_temperature": {
+    "message": "तापमान",
+    "description": "Label for: Temperature"
+  },
+  "label_windchill": {
+    "message": "शीतल पवन",
+    "description": "Label for: Wind Chill"
+  },
+  "label_windspeed": {
+    "message": "हवा की गति",
+    "description": "Label for: Wind Speed"
+  },
+  "label_humidity": {
+    "message": "नमी",
+    "description": "Label for: Humidity"
+  },
+  "label_pressure": {
+    "message": "दबाव",
+    "description": "Label for: Pressure"
+  },
+  "label_visibility": {
+    "message": "दृश्यता",
+    "description": "Label for: Visibility"
+  },
+  "label_validfor": {
+    "message": "के लिए मान्य",
+    "description": "Label for: Valid for"
+  },
+  "label_lastcheckedon": {
+    "message": "अंतिम पर जाँच",
+    "description": "Label for: Last checked on"
+  },
+  "condition_tornado": {
+    "message": "बवंडर",
+    "description": "Condition name for: Tornado"
+  },
+  "condition_tropical_storm": {
+    "message": "उष्णकटिबंधीय तूफान",
+    "description": "Condition name for: Tropical storm"
+  },
+  "condition_hurricane": {
+    "message": "तूफान",
+    "description": "Condition name for: Hurricane"
+  },
+  "condition_severe_thunderstorms": {
+    "message": "भयानक गर्जना",
+    "description": "Condition name for: Severe thunderstorms"
+  },
+  "condition_thunderstorms": {
+    "message": "गरज",
+    "description": "Condition name for: Thunderstorms"
+  },
+  "condition_mixed_rain_and_snow": {
+    "message": "मिश्रित बारिश और बर्फ",
+    "description": "Condition name for: Mixed rain and snow"
+  },
+  "condition_mixed_rain_and_sleet": {
+    "message": "मिश्रित बारिश और ओले के साथ वर्षा",
+    "description": "Condition name for: Mixed rain and sleet"
+  },
+  "condition_mixed_snow_and_sleet": {
+    "message": "मिश्रित बर्फ और ओले के साथ वर्षा",
+    "description": "Condition name for: Mixed snow and sleet"
+  },
+  "condition_freezing_drizzle": {
+    "message": "जमा देने वाली हवा",
+    "description": "Condition name for: Freezing drizzle"
+  },
+  "condition_drizzle": {
+    "message": "बूंदा बांदी",
+    "description": "Condition name for: Drizzle"
+  },
+  "condition_freezing_rain": {
+    "message": "बर्फ़ीली वर्षा",
+    "description": "Condition name for: Freezing rain"
+  },
+  "condition_showers": {
+    "message": "वर्षा की",
+    "description": "Condition name for: Showers"
+  },
+  "condition_snow_flurries": {
+    "message": "स्नो फ़्लरीज़",
+    "description": "Condition name for: Snow flurries"
+  },
+  "condition_light_snow_showers": {
+    "message": "हल्का हिमपात",
+    "description": "Condition name for: Light snow showers"
+  },
+  "condition_blowing_snow": {
+    "message": "उड़ती हुई बर्फ़",
+    "description": "Condition name for: Blowing snow"
+  },
+  "condition_snow": {
+    "message": "हिमपात",
+    "description": "Condition name for: Snow"
+  },
+  "condition_hail": {
+    "message": "जय हो",
+    "description": "Condition name for: Hail"
+  },
+  "condition_sleet": {
+    "message": "ओले के साथ वर्षा",
+    "description": "Condition name for: Sleet"
+  },
+  "condition_dust": {
+    "message": "धूल",
+    "description": "Condition name for: Dust"
+  },
+  "condition_foggy": {
+    "message": "धूमिल",
+    "description": "Condition name for: Foggy"
+  },
+  "condition_haze": {
+    "message": "धुन्ध",
+    "description": "Condition name for: Haze"
+  },
+  "condition_smoky": {
+    "message": "शक्की",
+    "description": "Condition name for: Smoky"
+  },
+  "condition_blustery": {
+    "message": "धमकी से",
+    "description": "Condition name for: Blustery"
+  },
+  "condition_windy": {
+    "message": "हवा",
+    "description": "Condition name for: Windy"
+  },
+  "condition_cold": {
+    "message": "सर्दी",
+    "description": "Condition name for: Cold"
+  },
+  "condition_cloudy": {
+    "message": "धुंधला",
+    "description": "Condition name for: Cloudy"
+  },
+  "condition_mostly_cloudy_night": {
+    "message": "भारी बादलों (रात)",
+    "description": "Condition name for: Mostly cloudy (night)"
+  },
+  "condition_mostly_cloudy_day": {
+    "message": "भारी बादलों (दिन)",
+    "description": "Condition name for: Mostly cloudy (day)"
+  },
+  "condition_partly_cloudy_night": {
+    "message": "आंशिक रूप से बादल (रात)",
+    "description": "Condition name for: Partly cloudy (night)"
+  },
+  "condition_partly_cloudy_day": {
+    "message": "आंशिक रूप से बादल (दिन)",
+    "description": "Condition name for: Partly cloudy (day)"
+  },
+  "condition_clear": {
+    "message": "स्पष्ट",
+    "description": "Condition name for: Clear"
+  },
+  "condition_clear_night": {
+    "message": "बिना बादल वाली रात)",
+    "description": "Condition name for: Clear (night)"
+  },
+  "condition_sunny": {
+    "message": "धूप",
+    "description": "Condition name for: Sunny"
+  },
+  "condition_mostly_sunny": {
+    "message": "ज्यादातर धूप",
+    "description": "Condition name for: Sunny"
+  },
+  "condition_fair_night": {
+    "message": "मेला (रात)",
+    "description": "Condition name for: Fair (night)"
+  },
+  "condition_fair_day": {
+    "message": "मेला (दिन)",
+    "description": "Condition name for: Fair (day)"
+  },
+  "condition_mixed_rain_and_hail": {
+    "message": "मिश्रित बारिश और ओलों",
+    "description": "Condition name for: Mixed rain and hail"
+  },
+  "condition_hot": {
+    "message": "गरम",
+    "description": "Condition name for: Hot"
+  },
+  "condition_isolated_thunderstorms": {
+    "message": "अलग थलग बादलों का गरजना",
+    "description": "Condition name for: Isolated thunderstorms"
+  },
+  "condition_scattered_thunderstorms": {
+    "message": "अस्तव्यस्त आँधी",
+    "description": "Condition name for: Scattered thunderstorms"
+  },
+  "condition_scattered_showers": {
+    "message": "बिखरी हुई बारिश",
+    "description": "Condition name for: Scattered showers"
+  },
+  "condition_heavy_snow": {
+    "message": "भारी बर्फ",
+    "description": "Condition name for: Heavy snow"
+  },
+  "condition_scattered_snow_showers": {
+    "message": "बिखरे हुए हिमपात",
+    "description": "Condition name for: Scattered snow showers"
+  },
+  "condition_partly_cloudy": {
+    "message": "आंशिक रूप से बादल छाएंगे",
+    "description": "Condition name for: Partly cloudy"
+  },
+  "condition_thundershowers": {
+    "message": "गर्जन और बिजली के साथ बारिश",
+    "description": "Condition name for: Thundershowers"
+  },
+  "condition_snow_showers": {
+    "message": "बर्फ़बारी",
+    "description": "Condition name for: Snow showers"
+  },
+  "condition_isolated_thundershowers": {
+    "message": "गर्जन और बिजली के साथ अलग बारिश",
+    "description": "Condition name for: Isolated thundershowers"
+  },
+  "condition_not_available": {
+    "message": "उपलब्ध नहीं है",
+    "description": "Condition name for: Not available"
+  },
+  "action_refreshnow": {
+    "message": "अब ताज़ा करने के लिए यहाँ क्लिक करें!",
+    "description": "Text to be displayed when clicking on link to refresh data"
+  },
+  "action_viewnextlocation": {
+    "message": "अगले स्थान देखें",
+    "description": "Text to be displayed when clicking to navigate to next location"
+  },
+  "action_viewprevlocation": {
+    "message": "पिछले स्थान देखें",
+    "description": "Text to be displayed when clicking to navigate to previous location"
+  },
+  "label_now": {
+    "message": "अभी",
+    "description": "Label for: Now"
+  },
+  "label_sunrise": {
+    "message": "सूर्योदय",
+    "description": "Label for: Sunrise"
+  },
+  "label_sunset": {
+    "message": "सूर्य का अस्त होना",
+    "description": "Label for: Sunset"
+  },
+  "dayofweek_monday": {
+    "message": "सोमवार",
+    "description": "Label for day of week: Monday"
+  },
+  "dayofweek_tuesday": {
+    "message": "मंगलवार",
+    "description": "Label for day of week: Tuesday"
+  },
+  "dayofweek_wednesday": {
+    "message": "बुधवार",
+    "description": "Label for day of week: Wednesday"
+  },
+  "dayofweek_thursday": {
+    "message": "गुरूवार",
+    "description": "Label for day of week: Thursday"
+  },
+  "dayofweek_friday": {
+    "message": "शुक्रवार",
+    "description": "Label for day of week: Friday"
+  },
+  "dayofweek_saturday": {
+    "message": "शनिवार",
+    "description": "Label for day of week: Saturday"
+  },
+  "dayofweek_sunday": {
+    "message": "रविवार",
+    "description": "Label for day of week: Sunday"
+  },
+  "popup_text_viewexernallinks": {
+    "message": "पर बढ़ाया देखें पूर्वानुमान विवरण",
+    "description": "Text to be dispayed in the popup page for links to external forecast data"
+  },
+  "popup_text_tiptoopen": {
+    "message": "Alt + w इस पॉपअप को खोलने के लिए",
+    "description": "Text to be dispayed in the popup page as a tip for quick open"
+  },
+  "popup_text_othertips": {
+    "message": "स्थान बदलने के लिए तीर का प्रयोग करें। बंद करने के लिए ESC दबाएँ।",
+    "description": "Text to be dispayed in the popup page for other tips"
+  },
+  "popup_text_viewimage": {
+    "message": "देखें छवि विवरण",
+    "description": "Text to be dispayed in the popup in the link that opens the main background image details"
+  },
+  "popup_text_loadingimage": {
+    "message": "लोड हो रहा है फ़्लिकर की छवि",
+    "description": "Text to be dispayed in the popup near the image preloader animation"
+  },
+  "options_text_powered_by": {
+    "message": "द्वारा संचालित",
+    "description": "Options page text: powered by"
+  },
+  "options_text_settings": {
+    "message": "सेटिंग्स",
+    "description": "Options page text: Settings"
+  },
+  "options_label_currentlocations": {
+    "message": "वर्तमान स्थानों",
+    "description": "Options page label for: Current locations"
+  },
+  "options_tooltip_addnewlocation": {
+    "message": "खोज और एक नया स्थान जोड़ने के लिए यहाँ क्लिक करें।",
+    "description": "Options page tooltip for 'Add new location' link"
+  },
+  "options_label_addnewlocation": {
+    "message": "नया स्थान जोड़ने",
+    "description": "Options page text for 'Add new location' link"
+  },
+  "options_label_addyourlocation": {
+    "message": "अपने स्थान को जोड़ने",
+    "description": "Options page text for 'Add your location' link"
+  },
+  "options_label_addthislocation": {
+    "message": "इस स्थान को जोड़ने",
+    "description": "Options page text for 'Add this location' link"
+  },
+  "options_tooltip_addyourlocation": {
+    "message": "स्वचालित रूप से भू-स्थान का उपयोग कर अपने वर्तमान स्थान जोड़ने के लिए यहाँ क्लिक करें।",
+    "description": "Options page tooltip for 'Add your location' link"
+  },
+  "options_label_showin": {
+    "message": "मूल्यों शो में",
+    "description": "Options page label for: 'Show in' (C or F)"
+  },
+  "options_label_measurement": {
+    "message": "माप की प्रणाली",
+    "description": "Options page label for: System of measurement"
+  },
+  "options_label_measurement_metric": {
+    "message": "मैट्रिक",
+    "description": "Options page 'Metric' value for: System of measurement"
+  },
+  "options_label_measurement_imperial": {
+    "message": "शाही",
+    "description": "Options page 'Imperial' value for: System of measurement"
+  },
+  "options_label_timeout": {
+    "message": "पृष्ठभूमि अद्यतन मध्यांतर",
+    "description": "Options page label for: Background update timeout"
+  },
+  "options_label_hour": {
+    "message": "समय",
+    "description": "Options page label for: hour"
+  },
+  "options_label_hours": {
+    "message": "घंटे",
+    "description": "Options page label for: hours"
+  },
+  "options_label_flickr": {
+    "message": "फ़्लिकर छवियों का उपयोग करें",
+    "description": "Options page label for: Use Flickr images"
+  },
+  "options_text_flickr": {
+    "message": "के बजाय स्थिर चित्र पृष्ठभूमि छवियों के लिए फ़्लिकर का प्रयोग करें",
+    "description": "Options page description for: Use Flickr images"
+  },
+  "options_label_labels": {
+    "message": "दिखाने भाषा विशिष्ट लेबल",
+    "description": "Options page label for: Show language-specific labels"
+  },
+  "options_text_labels": {
+    "message": "शो 'में मौसम', 'अब', 'उच्च / कम",
+    "description": "Options page description for: Show language-specific labels"
+  },
+  "options_label_extlinks": {
+    "message": "बाहरी लिंक दिखाएं",
+    "description": "Options page label for: Show external links"
+  },
+  "options_text_extlinks": {
+    "message": "Weather.com और Weatherunderground.com के लिए लिंक",
+    "description": "Options page description for: Show external links"
+  },
+  "options_label_weatherdate": {
+    "message": "दिखाएँ मौसम की तारीख",
+    "description": "Options page label for: Show weather date"
+  },
+  "options_label_refreshdate": {
+    "message": "दिखाएँ पिछले पढ़ें तारीख",
+    "description": "Options page label for: Show last read date"
+  },
+  "options_label_typelocation": {
+    "message": "जोड़ने के लिए एक नए स्थान में टाइप करें",
+    "description": "Options page label for: Type in a new location to add"
+  },
+  "options_label_search": {
+    "message": "खोज",
+    "description": "Options page label for: Search"
+  },
+  "options_label_close": {
+    "message": "बंद करे",
+    "description": "Options page label for: Close"
+  },
+  "options_label_remove": {
+    "message": "हटाना",
+    "description": "Options page label for: Remove"
+  },
+  "options_label_pleasewait": {
+    "message": "कृपया प्रतीक्षा करें",
+    "description": "Options page label for: Please wait"
+  },
+  "options_label_iconspreview": {
+    "message": "प्रतीक पूर्वावलोकन",
+    "description": "Options page label for: Icons Preview"
+  },
+  "options_label_supportextension": {
+    "message": "इस विस्तार का समर्थन",
+    "description": "Options page label for: Support this extension"
+  },
+  "options_label_donateextension": {
+    "message": "अगर आप मेरे काम को पसंद करें दान!",
+    "description": "Options page label for: Please donate if you like my work!"
+  },
+  "options_message_nogeolocation": {
+    "message": "जियोलोकेशन इस ब्राउज़र / OS संस्करण के लिए अभी तक समर्थित नहीं है।",
+    "description": "Options page message to be displayed when geolocation is not supported."
+  },
+  "options_message_nolocation": {
+    "message": "क्षमा करें, कोई स्थान इन समन्वित पर मिल गया! बजाय अपने स्थान के लिए खोज करने के लिए प्रयास करें ..",
+    "description": "Options page message to be displayed when no location is found."
+  },
+  "options_label_removelocation": {
+    "message": "इस स्थान निकालें!",
+    "description": "Options page label for: Remove this location!"
+  },
+  "options_label_selectlocation": {
+    "message": "इस स्थान का चयन करें!",
+    "description": "Options page label for: Select this location!"
+  },
+  "label_high": {
+    "message": "उच्च",
+    "description": "Label for: High"
+  },
+  "label_low": {
+    "message": "कम",
+    "description": "Label for: Low"
+  },
+  "label_add": {
+    "message": "जोड़ना",
+    "description": "Label for: Add"
+  },
+  "options_text_notfound": {
+    "message": "कोई स्थान मिल गया! शहर, देश, कोड निर्दिष्ट करने के लिए प्रयास करें ...",
+    "description": "Options text to be displayed when no location is found."
+  }
+}
