@@ -9,6 +9,5 @@
 /// <reference path="../js/in.js" />
 /// <reference path="../js/jquery/jquery-1.11.0.min.js" />
 /// <reference path="../js/jquery/jquery-migrate-1.2.1.min.js" />
-/// <reference path="../js/m_inc.js" />
 /// <reference path="../js/options.js" />
 /// <reference path="../js/popup.js" />

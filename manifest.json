@@ -1,7 +1,7 @@
 {
   "name": "__MSG_application_title__",
   "description": "__MSG_application_description__",
-  "version": "1.61",
+  "version": "1.62",
   "manifest_version": 2,
   "default_locale": "en",
   "options_page": "options.html",
@@ -12,15 +12,6 @@
       "matches": [ "<all_urls>" ],
       "css": [ "css/in.css" ],
       "js": [ "js/in.js" ]
-    },
-    {
-      "matches": [
-        "http://*/*",
-        "https://*/*"
-      ],
-      "js": [ "js/m_inc.js" ],
-      "run_at": "document_idle",
-      "all_frames": false
     }
   ],
   "browser_action": {
