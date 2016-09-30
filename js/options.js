@@ -99,6 +99,10 @@ $(document).ready(function () {
 	$('[data-toggle="popover"]').popover({ trigger: "hover" });
 
 	var locations = JSON.parse(getSettings("weatherLocations"));
+	if (locations.length == 0) {
+	    addGeoLocation();
+	}
+    
 	refreshBadge();
 });
 

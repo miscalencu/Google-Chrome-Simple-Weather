@@ -74,10 +74,24 @@ function GetWeather() {
 			dataType: "xml",
 			url: url,
 			success: function (result) {
-				if ($(result).find("query").attr("yahoo:count") != "0") { // if data received
-					console.log("complete fired ...");
-					// save weather object
-					setSettings("w_" + location.woeid, JSON.stringify(getWeatherObject(result)));
+			    if ($(result).find("query").attr("yahoo:count") != "0") { // if data received
+			        console.log("complete fired ...");
+			        // save weather object
+			        setSettings("w_" + location.woeid, JSON.stringify(getWeatherObject(result)));
+
+			        // cache backgroud image
+			        GetWeatherBackground(location.woeid,
+                        function (result) {
+                            if (result.success) {
+                                setSettings("image_" + location.woeid, result.url);
+                                setSettings("imageurl_" + location.woeid, result.imageurl);
+                                preloadImage(result.url, function () { });
+                            }
+                        },
+                        function () {
+                            setSettings("image_" + location.woeid, "NA");
+                            setSettings("imageurl_" + location.woeid, "");
+                        });
 
                     // reset image and image URL
 					setSettings("image_" + location.woeid, "");
@@ -239,6 +253,85 @@ function refreshBadge(showAnimation) {
 	chrome.extension.sendMessage({ message: "update_badge", showAnimation: showAnimation }, function () { console.log("'update_badge' sent ..."); });
 }
 
+/// returns data: { success, url, imageurl }
+function GetWeatherBackground(woeid, callback_success, callback_error) {
+
+    var min_taken_date = new Date();
+    min_taken_date.setDate(min_taken_date.getDate() - 30);
+    var mm = min_taken_date.getMonth() + 1; // getMonth() is zero-based
+    var dd = min_taken_date.getDate();
+
+    var f_url = "https://api.flickr.com/services/rest";
+    var f_data = "" +
+        "api_key=d68a0a0edeac7e677f29e8243d778d66" +
+        "&method=flickr.photos.search" +
+        "&woe_id=" + woeid +
+        "&text=landscape" +
+        "&safe_search=1" +
+        "&min_taken_date=" + [min_taken_date.getFullYear(), ((mm < 10) ? "0" : "") + mm, dd].join('-') +
+        "&media=photos";
+
+    console.log("get images from: " + f_url + "?" + f_data + "...");
+
+    // get from flickr
+    $.ajax({
+        url: f_url,
+        data: f_data,
+        success: function (result) {
+            var photos = $(result).find("photo");
+            if (photos.length > 0) {
+                var random = Math.floor(Math.random() * photos.length);
+                var photo = $(photos).eq(random);
+                var photo_id = $(photo).attr("id");
+                var photo_owner = $(photo).attr("owner");
+
+                var imageurl = "https://www.flickr.com/photos/" + photo_owner + "/" + photo_id + "/";
+                
+                var f_data = "" +
+                    "api_key=d68a0a0edeac7e677f29e8243d778d66" +
+                    "&method=flickr.photos.getSizes" +
+                    "&photo_id=" + photo_id;
+
+                console.log("get image from: " + f_url + "?" + f_data + "...");
+
+                $.ajax({
+                    url: f_url,
+                    data: f_data,
+                    success: function (result) {
+                        var image = $(result).find("[label='Medium 640']");
+                        if (image.length > 0) {
+                            url = $(image).attr("source");
+                            if (callback_success != undefined) {
+                                callback_success({ success: true, url: url, imageurl: imageurl });
+                            }
+                        }
+                        else {
+                            if (callback_success != undefined) {
+                                callback_success({ success: false, url: "", imageurl: imageurl });
+                            }
+                        }
+                    },
+                    error: function (jqXHR, textStatus) {
+                        if (callback_error != undefined) {
+                            callback_error({ success: false, url: "", imageurl: "" });
+                        }
+                    }
+                });
+            }
+            else {
+                if (callback_success != undefined) {
+                    callback_success({ success: false, url: "", imageurl: "" });
+                }
+            }
+        },
+        error: function (jqXHR, textStatus) {
+            if (callback_error != undefined) {
+                callback_error({ success: false, url: "", imageurl: "" });
+            }
+        }
+    });
+}
+
 function ShowWeatherBackground(weatherObj, woeid, isDay) {
     var url = StaticWeatherBackgroundImage(weatherObj);
     var useFlickrImages = getSettings("useFlickrImages");
@@ -260,80 +353,23 @@ function ShowWeatherBackground(weatherObj, woeid, isDay) {
         else {
             $(".preload_image").html("<i class=\"wi loading_small wi-time-12 fa-spin\" />" + chrome.i18n.getMessage("popup_text_loadingimage") + " ...");
 
-            var min_taken_date = new Date();
-            min_taken_date.setDate(min_taken_date.getDate() - 30);
-            var mm = min_taken_date.getMonth() + 1; // getMonth() is zero-based
-            var dd = min_taken_date.getDate();
-
-            var f_url = "https://api.flickr.com/services/rest";
-            var f_data = "" +
-                "api_key=d68a0a0edeac7e677f29e8243d778d66" +
-                "&method=flickr.photos.search" +
-                "&woe_id=" + woeid +
-                "&text=landscape" +
-                "&safe_search=1" +
-                "&min_taken_date=" + [min_taken_date.getFullYear(), ((mm < 10) ? "0" : "") + mm, dd].join('-') +
-                "&media=photos"; // +
-                //"&tags=" + (isDay ? "day" : "night");
-
-            console.log("get images from: " + f_url + "?" + f_data + "...");
-
-            // get from flickr
-            $.ajax({
-                url: f_url,
-                data: f_data,
-                success: function (result) {
-                    var photos = $(result).find("photo");
-                    if (photos.length > 0) {
-                        var random = Math.floor(Math.random() * photos.length);
-                        var photo = $(photos).eq(random);
-                        var photo_id = $(photo).attr("id");
-                        var photo_owner = $(photo).attr("owner");
-
-                        var image_url = "https://www.flickr.com/photos/" + photo_owner + "/" + photo_id + "/";
-                        setSettings("imageurl_" + woeid, image_url);
-                        
-                        var f_data = "" +
-                            "api_key=d68a0a0edeac7e677f29e8243d778d66" +
-                            "&method=flickr.photos.getSizes" +
-                            "&photo_id=" + photo_id;
-
-                        console.log("get image from: " + f_url + "?" + f_data + "...");
-
-                        $.ajax({
-                            url: f_url,
-                            data: f_data,
-                            success: function (result) {
-                                var image = $(result).find("[label='Medium 640']");
-                                if (image.length > 0) {
-                                    url = $(image).attr("source");
-                                    SetWeatherBackGroud(url, woeid);
-                                    setSettings("image_" + woeid, url);
-                                }
-                                else {
-                                    SetWeatherBackGroud(url, woeid);
-                                    $(".preload_image").html("");
-                                }
-                            },
-                            error: function (jqXHR, textStatus) {
-                                // an error occured - show default image
-                                SetWeatherBackGroud(url, woeid);
-                                $(".preload_image").html("");
-                            }
-                        });
-                    }
-                    else {
+            GetWeatherBackground(woeid,
+                function (result) {
+                    if (result.success) {
+                        setSettings("image_" + woeid, result.url);
+                        setSettings("imageurl_" + woeid, result.imageurl);
+                        SetWeatherBackGroud(result.url, woeid);
+                    } else {
+                        setSettings("image_" + woeid, "NA");
+                        setSettings("imageurl_" + woeid, "");
                         SetWeatherBackGroud(url, woeid);
-                        setSettings("image_" + woeid, "NA"); // not available
-                        $(".preload_image").html("");
                     }
                 },
-                error: function (jqXHR, textStatus) {
-                    // an error occured - show default image
+                function () {
+                    setSettings("image_" + woeid, "NA");
+                    setSettings("imageurl_" + woeid, "");
                     SetWeatherBackGroud(url, woeid);
-                    $(".preload_image").html("");
-                }
-            });
+                });
         }
     }
     else {
