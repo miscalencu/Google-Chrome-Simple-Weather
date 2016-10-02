@@ -396,11 +396,7 @@
     "description": "Options page label for: Show language-specific labels"
   },
   "options_text_labels": {
-    "message": "\"عرض \"الطقس",
-    "في" "،",
-    "الآن" "،",
-    "مرتفع" "/",
-    "منخفض\"\"",
+    "message": "عرض الطقس في، الآن، أعلى / أدنى",
     "description": "Options page description for: Show language-specific labels"
   },
   "options_label_extlinks": {
