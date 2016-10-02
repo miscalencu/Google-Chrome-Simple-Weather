@@ -1,0 +1,482 @@
+﻿{
+  "application_title": {
+    "message": "シンプルな天気",
+    "description": "The title of the application, displayed in the web store."
+  },
+  "application_description": {
+    "message": "あなたはヤフー（Yahooの天気API）が提供する無料の天気APIを使用して設定することができます複数の場所の天気を表示します。",
+    "description": "The description of the application, displayed in the web store."
+  },
+  "warning_nolocation": {
+    "message": "いいえ場所が定義されていません！",
+    "description": "Text to be displayed when no location is defined"
+  },
+  "action_setlocation": {
+    "message": "新しい場所を設定するには、ここをクリックしてください！",
+    "description": "Text to be displayed when clicking on link to set location"
+  },
+  "warning_nodata": {
+    "message": "利用可能な有効なデータがありません！",
+    "description": "Text to be displayed when no data is available for a location"
+  },
+  "action_updatingsoon": {
+    "message": "すぐに更新しています...",
+    "description": "Text to be displayed as a notification that data will be updated soon"
+  },
+  "label_weatherin": {
+    "message": "天気",
+    "description": "Label to be displayed as a prefix for the weather location"
+  },
+  "label_temperature": {
+    "message": "温度",
+    "description": "Label for: Temperature"
+  },
+  "label_windchill": {
+    "message": "風の寒さ",
+    "description": "Label for: Wind Chill"
+  },
+  "label_windspeed": {
+    "message": "風速",
+    "description": "Label for: Wind Speed"
+  },
+  "label_humidity": {
+    "message": "湿度",
+    "description": "Label for: Humidity"
+  },
+  "label_pressure": {
+    "message": "圧力",
+    "description": "Label for: Pressure"
+  },
+  "label_visibility": {
+    "message": "可視性",
+    "description": "Label for: Visibility"
+  },
+  "label_validfor": {
+    "message": "に有効",
+    "description": "Label for: Valid for"
+  },
+  "label_lastcheckedon": {
+    "message": "最後に確認されました",
+    "description": "Label for: Last checked on"
+  },
+  "condition_tornado": {
+    "message": "竜巻",
+    "description": "Condition name for: Tornado"
+  },
+  "condition_tropical_storm": {
+    "message": "熱帯暴風雨",
+    "description": "Condition name for: Tropical storm"
+  },
+  "condition_hurricane": {
+    "message": "ハリケーン",
+    "description": "Condition name for: Hurricane"
+  },
+  "condition_severe_thunderstorms": {
+    "message": "重度の雷雨",
+    "description": "Condition name for: Severe thunderstorms"
+  },
+  "condition_thunderstorms": {
+    "message": "雷雨",
+    "description": "Condition name for: Thunderstorms"
+  },
+  "condition_mixed_rain_and_snow": {
+    "message": "混合雨と雪",
+    "description": "Condition name for: Mixed rain and snow"
+  },
+  "condition_mixed_rain_and_sleet": {
+    "message": "混合雨やみぞれ",
+    "description": "Condition name for: Mixed rain and sleet"
+  },
+  "condition_mixed_snow_and_sleet": {
+    "message": "ミックス雪とみぞれ",
+    "description": "Condition name for: Mixed snow and sleet"
+  },
+  "condition_freezing_drizzle": {
+    "message": "凍結霧雨",
+    "description": "Condition name for: Freezing drizzle"
+  },
+  "condition_drizzle": {
+    "message": "霧雨",
+    "description": "Condition name for: Drizzle"
+  },
+  "condition_freezing_rain": {
+    "message": "冷たい雨",
+    "description": "Condition name for: Freezing rain"
+  },
+  "condition_showers": {
+    "message": "にわか雨",
+    "description": "Condition name for: Showers"
+  },
+  "condition_snow_flurries": {
+    "message": "雪の突風",
+    "description": "Condition name for: Snow flurries"
+  },
+  "condition_light_snow_showers": {
+    "message": "小雪シャワー",
+    "description": "Condition name for: Light snow showers"
+  },
+  "condition_blowing_snow": {
+    "message": "吹いてる雪",
+    "description": "Condition name for: Blowing snow"
+  },
+  "condition_snow": {
+    "message": "雪",
+    "description": "Condition name for: Snow"
+  },
+  "condition_hail": {
+    "message": "雹",
+    "description": "Condition name for: Hail"
+  },
+  "condition_sleet": {
+    "message": "みぞれ",
+    "description": "Condition name for: Sleet"
+  },
+  "condition_dust": {
+    "message": "ほこり",
+    "description": "Condition name for: Dust"
+  },
+  "condition_foggy": {
+    "message": "フォギー",
+    "description": "Condition name for: Foggy"
+  },
+  "condition_haze": {
+    "message": "ヘイズ",
+    "description": "Condition name for: Haze"
+  },
+  "condition_smoky": {
+    "message": "スモーキー",
+    "description": "Condition name for: Smoky"
+  },
+  "condition_blustery": {
+    "message": "大声で話します",
+    "description": "Condition name for: Blustery"
+  },
+  "condition_windy": {
+    "message": "強風",
+    "description": "Condition name for: Windy"
+  },
+  "condition_cold": {
+    "message": "コールド",
+    "description": "Condition name for: Cold"
+  },
+  "condition_cloudy": {
+    "message": "曇りました",
+    "description": "Condition name for: Cloudy"
+  },
+  "condition_mostly_cloudy_night": {
+    "message": "曇り（夜）",
+    "description": "Condition name for: Mostly cloudy (night)"
+  },
+  "condition_mostly_cloudy_day": {
+    "message": "（日）曇り",
+    "description": "Condition name for: Mostly cloudy (day)"
+  },
+  "condition_partly_cloudy_night": {
+    "message": "曇り（夜）",
+    "description": "Condition name for: Partly cloudy (night)"
+  },
+  "condition_partly_cloudy_day": {
+    "message": "（日）曇り",
+    "description": "Condition name for: Partly cloudy (day)"
+  },
+  "condition_clear": {
+    "message": "クリア",
+    "description": "Condition name for: Clear"
+  },
+  "condition_clear_night": {
+    "message": "クリア（夜）",
+    "description": "Condition name for: Clear (night)"
+  },
+  "condition_sunny": {
+    "message": "晴れました",
+    "description": "Condition name for: Sunny"
+  },
+  "condition_mostly_sunny": {
+    "message": "晴れ",
+    "description": "Condition name for: Sunny"
+  },
+  "condition_fair_night": {
+    "message": "フェア（夜）",
+    "description": "Condition name for: Fair (night)"
+  },
+  "condition_fair_day": {
+    "message": "フェア（日）",
+    "description": "Condition name for: Fair (day)"
+  },
+  "condition_mixed_rain_and_hail": {
+    "message": "混合雨と雹",
+    "description": "Condition name for: Mixed rain and hail"
+  },
+  "condition_hot": {
+    "message": "ホット",
+    "description": "Condition name for: Hot"
+  },
+  "condition_isolated_thunderstorms": {
+    "message": "孤立した雷雨",
+    "description": "Condition name for: Isolated thunderstorms"
+  },
+  "condition_scattered_thunderstorms": {
+    "message": "散在雷雨",
+    "description": "Condition name for: Scattered thunderstorms"
+  },
+  "condition_scattered_showers": {
+    "message": "散在シャワー",
+    "description": "Condition name for: Scattered showers"
+  },
+  "condition_heavy_snow": {
+    "message": "大雪",
+    "description": "Condition name for: Heavy snow"
+  },
+  "condition_scattered_snow_showers": {
+    "message": "にわか雪",
+    "description": "Condition name for: Scattered snow showers"
+  },
+  "condition_partly_cloudy": {
+    "message": "晴れときどき曇り",
+    "description": "Condition name for: Partly cloudy"
+  },
+  "condition_thundershowers": {
+    "message": "雷と雨",
+    "description": "Condition name for: Thundershowers"
+  },
+  "condition_snow_showers": {
+    "message": "吹雪",
+    "description": "Condition name for: Snow showers"
+  },
+  "condition_isolated_thundershowers": {
+    "message": "雷と稲妻で孤立した雨",
+    "description": "Condition name for: Isolated thundershowers"
+  },
+  "condition_not_available": {
+    "message": "利用不可",
+    "description": "Condition name for: Not available"
+  },
+  "action_refreshnow": {
+    "message": "今すぐ更新するには、ここをクリックしてください！",
+    "description": "Text to be displayed when clicking on link to refresh data"
+  },
+  "action_viewnextlocation": {
+    "message": "ビュー次の位置",
+    "description": "Text to be displayed when clicking to navigate to next location"
+  },
+  "action_viewprevlocation": {
+    "message": "以前の場所を見ます",
+    "description": "Text to be displayed when clicking to navigate to previous location"
+  },
+  "label_now": {
+    "message": "今",
+    "description": "Label for: Now"
+  },
+  "label_sunrise": {
+    "message": "日の出",
+    "description": "Label for: Sunrise"
+  },
+  "label_sunset": {
+    "message": "日没",
+    "description": "Label for: Sunset"
+  },
+  "dayofweek_monday": {
+    "message": "月曜",
+    "description": "Label for day of week: Monday"
+  },
+  "dayofweek_tuesday": {
+    "message": "火曜日",
+    "description": "Label for day of week: Tuesday"
+  },
+  "dayofweek_wednesday": {
+    "message": "水曜日",
+    "description": "Label for day of week: Wednesday"
+  },
+  "dayofweek_thursday": {
+    "message": "木曜日",
+    "description": "Label for day of week: Thursday"
+  },
+  "dayofweek_friday": {
+    "message": "金曜日",
+    "description": "Label for day of week: Friday"
+  },
+  "dayofweek_saturday": {
+    "message": "土曜日",
+    "description": "Label for day of week: Saturday"
+  },
+  "dayofweek_sunday": {
+    "message": "日曜日",
+    "description": "Label for day of week: Sunday"
+  },
+  "popup_text_viewexernallinks": {
+    "message": "表示拡張予測の詳細",
+    "description": "Text to be dispayed in the popup page for links to external forecast data"
+  },
+  "popup_text_tiptoopen": {
+    "message": "このポップアップを開くことがワットAltキー+",
+    "description": "Text to be dispayed in the popup page as a tip for quick open"
+  },
+  "popup_text_othertips": {
+    "message": "場所を変更するには、矢印を使用。 ESCを押して、閉じます。",
+    "description": "Text to be dispayed in the popup page for other tips"
+  },
+  "popup_text_viewimage": {
+    "message": "表示画像の詳細",
+    "description": "Text to be dispayed in the popup in the link that opens the main background image details"
+  },
+  "popup_text_loadingimage": {
+    "message": "ロードFlickrの画像",
+    "description": "Text to be dispayed in the popup near the image preloader animation"
+  },
+  "options_text_powered_by": {
+    "message": "搭載",
+    "description": "Options page text: powered by"
+  },
+  "options_text_settings": {
+    "message": "設定",
+    "description": "Options page text: Settings"
+  },
+  "options_label_currentlocations": {
+    "message": "現在の場所",
+    "description": "Options page label for: Current locations"
+  },
+  "options_tooltip_addnewlocation": {
+    "message": "検索し、新しい場所を追加するにはここをクリックしてください。",
+    "description": "Options page tooltip for 'Add new location' link"
+  },
+  "options_label_addnewlocation": {
+    "message": "新しい場所を追加",
+    "description": "Options page text for 'Add new location' link"
+  },
+  "options_label_addyourlocation": {
+    "message": "あなたの場所を追加",
+    "description": "Options page text for 'Add your location' link"
+  },
+  "options_label_addthislocation": {
+    "message": "この場所を追加",
+    "description": "Options page text for 'Add this location' link"
+  },
+  "options_tooltip_addyourlocation": {
+    "message": "自動的にジオロケーションを使用して、現在の場所を追加するには、ここをクリックしてください。",
+    "description": "Options page tooltip for 'Add your location' link"
+  },
+  "options_label_showin": {
+    "message": "表示値の",
+    "description": "Options page label for: 'Show in' (C or F)"
+  },
+  "options_label_measurement": {
+    "message": "測定系",
+    "description": "Options page label for: System of measurement"
+  },
+  "options_label_measurement_metric": {
+    "message": "メトリック",
+    "description": "Options page 'Metric' value for: System of measurement"
+  },
+  "options_label_measurement_imperial": {
+    "message": "インペリアル",
+    "description": "Options page 'Imperial' value for: System of measurement"
+  },
+  "options_label_timeout": {
+    "message": "バックグラウンド更新のタイムアウト",
+    "description": "Options page label for: Background update timeout"
+  },
+  "options_label_hour": {
+    "message": "時間",
+    "description": "Options page label for: hour"
+  },
+  "options_label_hours": {
+    "message": "営業時間",
+    "description": "Options page label for: hours"
+  },
+  "options_label_flickr": {
+    "message": "Flickrの画像を使用します",
+    "description": "Options page label for: Use Flickr images"
+  },
+  "options_text_flickr": {
+    "message": "背景画像の代わりに静止画像のためのFlickrを使用してください",
+    "description": "Options page description for: Use Flickr images"
+  },
+  "options_label_labels": {
+    "message": "表示言語固有のラベル",
+    "description": "Options page label for: Show language-specific labels"
+  },
+  "options_text_labels": {
+    "message": "ショー '天気'、 '今'、 'ハイ/ロー」",
+    "description": "Options page description for: Show language-specific labels"
+  },
+  "options_label_extlinks": {
+    "message": "外部リンクを表示します",
+    "description": "Options page label for: Show external links"
+  },
+  "options_text_extlinks": {
+    "message": "Weather.comとWeatherunderground.comへのリンク",
+    "description": "Options page description for: Show external links"
+  },
+  "options_label_weatherdate": {
+    "message": "天気の日付を表示します",
+    "description": "Options page label for: Show weather date"
+  },
+  "options_label_refreshdate": {
+    "message": "最後の読み取り日を表示",
+    "description": "Options page label for: Show last read date"
+  },
+  "options_label_typelocation": {
+    "message": "追加するには、新しい場所を入力",
+    "description": "Options page label for: Type in a new location to add"
+  },
+  "options_label_search": {
+    "message": "サーチ",
+    "description": "Options page label for: Search"
+  },
+  "options_label_close": {
+    "message": "閉じる",
+    "description": "Options page label for: Close"
+  },
+  "options_label_remove": {
+    "message": "削除します",
+    "description": "Options page label for: Remove"
+  },
+  "options_label_pleasewait": {
+    "message": "お待ちください",
+    "description": "Options page label for: Please wait"
+  },
+  "options_label_iconspreview": {
+    "message": "アイコンプレビュー",
+    "description": "Options page label for: Icons Preview"
+  },
+  "options_label_supportextension": {
+    "message": "この拡張機能をサポートしています",
+    "description": "Options page label for: Support this extension"
+  },
+  "options_label_donateextension": {
+    "message": "あなたが私の仕事を好きなら寄付してください！",
+    "description": "Options page label for: Please donate if you like my work!"
+  },
+  "options_message_nogeolocation": {
+    "message": "ジオロケーションは、まだこのブラウザ/ OSのバージョンはサポートされていません。",
+    "description": "Options page message to be displayed when geolocation is not supported."
+  },
+  "options_message_nolocation": {
+    "message": "申し訳ありませんが、これらのコーディネートで見つかりません場所！代わりにあなたの場所を検索してみてください..",
+    "description": "Options page message to be displayed when no location is found."
+  },
+  "options_label_removelocation": {
+    "message": "この場所を削除してください！",
+    "description": "Options page label for: Remove this location!"
+  },
+  "options_label_selectlocation": {
+    "message": "この場所を選択！",
+    "description": "Options page label for: Select this location!"
+  },
+  "label_high": {
+    "message": "高い",
+    "description": "Label for: High"
+  },
+  "label_low": {
+    "message": "ロー",
+    "description": "Label for: Low"
+  },
+  "label_add": {
+    "message": "加えます",
+    "description": "Label for: Add"
+  },
+  "options_text_notfound": {
+    "message": "いいえ場所が見つかりませんでした！市、国、コードを指定してみてください...",
+    "description": "Options text to be displayed when no location is found."
+  }
+}

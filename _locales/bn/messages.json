@@ -1,0 +1,482 @@
+﻿{
+  "application_title": {
+    "message": "সহজ আবহাওয়া",
+    "description": "The title of the application, displayed in the web store."
+  },
+  "application_description": {
+    "message": "একাধিক অবস্থানে যে আপনি ইয়াহু (ইয়াহু আবহাওয়া এপিআই) দ্বারা উপলব্ধ বিনামূল্যে আবহাওয়া API ব্যবহার করে সেট করতে পারেন জন্য আবহাওয়া প্রদর্শন করা হয়.",
+    "description": "The description of the application, displayed in the web store."
+  },
+  "warning_nolocation": {
+    "message": "কোন অবস্থান সংজ্ঞায়িত!",
+    "description": "Text to be displayed when no location is defined"
+  },
+  "action_setlocation": {
+    "message": "একটি নতুন অবস্থান সেট করতে এখানে ক্লিক করুন!",
+    "description": "Text to be displayed when clicking on link to set location"
+  },
+  "warning_nodata": {
+    "message": "কোনো বৈধ তথ্য পাওয়া যায়!",
+    "description": "Text to be displayed when no data is available for a location"
+  },
+  "action_updatingsoon": {
+    "message": "শীঘ্রই আপডেট করা হচ্ছে ...",
+    "description": "Text to be displayed as a notification that data will be updated soon"
+  },
+  "label_weatherin": {
+    "message": "এ সর্বাধিক জনপ্রিয়",
+    "description": "Label to be displayed as a prefix for the weather location"
+  },
+  "label_temperature": {
+    "message": "তাপমাত্রা",
+    "description": "Label for: Temperature"
+  },
+  "label_windchill": {
+    "message": "বাতাস বইছে",
+    "description": "Label for: Wind Chill"
+  },
+  "label_windspeed": {
+    "message": "বাতাসের গতি",
+    "description": "Label for: Wind Speed"
+  },
+  "label_humidity": {
+    "message": "শৈত্য",
+    "description": "Label for: Humidity"
+  },
+  "label_pressure": {
+    "message": "চাপ",
+    "description": "Label for: Pressure"
+  },
+  "label_visibility": {
+    "message": "দৃষ্টিপাত",
+    "description": "Label for: Visibility"
+  },
+  "label_validfor": {
+    "message": "জন্য বৈধ",
+    "description": "Label for: Valid for"
+  },
+  "label_lastcheckedon": {
+    "message": "সর্বশেষ চেক",
+    "description": "Label for: Last checked on"
+  },
+  "condition_tornado": {
+    "message": "ঘূর্ণিঝড়",
+    "description": "Condition name for: Tornado"
+  },
+  "condition_tropical_storm": {
+    "message": "গ্রীষ্মমন্ডলীয় ঝড়",
+    "description": "Condition name for: Tropical storm"
+  },
+  "condition_hurricane": {
+    "message": "হ্যারিকেন",
+    "description": "Condition name for: Hurricane"
+  },
+  "condition_severe_thunderstorms": {
+    "message": "সিভিয়ার ঝড়বৃষ্টি",
+    "description": "Condition name for: Severe thunderstorms"
+  },
+  "condition_thunderstorms": {
+    "message": "ঝড়বৃষ্টি",
+    "description": "Condition name for: Thunderstorms"
+  },
+  "condition_mixed_rain_and_snow": {
+    "message": "মিশ্র বৃষ্টি ও তুষার",
+    "description": "Condition name for: Mixed rain and snow"
+  },
+  "condition_mixed_rain_and_sleet": {
+    "message": "মিশ্র বৃষ্টি ও শিলাবৃষ্টি",
+    "description": "Condition name for: Mixed rain and sleet"
+  },
+  "condition_mixed_snow_and_sleet": {
+    "message": "মিশ্র বরফ এবং শিলাবৃষ্টি",
+    "description": "Condition name for: Mixed snow and sleet"
+  },
+  "condition_freezing_drizzle": {
+    "message": "জমা গুঁড়ি গুঁড়ি ব্রষ্টি",
+    "description": "Condition name for: Freezing drizzle"
+  },
+  "condition_drizzle": {
+    "message": "গুঁড়ি গুঁড়ি ব্রষ্টি",
+    "description": "Condition name for: Drizzle"
+  },
+  "condition_freezing_rain": {
+    "message": "ঠাণ্ডা বৃষ্টি",
+    "description": "Condition name for: Freezing rain"
+  },
+  "condition_showers": {
+    "message": "বৃষ্টি",
+    "description": "Condition name for: Showers"
+  },
+  "condition_snow_flurries": {
+    "message": "বরফ দমকা বাতাস",
+    "description": "Condition name for: Snow flurries"
+  },
+  "condition_light_snow_showers": {
+    "message": "হাল্কা কয়েক পশলা তুষার বৃষ্টি",
+    "description": "Condition name for: Light snow showers"
+  },
+  "condition_blowing_snow": {
+    "message": "ঝোড়ো তুষার",
+    "description": "Condition name for: Blowing snow"
+  },
+  "condition_snow": {
+    "message": "তুষার",
+    "description": "Condition name for: Snow"
+  },
+  "condition_hail": {
+    "message": "শিলাবৃষ্টি",
+    "description": "Condition name for: Hail"
+  },
+  "condition_sleet": {
+    "message": "শিলাবৃষ্টি",
+    "description": "Condition name for: Sleet"
+  },
+  "condition_dust": {
+    "message": "ধূলিকণা",
+    "description": "Condition name for: Dust"
+  },
+  "condition_foggy": {
+    "message": "কুয়াশাচ্ছন্ন",
+    "description": "Condition name for: Foggy"
+  },
+  "condition_haze": {
+    "message": "আবছায়া",
+    "description": "Condition name for: Haze"
+  },
+  "condition_smoky": {
+    "message": "ধোঁয়াটে",
+    "description": "Condition name for: Smoky"
+  },
+  "condition_blustery": {
+    "message": "উদ্দাম",
+    "description": "Condition name for: Blustery"
+  },
+  "condition_windy": {
+    "message": "ঝড়ো",
+    "description": "Condition name for: Windy"
+  },
+  "condition_cold": {
+    "message": "ঠান্ডা",
+    "description": "Condition name for: Cold"
+  },
+  "condition_cloudy": {
+    "message": "মেঘলা",
+    "description": "Condition name for: Cloudy"
+  },
+  "condition_mostly_cloudy_night": {
+    "message": "পূর্বাভাস (রাত)",
+    "description": "Condition name for: Mostly cloudy (night)"
+  },
+  "condition_mostly_cloudy_day": {
+    "message": "পূর্বাভাস (দিন)",
+    "description": "Condition name for: Mostly cloudy (day)"
+  },
+  "condition_partly_cloudy_night": {
+    "message": "আংশিক মেঘলা (রাত)",
+    "description": "Condition name for: Partly cloudy (night)"
+  },
+  "condition_partly_cloudy_day": {
+    "message": "আংশিক মেঘলা (দিন)",
+    "description": "Condition name for: Partly cloudy (day)"
+  },
+  "condition_clear": {
+    "message": "পরিষ্কার",
+    "description": "Condition name for: Clear"
+  },
+  "condition_clear_night": {
+    "message": "সাফ (রাত)",
+    "description": "Condition name for: Clear (night)"
+  },
+  "condition_sunny": {
+    "message": "হাসিখুশি",
+    "description": "Condition name for: Sunny"
+  },
+  "condition_mostly_sunny": {
+    "message": "বেশিরভাগ হাসিখুশি",
+    "description": "Condition name for: Sunny"
+  },
+  "condition_fair_night": {
+    "message": "ফেয়ার (রাত)",
+    "description": "Condition name for: Fair (night)"
+  },
+  "condition_fair_day": {
+    "message": "ফেয়ার (দিন)",
+    "description": "Condition name for: Fair (day)"
+  },
+  "condition_mixed_rain_and_hail": {
+    "message": "মিশ্র বৃষ্টি ও শিলাবৃষ্টি",
+    "description": "Condition name for: Mixed rain and hail"
+  },
+  "condition_hot": {
+    "message": "গরম",
+    "description": "Condition name for: Hot"
+  },
+  "condition_isolated_thunderstorms": {
+    "message": "বিচ্ছিন্ন ঝড়বৃষ্টি",
+    "description": "Condition name for: Isolated thunderstorms"
+  },
+  "condition_scattered_thunderstorms": {
+    "message": "বিক্ষিপ্ত ঝড়বৃষ্টি",
+    "description": "Condition name for: Scattered thunderstorms"
+  },
+  "condition_scattered_showers": {
+    "message": "বিক্ষিপ্ত বৃষ্টি",
+    "description": "Condition name for: Scattered showers"
+  },
+  "condition_heavy_snow": {
+    "message": "ভারি তুষারপাত",
+    "description": "Condition name for: Heavy snow"
+  },
+  "condition_scattered_snow_showers": {
+    "message": "বিক্ষিপ্ত তুষারপাত",
+    "description": "Condition name for: Scattered snow showers"
+  },
+  "condition_partly_cloudy": {
+    "message": "আংশিক মেঘলা",
+    "description": "Condition name for: Partly cloudy"
+  },
+  "condition_thundershowers": {
+    "message": "বজ্রপাত বৃষ্টি",
+    "description": "Condition name for: Thundershowers"
+  },
+  "condition_snow_showers": {
+    "message": "আপনি কি আমার সাথে কি করতে চান",
+    "description": "Condition name for: Snow showers"
+  },
+  "condition_isolated_thundershowers": {
+    "message": "বজ্রপাত বিচ্ছিন্ন বৃষ্টি",
+    "description": "Condition name for: Isolated thundershowers"
+  },
+  "condition_not_available": {
+    "message": "পাওয়া যায় না",
+    "description": "Condition name for: Not available"
+  },
+  "action_refreshnow": {
+    "message": "এখন রিফ্রেশ করতে এখানে ক্লিক করুন!",
+    "description": "Text to be displayed when clicking on link to refresh data"
+  },
+  "action_viewnextlocation": {
+    "message": "পরবর্তী অবস্থান দেখুন",
+    "description": "Text to be displayed when clicking to navigate to next location"
+  },
+  "action_viewprevlocation": {
+    "message": "পূর্ববর্তী অবস্থান দেখুন",
+    "description": "Text to be displayed when clicking to navigate to previous location"
+  },
+  "label_now": {
+    "message": "এখন",
+    "description": "Label for: Now"
+  },
+  "label_sunrise": {
+    "message": "সূর্যোদয়",
+    "description": "Label for: Sunrise"
+  },
+  "label_sunset": {
+    "message": "সূর্যাস্ত",
+    "description": "Label for: Sunset"
+  },
+  "dayofweek_monday": {
+    "message": "সোমবার",
+    "description": "Label for day of week: Monday"
+  },
+  "dayofweek_tuesday": {
+    "message": "মঙ্গলবার",
+    "description": "Label for day of week: Tuesday"
+  },
+  "dayofweek_wednesday": {
+    "message": "বুধবার",
+    "description": "Label for day of week: Wednesday"
+  },
+  "dayofweek_thursday": {
+    "message": "বৃহস্পতিবার",
+    "description": "Label for day of week: Thursday"
+  },
+  "dayofweek_friday": {
+    "message": "শুক্রবার",
+    "description": "Label for day of week: Friday"
+  },
+  "dayofweek_saturday": {
+    "message": "শনিবার",
+    "description": "Label for day of week: Saturday"
+  },
+  "dayofweek_sunday": {
+    "message": "রবিবার",
+    "description": "Label for day of week: Sunday"
+  },
+  "popup_text_viewexernallinks": {
+    "message": "এ বর্ধিত দেখুন পূর্বাভাস বিস্তারিত",
+    "description": "Text to be dispayed in the popup page for links to external forecast data"
+  },
+  "popup_text_tiptoopen": {
+    "message": "Alt + W এই পপআপ খোলার জন্য",
+    "description": "Text to be dispayed in the popup page as a tip for quick open"
+  },
+  "popup_text_othertips": {
+    "message": "অবস্থানে পরিবর্তন তীরচিহ্ন ব্যবহার করুন. বন্ধ করতে ESC টিপুন.",
+    "description": "Text to be dispayed in the popup page for other tips"
+  },
+  "popup_text_viewimage": {
+    "message": "ভিউ ইমেজ বিস্তারিত",
+    "description": "Text to be dispayed in the popup in the link that opens the main background image details"
+  },
+  "popup_text_loadingimage": {
+    "message": "লোড হচ্ছে ফ্লিকার ইমেজ",
+    "description": "Text to be dispayed in the popup near the image preloader animation"
+  },
+  "options_text_powered_by": {
+    "message": "দ্বারা চালিত",
+    "description": "Options page text: powered by"
+  },
+  "options_text_settings": {
+    "message": "সেটিংস",
+    "description": "Options page text: Settings"
+  },
+  "options_label_currentlocations": {
+    "message": "বর্তমান অবস্থানে",
+    "description": "Options page label for: Current locations"
+  },
+  "options_tooltip_addnewlocation": {
+    "message": "অনুসন্ধান এবং একটি নতুন অবস্থান যোগ করার জন্য এখানে ক্লিক করুন.",
+    "description": "Options page tooltip for 'Add new location' link"
+  },
+  "options_label_addnewlocation": {
+    "message": "নতুন অবস্থান যোগ",
+    "description": "Options page text for 'Add new location' link"
+  },
+  "options_label_addyourlocation": {
+    "message": "আপনার অবস্থান নির্ণয়",
+    "description": "Options page text for 'Add your location' link"
+  },
+  "options_label_addthislocation": {
+    "message": "এই অবস্থান যোগ",
+    "description": "Options page text for 'Add this location' link"
+  },
+  "options_tooltip_addyourlocation": {
+    "message": "স্বয়ংক্রিয়ভাবে ভূ-অবস্থান ব্যবহার করে আপনার বর্তমান অবস্থান যোগ করার জন্য এখানে ক্লিক করুন.",
+    "description": "Options page tooltip for 'Add your location' link"
+  },
+  "options_label_showin": {
+    "message": "মান দেখান",
+    "description": "Options page label for: 'Show in' (C or F)"
+  },
+  "options_label_measurement": {
+    "message": "পরিমাপ সিস্টেম",
+    "description": "Options page label for: System of measurement"
+  },
+  "options_label_measurement_metric": {
+    "message": "ছন্দোময়",
+    "description": "Options page 'Metric' value for: System of measurement"
+  },
+  "options_label_measurement_imperial": {
+    "message": "সার্বভৌম",
+    "description": "Options page 'Imperial' value for: System of measurement"
+  },
+  "options_label_timeout": {
+    "message": "পটভূমি আপডেট সময়সীমা উত্তীর্ণের",
+    "description": "Options page label for: Background update timeout"
+  },
+  "options_label_hour": {
+    "message": "ঘন্টা",
+    "description": "Options page label for: hour"
+  },
+  "options_label_hours": {
+    "message": "ঘন্টার",
+    "description": "Options page label for: hours"
+  },
+  "options_label_flickr": {
+    "message": "ফ্লিকার ইমেজ ব্যবহার",
+    "description": "Options page label for: Use Flickr images"
+  },
+  "options_text_flickr": {
+    "message": "পরিবর্তে স্ট্যাটিক ইমেজ ব্যাকগ্রাউন্ড ইমেজ জন্য ফ্লিকার ব্যবহার",
+    "description": "Options page description for: Use Flickr images"
+  },
+  "options_label_labels": {
+    "message": "দেখান ভাষা নির্দিষ্ট লেবেল",
+    "description": "Options page label for: Show language-specific labels"
+  },
+  "options_text_labels": {
+    "message": "শো 'আবহাওয়া', 'এখন', 'উচ্চ / নিম্ন'",
+    "description": "Options page description for: Show language-specific labels"
+  },
+  "options_label_extlinks": {
+    "message": "বাহ্যিক লিঙ্ক দেখান",
+    "description": "Options page label for: Show external links"
+  },
+  "options_text_extlinks": {
+    "message": "Weather.com এবং Weatherunderground.com লিংক",
+    "description": "Options page description for: Show external links"
+  },
+  "options_label_weatherdate": {
+    "message": "দেখান আবহাওয়া তারিখ",
+    "description": "Options page label for: Show weather date"
+  },
+  "options_label_refreshdate": {
+    "message": "দেখান গত পঠিত তারিখ",
+    "description": "Options page label for: Show last read date"
+  },
+  "options_label_typelocation": {
+    "message": "যোগ করার জন্য একটি নতুন অবস্থান টাইপ করুন",
+    "description": "Options page label for: Type in a new location to add"
+  },
+  "options_label_search": {
+    "message": "অনুসন্ধান",
+    "description": "Options page label for: Search"
+  },
+  "options_label_close": {
+    "message": "ঘনিষ্ঠ",
+    "description": "Options page label for: Close"
+  },
+  "options_label_remove": {
+    "message": "অপসারণ",
+    "description": "Options page label for: Remove"
+  },
+  "options_label_pleasewait": {
+    "message": "অনুগ্রহপূর্বক অপেক্ষা করুন",
+    "description": "Options page label for: Please wait"
+  },
+  "options_label_iconspreview": {
+    "message": "আইকন প্রিভিউ",
+    "description": "Options page label for: Icons Preview"
+  },
+  "options_label_supportextension": {
+    "message": "এই এক্সটেনশন সাপোর্টও",
+    "description": "Options page label for: Support this extension"
+  },
+  "options_label_donateextension": {
+    "message": "যদি আপনি আমার কাজ চাই অনুগ্রহ দান!",
+    "description": "Options page label for: Please donate if you like my work!"
+  },
+  "options_message_nogeolocation": {
+    "message": "ভৌগলিক এই ব্রাউজার / OS সংস্করণ জন্য এখনও সমর্থিত নয়.",
+    "description": "Options page message to be displayed when geolocation is not supported."
+  },
+  "options_message_nolocation": {
+    "message": "দুঃখিত, কোন অবস্থান এই সমন্বয় পাওয়া! পরিবর্তে আপনার অবস্থান জন্য অনুসন্ধান করার চেষ্টা করুন ..",
+    "description": "Options page message to be displayed when no location is found."
+  },
+  "options_label_removelocation": {
+    "message": "এই অবস্থান সরান!",
+    "description": "Options page label for: Remove this location!"
+  },
+  "options_label_selectlocation": {
+    "message": "এই অবস্থান নির্বাচন করুন!",
+    "description": "Options page label for: Select this location!"
+  },
+  "label_high": {
+    "message": "উচ্চ",
+    "description": "Label for: High"
+  },
+  "label_low": {
+    "message": "কম",
+    "description": "Label for: Low"
+  },
+  "label_add": {
+    "message": "যোগ",
+    "description": "Label for: Add"
+  },
+  "options_text_notfound": {
+    "message": "কোন অবস্থান খুঁজে পেয়েছি! শহর, দেশ, কোড উল্লেখ করার চেষ্টা করুন ...",
+    "description": "Options text to be displayed when no location is found."
+  }
+}

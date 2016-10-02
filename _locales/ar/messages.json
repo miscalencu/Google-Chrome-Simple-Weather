@@ -1,0 +1,486 @@
+﻿{
+  "application_title": {
+    "message": "الطقس بسيط",
+    "description": "The title of the application, displayed in the web store."
+  },
+  "application_description": {
+    "message": "يعرض حالة الطقس لمواقع متعددة يمكنك تعيين باستخدام API الطقس المجانية التي تقدمها ياهو (ياهو الطقس API).",
+    "description": "The description of the application, displayed in the web store."
+  },
+  "warning_nolocation": {
+    "message": "لا يوجد مكان يعرف!",
+    "description": "Text to be displayed when no location is defined"
+  },
+  "action_setlocation": {
+    "message": "انقر هنا لتحديد الموقع الجديد!",
+    "description": "Text to be displayed when clicking on link to set location"
+  },
+  "warning_nodata": {
+    "message": "لا توجد بيانات صالحة المتاحة!",
+    "description": "Text to be displayed when no data is available for a location"
+  },
+  "action_updatingsoon": {
+    "message": "تحديث قريبا ...",
+    "description": "Text to be displayed as a notification that data will be updated soon"
+  },
+  "label_weatherin": {
+    "message": "الطقس في",
+    "description": "Label to be displayed as a prefix for the weather location"
+  },
+  "label_temperature": {
+    "message": "درجة الحرارة",
+    "description": "Label for: Temperature"
+  },
+  "label_windchill": {
+    "message": "هواء بارد",
+    "description": "Label for: Wind Chill"
+  },
+  "label_windspeed": {
+    "message": "سرعة الرياح",
+    "description": "Label for: Wind Speed"
+  },
+  "label_humidity": {
+    "message": "رطوبة",
+    "description": "Label for: Humidity"
+  },
+  "label_pressure": {
+    "message": "الضغط",
+    "description": "Label for: Pressure"
+  },
+  "label_visibility": {
+    "message": "رؤية",
+    "description": "Label for: Visibility"
+  },
+  "label_validfor": {
+    "message": "صالحة ل",
+    "description": "Label for: Valid for"
+  },
+  "label_lastcheckedon": {
+    "message": "فحص آخر على",
+    "description": "Label for: Last checked on"
+  },
+  "condition_tornado": {
+    "message": "إعصار",
+    "description": "Condition name for: Tornado"
+  },
+  "condition_tropical_storm": {
+    "message": "عاصفة إستوائية",
+    "description": "Condition name for: Tropical storm"
+  },
+  "condition_hurricane": {
+    "message": "اعصار",
+    "description": "Condition name for: Hurricane"
+  },
+  "condition_severe_thunderstorms": {
+    "message": "عواصف رعدية شديدة",
+    "description": "Condition name for: Severe thunderstorms"
+  },
+  "condition_thunderstorms": {
+    "message": "عواصف رعدية",
+    "description": "Condition name for: Thunderstorms"
+  },
+  "condition_mixed_rain_and_snow": {
+    "message": "المطر المختلط والثلوج",
+    "description": "Condition name for: Mixed rain and snow"
+  },
+  "condition_mixed_rain_and_sleet": {
+    "message": "المطر المختلط والصقيع",
+    "description": "Condition name for: Mixed rain and sleet"
+  },
+  "condition_mixed_snow_and_sleet": {
+    "message": "الثلوج المختلط والصقيع",
+    "description": "Condition name for: Mixed snow and sleet"
+  },
+  "condition_freezing_drizzle": {
+    "message": "تجميد رذاذ",
+    "description": "Condition name for: Freezing drizzle"
+  },
+  "condition_drizzle": {
+    "message": "رذاذ",
+    "description": "Condition name for: Drizzle"
+  },
+  "condition_freezing_rain": {
+    "message": "مطر مجمد",
+    "description": "Condition name for: Freezing rain"
+  },
+  "condition_showers": {
+    "message": "الاستحمام",
+    "description": "Condition name for: Showers"
+  },
+  "condition_snow_flurries": {
+    "message": "زخات الثلج",
+    "description": "Condition name for: Snow flurries"
+  },
+  "condition_light_snow_showers": {
+    "message": "زخات الثلوج الخفيفة",
+    "description": "Condition name for: Light snow showers"
+  },
+  "condition_blowing_snow": {
+    "message": "تهب الثلوج",
+    "description": "Condition name for: Blowing snow"
+  },
+  "condition_snow": {
+    "message": "ثلج",
+    "description": "Condition name for: Snow"
+  },
+  "condition_hail": {
+    "message": "وابل",
+    "description": "Condition name for: Hail"
+  },
+  "condition_sleet": {
+    "message": "مطر متجمد",
+    "description": "Condition name for: Sleet"
+  },
+  "condition_dust": {
+    "message": "غبار",
+    "description": "Condition name for: Dust"
+  },
+  "condition_foggy": {
+    "message": "ضبابي",
+    "description": "Condition name for: Foggy"
+  },
+  "condition_haze": {
+    "message": "ضباب",
+    "description": "Condition name for: Haze"
+  },
+  "condition_smoky": {
+    "message": "مدخن",
+    "description": "Condition name for: Smoky"
+  },
+  "condition_blustery": {
+    "message": "متهيج",
+    "description": "Condition name for: Blustery"
+  },
+  "condition_windy": {
+    "message": "عاصف",
+    "description": "Condition name for: Windy"
+  },
+  "condition_cold": {
+    "message": "برد",
+    "description": "Condition name for: Cold"
+  },
+  "condition_cloudy": {
+    "message": "غائم",
+    "description": "Condition name for: Cloudy"
+  },
+  "condition_mostly_cloudy_night": {
+    "message": "غائم في الغالب (ليلة)",
+    "description": "Condition name for: Mostly cloudy (night)"
+  },
+  "condition_mostly_cloudy_day": {
+    "message": "غائم في الغالب (اليوم)",
+    "description": "Condition name for: Mostly cloudy (day)"
+  },
+  "condition_partly_cloudy_night": {
+    "message": "غائم جزئيا (ليلة)",
+    "description": "Condition name for: Partly cloudy (night)"
+  },
+  "condition_partly_cloudy_day": {
+    "message": "غائم جزئيا (اليوم)",
+    "description": "Condition name for: Partly cloudy (day)"
+  },
+  "condition_clear": {
+    "message": "واضح",
+    "description": "Condition name for: Clear"
+  },
+  "condition_clear_night": {
+    "message": "ليلة صافية)",
+    "description": "Condition name for: Clear (night)"
+  },
+  "condition_sunny": {
+    "message": "مشمس",
+    "description": "Condition name for: Sunny"
+  },
+  "condition_mostly_sunny": {
+    "message": "غالبا مشمس",
+    "description": "Condition name for: Sunny"
+  },
+  "condition_fair_night": {
+    "message": "عادلة (ليلة)",
+    "description": "Condition name for: Fair (night)"
+  },
+  "condition_fair_day": {
+    "message": "معرض (اليوم)",
+    "description": "Condition name for: Fair (day)"
+  },
+  "condition_mixed_rain_and_hail": {
+    "message": "المطر المختلط والبرد",
+    "description": "Condition name for: Mixed rain and hail"
+  },
+  "condition_hot": {
+    "message": "حار",
+    "description": "Condition name for: Hot"
+  },
+  "condition_isolated_thunderstorms": {
+    "message": "هبوب عواصف رعدية متفرقة",
+    "description": "Condition name for: Isolated thunderstorms"
+  },
+  "condition_scattered_thunderstorms": {
+    "message": "عواصف رعدية متفرقة",
+    "description": "Condition name for: Scattered thunderstorms"
+  },
+  "condition_scattered_showers": {
+    "message": "أمطار متفرقة",
+    "description": "Condition name for: Scattered showers"
+  },
+  "condition_heavy_snow": {
+    "message": "ثلج كثيف",
+    "description": "Condition name for: Heavy snow"
+  },
+  "condition_scattered_snow_showers": {
+    "message": "سقوط ثلوج متفرقة",
+    "description": "Condition name for: Scattered snow showers"
+  },
+  "condition_partly_cloudy": {
+    "message": "غائم جزئيا",
+    "description": "Condition name for: Partly cloudy"
+  },
+  "condition_thundershowers": {
+    "message": "المطر مع الرعد والبرق",
+    "description": "Condition name for: Thundershowers"
+  },
+  "condition_snow_showers": {
+    "message": "زخات الثلوج",
+    "description": "Condition name for: Snow showers"
+  },
+  "condition_isolated_thundershowers": {
+    "message": "المطر معزولة مع الرعد والبرق",
+    "description": "Condition name for: Isolated thundershowers"
+  },
+  "condition_not_available": {
+    "message": "غير متاح",
+    "description": "Condition name for: Not available"
+  },
+  "action_refreshnow": {
+    "message": "انقر هنا لتحديث الآن!",
+    "description": "Text to be displayed when clicking on link to refresh data"
+  },
+  "action_viewnextlocation": {
+    "message": "رأي الموقع التالي",
+    "description": "Text to be displayed when clicking to navigate to next location"
+  },
+  "action_viewprevlocation": {
+    "message": "عرض الموقع السابق",
+    "description": "Text to be displayed when clicking to navigate to previous location"
+  },
+  "label_now": {
+    "message": "الآن",
+    "description": "Label for: Now"
+  },
+  "label_sunrise": {
+    "message": "شروق الشمس",
+    "description": "Label for: Sunrise"
+  },
+  "label_sunset": {
+    "message": "غروب الشمس",
+    "description": "Label for: Sunset"
+  },
+  "dayofweek_monday": {
+    "message": "الإثنين",
+    "description": "Label for day of week: Monday"
+  },
+  "dayofweek_tuesday": {
+    "message": "الثلاثاء",
+    "description": "Label for day of week: Tuesday"
+  },
+  "dayofweek_wednesday": {
+    "message": "الأربعاء",
+    "description": "Label for day of week: Wednesday"
+  },
+  "dayofweek_thursday": {
+    "message": "الخميس",
+    "description": "Label for day of week: Thursday"
+  },
+  "dayofweek_friday": {
+    "message": "الجمعة",
+    "description": "Label for day of week: Friday"
+  },
+  "dayofweek_saturday": {
+    "message": "يوم السبت",
+    "description": "Label for day of week: Saturday"
+  },
+  "dayofweek_sunday": {
+    "message": "الأحد",
+    "description": "Label for day of week: Sunday"
+  },
+  "popup_text_viewexernallinks": {
+    "message": "عرض مددت تفاصيل توقعات في",
+    "description": "Text to be dispayed in the popup page for links to external forecast data"
+  },
+  "popup_text_tiptoopen": {
+    "message": "اضغط على Alt + w لفتح هذا منبثقة",
+    "description": "Text to be dispayed in the popup page as a tip for quick open"
+  },
+  "popup_text_othertips": {
+    "message": "استخدم الأسهم لتغيير المواقع. اضغط ESC لإغلاق.",
+    "description": "Text to be dispayed in the popup page for other tips"
+  },
+  "popup_text_viewimage": {
+    "message": "تفاصيل عرض صورة",
+    "description": "Text to be dispayed in the popup in the link that opens the main background image details"
+  },
+  "popup_text_loadingimage": {
+    "message": "تحميل صورة فليكر",
+    "description": "Text to be dispayed in the popup near the image preloader animation"
+  },
+  "options_text_powered_by": {
+    "message": "مشغل بواسطة",
+    "description": "Options page text: powered by"
+  },
+  "options_text_settings": {
+    "message": "إعدادات",
+    "description": "Options page text: Settings"
+  },
+  "options_label_currentlocations": {
+    "message": "المواقع الحالية",
+    "description": "Options page label for: Current locations"
+  },
+  "options_tooltip_addnewlocation": {
+    "message": "اضغط هنا للبحث وإضافة موقع جديد.",
+    "description": "Options page tooltip for 'Add new location' link"
+  },
+  "options_label_addnewlocation": {
+    "message": "إضافة موقع جديد",
+    "description": "Options page text for 'Add new location' link"
+  },
+  "options_label_addyourlocation": {
+    "message": "إضافة موقعك",
+    "description": "Options page text for 'Add your location' link"
+  },
+  "options_label_addthislocation": {
+    "message": "إضافة هذا الموقع",
+    "description": "Options page text for 'Add this location' link"
+  },
+  "options_tooltip_addyourlocation": {
+    "message": "انقر هنا لإضافة موقعك الحالي تلقائيا باستخدام الموقع الجغرافي.",
+    "description": "Options page tooltip for 'Add your location' link"
+  },
+  "options_label_showin": {
+    "message": "إظهار القيم في",
+    "description": "Options page label for: 'Show in' (C or F)"
+  },
+  "options_label_measurement": {
+    "message": "نظام القياس",
+    "description": "Options page label for: System of measurement"
+  },
+  "options_label_measurement_metric": {
+    "message": "متري",
+    "description": "Options page 'Metric' value for: System of measurement"
+  },
+  "options_label_measurement_imperial": {
+    "message": "إمبراطوري",
+    "description": "Options page 'Imperial' value for: System of measurement"
+  },
+  "options_label_timeout": {
+    "message": "تحديث مهلة الخلفية",
+    "description": "Options page label for: Background update timeout"
+  },
+  "options_label_hour": {
+    "message": "ساعة",
+    "description": "Options page label for: hour"
+  },
+  "options_label_hours": {
+    "message": "ساعات",
+    "description": "Options page label for: hours"
+  },
+  "options_label_flickr": {
+    "message": "استخدام الصور فليكر",
+    "description": "Options page label for: Use Flickr images"
+  },
+  "options_text_flickr": {
+    "message": "استخدام فليكر للصور الخلفية بدلا من الصور الثابتة",
+    "description": "Options page description for: Use Flickr images"
+  },
+  "options_label_labels": {
+    "message": "مشاهدة لغة تسميات محددة",
+    "description": "Options page label for: Show language-specific labels"
+  },
+  "options_text_labels": {
+    "message": "\"عرض \"الطقس",
+    "في" "،",
+    "الآن" "،",
+    "مرتفع" "/",
+    "منخفض\"\"",
+    "description": "Options page description for: Show language-specific labels"
+  },
+  "options_label_extlinks": {
+    "message": "تظهر الروابط الخارجية",
+    "description": "Options page label for: Show external links"
+  },
+  "options_text_extlinks": {
+    "message": "وصلات إلى Weather.com وWeatherunderground.com",
+    "description": "Options page description for: Show external links"
+  },
+  "options_label_weatherdate": {
+    "message": "مشاهدة موعد الطقس",
+    "description": "Options page label for: Show weather date"
+  },
+  "options_label_refreshdate": {
+    "message": "تظهر آخر موعد قراءة",
+    "description": "Options page label for: Show last read date"
+  },
+  "options_label_typelocation": {
+    "message": "اكتب في موقع جديد لإضافة",
+    "description": "Options page label for: Type in a new location to add"
+  },
+  "options_label_search": {
+    "message": "بحث",
+    "description": "Options page label for: Search"
+  },
+  "options_label_close": {
+    "message": "قريب",
+    "description": "Options page label for: Close"
+  },
+  "options_label_remove": {
+    "message": "إزالة",
+    "description": "Options page label for: Remove"
+  },
+  "options_label_pleasewait": {
+    "message": "أرجو الإنتظار",
+    "description": "Options page label for: Please wait"
+  },
+  "options_label_iconspreview": {
+    "message": "الرموز المعاينة",
+    "description": "Options page label for: Icons Preview"
+  },
+  "options_label_supportextension": {
+    "message": "دعم هذا التمديد",
+    "description": "Options page label for: Support this extension"
+  },
+  "options_label_donateextension": {
+    "message": "يرجى التبرع إذا كنت ترغب في عملي!",
+    "description": "Options page label for: Please donate if you like my work!"
+  },
+  "options_message_nogeolocation": {
+    "message": "غير معتمد تحديد الموقع الجغرافي لهذا الإصدار المتصفح / نظام التشغيل حتى الان.",
+    "description": "Options page message to be displayed when geolocation is not supported."
+  },
+  "options_message_nolocation": {
+    "message": "عذرا، لا يوجد مكان العثور عليها في هذه المنسقة! محاولة للبحث عن موقعك بدلا من ذلك ..",
+    "description": "Options page message to be displayed when no location is found."
+  },
+  "options_label_removelocation": {
+    "message": "إزالة هذا الموقع!",
+    "description": "Options page label for: Remove this location!"
+  },
+  "options_label_selectlocation": {
+    "message": "حدد هذا الموقع!",
+    "description": "Options page label for: Select this location!"
+  },
+  "label_high": {
+    "message": "عالي",
+    "description": "Label for: High"
+  },
+  "label_low": {
+    "message": "منخفض",
+    "description": "Label for: Low"
+  },
+  "label_add": {
+    "message": "إضافة",
+    "description": "Label for: Add"
+  },
+  "options_text_notfound": {
+    "message": "لا مكان موجود! يرجى المحاولة لتحديد المدينة، البلد، وقانون ...",
+    "description": "Options text to be displayed when no location is found."
+  }
+}
