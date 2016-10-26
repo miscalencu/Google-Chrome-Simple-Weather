@@ -2,7 +2,7 @@
 
 Chrome extension that displays the weather using a free weather API provided by Yahoo.
 
-# Install from: https://chrome.google.com/extensions/detail/dkgcomhcmhlbdokplmbpkejkojkmjglg
+<> Install from: https://chrome.google.com/extensions/detail/dkgcomhcmhlbdokplmbpkejkojkmjglg
 
 **Features:**
 
