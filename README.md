@@ -1,8 +1,8 @@
-# Google Chrome - Simple Weather
+# Google Chrome - Start Weather
 
 Chrome extension that displays the weather using a free weather API provided by Yahoo.
 
-Install from: https://chrome.google.com/extensions/detail/dkgcomhcmhlbdokplmbpkejkojkmjglg
+#Install from: https://chrome.google.com/extensions/detail/dkgcomhcmhlbdokplmbpkejkojkmjglg
 
 **Features:**
 
@@ -15,6 +15,6 @@ Option for weather date and/or last check date.
 
 **Features to be implemented:**  
 
-Moon phases  
+Moon phases
 
 **Stay tuned!**
