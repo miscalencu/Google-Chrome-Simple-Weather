@@ -41,7 +41,10 @@ function getSettings(name) {
 			break;
 	    case "useFlickrImages":
 	        default_val = "1";
-	        break;
+			break;
+		case "TopSites":
+			default_val = [];
+			break;
 		default:
 			break;
 	}
@@ -298,7 +301,7 @@ function GetWeatherBackground(woeid, callback_success, callback_error) {
                     url: f_url,
                     data: f_data,
                     success: function (result) {
-                        var image = $(result).find("[label='Medium 640']");
+						var image = $(result).find("[label='Large']");
                         if (image.length > 0) {
                             url = $(image).attr("source");
                             if (callback_success != undefined) {
@@ -330,136 +333,6 @@ function GetWeatherBackground(woeid, callback_success, callback_error) {
             }
         }
     });
-}
-
-function ShowWeatherBackground(weatherObj, woeid, isDay) {
-    var url = StaticWeatherBackgroundImage(weatherObj);
-    var useFlickrImages = getSettings("useFlickrImages");
-
-    if (useFlickrImages == "1") {
-        var stored_image = getSettings("image_" + woeid);
-        if (stored_image != "") { // no refresh since last storing of image
-            if (stored_image == "NA") { // not available
-                stored_image = url; // use static image
-            }
-
-            SetWeatherBackGroud(stored_image, woeid);
-            var stored_url = getSettings("imageurl_" + woeid);
-            if (stored_url != "") {
-                $(".preload_image").html("<a href='" + stored_url + "' target='_blank'>" + chrome.i18n.getMessage("popup_text_viewimage") + " ...</a>");
-            }
-            return;
-        }
-        else {
-            $(".preload_image").html("<i class=\"wi loading_small wi-time-12 fa-spin\" />" + chrome.i18n.getMessage("popup_text_loadingimage") + " ...");
-
-            GetWeatherBackground(woeid,
-                function (result) {
-                    if (result.success) {
-                        setSettings("image_" + woeid, result.url);
-                        setSettings("imageurl_" + woeid, result.imageurl);
-                        SetWeatherBackGroud(result.url, woeid);
-                    } else {
-                        setSettings("image_" + woeid, "NA");
-                        setSettings("imageurl_" + woeid, "");
-                        SetWeatherBackGroud(url, woeid);
-                    }
-                },
-                function () {
-                    setSettings("image_" + woeid, "NA");
-                    setSettings("imageurl_" + woeid, "");
-                    SetWeatherBackGroud(url, woeid);
-                });
-        }
-    }
-    else {
-        SetWeatherBackGroud(url, woeid);
-        $(".preload_image").html("");
-    }
-}
-
-function SetWeatherBackGroud(url, woeid) {
-    var useFlickrImages = getSettings("useFlickrImages");
-    // apply background image
-    if (url != "") {
-        preloadImage(url, function () {
-            if (useFlickrImages == "0") {
-                $(".preload_image").html("");
-            }
-            else {
-                var image_url = getSettings("imageurl_" + woeid);
-                if (image_url != "") {
-                    $(".preload_image").html("<a href='" + image_url + "' target='_blank'>" + chrome.i18n.getMessage("popup_text_viewimage") + " ...</a>");
-                } else {
-                    $(".preload_image").html("");
-                }
-            }
-            $("body").css("background-color", "rgb(52, 73, 94)");
-            $("body").css("background-image", "url('" + url + "')");
-        });
-    }
-}
-
-function StaticWeatherBackgroundImage(weatherObj) {
-
-	// fill background array
-	var bg = new Array();
-	bg[0] = "storm.jpg"; // 'tornado'
-	bg[1] = "storm.jpg"; // 'tropical storm'
-	bg[2] = "storm.jpg"; // 'hurricane'
-	bg[3] = "storm.jpg"; // 'severe thunderstorms'
-	bg[4] = "storm.jpg"; // 'thunderstorms
-	bg[5] = "rain_snow.jpg"; // 'mixed rain and snow'
-	bg[6] = "rain_snow.jpg"; // 'mixed rain and sleet'
-	bg[7] = "rain_snow.jpg"; // 'mixed snow and sleet'
-	bg[8] = "freezing_drizzle.jpg"; // 'freezing drizzle'
-	bg[9] = "freezing_drizzle.jpg"; // 'drizzle'
-	bg[10] = "freezing_drizzle.jpg"; // 'freezing rain'
-	bg[11] = "showers.jpg"; // 'showers'
-	bg[12] = "showers.jpg"; // 'showers'
-	bg[13] = "light_snow.jpg"; // 'snow flurries'
-	bg[14] = "light_snow.jpg"; // 'light snow showers'
-	bg[15] = "blowing_snow.jpg"; // 'blowing snow'
-	bg[16] = "snow.jpg"; // 'snow'
-	bg[17] = "hail.jpg"; // 'hail'
-	bg[18] = "sleet.jpg"; // 'sleet'
-	bg[19] = "dust.jpg"; // 'dust'
-	bg[20] = "foggy.jpg"; // 'foggy'
-	bg[21] = "haze.jpg"; // 'haze'
-	bg[22] = "foggy.jpg"; // 'smoky'
-	bg[23] = "blow.jpg"; // 'blustery'
-	bg[24] = "windy.jpg"; // 'windy'
-	bg[25] = "cold.jpg"; // 'cold'
-	bg[26] = "cloudy.jpg"; // 'cloudy'
-	bg[27] = "mostly-cloudy-night.jpg"; // 'mostly cloudy (night)'
-	bg[28] = "mostly-cloudy-day.jpg"; // 'mostly cloudy (day)'
-	bg[29] = "partly_cloudy_night.jpg"; // 'partly cloudy (night)'
-	bg[30] = "partly_cloudy_day.jpg"; // 'partly cloudy (day)'
-	bg[31] = "clear_night.jpg"; // 'clear (night)'
-	bg[32] = "sunny.jpg"; // 'sunny'
-	bg[33] = "fair_night.jpg"; // 'fair (night)'
-	bg[34] = "fair_day.jpg"; // 'fair (day)'
-	bg[35] = "rain_snow.jpg"; // 'mixed rain and hail'
-	bg[36] = "hot.jpg"; // 'hot'
-	bg[37] = "thunderstorms.jpg"; // 'isolated thunderstorms'
-	bg[38] = "thunderstorms.jpg"; // 'scattered thunderstorms'
-	bg[39] = "thunderstorms.jpg"; // 'scattered thunderstorms'
-	bg[40] = "showers.jpg"; // 'scattered showers'
-	bg[41] = "heavy_snow.jpg"; // 'heavy snow'
-	bg[42] = "scattered_snow.jpg"; // 'scattered snow showers'
-	bg[43] = "heavy_snow.jpg"; // 'heavy snow'
-	bg[44] = "partly_cloudy_day.jpg"; // 'partly cloudy'
-	bg[45] = "thunderstorms.jpg"; // 'thundershowers'
-	bg[46] = "light_snow.jpg"; // 'snow showers'
-	bg[47] = "thunderstorms.jpg"; // 'isolated thundershowers'
-	//bg[3200] = ""; // 'not available'
-
-	if (bg[weatherObj.ConditionCode] != undefined) {
-	    return "../images/backgrounds/" + bg[weatherObj.ConditionCode];
-	}
-	else {
-	    return "";
-	}
 }
 
 function getWeatherCondition(condition) {
@@ -551,7 +424,10 @@ function arrindex(arr, obj) {
     return -1;
 }
 
-function getIcon(code, isDay) {
+function getIcon(code, isDay, day) {
+
+	if (day === undefined)
+		day = "";
 
 	var daypart = (isDay == 1) ? "-day" : ((isDay == 0) ? "-night" : "");
 	var icon = "";
@@ -762,6 +638,9 @@ function getIcon(code, isDay) {
 	}
 
 	title = getWeatherCondition(title);
+	if (day != "") {
+		title = getWeatherDay(day) + ": " + title;
+	}
 
 	if (icon != "") {
 		icon = icon.replace("<i ", "<i title=\"" + title + "\" ");

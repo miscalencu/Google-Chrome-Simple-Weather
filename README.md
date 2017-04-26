@@ -1,8 +1,6 @@
 # Google Chrome - Start Weather
 
-Chrome extension that displays the weather using a free weather API provided by Yahoo.
-
-<!--Install from: https://chrome.google.com/extensions/detail/dkgcomhcmhlbdokplmbpkejkojkmjglg-->
+Chrome extension that displays the weather in the start page of the browser, using a free weather API provided by Yahoo.
 
 **Features:**
 

@@ -11,12 +11,12 @@
     {
       "matches": [ "<all_urls>" ],
       "css": [ "css/in.css" ],
-      "js": [ "js/in.js" ]
+      "js": [ "/js/jquery/jquery-1.11.0.min.js", "js/in.js", "js/core.js" ]
     }
   ],
   "browser_action": {
     "default_icon": "images/icon.png",
-    "default_title": "Simple Weather"
+    "default_title": "Start Weather"
   },
   "icons": {
     "128": "images/icon_128.png",
@@ -25,11 +25,11 @@
   "permissions": [
     "webNavigation",
     "tabs",
-    "geolocation"
+    "geolocation",
+    "topSites"
   ],
   "web_accessible_resources": [
-    "popup.htm",
-    "images/opa75.png",
-    "images/opa50_black.png"
+			"weather.htm",
+			"images/*"
   ]
 }

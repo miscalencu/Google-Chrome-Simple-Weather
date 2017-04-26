@@ -1,23 +1,72 @@
-﻿.simple_weather_splash_wrapper
-	{
-	display: block;
-	position: fixed;
-	left: 0;
+﻿body {
+	min-height: initial !important;
+}
+
+.weather_background {
+	background-size: cover !important;
+	background-repeat: no-repeat !important;
+	background-position: 50% 50% !important;
+	opacity: 1;
+	position:absolute;
 	top: 0;
-	width: 5000px;
-	height: 5000px;
-	z-index: 1000;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+}
+
+#lga {
+	/* 
+	height: 200px !important; 
+	zoom: 0.8;
+	*/
+}
+
+#lga img {
+	/* padding-top: 40px !important; */
+}
+
+#mv-tiles {
+	margin-top: -40px !important;
+	min-width: 688px !important;
+}
+
+#mv-single {
+	display: none;
+}
+
+.mv-weather-tile {
+	float: left;
+	width: 25%;
+	text-align: left;
+	line-height: 23px;
+}
+
+	.mv-weather-tile:nth-child(4n+1) {
+		clear: left;
 	}
 
-#simple_weather_popupContainer
-	{
-	background-color: transparent;
-	z-index: 100;
-	-webkit-box-shadow: 5px 5px 14px 0px rgba(50, 50, 50, 0.85);
-	-moz-box-shadow:    5px 5px 14px 0px rgba(50, 50, 50, 0.85);
-	box-shadow:         5px 5px 14px 0px rgba(50, 50, 50, 0.85);
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius:		5px;
+	.mv-weather-tile a, .mv-weather-tile a:visited, .mv-weather-tile a:active {
+		display: block;
+		background-color: rgb(242,242,242);
+		height: 20px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		height: 25px;
+		margin: 5px 5px 0 0;
+		padding: 2px 2px 2px 6px;
+		color: #666666;
+		text-decoration: none;
+		border-radius: 4px;
 	}
 
+		.mv-weather-tile a:hover {
+			background-color: rgb(220, 220, 220);
+			text-decoration: none;
+		}
+
+		.mv-weather-tile a img {
+			vertical-align: middle;
+		}
+	

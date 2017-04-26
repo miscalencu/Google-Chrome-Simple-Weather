@@ -1,98 +1,73 @@
-﻿function OpenWeatherPopup() {
-	var w = 740;
-	var h = 480;
-	var url = chrome.extension.getURL("popup.htm");
-
-	var sw_splashContainer = document.getElementById("simple_weather_splash_wrapper_popup");
-	var sw_imageContainer = document.getElementById("simple_weather_popupContainer");
-	if (sw_splashContainer == null) {
-		var sw_splashContainer = document.createElement("div");
-		sw_splashContainer.className = "simple_weather_splash_wrapper";
-		sw_splashContainer.id = "simple_weather_splash_wrapper_popup";
-		sw_splashContainer.innerHTML = "<img alt=\"\" src=\"" + chrome.extension.getURL("images/opa50_black.png") + "\" width=\"5000\" height=\"5000\" />";
-		document.body.appendChild(sw_splashContainer);
-
-		sw_iframeContainer = document.createElement("div");
-		sw_iframeContainer.style.position = "absolute";
-		sw_iframeContainer.id = "simple_weather_popupContainer";
-		sw_splashContainer.appendChild(sw_iframeContainer);
+﻿$(document).ready(function () {
+	// if not newtab of Chrome, give up
+	if (!(/chrome\/newtab/).test(document.location.href)) {
+		return;
 	}
 
-	sw_iframeContainer.style.width = w + "px";
-	sw_iframeContainer.style.height = h + "px";
+	$("<div />").attr("class", "weather_background").appendTo($("body"));
 
-	sw_iframeContainer.innerHTML = "<iframe class=\"sw_framepopup\" id=\"sw_framepopup\" name=\"sw_framepopup\" frameborder=\"0\" width=\"" + w + "\" height=\"" + h + "\" src=\"" + url + "\"></iframe>";
-	sw_splashContainer.style.display = "block";
+	chrome.runtime.sendMessage({ message: "content_script_loaded" }, function (response) {
+		console.log("[in] response received ...");
+		if (response === "undefined")
+			return;
 
-	var myWidth = window.innerWidth, myHeight = window.innerHeight;
-	var scrOfX = window.pageYOffset, scrOfY = window.pageXOffset;
+		drawTopSites(response.TopSites);
+		drawWeather(response.Weather, false);
+	})
 
-	var Top = ((myHeight - h) / 2);
-	var Left = ((myWidth - w) / 2);
-	if (Top < 0)
-		Top = 0;
-	if (Left < 0)
-		Top = 0;
+    chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+        console.log("[in] message received ...");
+        if (request.action == "highlight") {
+            // highlight weather area
+            sendResponse("OK");
+        }
 
-	sw_iframeContainer.style.top = Top + "px";
-	sw_iframeContainer.style.left = Left + "px";
-	
-	document.addEventListener("keyup", function (e) {
-		if (e.keyCode == 27) {   // esc
-			CloseWeatherPopup();
+        if (request.action == "redraw_topsites") {
+            console.log("'redraw_topsites' received ...");
+            drawTopSites(request.data);
 		}
-	});
 
-	document.addEventListener("click", function (e) {
-		CloseWeatherPopup(); // mouse click
-	});
+		if (request.action == "set_background") {
+			console.log("'set_background' received ...");
 
-	// does not work without the timeout
-	setTimeout(document.getElementById("sw_framepopup").focus(), 100);
+			$(".weather_background").css("background-color", "rgb(52, 73, 94)");
+			$(".weather_background").css("background-image", "url('" + request.url + "')");
+		}
+    });
+});
+
+function setWeatherBackGroud(url, woeid) {
 	
-	weatherOpened = true;
-	return;
 }
 
-function CloseWeatherPopup() {
-	var sw_iframeContainer = document.getElementById("simple_weather_splash_wrapper_popup");
-	sw_iframeContainer.style.display = "none";
-	weatherOpened = false;
+function drawTopSites(data) {
+	var divTiles = $("#mv-tiles");
+	var divTilesContent = "";
+    for (var i = 0; i < data.length; i++) {
+        var url = data[i].url;
+		var title = data[i].title;
+		var favicon_url = "https://www.google.com/s2/u/0/favicons?domain=" + ExtractDomain(url);
+		divTilesContent += "<div class='mv-weather-tile'><a title='" + title + "' href='" + url + "' target='_blank'><img border='0' alt='" + title + "' src='" + favicon_url + "' /> " + title + "</div>";
+		if (i == 7)
+			break;
+	}
+	divTiles.html(divTilesContent); //.attr("id", "mv-weather-tiles");
 }
 
-chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-	console.log("message received ...");
-	if (request.args == "open")	{ 
-		OpenWeatherPopup();
-		sendResponse("OK");
+function drawWeather(weatherObj, showBadgeAnimation) {
+	var divTiles = $("#mv-tiles");
+	var divWeather = $("<div />").attr("id", "weather-tiles");
+	var divWeatherContent = "";
+	if (isValidWeatherObject(weatherObj)) {
+		divWeatherContent += "<iframe frameborder='0' src='" + chrome.runtime.getURL('weather.htm') + "' scrolling='no' style='width:100%;height:200px;margin-top:20px;' /></iframe>";
 	}
-	if (request.args == "close") {
-		CloseWeatherPopup(false);
-		sendResponse("OK");
-	}
-});
+	divWeather.html(divWeatherContent).appendTo(divTiles);
+}
 
-// close popup on Escape
-window.addEventListener("message", function (e) {
-	console.log("window message received ...");
-	if (e.data.args === 'close') {
-		CloseWeatherPopup(false); 
-	}
-});
-
-// open popup on Alt + w
-document.addEventListener("keyup", function (e) {
-	if (e.altKey && e.keyCode == 87) {  // alt + w
-		OpenWeatherPopup();
-	}
-});
-
-(function () {
-	var weatherOpened = false;
-	chrome.extension.sendMessage({ message: "reset_timeout_required" }, function (response) { 
-		// console.log("'reset_timeout_required' sent ... " + response.status + " received!"); 
-		if(response.status == "YES") {
-			chrome.extension.sendMessage({ message: "reset_timeout" }, function () 	{ 	/* console.log("'reset_timeout' sent ...");  */	});
-			}
-	});
-})();
+function ExtractDomain(url) {
+	url = url.toLowerCase();
+	url = url.replace("http://", "");
+	url = url.replace("https://", "");
+	url = url.replace("ftp://", "");
+	return url.split("/")[0];
+}

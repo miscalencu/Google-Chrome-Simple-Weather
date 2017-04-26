@@ -2,10 +2,15 @@ var timeOut = null;
 currentPage = "background";
 
 function SetRefresh() {
-	clearTimeout(timeOut);
+    clearTimeout(timeOut);
 
-	// check every minute
-	timeOut = window.setTimeout(function () { GetWeatherCheck(); }, 1000 * 60);
+    // check every minute
+    timeOut = window.setTimeout(function () {
+        GetWeatherCheck();
+        chrome.topSites.get(function (data) {
+			setSettings("TopSites", JSON.stringify(data));
+        });
+    }, 1000 * 60);
 }
 
 // checks every minute if it needs to download weather data
@@ -37,15 +42,18 @@ $(document).on("weather_complete", function (event) {
 });
 	
 $(document).ready(function () {
+    var locations = JSON.parse(getSettings("weatherLocations"));
+    if (locations.length == 0) {
+        updateEmptyBadge();
+        return;
+    }
 
-	var locations = JSON.parse(getSettings("weatherLocations"));
-	if (locations.length == 0) {
-	    updateEmptyBadge();
-		return;
-	}
+    chrome.topSites.get(function (data) {
+        setSettings("TopSites", JSON.stringify(data));
+    });
 
-	updateBadge(true);
-	SetRefresh();
+    updateBadge(true);
+    SetRefresh();
 });
 
 function updateEmptyBadge() {
@@ -163,25 +171,39 @@ function goUpdateBadge(weatherObj) {
 
 var newtabid = 0;
 chrome.browserAction.onClicked.addListener(function (tab) {
-
 	var locations = JSON.parse(getSettings("weatherLocations"));
 	if(locations.length === 0) {
 		OpenWindow("options");
 		return;
 	}
-	
-	chrome.tabs.sendMessage(tab.id, { args: "open" }, function (response) {
-		if (response != "OK") { // we are not in a tab (Settings page, etc ...)
-			setSettings("OpenOnLoad", "YES");
-			chrome.tabs.create({ url: "chrome://newtab" }, function(tab) {
-				newtabid = tab.id;
-			});
-		}
+
+	chrome.tabs.getSelected(null, function (tab) {
+	    var currentUrl = tab.url;
+	    if (currentUrl === "chrome://newtab/") {
+	        return;
+	        // TO DO: highlight weather
+	    }
+	    else {
+	        // else redirect to new tab page
+	        chrome.tabs.create({ url: "chrome://newtab" }, function (tab) { });
+	    }
 	});
+	
+	
 });
 
 chrome.extension.onMessage.addListener(function (request, sender, sendResponse) {
 	console.log("message received ...");
+
+	if (request.message == "content_script_loaded") {
+		console.log("'content_script_loaded' received ...");
+		var location = JSON.parse(getSettings("weatherLocation"));
+		if (location == null) {
+			return;
+		}
+		sendResponse({ TopSites: JSON.parse(getSettings("TopSites")), Weather: JSON.parse(getSettings("w_" + location.woeid)) });
+	}
+
 	if (request.message == "update_timeout") {
 		console.log("'update_timeout' received ...");
 		GetWeatherCheck();
