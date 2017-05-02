@@ -143,7 +143,8 @@ function ShowWeatherBackground(weatherObj, woeid, isDay) {
 			SetWeatherBackGroud(stored_image, woeid);
 			var stored_url = getSettings("imageurl_" + woeid);
 			if (stored_url != "") {
-				$(".preload_image").html("<a href='" + stored_url + "' target='_blank'>" + chrome.i18n.getMessage("popup_text_viewimage") + " ...</a>");
+				//$(".preload_image").html("<a href='" + stored_url + "' target='_blank'>" + chrome.i18n.getMessage("popup_text_viewimage") + " ...</a>");
+				$(".preload_image").html("");
 			}
 			return;
 		}
@@ -185,11 +186,11 @@ function SetWeatherBackGroud(url, woeid) {
 			}
 			else {
 				var image_url = getSettings("imageurl_" + woeid);
-				if (image_url != "") {
-					$(".preload_image").html("<a href='" + image_url + "' target='_blank'>" + chrome.i18n.getMessage("popup_text_viewimage") + " ...</a>");
-				} else {
+				//if (image_url != "") {
+				//	$(".preload_image").html("<a href='" + image_url + "' target='_blank'>" + chrome.i18n.getMessage("popup_text_viewimage") + " ...</a>");
+				//} else {
 					$(".preload_image").html("");
-				}
+				//}
 			}
 
 			console.log("[we] set_background sent ...");

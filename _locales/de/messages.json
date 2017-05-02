@@ -1,8 +1,8 @@
 ﻿{
-  "application_title": {
-    "message": "Simple Weather",
-    "description": "The title of the application, displayed in the web store."
-  },
+	"application_title": {
+		"message": "Start Wetter",
+		"description": "The title of the application, displayed in the web store."
+	},
   "application_description": {
     "message": "Zeigt das Wetter für mehrere Standorte, die Sie festlegen können die kostenlose Wetter-API zur Verfügung gestellt von Yahoo (Yahoo Wetter API).",
     "description": "The description of the application, displayed in the web store."

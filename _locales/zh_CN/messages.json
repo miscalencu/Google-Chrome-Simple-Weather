@@ -1,8 +1,8 @@
 ﻿{
-  "application_title": {
-    "message": "简单的天气",
-    "description": "The title of the application, displayed in the web store."
-  },
+	"application_title": {
+		"message": "开始天气",
+		"description": "The title of the application, displayed in the web store."
+	},
   "application_description": {
     "message": "显示，你可以使用雅虎（雅虎天气API）提供的免费天气API设置多个地点的天气。",
     "description": "The description of the application, displayed in the web store."

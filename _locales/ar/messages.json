@@ -1,8 +1,8 @@
 ﻿{
-  "application_title": {
-    "message": "الطقس بسيط",
-    "description": "The title of the application, displayed in the web store."
-  },
+	"application_title": {
+		"message": "بدء الطقس",
+		"description": "The title of the application, displayed in the web store."
+	},
   "application_description": {
     "message": "يعرض حالة الطقس لمواقع متعددة يمكنك تعيين باستخدام API الطقس المجانية التي تقدمها ياهو (ياهو الطقس API).",
     "description": "The description of the application, displayed in the web store."

@@ -1,8 +1,8 @@
 ﻿{
-  "application_title": {
-    "message": "সহজ আবহাওয়া",
-    "description": "The title of the application, displayed in the web store."
-  },
+	"application_title": {
+		"message": "আবহাওয়া শুরু করুন",
+		"description": "The title of the application, displayed in the web store."
+	},
   "application_description": {
     "message": "একাধিক অবস্থানে যে আপনি ইয়াহু (ইয়াহু আবহাওয়া এপিআই) দ্বারা উপলব্ধ বিনামূল্যে আবহাওয়া API ব্যবহার করে সেট করতে পারেন জন্য আবহাওয়া প্রদর্শন করা হয়.",
     "description": "The description of the application, displayed in the web store."

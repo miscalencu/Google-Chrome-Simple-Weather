@@ -1,8 +1,8 @@
 ﻿{
-  "application_title": {
-    "message": "El tiempo simple",
-    "description": "The title of the application, displayed in the web store."
-  },
+	"application_title": {
+		"message": "Inicio Clima",
+		"description": "The title of the application, displayed in the web store."
+	},
   "application_description": {
     "message": "Muestra el tiempo en múltiples lugares que se pueden establecer mediante la API de tiempo libre proporcionada por Yahoo (Yahoo Weather API).",
     "description": "The description of the application, displayed in the web store."

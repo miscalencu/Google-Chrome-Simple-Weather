@@ -1,8 +1,8 @@
 ﻿{
-  "application_title": {
-    "message": "सरल मौसम",
-    "description": "The title of the application, displayed in the web store."
-  },
+	"application_title": {
+		"message": "प्रारंभ पृष्ठ मौसम",
+		"description": "The title of the application, displayed in the web store."
+	},
   "application_description": {
     "message": "कई स्थानों है कि आप याहू (याहू मौसम एपीआई) द्वारा उपलब्ध कराए मुक्त मौसम एपीआई का उपयोग कर सेट कर सकते हैं के लिए मौसम प्रदर्शित करता है।",
     "description": "The description of the application, displayed in the web store."

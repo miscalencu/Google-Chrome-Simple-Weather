@@ -1,8 +1,8 @@
 ﻿{
-  "application_title": {
-    "message": "Простой погоды",
-    "description": "The title of the application, displayed in the web store."
-  },
+	"application_title": {
+		"message": "Начать погоду",
+		"description": "The title of the application, displayed in the web store."
+	},
   "application_description": {
     "message": "Показывает погоду для нескольких мест, которые можно установить с помощью бесплатного API погоды предоставляемые Yahoo (Yahoo Weather API).",
     "description": "The description of the application, displayed in the web store."

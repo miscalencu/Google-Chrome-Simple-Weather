@@ -1,8 +1,8 @@
 ﻿{
-  "application_title": {
-    "message": "Semplice Meteo",
-    "description": "The title of the application, displayed in the web store."
-  },
+	"application_title": {
+		"message": "Inizio Meteo",
+		"description": "The title of the application, displayed in the web store."
+	},
   "application_description": {
     "message": "Consente di visualizzare il tempo per più sedi che è possibile impostare utilizzando il tempo API gratuito fornito da Yahoo (Yahoo Meteo API).",
     "description": "The description of the application, displayed in the web store."

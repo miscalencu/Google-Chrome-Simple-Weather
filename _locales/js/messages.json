@@ -1,8 +1,8 @@
 ﻿{
-  "application_title": {
-    "message": "シンプルな天気",
-    "description": "The title of the application, displayed in the web store."
-  },
+	"application_title": {
+		"message": "スタート天気",
+		"description": "The title of the application, displayed in the web store."
+	},
   "application_description": {
     "message": "あなたはヤフー（Yahooの天気API）が提供する無料の天気APIを使用して設定することができます複数の場所の天気を表示します。",
     "description": "The description of the application, displayed in the web store."

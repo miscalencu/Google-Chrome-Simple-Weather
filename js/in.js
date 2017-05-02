@@ -4,7 +4,13 @@
 		return;
 	}
 
-	$("<div />").attr("class", "weather_background").appendTo($("body"));
+	//$("<div />").attr("class", "weather_background").appendTo($("body"));
+	$("body").wrapInner("<div class=\"weather_wrapper\"></div>");
+	$("body").wrapInner("<div class=\"weather_background\"></div>");
+	$("#mngb, #prpd").appendTo("body");
+	$(".weather_wrapper").width("718px");
+	$("<div/>").attr("id", "view_backdrop").addClass("glyphicon glyphicon-eye-open").css("background-image", "url('" + chrome.runtime.getURL("images/eye.png") + "'").attr("title", chrome.i18n.getMessage("popup_text_viewimage")).appendTo("body");
+	$("<div/>").attr("id", "view_details").appendTo("body");
 
 	chrome.runtime.sendMessage({ message: "content_script_loaded" }, function (response) {
 		console.log("[in] response received ...");
@@ -32,8 +38,26 @@
 
 			$(".weather_background").css("background-color", "rgb(52, 73, 94)");
 			$(".weather_background").css("background-image", "url('" + request.url + "')");
+
+			if (request.image_url != "") {
+				$("#view_details").html("<a href='" + request.image_url + "' target='_blank'>" + request.url_text + " ...</a>");
+			}
+			else {
+				$("#view_details").html("");
+			}
 		}
-    });
+	});
+
+	$("#view_backdrop").on("click", function () {
+		if ($(".weather_wrapper").is(":visible")) {
+			$(".weather_wrapper").slideUp("fast");
+			$("#view_details").slideDown("fast");
+		}
+		else {
+			$(".weather_wrapper").slideDown("fast");
+			$("#view_details").slideUp("fast");
+		}
+	});
 });
 
 function setWeatherBackGroud(url, woeid) {

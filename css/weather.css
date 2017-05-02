@@ -102,7 +102,7 @@ table tr td
 	float: right;
 	width: 50%;
 	text-align: right;
-	background-color: rgb(242, 242, 242);
+	/*background-color: rgb(242, 242, 242);*/
 	height: 170px;
 	padding-top: 2px;
 }
@@ -233,10 +233,10 @@ table tr td
 }
 
 .preload_image {
-    color: #ffefa0;
-    font-size: 0.75em;
+	color: #4885ed;
+	font-size: 0.75em;
 }
 
-    .preload_image a {
-        color: #ffefa0;
-    }
+	.preload_image a {
+		color: #4885ed;
+	}
