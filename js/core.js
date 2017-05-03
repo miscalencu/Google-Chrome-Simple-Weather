@@ -270,7 +270,8 @@ function GetWeatherBackground(woeid, callback_success, callback_error) {
         "&method=flickr.photos.search" +
         "&woe_id=" + woeid +
         "&text=landscape" +
-        "&safe_search=1" +
+		"&safe_search=1" +
+		"&extras=url_l" +
         "&min_taken_date=" + [min_taken_date.getFullYear(), ((mm < 10) ? "0" : "") + mm, dd].join('-') +
         "&media=photos";
 
@@ -282,44 +283,23 @@ function GetWeatherBackground(woeid, callback_success, callback_error) {
         data: f_data,
         success: function (result) {
             var photos = $(result).find("photo");
-            if (photos.length > 0) {
-                var random = Math.floor(Math.random() * photos.length);
+			if (photos.length > 0) {
+				var random = Math.floor(Math.random() * photos.length);
                 var photo = $(photos).eq(random);
-                var photo_id = $(photo).attr("id");
-                var photo_owner = $(photo).attr("owner");
+				var photo_url = $(photo).attr("url_l");
+				var owner = $(photo).attr("owner");
+				var photoid = $(photo).attr("id");
+				var url = "https://www.flickr.com/photos/" + owner + "/" + photoid + "/";
 
-                var imageurl = "https://www.flickr.com/photos/" + photo_owner + "/" + photo_id + "/";
-                
-                var f_data = "" +
-                    "api_key=d68a0a0edeac7e677f29e8243d778d66" +
-                    "&method=flickr.photos.getSizes" +
-                    "&photo_id=" + photo_id;
-
-                console.log("get image from: " + f_url + "?" + f_data + "...");
-
-                $.ajax({
-                    url: f_url,
-                    data: f_data,
-                    success: function (result) {
-						var image = $(result).find("[label='Large']");
-                        if (image.length > 0) {
-                            url = $(image).attr("source");
-                            if (callback_success != undefined) {
-                                callback_success({ success: true, url: url, imageurl: imageurl });
-                            }
-                        }
-                        else {
-                            if (callback_success != undefined) {
-                                callback_success({ success: false, url: "", imageurl: imageurl });
-                            }
-                        }
-                    },
-                    error: function (jqXHR, textStatus) {
-                        if (callback_error != undefined) {
-                            callback_error({ success: false, url: "", imageurl: "" });
-                        }
-                    }
-                });
+				if (photo_url != "") {
+					if (callback_success != undefined) {
+						callback_success({ success: true, url: photo_url, imageurl: url });
+					}
+				} else {
+					if (callback_success != undefined) {
+						callback_success({ success: false, url: "", imageurl: "" });
+					}
+				}
             }
             else {
                 if (callback_success != undefined) {

@@ -177,6 +177,7 @@ function ShowWeatherBackground(weatherObj, woeid, isDay) {
 }
 
 function SetWeatherBackGroud(url, woeid) {
+	debugger;
 	var useFlickrImages = getSettings("useFlickrImages");
 	// apply background image
 	if (url != "") {
