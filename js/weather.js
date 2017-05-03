@@ -1,4 +1,4 @@
-currentPage = "popup";
+currentPage = "weather";
 function ShowWeather(showBadgeAnimation) {
 
 	if (showBadgeAnimation == undefined) {
@@ -107,13 +107,13 @@ function ShowWeather(showBadgeAnimation) {
 			footerContent += "</div>";
 		}
 
+		var manifest = chrome.runtime.getManifest();
 		footerContent += "<div class=\"inner_content\" style=\"font-size: 10px; margin-bottom:0\">";
 		if (getSettings("weatherDate") == "1")
 		    footerContent += chrome.i18n.getMessage("label_validfor") + " " + weatherObj.Date + ".<br/>";
 		if (getSettings("weatherReadDate") == "1")
-		    footerContent += chrome.i18n.getMessage("label_lastcheckedon") + " " + formatToLocalTimeDate(weatherObj.RefreshDate) + ".<br/>";
+			footerContent += chrome.i18n.getMessage("label_lastcheckedon") + " " + formatToLocalTimeDate(weatherObj.RefreshDate) + " (v" + manifest.version + ").<br/>";
 
-		var manifest = chrome.runtime.getManifest();
 		// footerContent += "<div class=\"tips\">" + chrome.i18n.getMessage("popup_text_tiptoopen") + ".<br />" + chrome.i18n.getMessage("popup_text_othertips") + " (v" + manifest.version + ").</div>";
 
 		footerContent += "</div>";

@@ -14,12 +14,12 @@
 
 	chrome.runtime.sendMessage({ message: "content_script_loaded" }, function (response) {
 		console.log("[in] response received ...");
-		if (response === "undefined")
+		if (typeof response == "undefined")
 			return;
 
 		drawTopSites(response.TopSites);
 		drawWeather(response.Weather, false);
-	})
+	});
 
     chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         console.log("[in] message received ...");
@@ -71,7 +71,7 @@ function drawTopSites(data) {
         var url = data[i].url;
 		var title = data[i].title;
 		var favicon_url = "https://www.google.com/s2/u/0/favicons?domain=" + ExtractDomain(url);
-		divTilesContent += "<div class='mv-weather-tile'><a title='" + title + "' href='" + url + "' target='_blank'><img border='0' alt='" + title + "' src='" + favicon_url + "' /> " + title + "</div>";
+		divTilesContent += "<div class='mv-weather-tile'><a title='" + title + "' href='" + url + "' target='_top'><img border='0' alt='" + title + "' src='" + favicon_url + "' width=\"16\" height=\"16\" /> " + title + "</div>";
 		if (i == 7)
 			break;
 	}

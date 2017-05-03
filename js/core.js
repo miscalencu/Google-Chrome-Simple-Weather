@@ -43,7 +43,7 @@ function getSettings(name) {
 	        default_val = "1";
 			break;
 		case "TopSites":
-			default_val = [];
+			default_val = "[]";
 			break;
 		default:
 			break;
