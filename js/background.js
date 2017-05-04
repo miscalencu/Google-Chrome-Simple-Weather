@@ -194,7 +194,6 @@ chrome.browserAction.onClicked.addListener(function (tab) {
 
 chrome.extension.onMessage.addListener(function (request, sender, sendResponse) {
 	console.log("message received ...");
-
 	if (request.message == "content_script_loaded") {
 		console.log("'content_script_loaded' received ...");
 		var location = JSON.parse(getSettings("weatherLocation"));

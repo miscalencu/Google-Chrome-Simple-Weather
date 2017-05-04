@@ -156,16 +156,19 @@ function ShowWeatherBackground(weatherObj, woeid, isDay) {
 					if (result.success) {
 						setSettings("image_" + woeid, result.url);
 						setSettings("imageurl_" + woeid, result.imageurl);
+						setSettings("imagetitle_" + woeid, result.title);
 						SetWeatherBackGroud(result.url, woeid);
 					} else {
 						setSettings("image_" + woeid, "NA");
 						setSettings("imageurl_" + woeid, "");
+						setSettings("imagetitle_" + woeid, "");
 						SetWeatherBackGroud(url, woeid);
 					}
 				},
 				function () {
 					setSettings("image_" + woeid, "NA");
 					setSettings("imageurl_" + woeid, "");
+					setSettings("imagetitle_" + woeid, "");
 					SetWeatherBackGroud(url, woeid);
 				});
 		}
@@ -177,7 +180,7 @@ function ShowWeatherBackground(weatherObj, woeid, isDay) {
 }
 
 function SetWeatherBackGroud(url, woeid) {
-	debugger;
+	
 	var useFlickrImages = getSettings("useFlickrImages");
 	// apply background image
 	if (url != "") {
@@ -187,6 +190,7 @@ function SetWeatherBackGroud(url, woeid) {
 			}
 			else {
 				var image_url = getSettings("imageurl_" + woeid);
+				var image_title = getSettings("imagetitle_" + woeid);
 				//if (image_url != "") {
 				//	$(".preload_image").html("<a href='" + image_url + "' target='_blank'>" + chrome.i18n.getMessage("popup_text_viewimage") + " ...</a>");
 				//} else {
@@ -196,10 +200,12 @@ function SetWeatherBackGroud(url, woeid) {
 
 			console.log("[we] set_background sent ...");
 
+			debugger;
 			chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
 				chrome.tabs.sendMessage(tabs[0].id, {
 					action: "set_background",
 					image_url: image_url,
+					image_title: image_title,
 					url_text: chrome.i18n.getMessage("popup_text_viewimage"),
 					url, url
 				}, function (response) {

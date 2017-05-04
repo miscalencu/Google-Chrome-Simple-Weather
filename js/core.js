@@ -73,7 +73,7 @@ function GetWeather() {
 		console.log("getting weather from: " + url);
 
 		$.ajax({
-			type: "GET",
+			type: "POST",
 			dataType: "xml",
 			url: url,
 			success: function (result) {
@@ -87,18 +87,21 @@ function GetWeather() {
                         function (result) {
                             if (result.success) {
                                 setSettings("image_" + location.woeid, result.url);
-                                setSettings("imageurl_" + location.woeid, result.imageurl);
+								setSettings("imageurl_" + location.woeid, result.imageurl);
+								setSettings("imagetitle_" + location.woeid, result.title);
                                 preloadImage(result.url, function () { });
                             }
                         },
                         function () {
                             setSettings("image_" + location.woeid, "NA");
-                            setSettings("imageurl_" + location.woeid, "");
+							setSettings("imageurl_" + location.woeid, "");
+							setSettings("imagetitle_" + location.woeid, "");
                         });
 
                     // reset image and image URL
 					setSettings("image_" + location.woeid, "");
 					setSettings("imageurl_" + location.woeid, "");
+					setSettings("imagetitle_" + location.woeid, "");
 
 					$.event.trigger({
 						type: "weather_complete",
@@ -278,7 +281,8 @@ function GetWeatherBackground(woeid, callback_success, callback_error) {
     console.log("get images from: " + f_url + "?" + f_data + "...");
 
     // get from flickr
-    $.ajax({
+	$.ajax({
+		type: "POST",
         url: f_url,
         data: f_data,
         success: function (result) {
@@ -289,27 +293,28 @@ function GetWeatherBackground(woeid, callback_success, callback_error) {
 				var photo_url = $(photo).attr("url_l");
 				var owner = $(photo).attr("owner");
 				var photoid = $(photo).attr("id");
+				var title = $(photo).attr("title");
 				var url = "https://www.flickr.com/photos/" + owner + "/" + photoid + "/";
 
 				if (photo_url != "") {
 					if (callback_success != undefined) {
-						callback_success({ success: true, url: photo_url, imageurl: url });
+						callback_success({ success: true, url: photo_url, imageurl: url, title: title });
 					}
 				} else {
 					if (callback_success != undefined) {
-						callback_success({ success: false, url: "", imageurl: "" });
+						callback_success({ success: false, url: "", imageurl: "", title: "" });
 					}
 				}
             }
             else {
                 if (callback_success != undefined) {
-                    callback_success({ success: false, url: "", imageurl: "" });
+                    callback_success({ success: false, url: "", imageurl: "", title: "" });
                 }
             }
         },
         error: function (jqXHR, textStatus) {
             if (callback_error != undefined) {
-                callback_error({ success: false, url: "", imageurl: "" });
+                callback_error({ success: false, url: "", imageurl: "", title: "" });
             }
         }
     });

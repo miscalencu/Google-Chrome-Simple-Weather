@@ -17,9 +17,8 @@
 }
 
 .weather_wrapper {
-	background-color: rgba(255, 255, 255, 0.6);
+	background-color: rgba(255, 255, 255, 0.8);
 }
-
 
 #lga {
 	/* 
@@ -106,27 +105,40 @@
 
 #view_details {
 	display: none;
+	background-color: rgba(255, 255, 255, 0.7);
+	bottom: 5%;
+	font-size: 14px;
+	/*width: 180px;*/
+	vertical-align: central;
+	height: 38px;
+	left: 70px;
+	line-height: 18px !important;
+	position: fixed;
+	text-align: left;
+	border: 1px solid white;
+	padding-left: 10px;
+	padding-right: 10px;
+	max-width: 50%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	padding-top: 2px;
 }
 
-	#view_details a, #view_details a:link {
-		background-color: rgba(255, 255, 255, 0.7);
+	#view_details span {
+		max-height: 20px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 		color: #4285F4;
-		bottom: 5%;
-		cursor: pointer;
-		font-size: 14px;
-		font-weight: bold;
-		width: 180px;
-		height: 40px;
-		left: 70px;
-		line-height: 38px !important;
-		position: fixed;
-		right: auto;
-		text-align: center;
-		top: auto;
+	}
+
+	#view_details a, #view_details a:link, #view_details a:visited, #view_details a:active {
 		z-index: 100;
 		transition: all 0.3s ease;
-		border: 1px solid white;
 		text-decoration: none;
+		font-weight: bold;
+		cursor: pointer;
+		color: #4285F4;
 	}
 
 	#view_details a:hover {

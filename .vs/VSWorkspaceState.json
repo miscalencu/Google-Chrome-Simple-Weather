@@ -1,16 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\js",
-    "\\_locales\\hi",
-    "\\_locales\\it",
-    "\\_locales\\js",
-    "\\_locales\\pt_BR",
-    "\\_locales\\ro",
-    "\\_locales\\ru",
-    "\\_locales\\zh_CN",
-    "\\_locales\\zh_TW"
+    "\\js"
   ],
-  "SelectedNode": "\\js\\in.js",
+  "SelectedNode": "\\manifest.json",
   "PreviewInSolutionExplorer": false
 }
