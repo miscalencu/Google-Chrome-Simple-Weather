@@ -28,8 +28,11 @@ $(document).ready(function () {
 			$(".weather_background").css("background-image", "url('" + request.url + "')");
 
 			if (request.image_url != "") {
-				var image_title = "<span>" + request.image_title + "</span>";
-				$("#view_details").html(image_title + "<br /><a href='" + request.image_url + "' target='_blank'>" + request.url_text + " ...</a>");
+				var image_title = "";
+				if (request.image_title != "")
+					image_title = "<span>" + request.image_title + "</span><br />";
+
+				$("#view_details").html(image_title + "<a href='" + request.image_url + "' target='_blank'>" + request.url_text + " ...</a>");
 			}
 			else {
 				$("#view_details").html("");
@@ -65,7 +68,9 @@ function addEvets() {
 	$("#view_backdrop").on("click", function () {
 		if ($(".weather_wrapper").is(":visible")) {
 			$(".weather_wrapper").slideUp("fast");
-			$("#view_details").slideDown("fast");
+			if ($("#view_details").html() != "") {
+				$("#view_details").slideDown("fast");
+			}
 		}
 		else {
 			$(".weather_wrapper").slideDown("fast");
