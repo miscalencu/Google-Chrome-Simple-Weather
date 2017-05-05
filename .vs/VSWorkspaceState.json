@@ -1,8 +1,10 @@
 {
   "ExpandedNodes": [
     "",
+    "\\css",
+    "\\docs",
     "\\js"
   ],
-  "SelectedNode": "\\manifest.json",
+  "SelectedNode": "\\js\\in.js",
   "PreviewInSolutionExplorer": false
 }

@@ -80,10 +80,11 @@ function GetWeather() {
 			    if ($(result).find("query").attr("yahoo:count") != "0") { // if data received
 			        console.log("complete fired ...");
 			        // save weather object
-			        setSettings("w_" + location.woeid, JSON.stringify(getWeatherObject(result)));
+					var weatherObj = getWeatherObject(result);
+					setSettings("w_" + location.woeid, JSON.stringify(weatherObj));
 
 			        // cache backgroud image
-			        GetWeatherBackground(location.woeid,
+					GetWeatherBackground(location.woeid, weatherObj.Lat, weatherObj.Long,
                         function (result) {
                             if (result.success) {
                                 setSettings("image_" + location.woeid, result.url);
@@ -200,6 +201,9 @@ function getWeatherObject(docXML) {
 	weatherObj.LocationCountry = $(docXML).find("channel>location").attr("country");
 	weatherObj.LocationRegion = $(docXML).find("channel>location").attr("region");
 
+	weatherObj.Lat = parseFloat($(docXML).find("item>lat").text());
+	weatherObj.Long = parseFloat($(docXML).find("item>long").text());
+
 	weatherObj.UnitDistance = $(docXML).find("channel>units").attr("distance");
 	weatherObj.UnitPressure = $(docXML).find("channel>units").attr("pressure");
 	weatherObj.UnitSpeed = $(docXML).find("channel>units").attr("speed");
@@ -260,18 +264,28 @@ function refreshBadge(showAnimation) {
 }
 
 /// returns data: { success, url, imageurl }
-function GetWeatherBackground(woeid, callback_success, callback_error) {
+function GetWeatherBackground(woeid, lat, lon, callback_success, callback_error) {
 
     var min_taken_date = new Date();
     min_taken_date.setDate(min_taken_date.getDate() - 30);
     var mm = min_taken_date.getMonth() + 1; // getMonth() is zero-based
     var dd = min_taken_date.getDate();
 
+	var llrad = .5;
+	var min_lon = lon - llrad; if (min_lon < -180) { min_lon = -min_lon + 180; }
+	var max_lon = lon + llrad; if (max_lon > 180) { max_lon = -max_lon + 180; }
+	var min_lat = lat - llrad; if (min_lat < -90) { min_lat = -min_lat - 90; }
+	var max_lat = lat + llrad; if (max_lat > 90) { max_lat = 180 - max_lat; }
+
+	var bbox = min_lon + "," + min_lat + "," + max_lon + "," + max_lat;
+
     var f_url = "https://api.flickr.com/services/rest";
-    var f_data = "" +
-        "api_key=d68a0a0edeac7e677f29e8243d778d66" +
-        "&method=flickr.photos.search" +
-        "&woe_id=" + woeid +
+	var f_data = "" +
+		"api_key=d68a0a0edeac7e677f29e8243d778d66" +
+		"&method=flickr.photos.search" +
+		//"&woe_id=" + woeid +
+		//"&lat=" + lat + "&lon=" + lon + "&radius=100" +
+		"&bbox=" + bbox +
         "&text=landscape" +
 		"&safe_search=1" +
 		"&extras=url_l" +
@@ -403,7 +417,6 @@ function arrindex(arr, obj) {
     for (var i = 0; i < arr.length; i++) {
         if (arr[i] == obj) {
             return i;
-            break;
         }
     }
     return -1;

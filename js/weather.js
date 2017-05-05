@@ -151,7 +151,7 @@ function ShowWeatherBackground(weatherObj, woeid, isDay) {
 		else {
 			$(".preload_image").html("<i class=\"wi loading_small wi-time-12 fa-spin\" />" + chrome.i18n.getMessage("popup_text_loadingimage") + " ...");
 
-			GetWeatherBackground(woeid,
+			GetWeatherBackground(woeid, weatherObj.Lat, weatherObj.Long,
 				function (result) {
 					if (result.success) {
 						setSettings("image_" + woeid, result.url);
@@ -200,7 +200,6 @@ function SetWeatherBackGroud(url, woeid) {
 
 			console.log("[we] set_background sent ...");
 
-			debugger;
 			chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
 				chrome.tabs.sendMessage(tabs[0].id, {
 					action: "set_background",
