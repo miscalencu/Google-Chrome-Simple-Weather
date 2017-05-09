@@ -27,7 +27,7 @@ $(document).ready(function () {
 
 			$(".weather_background").css("background-image", "url('" + request.url + "')");
 
-			if (request.image_url != "") {
+			if (typeof request.image_title != "undefined" && request.image_title != "") {
 				var image_title = "";
 				if (request.image_title != "")
 					image_title = "<span>" + request.image_title + "</span><br />";

@@ -180,8 +180,9 @@ function ShowWeatherBackground(weatherObj, woeid, isDay) {
 }
 
 function SetWeatherBackGroud(url, woeid) {
-	
 	var useFlickrImages = getSettings("useFlickrImages");
+	var image_url = "";
+	var image_title = "";
 	// apply background image
 	if (url != "") {
 		preloadImage(url, function () {
@@ -191,6 +192,13 @@ function SetWeatherBackGroud(url, woeid) {
 			else {
 				var image_url = getSettings("imageurl_" + woeid);
 				var image_title = getSettings("imagetitle_" + woeid);
+
+				if (typeof image_url == undefined)
+					image_url = "";
+
+				if (typeof image_title == undefined)
+					image_title = "";
+
 				//if (image_url != "") {
 				//	$(".preload_image").html("<a href='" + image_url + "' target='_blank'>" + chrome.i18n.getMessage("popup_text_viewimage") + " ...</a>");
 				//} else {

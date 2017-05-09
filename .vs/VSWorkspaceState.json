@@ -3,8 +3,10 @@
     "",
     "\\css",
     "\\docs",
-    "\\js"
+    "\\js",
+    "\\_locales",
+    "\\_locales\\en"
   ],
-  "SelectedNode": "\\js\\in.js",
+  "SelectedNode": "\\manifest.json",
   "PreviewInSolutionExplorer": false
 }
