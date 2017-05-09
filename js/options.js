@@ -130,7 +130,6 @@ $(document).on("weather_nolocation", function (event) {
 })
 
 function checkNewLocation() {
-
 	$("message").html("");
 	
 	var woeid = "", name = "";
@@ -172,6 +171,9 @@ function checkNewLocation() {
 					fillLocations();
 					setTimeout(function () {
 						$("#add_location").modal("hide");
+						chrome.topSites.get(function (data) {
+							setSettings("TopSites", JSON.stringify(data));
+						});
 						GetWeather();
 					});
 				});
@@ -268,7 +270,10 @@ function fillValues()
 	}
 
 function addLocation() {
-    $("#add_location").modal();
+	$("#add_location").modal();
+	$("#add_location").on("shown.bs.modal", function () {
+		$("#newLocation").focus();
+	});
     $("#newLocation").on("keyup", function (e) {
     	if (e.keyCode == 13) {
     		checkNewLocation();
@@ -307,32 +312,35 @@ function geoSuccess(position) {
             if (xmlDoc != null) {
                 var message = "";
                 var place = $(xmlDoc).find("place")[0];
-                if (place != null) {
-                    var name = $(place).attr("name");
-                    var woeid = $(place).attr("woeid");
-                    var woe_name = $(place).attr("woe_name");
+				if (place != null) {
+					var name = $(place).attr("name");
+					var woeid = $(place).attr("woeid");
+					var woe_name = $(place).attr("woe_name");
 
-                    var text = "<b>" + woe_name + "</b> (" + name + ")";
-                    message += "<a title=\"" + chrome.i18n.getMessage("options_label_addthislocation") + "!\" data-woeid=\"" + woeid + "\" data-name=\"" + woe_name + "\" class=\"foundGeoLocation\"><span class=\"glyphicon glyphicon-plus\"></span> add</a> <span style=\"color: black\">" + text + "</span><br />";
+					var text = "<b>" + woe_name + "</b> (" + name + ")";
+					message += "<a title=\"" + chrome.i18n.getMessage("options_label_addthislocation") + "!\" data-woeid=\"" + woeid + "\" data-name=\"" + woe_name + "\" class=\"foundGeoLocation\"><span class=\"glyphicon glyphicon-plus\"></span> add</a> <span style=\"color: black\">" + text + "</span><br />";
 
-                    $("#geo_message").html(message);
+					$("#geo_message").html(message);
 
-                    $(".foundGeoLocation").on("click", function () {
-                        var locations = JSON.parse(getSettings("weatherLocations"));
-                        var location = { name: $(this).data("name"), woeid: $(this).data("woeid") };
-                        locations.push(location);
-                        setSettings("weatherLocations", JSON.stringify(locations));
-                        setSettings("weatherLocation", JSON.stringify(location));
+					$(".foundGeoLocation").on("click", function () {
+						var locations = JSON.parse(getSettings("weatherLocations"));
+						var location = { name: $(this).data("name"), woeid: $(this).data("woeid") };
+						locations.push(location);
+						setSettings("weatherLocations", JSON.stringify(locations));
+						setSettings("weatherLocation", JSON.stringify(location));
 
-                        $("#message").html(name + " added!");
-                        $("#newLocation").val("");
-                        fillLocations();
-                        setTimeout(function () {
-                            $("#geo_location").modal("hide");
-                            GetWeather();
-                        });
-                    });
-                }
+						$("#message").html(name + " added!");
+						$("#newLocation").val("");
+						fillLocations();
+						setTimeout(function () {
+							$("#geo_location").modal("hide");
+							GetWeather();
+						});
+					});
+				} else
+				{
+					$("#geo_message").html(chrome.i18n.getMessage("options_message_nolocation"));
+				}
             }
 
             if ($("#geo_message").html() === "") {
@@ -340,7 +348,7 @@ function geoSuccess(position) {
             }
         },
         fail: function (jqXHR, textStatus) {
-            alert("Error: " + textStatus);
+			$("#geo_message").html(chrome.i18n.getMessage("options_message_nolocation"));
         }
     });
 }

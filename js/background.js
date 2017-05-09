@@ -6,10 +6,10 @@ function SetRefresh() {
 
     // check every minute
     timeOut = window.setTimeout(function () {
-        GetWeatherCheck();
         chrome.topSites.get(function (data) {
 			setSettings("TopSites", JSON.stringify(data));
-        });
+		});
+		GetWeatherCheck();
     }, 1000 * 60);
 }
 
