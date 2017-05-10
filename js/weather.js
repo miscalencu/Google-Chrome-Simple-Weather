@@ -408,7 +408,7 @@ $(document).ready(function () {
 
 	$(document).on("weather_error", function (event) {
 		console.log("error received ...");
-		// try to show wather even if the object data is invalid (expired) - this means there has been and error
+		// try to show weather even if the object data is invalid (expired) - this means there has been and error
 		ShowWeather(false);
 		$(document).focus();
 	});

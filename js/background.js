@@ -46,12 +46,12 @@ $(document).ready(function () {
     if (locations.length == 0) {
         updateEmptyBadge();
         return;
-    }
+	}
 
-    chrome.topSites.get(function (data) {
-        setSettings("TopSites", JSON.stringify(data));
-    });
-
+	chrome.topSites.get(function (data) {
+		setSettings("TopSites", JSON.stringify(data));
+	});
+	
     updateBadge(true);
     SetRefresh();
 });
@@ -199,15 +199,7 @@ chrome.extension.onMessage.addListener(function (request, sender, sendResponse) 
 			return;
 		}
 
-		if (getSettings("TopSites") == "[]") {
-			chrome.topSites.get(function (data) {
-				setSettings("TopSites", JSON.stringify(data));
-				sendResponse({ TopSites: data, Weather: JSON.parse(getSettings("w_" + location.woeid)) });
-			});
-		}
-		else {
-			sendResponse({ TopSites: JSON.parse(getSettings("TopSites")), Weather: JSON.parse(getSettings("w_" + location.woeid)) });
-		}
+		sendResponse({ TopSites: JSON.parse(getSettings("TopSites")), Weather: JSON.parse(getSettings("w_" + location.woeid)) });
 	}
 
 	if (request.message == "update_timeout") {

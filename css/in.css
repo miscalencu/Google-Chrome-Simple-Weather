@@ -40,6 +40,10 @@
 	display: none;
 }
 
+.mv-weather-tiles {
+	min-height: 68px;
+}
+
 .mv-weather-tile {
 	float: left;
 	width: 25%;

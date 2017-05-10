@@ -12,16 +12,6 @@ $(document).ready(function () {
 		if (loadingContentScript)
 			return;
 
-		if (request.action == "highlight") {
-			// highlight weather area
-			sendResponse("OK");
-		}
-
-		if (request.action == "redraw_topsites") {
-			console.log("'redraw_topsites' received ...");
-			drawTopSites(request.data);
-		}
-
 		if (request.action == "set_background") {
 			console.log("'set_background' received ...");
 
@@ -49,7 +39,7 @@ $(document).ready(function () {
 		if (!isValidWeatherObject(response.Weather))
 			return;
 
-		if (typeof response.TopSites == "undefined" || response.TopSites.length == 0)
+		if (typeof response.TopSites == "undefined")
 			return;
 
 		loadCssFile(function () {
@@ -124,7 +114,7 @@ function drawTopSites(data) {
 		if (i == 7)
 			break;
 	}
-	divTiles.html(divTilesContent); //.attr("id", "mv-weather-tiles");
+	divTiles.html("<div class='mv-weather-tiles'>" + divTilesContent + "</div>"); //.attr("id", "mv-weather-tiles");
 }
 
 function drawWeather(weatherObj, showBadgeAnimation) {

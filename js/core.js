@@ -65,7 +65,10 @@ function setSettings(name, value) {
 }
 
 // this should be triggered only by the background page
-function GetWeather() {
+function GetWeather(tries) {
+	if (tries == undefined)
+		tries = 1;
+
 	var location = JSON.parse(getSettings("weatherLocation"));
 	if (location != null) {
 		var query = escape("select * from weather.forecast where woeid in (" + location.woeid + ") and u=\"F\"");
@@ -110,29 +113,41 @@ function GetWeather() {
 						time: new Date()
 					});
 				} else {
-					$.event.trigger({
-						type: "weather_error",
-						message: "error fired.",
-						time: new Date()
-					});
+					console.error("Error with try " + tries);
+					if (tries < 10) {
+						GetWeather(tries++);
+					}
+					else {
+						$.event.trigger({
+							type: "weather_error",
+							message: "error fired.",
+							time: new Date()
+						});
+					}
 				}
 			},
 			error: function (jqXHR, textStatus) {
-				$.event.trigger({
-					type: "weather_error",
-					message: "error fired.",
-					time: new Date()
-				});
+				console.error("Error with try " + tries);
+				if (tries < 10) {
+					GetWeather(tries++);
+				}
+				//else {
+				//	$.event.trigger({
+				//		type: "weather_error",
+				//		message: "error fired.",
+				//		time: new Date()
+				//	});
+				//}
 			}
 		});
 	}
 	else {
-		console.log("no location fired ...");
-		$.event.trigger({
-			type: "weather_nolocation",
-			message: "no location fired.",
-			time: new Date()
-		});
+		console.log("no location found fired ...");
+		//$.event.trigger({
+		//	type: "weather_nolocation",
+		//	message: "no location fired.",
+		//	time: new Date()
+		//});
 	}
 }
 
@@ -284,8 +299,8 @@ function GetWeatherBackground(woeid, lat, lon, callback_success, callback_error)
 		"api_key=d68a0a0edeac7e677f29e8243d778d66" +
 		"&method=flickr.photos.search" +
 		//"&woe_id=" + woeid +
-		//"&lat=" + lat + "&lon=" + lon + "&radius=100" +
-		"&bbox=" + bbox +
+		"&lat=" + lat + "&lon=" + lon + "&radius=32" +
+		//"&bbox=" + bbox +
         "&tags=landscape,nature,view,night,weather" +
 		"&safe_search=1" +
 		"&extras=url_l" +
@@ -341,7 +356,6 @@ function getWeatherCondition(condition) {
     }
     else {
         var condition_label = "condition_" + condition.toLowerCase().replace(/ /g, "_").replace("(", "").replace(")", "");
-        console.log("condition label: " + condition_label);
         return chrome.i18n.getMessage(condition_label);
     }
 }
