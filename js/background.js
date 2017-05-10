@@ -8,8 +8,8 @@ function SetRefresh() {
     timeOut = window.setTimeout(function () {
         chrome.topSites.get(function (data) {
 			setSettings("TopSites", JSON.stringify(data));
+			GetWeatherCheck();
 		});
-		GetWeatherCheck();
     }, 1000 * 60);
 }
 
@@ -188,8 +188,6 @@ chrome.browserAction.onClicked.addListener(function (tab) {
 	        chrome.tabs.create({ url: "chrome://newtab" }, function (tab) { });
 	    }
 	});
-	
-	
 });
 
 chrome.extension.onMessage.addListener(function (request, sender, sendResponse) {
@@ -200,7 +198,16 @@ chrome.extension.onMessage.addListener(function (request, sender, sendResponse) 
 		if (location == null) {
 			return;
 		}
-		sendResponse({ TopSites: JSON.parse(getSettings("TopSites")), Weather: JSON.parse(getSettings("w_" + location.woeid)) });
+
+		if (getSettings("TopSites") == "[]") {
+			chrome.topSites.get(function (data) {
+				setSettings("TopSites", JSON.stringify(data));
+				sendResponse({ TopSites: data, Weather: JSON.parse(getSettings("w_" + location.woeid)) });
+			});
+		}
+		else {
+			sendResponse({ TopSites: JSON.parse(getSettings("TopSites")), Weather: JSON.parse(getSettings("w_" + location.woeid)) });
+		}
 	}
 
 	if (request.message == "update_timeout") {

@@ -108,7 +108,6 @@ table tr td
 }
 
 	.box_forecast .box {
-		padding-bottom: 10px;
 		width: 55px;
 		float: left;
 		text-align: center;
@@ -165,26 +164,23 @@ table tr td
 #footer {
 	color: #666;
 	font-size: 11px;
-	padding: 10px 0 0 0;
-	position: fixed;
-	bottom: 0;
-	width: 100%;
 	text-align: right;
 	float: right;
+	width: 100%;
 }
 
 	#footer .inner_content {
 		padding: 6px 10px 0 10px;
 	}
 
-#footer .separator {
-	height: 1px;
-	background-color: #CCC;
-	width: 50%;
-	float: right;
-	margin-top: 10px;
-	margin-bottom: 5px;
-}
+	#footer .separator {
+		height: 1px;
+		background-color: #CCC;
+		width: 100%;
+		float: right;
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
 
 .tips {
     text-align: right;

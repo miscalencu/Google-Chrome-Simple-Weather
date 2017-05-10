@@ -286,7 +286,7 @@ function GetWeatherBackground(woeid, lat, lon, callback_success, callback_error)
 		//"&woe_id=" + woeid +
 		//"&lat=" + lat + "&lon=" + lon + "&radius=100" +
 		"&bbox=" + bbox +
-        "&text=landscape" +
+        "&tags=landscape,nature,view,night,weather" +
 		"&safe_search=1" +
 		"&extras=url_l" +
         "&min_taken_date=" + [min_taken_date.getFullYear(), ((mm < 10) ? "0" : "") + mm, dd].join('-') +

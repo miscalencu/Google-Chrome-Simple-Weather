@@ -171,9 +171,6 @@ function checkNewLocation() {
 					fillLocations();
 					setTimeout(function () {
 						$("#add_location").modal("hide");
-						chrome.topSites.get(function (data) {
-							setSettings("TopSites", JSON.stringify(data));
-						});
 						GetWeather();
 					});
 				});

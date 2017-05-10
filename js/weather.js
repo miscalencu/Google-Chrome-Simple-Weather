@@ -46,7 +46,7 @@ function ShowWeather(showBadgeAnimation) {
 		    content += "<div class=\"condition\">" + getLabel(chrome.i18n.getMessage("label_now") + ": ") + "<b>" + getWeatherCondition(weatherObj.Condition) + "</b></div>";
 
 		if (weatherObj.WindChill != "")
-			content += "<i data-toggle=\"tooltip\" title=\"" + chrome.i18n.getMessage("label_windchill") + "\" class=\"wi wi-thermometer-exterior\" style=\"font-size: 18px\"></i>: " + fillInTemperature(weatherObj.WindChill) + ((showin === "C") ? "&deg;" : " ") + showin;
+			content += "<i title=\"" + chrome.i18n.getMessage("label_windchill") + "\" class=\"wi wi-thermometer-exterior\" style=\"font-size: 18px\"></i>: " + fillInTemperature(weatherObj.WindChill) + ((showin === "C") ? "&deg;" : " ") + showin;
 
 		content += "</div><div class=\"box_now_right\">";
 
@@ -96,7 +96,6 @@ function ShowWeather(showBadgeAnimation) {
 		$("#weather").html(content);
 		
 		var footerContent = "<div class=\"separator\"></div>";
-		footerContent += "<br clear=\"all\" />";
 
 		if (getSettings("weatherShowLinks") == "1") {
 			footerContent += "<div class=\"inner_content\">";
@@ -118,7 +117,7 @@ function ShowWeather(showBadgeAnimation) {
 
 		footerContent += "</div>";
 
-		$("#footer").html(footerContent);
+		$("<div></div>").attr("id", "footer").html(footerContent).appendTo($("#weather .box_forecast"));
 
 		ShowWeatherBackground(weatherObj, location.woeid, isDay);
 
