@@ -5,7 +5,7 @@
 	<key>Builder Version</key>
 	<string>534.57.2</string>
 	<key>CFBundleDisplayName</key>
-	<string>Simple Weather</string>
+	<string>Start Weather</string>
 	<key>CFBundleIdentifier</key>
 	<string>ro.smartdev.chrone.simpleweather</string>
 	<key>CFBundleInfoDictionaryVersion</key>
