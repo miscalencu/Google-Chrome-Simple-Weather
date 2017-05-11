@@ -151,10 +151,11 @@ function checkNewLocation() {
 					var admin1 = $(this).find("admin1").text();
 					var admin2 = $(this).find("admin2").text();
 					var admin3 = $(this).find("admin3").text();
-
+					
 					var text = "<b>" + name + "</b> (" + country + ((admin1 != "") ? (" - " + admin1) : "") + ((admin2 != "") ? (" - " + admin2) : "") + ((admin3 != "") ? (" - " + admin3) : "") + ")";
+					var fullname = name + " (" + country + ((admin1 != "") ? (" - " + admin1) : "") + ((admin2 != "") ? (" - " + admin2) : "") + ((admin3 != "") ? (" - " + admin3) : "") + ")";
 
-					message += "<a title=\"" + chrome.i18n.getMessage("options_label_addthislocation") + "!\" data-woeid=\"" + woeid + "\" data-name=\"" + name + "\" class=\"foundLocation\"><span class=\"glyphicon glyphicon-plus\"></span> " + chrome.i18n.getMessage("label_add") + "</a> <span style=\"color: black\">" + text + "</span><br />";
+					message += "<a title=\"" + chrome.i18n.getMessage("options_label_addthislocation") + "!\" data-woeid=\"" + woeid + "\" data-name=\"" + fullname + "\" class=\"foundLocation\"><span class=\"glyphicon glyphicon-plus\"></span> " + chrome.i18n.getMessage("label_add") + "</a> <span style=\"color: black\">" + text + "</span><br />";
 				});
 
 				$("#message").html(message);

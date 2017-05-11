@@ -40,7 +40,7 @@ $(document).on("weather_complete", function (event) {
         updateBadge(true);
     }
 });
-	
+
 $(document).ready(function () {
     var locations = JSON.parse(getSettings("weatherLocations"));
     if (locations.length == 0) {
@@ -51,7 +51,8 @@ $(document).ready(function () {
 	chrome.topSites.get(function (data) {
 		setSettings("TopSites", JSON.stringify(data));
 	});
-	
+
+	GetWeatherCheck();
     updateBadge(true);
     SetRefresh();
 });
@@ -201,7 +202,7 @@ chrome.extension.onMessage.addListener(function (request, sender, sendResponse) 
 
 		sendResponse({ TopSites: JSON.parse(getSettings("TopSites")), Weather: JSON.parse(getSettings("w_" + location.woeid)) });
 	}
-
+	
 	if (request.message == "update_timeout") {
 		console.log("'update_timeout' received ...");
 		GetWeatherCheck();

@@ -133,20 +133,18 @@ table tr td
 	border: 1px solid #DDDDDD;
 	background-color: White;
 	}
-	
-.high
-	{
-	color: #FF390C;
-	font-size: 14px;
-	font-weight: bold;
-	}
 
-.low
-	{
-	color: #7FC9FF;
+.high {
+	color: #d34836;
 	font-size: 14px;
 	font-weight: bold;
-	}
+}
+
+.low {
+	color: #4885ed;
+	font-size: 14px;
+	font-weight: bold;
+}
 
 .box_now .now
 	{
@@ -159,6 +157,10 @@ table tr td
 	font-size: 16px;
 	color: #4885ed;
 	margin-bottom: 5px;
+	max-width: 180px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 
 #footer {

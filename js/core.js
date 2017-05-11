@@ -115,7 +115,7 @@ function GetWeather(tries) {
 				} else {
 					console.error("Error with try " + tries);
 					if (tries < 10) {
-						GetWeather(tries++);
+						GetWeather(++tries);
 					}
 					else {
 						$.event.trigger({
@@ -301,9 +301,10 @@ function GetWeatherBackground(woeid, lat, lon, callback_success, callback_error)
 		//"&woe_id=" + woeid +
 		"&lat=" + lat + "&lon=" + lon + "&radius=32" +
 		//"&bbox=" + bbox +
-        "&tags=landscape,nature,view,night,weather" +
+        //"&tags=landscape,nature,view,night,weather" +
+		"&tag_mode=all&tags=-portrait,-people,-face,-fun,-instagramapp,-live,-painting" +
 		"&safe_search=1" +
-		"&extras=url_l" +
+		"&extras=url_l,tags" +
         "&min_taken_date=" + [min_taken_date.getFullYear(), ((mm < 10) ? "0" : "") + mm, dd].join('-') +
         "&media=photos";
 

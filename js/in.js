@@ -17,7 +17,7 @@ $(document).ready(function () {
 
 			$(".weather_background").css("background-image", "url('" + request.url + "')");
 
-			if (typeof request.image_title != "undefined" && request.image_title != "") {
+			if (typeof request.image_title != "undefined") {
 				var image_title = "";
 				if (request.image_title != "")
 					image_title = "<span>" + request.image_title + "</span><br />";
@@ -30,13 +30,17 @@ $(document).ready(function () {
 		}
 	});
 
+	$(document).on("weather_complete", function (event) {
+		RefreshIframe();
+	});
+
 	chrome.runtime.sendMessage({ message: "content_script_loaded" }, function (response) {
 		console.log("[in] response received ...");
 		
 		if (typeof response == "undefined")
 			return;
 
-		if (!isValidWeatherObject(response.Weather))
+		if (typeof response.Weather == "undefined")
 			return;
 
 		if (typeof response.TopSites == "undefined")
@@ -53,7 +57,6 @@ $(document).ready(function () {
 });
 
 function addEvets() {
-
 	$(".weather_wrapper").show();
 	$("#view_backdrop").on("click", function () {
 		if ($(".weather_wrapper").is(":visible")) {
@@ -123,12 +126,16 @@ function drawWeather(weatherObj, showBadgeAnimation) {
 		var divWeather = $("<div />").attr("id", "weather-tiles");
 		var divWeatherContent = "";
 		if (isValidWeatherObject(weatherObj)) {
-			divWeatherContent += "<iframe frameborder='0' src='" + chrome.runtime.getURL('weather.htm') + "' scrolling='no' style='width:100%;height:200px;margin-top:20px;' /></iframe>";
+			divWeatherContent += "<iframe frameborder='0' id='weather-iframe' name='weather-iframe' src='" + chrome.runtime.getURL('weather.htm') + "' scrolling='no' style='width:100%;height:200px;margin-top:20px;' /></iframe>";
 		}
 		divWeather.html(divWeatherContent).appendTo(divTiles);
 	} catch (err) {
 		console.log("ERROR: " + err);
 	}
+}
+
+function RefreshIframe() {
+	document.frames["weather-iframe"].location.reload();
 }
 
 function ExtractDomain(url) {
