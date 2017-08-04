@@ -72,15 +72,15 @@ function GetWeather(tries) {
 	var location = JSON.parse(getSettings("weatherLocation"));
 	if (location != null) {
 		var query = escape("select * from weather.forecast where woeid in (" + location.woeid + ") and u=\"F\"");
-		var url = "https://query.yahooapis.com/v1/public/yql?q=" + query + "&format=xml";
+		var url = "https://query.yahooapis.com/v1/public/yql?q=" + query + "&format=json";
 		console.log("getting weather from: " + url);
 
 		$.ajax({
 			type: "POST",
-			dataType: "xml",
+			dataType: "json",
 			url: url,
 			success: function (result) {
-			    if ($(result).find("query").attr("yahoo:count") != "0") { // if data received
+			    if (result.query.count === 1) { // if data received
 			        console.log("complete fired ...");
 			        // save weather object
 					var weatherObj = getWeatherObject(result);
@@ -88,24 +88,24 @@ function GetWeather(tries) {
 
 			        // cache backgroud image
 					GetWeatherBackground(location.woeid, weatherObj.Lat, weatherObj.Long,
-                        function (result) {
-                            if (result.success) {
-                                setSettings("image_" + location.woeid, result.url);
-								setSettings("imageurl_" + location.woeid, result.imageurl);
-								setSettings("imagetitle_" + location.woeid, result.title);
+                        function (bresult) {
+                            if (bresult.success) {
+                                setSettings("image_" + location.woeid, bresult.url);
+								setSettings("imageurl_" + location.woeid, bresult.imageurl);
+								setSettings("imagetitle_" + location.woeid, bresult.title);
                                 preloadImage(result.url, function () { });
                             }
                         },
                         function () {
                             setSettings("image_" + location.woeid, "NA");
-							setSettings("imageurl_" + location.woeid, "");
-							setSettings("imagetitle_" + location.woeid, "");
+                            setSettings("imageurl_" + location.woeid, "");
+                            setSettings("imagetitle_" + location.woeid, "");
                         });
 
                     // reset image and image URL
-					setSettings("image_" + location.woeid, "");
-					setSettings("imageurl_" + location.woeid, "");
-					setSettings("imagetitle_" + location.woeid, "");
+                    setSettings("image_" + location.woeid, "");
+                    setSettings("imageurl_" + location.woeid, "");
+                    setSettings("imagetitle_" + location.woeid, "");
 
 					$.event.trigger({
 						type: "weather_complete",
@@ -142,7 +142,7 @@ function GetWeather(tries) {
 		});
 	}
 	else {
-		console.log("no location found fired ...");
+        console.log("no location found fired ...");
 		//$.event.trigger({
 		//	type: "weather_nolocation",
 		//	message: "no location fired.",
@@ -158,7 +158,7 @@ function isValidWeatherObject(weatherObj) {
 
 	if (weatherObj.RefreshDate != null) {
 		var diff = DateDiff(new Date(), new Date(weatherObj.RefreshDate)); // difference in seconds
-		var timeout = getSettings("weatherTimeout"); // timeout in minutes
+        var timeout = getSettings("weatherTimeout"); // timeout in minutes");
 		if (diff / 60 > timeout) {
 			return false;
 		}
@@ -170,8 +170,8 @@ function isValidWeatherObject(weatherObj) {
 function findIfIsDay(weatherObj) {
 	try
 	{
-		var sunrise = weatherObj.AstronomySunrise.replace(" ", ":").split(":");
-		var sunset = weatherObj.AstronomySunset.replace(" ", ":").split(":");
+        var sunrise = weatherObj.AstronomySunrise.replace(" ", ":").split(":");
+        var sunset = weatherObj.AstronomySunset.replace(" ", ":").split(":");
 
 		sunrise[0] = parseInt(sunrise[0]);
 		sunrise[1] = parseInt(sunrise[1]);
@@ -188,7 +188,7 @@ function findIfIsDay(weatherObj) {
 		var span1 = sunrise[0] * 60 + sunrise[1];
 		var span2 = sunset[0] * 60 + sunset[1];
 
-		var currenttime = weatherObj.Date.match(/[0-1]?[0-9]:[0-5]?[0-9] [APap][mM]/).replace(" ", ":").split(":");
+        var currenttime = weatherObj.Date.match(/[0-1]?[0-9]:[0-5]?[0-9] [APap][mM]/).replace(" ", ":").split(":");
 		currenttime[0] = parseInt(currenttime[0]);
 		currenttime[1] = parseInt(currenttime[1]);
 		if (currenttime[2].toLowerCase() == "pm")
@@ -208,43 +208,46 @@ function findIfIsDay(weatherObj) {
 }
 
 // store in farenheight always
-function getWeatherObject(docXML) {
+function getWeatherObject(result) {
 
 	var weatherObj = new Object();
-	weatherObj = new Object();
-    weatherObj.LocationCity = $(docXML).find("channel>yweather\\:location").attr("city");
-    weatherObj.LocationCountry = $(docXML).find("channel>yweather\\:location").attr("country");
-    weatherObj.LocationRegion = $(docXML).find("channel>yweather\\:location").attr("region");
+    weatherObj = new Object();
 
-	weatherObj.Lat = parseFloat($(docXML).find("item>geo\\:lat").text());
-    weatherObj.Long = parseFloat($(docXML).find("item>geo\\:long").text());
+    var channel = result.query.results.channel;
 
-    weatherObj.UnitDistance = $(docXML).find("channel>yweather\\:units").attr("distance");
-    weatherObj.UnitPressure = $(docXML).find("channel>yweather\\:units").attr("pressure");
-    weatherObj.UnitSpeed = $(docXML).find("channel>yweather\\:units").attr("speed");
-    weatherObj.UnitTemperature = $(docXML).find("channel>yweather\\:units").attr("temperature");
+    weatherObj.LocationCity = channel.location.city;
+    weatherObj.LocationCountry = channel.location.country;
+    weatherObj.LocationRegion = channel.location.region;
 
-    weatherObj.WindChill = $(docXML).find("channel>yweather\\:wind").attr("chill");
-    weatherObj.WindDirection = $(docXML).find("channel>yweather\\:wind").attr("direction");
-    weatherObj.WindSpeed = $(docXML).find("channel>yweather\\:wind").attr("speed");
+	weatherObj.Lat = parseFloat(channel.item.lat);
+    weatherObj.Long = parseFloat(channel.item.long);
 
-    weatherObj.AtmosphereHumidity = $(docXML).find("channel>yweather\\:atmosphere").attr("humidity");
-    weatherObj.AtmospherePressure = $(docXML).find("channel>yweather\\:atmosphere").attr("pressure");
-    weatherObj.AtmosphereRising = $(docXML).find("channel>yweather\\:atmosphere").attr("rising");
-    weatherObj.AtmosphereVisibility = $(docXML).find("channel>yweather\\:atmosphere").attr("visibility");
+    weatherObj.UnitDistance = channel.units.distance;
+    weatherObj.UnitPressure = channel.units.pressure;
+    weatherObj.UnitSpeed = channel.units.speed;
+    weatherObj.UnitTemperature = channel.units.temperature;
 
-    weatherObj.AstronomySunrise = $(docXML).find("channel>yweather\\:astronomy").attr("sunrise");
-    weatherObj.AstronomySunset = $(docXML).find("channel>yweather\\:astronomy").attr("sunset");
+    weatherObj.WindChill = channel.wind.chill;
+    weatherObj.WindDirection = channel.wind.direction;
+    weatherObj.WindSpeed = channel.wind.speed;
 
-	weatherObj.PubDate = $(docXML).find("item>pubDate").text();
-    weatherObj.Date = $(docXML).find("yweather\\:condition").attr("date");
-	weatherObj.Description = $(docXML).find("item>description").text();
-    weatherObj.Temp = $(docXML).find("yweather\\:condition").attr("temp");
-    weatherObj.ConditionCode = $(docXML).find("yweather\\:condition").attr("code");
-    weatherObj.Condition = $(docXML).find("yweather\\:condition").attr("text");
+    weatherObj.AtmosphereHumidity = channel.atmosphere.humidity;
+    weatherObj.AtmospherePressure = channel.atmosphere.pressure;
+    weatherObj.AtmosphereRising = channel.atmosphere.rising;
+    weatherObj.AtmosphereVisibility = channel.atmosphere.visibility;
 
-	weatherObj.WeatherLink = "http://www.weather.com/weather/today/l/" + $(docXML).find("link").text().split("/").pop().replace(".html", "");
-	weatherObj.YahooLink = $(docXML).find("link").text().split("*").pop();
+    weatherObj.AstronomySunrise = channel.astronomy.sunrise;
+    weatherObj.AstronomySunset = channel.astronomy.sunset;
+
+    weatherObj.PubDate = channel.item.pubDate;
+    weatherObj.Date = channel.item.condition.date;
+    weatherObj.Description = channel.item.description;
+    weatherObj.Temp = channel.item.condition.temp;
+    weatherObj.ConditionCode = channel.item.condition.code;
+    weatherObj.Condition = channel.item.condition.text;
+
+    weatherObj.WeatherLink = "http://www.weather.com/weather/today/l/" + channel.item.link.split("/").pop().replace(".html", "");
+    weatherObj.YahooLink = channel.item.link.split("*").pop();
 	
 	weatherObj.RefreshDate = Date();
 
@@ -253,14 +256,14 @@ function getWeatherObject(docXML) {
 
 	// forecast
     weatherObj.Forecast = new Array();
-    $.each($(docXML).find("yweather\\:forecast"), function () {
+    $.each(channel.item.forecast, function (index, item) {
     	weatherObj.Forecast.push({
-    		Code: $(this).attr("code"),
-    		Date: $(this).attr("date"),
-    		Condition: $(this).attr("text"),
-    		Day: d[arrindex(ds, $(this).attr("day"))],
-    		High: $(this).attr("high"),
-    		Low: $(this).attr("low"),
+    		Code: item.code,
+            Date: item.date,
+            Condition: item.text,
+            Day: d[arrindex(ds, item.day)],
+            High: item.high,
+            Low: item.low,
     	});
     });
 	
@@ -275,7 +278,7 @@ function refreshBadge(showAnimation) {
 		showAnimation = false;
 	}
 
-	chrome.extension.sendMessage({ message: "update_badge", showAnimation: showAnimation }, function () { console.log("'update_badge' sent ..."); });
+    chrome.extension.sendMessage({ message: "update_badge", showAnimation: showAnimation }, function () { console.log("'update_badge' sent ..."); });
 }
 
 /// returns data: { success, url, imageurl }
@@ -320,10 +323,10 @@ function GetWeatherBackground(woeid, lat, lon, callback_success, callback_error)
 			if (photos.length > 0) {
 				var random = Math.floor(Math.random() * photos.length);
                 var photo = $(photos).eq(random);
-				var photo_url = $(photo).attr("url_l");
-				var owner = $(photo).attr("owner");
-				var photoid = $(photo).attr("id");
-				var title = $(photo).attr("title");
+                var photo_url = $(photo).attr("url_l");
+                var owner = $(photo).attr("owner");
+                var photoid = $(photo).attr("id");
+                var title = $(photo).attr("title");
 				var url = "https://www.flickr.com/photos/" + owner + "/" + photoid + "/";
 
 				if (photo_url != "") {
@@ -406,7 +409,7 @@ function OpenWindow(url) {
 // Format to local time from UTC
 function formatToLocalTimeDate(inDate) {
 	try {
-	    return dateFormat(inDate, "ddd, d mmmm yyyy, h:MM:ss TT");
+        return dateFormat(inDate, "ddd, d mmmm yyyy, h:MM:ss TT");
 	}
 	catch (err) {
 	    return inDate;
@@ -442,7 +445,7 @@ function getIcon(code, isDay, day) {
 	if (day === undefined)
 		day = "";
 
-	var daypart = (isDay == 1) ? "-day" : ((isDay == 0) ? "-night" : "");
+    var daypart = (isDay == 1) ? "-day" : ((isDay == 0) ? "-night" : "");
 	var icon = "";
 	var title = "";
 
@@ -656,7 +659,7 @@ function getIcon(code, isDay, day) {
 	}
 
 	if (icon != "") {
-		icon = icon.replace("<i ", "<i title=\"" + title + "\" ");
+        icon = icon.replace("<i ", "<i title=\"" + title + "\" ");
 	}
 
 	return icon;
