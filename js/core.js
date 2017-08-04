@@ -129,7 +129,7 @@ function GetWeather(tries) {
 			error: function (jqXHR, textStatus) {
 				console.error("Error with try " + tries);
 				if (tries < 10) {
-					GetWeather(tries++);
+					GetWeather(++tries);
 				}
 				//else {
 				//	$.event.trigger({
@@ -212,36 +212,36 @@ function getWeatherObject(docXML) {
 
 	var weatherObj = new Object();
 	weatherObj = new Object();
-	weatherObj.LocationCity = $(docXML).find("channel>location").attr("city");
-	weatherObj.LocationCountry = $(docXML).find("channel>location").attr("country");
-	weatherObj.LocationRegion = $(docXML).find("channel>location").attr("region");
+    weatherObj.LocationCity = $(docXML).find("channel>yweather\\:location").attr("city");
+    weatherObj.LocationCountry = $(docXML).find("channel>yweather\\:location").attr("country");
+    weatherObj.LocationRegion = $(docXML).find("channel>yweather\\:location").attr("region");
 
-	weatherObj.Lat = parseFloat($(docXML).find("item>lat").text());
-	weatherObj.Long = parseFloat($(docXML).find("item>long").text());
+	weatherObj.Lat = parseFloat($(docXML).find("item>geo\\:lat").text());
+    weatherObj.Long = parseFloat($(docXML).find("item>geo\\:long").text());
 
-	weatherObj.UnitDistance = $(docXML).find("channel>units").attr("distance");
-	weatherObj.UnitPressure = $(docXML).find("channel>units").attr("pressure");
-	weatherObj.UnitSpeed = $(docXML).find("channel>units").attr("speed");
-	weatherObj.UnitTemperature = $(docXML).find("channel>units").attr("temperature");
+    weatherObj.UnitDistance = $(docXML).find("channel>yweather\\:units").attr("distance");
+    weatherObj.UnitPressure = $(docXML).find("channel>yweather\\:units").attr("pressure");
+    weatherObj.UnitSpeed = $(docXML).find("channel>yweather\\:units").attr("speed");
+    weatherObj.UnitTemperature = $(docXML).find("channel>yweather\\:units").attr("temperature");
 
-	weatherObj.WindChill = $(docXML).find("channel>wind").attr("chill");
-	weatherObj.WindDirection = $(docXML).find("channel>wind").attr("direction");
-	weatherObj.WindSpeed = $(docXML).find("channel>wind").attr("speed");
+    weatherObj.WindChill = $(docXML).find("channel>yweather\\:wind").attr("chill");
+    weatherObj.WindDirection = $(docXML).find("channel>yweather\\:wind").attr("direction");
+    weatherObj.WindSpeed = $(docXML).find("channel>yweather\\:wind").attr("speed");
 
-	weatherObj.AtmosphereHumidity = $(docXML).find("channel>atmosphere").attr("humidity");
-	weatherObj.AtmospherePressure = $(docXML).find("channel>atmosphere").attr("pressure");
-	weatherObj.AtmosphereRising = $(docXML).find("channel>atmosphere").attr("rising");
-	weatherObj.AtmosphereVisibility = $(docXML).find("channel>atmosphere").attr("visibility");
+    weatherObj.AtmosphereHumidity = $(docXML).find("channel>yweather\\:atmosphere").attr("humidity");
+    weatherObj.AtmospherePressure = $(docXML).find("channel>yweather\\:atmosphere").attr("pressure");
+    weatherObj.AtmosphereRising = $(docXML).find("channel>yweather\\:atmosphere").attr("rising");
+    weatherObj.AtmosphereVisibility = $(docXML).find("channel>yweather\\:atmosphere").attr("visibility");
 
-	weatherObj.AstronomySunrise = $(docXML).find("channel>astronomy").attr("sunrise");
-	weatherObj.AstronomySunset = $(docXML).find("channel>astronomy").attr("sunset");
+    weatherObj.AstronomySunrise = $(docXML).find("channel>yweather\\:astronomy").attr("sunrise");
+    weatherObj.AstronomySunset = $(docXML).find("channel>yweather\\:astronomy").attr("sunset");
 
 	weatherObj.PubDate = $(docXML).find("item>pubDate").text();
-	weatherObj.Date = $(docXML).find("condition").attr("date");
+    weatherObj.Date = $(docXML).find("yweather\\:condition").attr("date");
 	weatherObj.Description = $(docXML).find("item>description").text();
-	weatherObj.Temp = $(docXML).find("condition").attr("temp");
-	weatherObj.ConditionCode = $(docXML).find("condition").attr("code");
-	weatherObj.Condition = $(docXML).find("condition").attr("text");
+    weatherObj.Temp = $(docXML).find("yweather\\:condition").attr("temp");
+    weatherObj.ConditionCode = $(docXML).find("yweather\\:condition").attr("code");
+    weatherObj.Condition = $(docXML).find("yweather\\:condition").attr("text");
 
 	weatherObj.WeatherLink = "http://www.weather.com/weather/today/l/" + $(docXML).find("link").text().split("/").pop().replace(".html", "");
 	weatherObj.YahooLink = $(docXML).find("link").text().split("*").pop();
@@ -253,7 +253,7 @@ function getWeatherObject(docXML) {
 
 	// forecast
     weatherObj.Forecast = new Array();
-    $.each($(docXML).find("forecast"), function () {
+    $.each($(docXML).find("yweather\\:forecast"), function () {
     	weatherObj.Forecast.push({
     		Code: $(this).attr("code"),
     		Date: $(this).attr("date"),
